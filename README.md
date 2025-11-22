@@ -106,7 +106,7 @@ During the planning stages, the MoSCoW priorities were distributed as 52% Must h
 
 The implementation and prioritization of user stories as well as the acceptance criteria is recorded and tracked dynamically through the use of GitHub Projects Kanban board. The Kanban board records the user story, acceptance criteria and tasks. These are checked off as we progress through the project. 
 
-Each issue recorded on the Kanban board has been assigned multiple labels depending on the MoSCoW priority, the epic it belongs to and the complexity of the task based on the Fibonacci methodology. This allows for easy tracking and filtering of tasks for the development team.
+Each issue recorded on the Kanban board has been assigned multiple labels depending on the MoSCoW priority and the epic it belongs to. This allows for easy tracking and filtering of tasks for the development team.
 
 [📊 The board can be viewed here](https://github.com/users/Chandni-L5/projects/14)
 

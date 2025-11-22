@@ -1,15 +1,26 @@
 {
-    "cSpell.words": [
-        "Canva",
-        "Cloudconvert",
-        "colourcontrast",
-        "fairtrade",
-        "healthline",
-        "Mailchimp",
-        "pexels",
-        "superfoods",
-        "Ubersuggest",
-        "viewports",
-        "wordtracker"
-    ]
+  "cSpell.words": [
+    "asgiref",
+    "Canva",
+    "Cloudconvert",
+    "colourcontrast",
+    "fairtrade",
+    "healthline",
+    "Mailchimp",
+    "pexels",
+    "sqlparse",
+    "superfoods",
+    "Ubersuggest",
+    "viewports",
+    "wordtracker"
+  ],
+
+  // Use Flake8 as the linter
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.pylintEnabled": false,
+
+  // Stop Pylance/pycodestyle duplicating Flake8’s checks
+  "python.analysis.ignore": ["pycodestyle"],
+  "python.analysis.maxLineLength": 120
 }
