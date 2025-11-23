@@ -1,0 +1,176 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* CSS Variables */
+:root {
+    --primary-font: 'Montserrat', sans-serif;
+    --secondary-font: 'Montserrat Alternates', sans-serif;
+    --color-1: #1a3f3a;
+    --color-2: #5c4026;
+    --color-3: #2e2e2e;
+    --color-4: #3c4a3e;
+    --color-5: #8a5a3b;
+    --color-6: #ff9f47;
+    --color-7: #ffe673;
+    --color-8: #1e9ba3;
+    --color-9: #ffffff;
+    --color-10:#275941;
+    --color-11: #E6F4F1;
+}
+
+html {
+    height: 100%;
+}
+
+header {
+    background-color: var(--color-11);
+}
+
+body {
+    background-color: var(--color-9);
+    font-family: var(--primary-font);
+}
+
+/* from Bulma - font awesome icon styling */
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.nav-icon {
+    color: var(--color-8);
+}
+
+.logo-font {
+    text-transform: uppercase;
+}
+
+.main-logo-link {
+    width: fit-content;
+}
+
+.menu-font-style {
+    color: var(--color-10);
+}
+
+.dropdown-border {
+    border: 2px solid var(--color-6);
+}
+
+.dropdown-item:hover {
+    background-color: var(--color-11);
+    color: var(--color-1);
+}
+
+.shop-now-button {
+    font-family: var(--secondary-font);
+    background-color: var(--color-8);
+    color: var(--color-9);
+    min-width: 260px;;
+}
+
+.search-btn-style {
+    background-color: var(--color-8);
+    color: var(--color-9);
+}
+
+.shop-now-button:hover,
+.shop-now-button:active,
+.shop-now-button:focus,
+.search-btn-style:hover,
+.search-btn-style:active,
+.search-btn-style:focus {
+    background-color: var(--color-9);
+    color: var(--color-8);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.border-black {
+    border: 3px solid var(--color-1);
+}
+
+.remove-arrow::after {
+    display: none;
+}
+
+.mobile-nav-style {
+    background-color: var(--color-11);
+}
+
+.nav-bg {
+    background-color: transparent;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+#topnav {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+.mobile-search-modal-content {
+    background: var(--color-11);
+}
+
+#mobileSearchModal .modal-body {
+    min-height: 100vh;
+}
+
+/* Nav banner styling */
+.banner-style {
+    background-color: var(--color-7);
+    color: var(--color-1);
+}
+
+.scroll-banner {
+    overflow: hidden;
+    white-space: nowrap;
+    background: var(--color-7);
+    color: var(--color-1);
+    position: relative;
+}
+
+.scroll-content {
+    display: inline-flex;
+    gap: 8rem;
+    animation: scroll-right 30s linear infinite;
+}
+
+.scroll-banner:hover .scroll-content {
+    animation-play-state: paused;
+}
+
+.scroll-content span {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+@keyframes scroll-right {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+/* Media Queries */
+
+/* Larger screens */
+@media (min-width: 992px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+}
+
+.header-container {
+    padding-top: 164px;
+}

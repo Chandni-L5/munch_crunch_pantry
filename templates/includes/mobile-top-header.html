@@ -1,0 +1,68 @@
+<ul class="list-inline d-flex justify-content-between align-items-center w-100 mb-0 px-2 mobile-nav-style">
+    <!-- Burger -->
+    <li class="list-inline-item flex-fill text-start">
+        <button class="navbar-toggler ms-auto bg-transparent p-0" type="button"
+                data-bs-toggle="collapse" data-bs-target="#main-nav"
+                aria-controls="main-nav" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars nav-icon"></i>
+        </button>
+    </li>
+    <!-- Search -->
+    <li class="list-inline-item flex-fill text-center">
+        <a href="#" class="nav-link remove-arrow icon-color" id="mobile-search" role="button" data-bs-toggle="modal" data-bs-target="#mobileSearchModal">
+            <i class="fa-solid fa-magnifying-glass nav-icon"></i>
+        </a>
+    </li>
+        <!-- <div class="dropdown-menu border-0 w-100 p-3 rounded-0" aria-labelledby="mobile-search">
+            <form method="GET" action="">
+                <div class="input-group w-100">
+                    <input type="text" class="form-control border border-black rounded-0"
+                           name="q" placeholder="Search our site">
+                    <button class="btn search-btn-style border border-black rounded-0" type="submit">
+                        <span class="icon">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </li> -->
+    <!-- My Account -->
+    <li class="list-inline-item flex-fill text-center dropdown">
+        <a class="nav-link dropdown-toggle remove-arrow p-0"
+           href="#" id="user-options" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user nav-icon"></i>
+        </a>
+        <div class="dropdown-menu dropdown-border" aria-labelledby="user-options">
+            {% if request.user.is_authenticated %}
+                {% if request.user.is_superuser %}
+                    <a href="" class="dropdown-item fw-bold menu-font-style">Product Management</a>
+                    <hr class="dropdown-divider">
+                {% endif %}
+                <a href="" class="dropdown-item fw-bold menu-font-style">My Profile</a>
+                <hr class="dropdown-divider">
+                <a href="{% url 'account_logout' %}" class="dropdown-item fw-bold menu-font-style">Logout</a>
+            {% else %}
+                <a href="{% url 'account_login' %}" class="dropdown-item fw-bold menu-font-style">Login</a>
+                <hr class="dropdown-divider">
+                <a href="{% url 'account_signup' %}" class="dropdown-item fw-bold menu-font-style">Register</a>
+            {% endif %}
+        </div>
+    </li>
+    <!-- Basket -->
+    <li class="list-inline-item flex-fill text-end">
+        <a href="#"
+           class="nav-link {% if grand_total %}text-info fw-bold{% else %}text-dark{% endif %}">
+            <i class="fa-solid fa-basket-shopping nav-icon"></i>
+            <p class="my-0 nav-icon">
+                {% if grand_total %}
+                    £{{ grand_total|floatformat:2 }}
+                {% else %}
+                    £0.00
+                {% endif %}
+            </p>
+        </a>
+    </li>
+</ul>
