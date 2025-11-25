@@ -1,0 +1,17 @@
+{% load static %}
+
+<div id="newsletter-banner" class="row text-center">
+    <form id="newsletter-form" class="d-flex justify-content-center w-100">
+        <div class="w-100" style="max-width: 500px;">
+            <p class="m-2"><strong>Sign up to our newsletter for special offers and new releases</strong></p>
+            <div class="input-group my-2">
+                <input type="email" id="newsletter-email" name="email" class="form-control mb-2" placeholder="Email*" required>
+                <button type="submit" id="subscribe-btn" class="mb-2"><strong>Subscribe</strong></button>
+            </div>
+            <div id="newsletter-response" class="mt-2" style="display: none;"></div>
+        </div>
+    </form>
+</div>
+
+
+<script src="{% static 'js/newsletter.js' %}"></script>

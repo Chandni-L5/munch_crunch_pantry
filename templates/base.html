@@ -161,19 +161,10 @@
                 </div>
             </div>
         </nav>
-        <div id="info-banner" class="row text-center scroll-banner">
-            <div class="col scroll-content banner-style d-flex justify-content-center">
-                <span> 📦 Free delivery on orders over £{{ free_delivery_threshold }}! 📦</span>
-                <span>🎈 Use code WELCOME10 for 10% off your first order! 🎈</span>
-                <span> 📦 Free delivery on orders over £{{ free_delivery_threshold }}! 📦</span>
-                <span>🎈 Use code WELCOME10 for 10% off your first order! 🎈</span>
-                <span> 📦 Free delivery on orders over £{{ free_delivery_threshold }}! 📦</span>
-                <span>🎈 Use code WELCOME10 for 10% off your first order! 🎈</span>
-                <span> 📦 Free delivery on orders over £{{ free_delivery_threshold }}! 📦</span>
-                <span>🎈 Use code WELCOME10 for 10% off your first order! 🎈</span>
-            </div>
-        </div>
+        {% include "includes/info-banner.html" %}
     </header>
+
+    
 
     {% if messages %}
     <div class="message-container"></div>
@@ -183,7 +174,10 @@
 
     {% block content %}{% endblock %}
 
-    {% block postloadjs %}{% endblock %}
+    <!-- Footer -->
+    {% include "includes/newsletter-banner.html" %}
+    {% include "includes/footer-desktop.html" %}
+    {% include "includes/footer-mobile.html" %}
 
     <!-- Mobile Fullscreen Search Modal -->
     <div class="modal fade" id="mobileSearchModal" tabindex="-1" aria-labelledby="mobileSearchLabel" aria-hidden="true">
@@ -206,6 +200,7 @@
         </div>
     </div>
 
+    {% block postloadjs %}{% endblock %}
 </body>
 
 </html>
