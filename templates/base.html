@@ -175,7 +175,10 @@
     {% block content %}{% endblock %}
 
     <!-- Footer -->
-    {% include "includes/newsletter-banner.html" %}
+     {% block newsletter_banner %}
+        {% include "includes/newsletter-banner.html" %}
+    {% endblock %}
+
     {% include "includes/footer-desktop.html" %}
     {% include "includes/footer-mobile.html" %}
 
