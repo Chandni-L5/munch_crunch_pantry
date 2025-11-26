@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Min, Max
 import uuid
 
 
@@ -40,6 +41,16 @@ class Product(models.Model):
         return pq.price if pq else None
     from_price.short_description = "From price"
 
+    def lowest_price(self):
+        """ Helper: lowest price across quantities, for product display. """
+        agg = self.quantities.aggregate(min_price=Min('price'))
+        return agg['min_price']
+
+    def highest_price(self):
+        """ Helper: highest price across quantities, for product display. """
+        agg = self.quantities.aggregate(max_price=Max('price'))
+        return agg['max_price']
+
 
 class Quantity(models.Model):
     """
@@ -67,6 +78,7 @@ class ProductQuantity(models.Model):
 
     class Meta:
         unique_together = ('product', 'quantity')
+        verbose_name_plural = "Product Quantities"
 
     def __str__(self):
         return f"{self.product.name} - {self.quantity.name}"

@@ -38,6 +38,14 @@ main {
     flex: 1;
 }
 
+.page-content {
+    padding-top: 165px;
+}
+
+.site-footer {
+    margin-top: 0;
+}
+
 /* from Bulma - font awesome icon styling */
 .icon {
     align-items: center;

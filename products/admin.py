@@ -11,7 +11,7 @@ class ProductQuantityInline(admin.TabularInline):
 class NutritionLabelInline(admin.TabularInline):
     model = NutritionLabel
     extra = 1
-    fields = ('metric', 'amount_per_100g')
+    fields = ('metric', 'amount_per_100g',)
 
 
 @admin.register(Category)

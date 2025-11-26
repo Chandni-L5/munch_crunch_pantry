@@ -165,22 +165,26 @@
     </header>
 
     
+    <!-- Page Content below the header/nav -->
+    <main class="page-content">
+        {% if messages %}
+        <div class="message-container"></div>
+        {% endif %}
 
-    {% if messages %}
-    <div class="message-container"></div>
-    {% endif %}
+        {% block page_header %}{% endblock %}
 
-    {% block page_header %}{% endblock %}
-
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
+    </main>
 
     <!-- Footer -->
-     {% block newsletter_banner %}
-        {% include "includes/newsletter-banner.html" %}
-    {% endblock %}
+    <div class="site-footer">
+        {% block newsletter_banner %}
+            {% include "includes/newsletter-banner.html" %}
+        {% endblock %}
 
-    {% include "includes/footer-desktop.html" %}
-    {% include "includes/footer-mobile.html" %}
+        {% include "includes/footer-desktop.html" %}
+        {% include "includes/footer-mobile.html" %}
+    </div>
 
     <!-- Mobile Fullscreen Search Modal -->
     <div class="modal fade" id="mobileSearchModal" tabindex="-1" aria-labelledby="mobileSearchLabel" aria-hidden="true">
