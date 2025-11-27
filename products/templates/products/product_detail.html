@@ -34,7 +34,8 @@
         <div class="col-12 col-md-6 col-lg-4">
             <div class="product-details-container mb-5 mt-md-5 text-start">
                 <h1 class="text-md-start text-center">{{ product.name }}</h1>
-                <h6 class="text-18 font-semibold pb-1 text-md-start text-center"> GMO FREE | VEGAN | SOURCE OF FIBER </h6>
+                <h6 class="text-18 font-semibold pb-1 text-md-start text-center"> GMO FREE | VEGAN | SOURCE OF FIBER
+                </h6>
                 <!-- Size and quantity cards -->
                 <div class="size-selector my-1">
                     <div class="row g-3 justify-content-center">
@@ -55,9 +56,76 @@
                         {% endfor %}
                     </div>
                 </div>
+                <!-- description -->
                 <p class="product-description my-4">
                     {{ product.description }}
                 </p>
+                <!-- add to basket -->
+                <!-- dropdown info points -->
+                <div class="mt-4 me-4 me-lg-0 text-end">
+                    <!-- Ingredients -->
+                    <p>
+                        <a href="#ingredientsCollapse" class="dropdown-toggle-section" data-bs-toggle="collapse"
+                            role="button">
+                            Ingredients <i class="fa-solid fa-chevron-down chevron-icon"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="ingredientsCollapse">
+                        <div>{{ product.ingredients|linebreaks }}</div>
+                    </div>
+                    <!-- Nutritional info -->
+                    <p>
+                        <a class="dropdown-toggle-section" data-bs-toggle="collapse" href="#nutritionCollapse"
+                            role="button">
+                            Nutritional Info <i class="fa-solid fa-chevron-down chevron-icon"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="nutritionCollapse">
+                        <div>
+                            {% if product.nutrition_labels.all %}
+                            <table id="nutrition-table">
+                                <thead>
+                                    <tr>
+                                        <th>Typical Values</th>
+                                        <th>Per 100g</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for label in product.nutrition_labels.all %}
+                                    <tr>
+                                        <td>{{ label.metric.name }}</td>
+                                        <td class="text-end">{{ label.amount_per_100g }} {{ label.metric.unit }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <p>No nutritional information available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Storage instructions -->
+                    <p>
+                        <a class="dropdown-toggle-section" data-bs-toggle="collapse" href="#storageCollapse" role="button">
+                            Storage Instructions <i class="fa-solid fa-chevron-down chevron-icon"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="storageCollapse">
+                        <div>{{ product.storage_instructions|linebreaks }}</div>
+                    </div>
+
+                    <!-- Country of origin -->
+                    <p>
+                        <a class="dropdown-toggle-section" data-bs-toggle="collapse" href="#originCollapse" role="button">
+                            Country of Origin <i class="fa-solid fa-chevron-down chevron-icon"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="originCollapse">
+                        <div>{{ product.country_of_origin|linebreaks }}</div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

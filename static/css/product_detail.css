@@ -30,7 +30,51 @@
     opacity: 0.6;
 }
 
-@media (max-width: 576px) {
+/* Dropdown info points  */
+.dropdown-toggle-section {
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    color: var(--color-3);
+}
+
+.dropdown-toggle-section:hover {
+    color: var(--color-1);
+}
+
+.chevron-icon {
+    transition: transform 0.3s ease;
+    color: var(--color-6);
+}
+
+.chevron-rotate {
+    transform: rotate(180deg);
+}
+
+/* Nutrition table styling */
+#nutrition-table {
+    margin-bottom: 1rem;
+    width: 70%;
+    margin-left: auto;
+}
+
+#nutrition-table tr {
+    border-bottom: 1px solid var(--color-2);
+}
+
+#nutrition-table tr:last-child {
+    border-bottom: none;
+}
+
+#nutrition-table td {
+    padding: 0.4rem 0;
+}
+
+
+
+/* smaller screens */
+@media (max-width: 992px) {
     .size-card {
         min-width: 100px;
         min-height: 70px;
@@ -39,8 +83,13 @@
     .size-card span {
         font-size: 0.85rem;
     }
+
+    #nutrition-table {
+        width: 50%;
+    }
 }
 
+/* larger screens */
 @media (min-width: 992px) {
     .size-card {
         min-width: 140px;
