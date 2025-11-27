@@ -63,7 +63,7 @@
             </div>
             <!-- Search Function -->
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <form method="GET" action="">
+                <form method="GET" action="{% url 'products' %}">
                     <div class="input-group w-100">
                         <input type="text" class="form-control border border-black rounded-0" name="q"
                             placeholder="Search our site">
@@ -192,7 +192,7 @@
             <div class="modal-content mobile-search-modal-content">
                 <div class="modal-body d-flex flex-column justify-content-center align-items-center">
                     <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <form method="GET" action="" class="w-100 px-4" id="mobile-search-form">
+                    <form method="GET" action="{% url 'products' %}" class="w-100 px-4" id="mobile-search-form">
                         <div class="input-group">
                             <input type="text" class="form-control border border-black rounded-0" name="q" placeholder="Search our site">
                             <button class="btn search-btn-style border border-black rounded-0" type="submit">

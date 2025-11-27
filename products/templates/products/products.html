@@ -15,7 +15,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col text-center mt-3">
-            <h1> All Products </h1>
+            {% if products %}
+            <h1>All Products {% if search_term %} - containing "{{ search_term }}" {% endif %}</h1>
+            {% endif %}
             <hr class="w-50 mb-1">
         </div>
     </div>
@@ -23,64 +25,79 @@
         <div class="product-container col-10 offset-1">
             <div class="row mt-1 mb-2"></div>
             <div class="row">
+                {% if products %}
                 {% for product in products %}
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <!-- Individual Product card -->
-                        <div class="card h-100 border-0">
-                            {% if product.image %}
-                            <a href="{% url 'product_detail' product.id %}">
-                                <img class="card-img-top img-fluid w-75" src="{{ product.image.url }}" alt="{{ product.name }}">
-                            </a>
-                            {% else %}
-                            <a href="{% url 'product_detail' product.id %}">
-                                <img class="card-img-top img-fluid w-75" src="{{ MEDIA_URL }}noimage.png"
-                                    alt="{{ product.name }}">
-                            </a>
-                            {% endif %}
-                            <div class="card-body pb-0">
-                                <p class="mb-0">{{ product.name }}</p>
-                            </div>
-                            <div class="card-footer bg-white pt-0 border-0 text-left">
-                                <div class="row">
-                                    <div class="col">
-                                        {% if product.lowest_price %}
-                                        <p class="price">
-                                            From £{{ product.lowest_price|floatformat:2 }}
-                                            {% if product.highest_price and product.highest_price != product.lowest_price %}
-                                            – £{{ product.highest_price|floatformat:2 }}
-                                            {% endif %}
-                                        </p>
-                                        {% else %}
-                                        <p class="price">Price coming soon</p>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                    <!-- Individual Product card -->
+                    <div class="card h-100 border-0">
+                        {% if product.image %}
+                        <a href="{% url 'product_detail' product.id %}">
+                            <img class="card-img-top img-fluid w-75" src="{{ product.image.url }}"
+                                alt="{{ product.name }}">
+                        </a>
+                        {% else %}
+                        <a href="{% url 'product_detail' product.id %}">
+                            <img class="card-img-top img-fluid w-75" src="{{ MEDIA_URL }}noimage.png"
+                                alt="{{ product.name }}">
+                        </a>
+                        {% endif %}
+                        <div class="card-body pb-0">
+                            <p class="mb-0">{{ product.name }}</p>
+                        </div>
+                        <div class="card-footer bg-white pt-0 border-0 text-left">
+                            <div class="row">
+                                <div class="col">
+                                    {% if product.lowest_price %}
+                                    <p class="price">
+                                        From £{{ product.lowest_price|floatformat:2 }}
+                                        {% if product.highest_price and product.highest_price != product.lowest_price %}
+                                        – £{{ product.highest_price|floatformat:2 }}
                                         {% endif %}
-                                    </div>
+                                    </p>
+                                    {% else %}
+                                    <p class="price">Price coming soon</p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Horizontal line breaks for different screen sizes -->
-                    {% if forloop.counter|divisibleby:"1" %} 
-                    <div class="col-12 d-sm-none mb-5">
-                        <hr>
-                    </div>
-                    {% endif %}
-                    {% if forloop.counter|divisibleby:"2" %}
-                        <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
-                            <hr>
-                        </div>
-                    {% endif %}
-                    {% if forloop.counter|divisibleby:"3" %}
-                        <div class="col-12 d-none d-lg-block d-xl-none mb-5">
-                            <hr>
-                        </div>
-                    {% endif %}
-                    {% if forloop.counter|divisibleby:"4" %}
-                        <div class="col-12 d-none d-xl-block mb-5">
-                            <hr>
-                        </div>
-                    {% endif %}
+                </div>
+
+                <!-- Horizontal rules at breakpoints -->
+                {% if forloop.counter|divisibleby:"1" %}
+                <div class="col-12 d-sm-none mb-5">
+                    <hr>
+                </div>
+                {% endif %}
+                {% if forloop.counter|divisibleby:"2" %}
+                <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                    <hr>
+                </div>
+                {% endif %}
+                {% if forloop.counter|divisibleby:"3" %}
+                <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                    <hr>
+                </div>
+                {% endif %}
+                {% if forloop.counter|divisibleby:"4" %}
+                <div class="col-12 d-none d-xl-block mb-5">
+                    <hr>
+                </div>
+                {% endif %}
                 {% endfor %}
+
+                {% else %}
+                <div class="col text-center mt-5">
+                    <h3 class="fw-bold">0 products found</h3>
+
+                    {% if search_term %}
+                    <p class="text-muted">No results for: <strong>"{{ search_term }}"</strong></p>
+                    {% endif %}
+                </div>
+                {% endif %}
+
             </div>
+
         </div>
     </div>
 </div>
