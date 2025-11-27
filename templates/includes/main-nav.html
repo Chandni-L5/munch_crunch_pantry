@@ -14,12 +14,11 @@
             <hr class="dropdown-divider">
         </ul>
     </li>
-
-    <li class="nav-item"><a href="" class="logo-font fw-bold nav-link me-5 ms-2">Nuts</a></li>
-    <li class="nav-item"><a href="" class="logo-font fw-bold nav-link me-5 ms-2">Dried Fruit</a></li>
-    <li class="nav-item"><a href="" class="logo-font fw-bold nav-link me-5 ms-2">Seeds</a></li>
-    <li class="nav-item"><a href="" class="logo-font fw-bold nav-link me-5 ms-2">Oil</a></li>
-    <li class="nav-item"><a href="" class="logo-font fw-bold nav-link me-5 ms-2">Nut Butter</a></li>
-    <li class="nav-item"><a href="" class="logo-font fw-bold nav-link me-5 ms-2">Grains & Lentils</a></li>
-    <li class="nav-item"><a href="" class="logo-font fw-bold nav-link me-5 ms-2">Herbs & Spices</a></li>
+    {% for category in nav_categories %}
+    <li>
+        <a class="nav-link logo-font fw-bold me-3" href="{% url 'products' %}?category={{ category.slug }}">
+            {{ category.name|upper }}
+        </a>
+    </li>
+    {% endfor %}
 </ul>

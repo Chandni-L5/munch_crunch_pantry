@@ -14,13 +14,25 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
+        <!-- Page Heading, depending on how once arrive's -->
         <div class="col text-center mt-3">
             {% if products %}
-            <h1>All Products {% if search_term %} - containing "{{ search_term }}" {% endif %}</h1>
+            {% if current_categories %}
+            {% if current_categories|length == 1 %}
+                <h1>{{ current_categories.0.name }} {% if search_term %} - containing "{{ search_term }}"{% endif %}</h1>
+            {% else %}
+                <h1>Products in{% for cat in current_categories %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% if search_term %} - containing "{{ search_term }}"{% endif %}</h1>
             {% endif %}
-            <hr class="w-50 mb-1">
+            {% else %}
+                <h1>All Products {% if search_term %} - containing "{{ search_term }}"{% endif %}</h1>
+            {% endif %}
+            {% else %}
+                <h1>No products found {% if current_categories %}in{% for cat in current_categories %} {{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %} {% if search_term %} containing "{{ search_term }}"{% endif %}</h1>
+            {% endif %}
+            <hr class="mb-1">
         </div>
     </div>
+    <!-- Rows of products -->
     <div class="row">
         <div class="product-container col-10 offset-1">
             <div class="row mt-1 mb-2"></div>
