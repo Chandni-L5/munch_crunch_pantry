@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col">
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 offset-lg-2 text-center text-lg-start">
+            <div class="image-container my-5">
+                {% if product.image %}
+                <a href="{{ product.image.url }}" target="_blank">
+                    <img class="card-img-top img-fluid w-75" src="{{ product.image.url }}" alt="{{ product.name }}">
+                </a>
+                {% else %}
+                <a href="">
+                    <img class="card-img-top img-fluid w-75" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="product-details-container mb-5 mt-md-5 text-start">
+                <h1 class="text-md-start text-center">{{ product.name }}</h1>
+                <h6 class="text-18 font-semibold pb-1 text-md-start text-center"> GMO FREE | VEGAN | SOURCE OF FIBER </h6>
+                <!-- Size and quantity cards -->
+                <div class="size-selector my-1">
+                    <div class="row g-3 justify-content-center">
+                        {% for pq in product.quantities.all %}
+                        <div class="col-auto">
+                            {% if pq.stock > 0 %}
+                            <div class="size-card selectable d-block text-center py-3 fw-bold" data-pq="{{ pq.id }}">
+                                <span>{{ pq.quantity.name }}</span><br>
+                                <span>£{{ pq.price }}</span>
+                            </div>
+                            {% else %}
+                            <div class="size-card disabled-card d-block text-center py-3">
+                                <span class="fw-bold">{{ pq.quantity.name }}</span><br>
+                                <span class="text-danger fw-bold">Out of stock</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <p class="product-description my-4">
+                    {{ product.description }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/product_detail.js' %}"></script>
+{% endblock %}

@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models import Min, Max
 import uuid
 
+from django.shortcuts import get_object_or_404, render
+
 
 class Category(models.Model):
 
@@ -105,3 +107,13 @@ class NutritionLabel(models.Model):
 
     def __str__(self):
         return f"{self.product.name} - {self.metric.name}"
+
+    from django.shortcuts import get_object_or_404
+
+
+def product_detail(request, product_id):
+    product = get_object_or_404(
+        Product.objects.prefetch_related('quantities__quantity'),
+        pk=product_id
+    )
+    return render(request, "products/product_detail.html", {"product": product})

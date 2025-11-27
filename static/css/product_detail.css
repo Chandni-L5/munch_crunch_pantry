@@ -1,0 +1,49 @@
+/* Product quantity/price selection */
+.size-card {
+    background-color: var(--color-8);
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    padding: 0.5rem;
+    min-width: 130px;
+    min-height: 80px;
+    text-align: center;
+}
+
+.size-card.selectable:hover {
+    background-color: var(--color-4);
+    cursor: pointer;
+}
+
+.size-card.selected {
+    background-color: var(--color-4);
+    border: 3px solid var(--color-6);
+}
+
+.disabled-card {
+    background-color: #d3d3d3;
+    color: #666;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+@media (max-width: 576px) {
+    .size-card {
+        min-width: 100px;
+        min-height: 70px;
+    }
+
+    .size-card span {
+        font-size: 0.85rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .size-card {
+        min-width: 140px;
+        min-height: 85px;
+    }
+}
