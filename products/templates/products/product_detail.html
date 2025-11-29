@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
 {% endblock %}
 
+{% block extra_title %}{{ product.name }}{% endblock %}
+
 {% block page_header %}
 <div class="container header-container">
     <div class="row">

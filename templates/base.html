@@ -51,7 +51,7 @@
 
     {% block extra_js %}{% endblock %}
 
-    <title>Munch Crunch Pantry {% block extra_title %}{% endblock %}</title>
+    <title>Munch Crunch Pantry - {% block extra_title %}{% endblock %}</title>
 </head>
 
 <body>
@@ -133,7 +133,7 @@
                     </li>
                     <!-- Basket -->
                     <li class="list-inline-item me-3">
-                        <a class="{% if grand_total %}text-info fw-bold{% else %}text-dark{% endif %} nav-link" href="">
+                        <a class="{% if grand_total %}text-info fw-bold{% else %}text-dark{% endif %} nav-link" href="{% url 'view_basket' %}">
                             <div class="text-center">
                                 <div><i class="fa-solid fa-basket-shopping fa-lg nav-icon"></i></div>
                                 <p class="my-0 nav-icon">
