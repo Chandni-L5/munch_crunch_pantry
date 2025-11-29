@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.contrib import messages
 from django.db.models import Q, Min
+from django.db.models.functions import Lower
 from .models import Category, Product
 
 
@@ -10,39 +11,36 @@ def all_products(request):
     products = Product.objects.all()
     query = None
     categories = None
-    sort = None
-    direction = None
+
+    sort = (request.GET.get('sort') or '').lower() or None
+    direction = (request.GET.get('direction') or '').lower() or None
     sortkey = None
 
     if request.GET:
 
-        # --- Sorting by price ---
-        if 'sort' in request.GET:
-            sort = request.GET['sort']
-            sortkey = sort
-
+        # Sorting
+        if sort:
             if sort == 'name':
-                sortkey = 'name'
-
+                products = products.annotate(name_lower=Lower('name'))
+                sortkey = 'name_lower'
+            elif sort == 'category':
+                products = products.annotate(category_name_lower=Lower('category__name'))
+                sortkey = 'category_name_lower'
             elif sort == 'price':
                 products = products.annotate(min_price=Min('quantities__price'))
                 sortkey = 'min_price'
-
-        if 'direction' in request.GET and sortkey:
-            direction = request.GET['direction']
-            if direction == 'desc':
+            if sortkey and direction == 'desc':
                 sortkey = f'-{sortkey}'
+            if sortkey:
+                products = products.order_by(sortkey)
 
-        if sortkey:
-            products = products.order_by(sortkey)
-
-        # --- Category filtering ---
+        # Category filtering
         if 'category' in request.GET:
             category_slugs = request.GET['category'].split(',')
             products = products.filter(category__slug__in=category_slugs)
             categories = Category.objects.filter(slug__in=category_slugs)
 
-        # --- Search bar function ---
+        # Search bar
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:

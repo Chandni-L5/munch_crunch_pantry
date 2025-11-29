@@ -42,6 +42,53 @@ main {
     margin-top: 0;
 }
 
+#products-home-btn {
+    color: var(--color-8);
+    text-decoration: none;
+}
+
+#products-home-btn:hover {
+    text-decoration: underline;
+    color: var(--color-10);
+}
+
+.sort-dropdown {
+    border: 1px solid var(--color-8);
+}
+
+/* Back to Top button */
+.back-to-top {
+    position: fixed;
+    bottom: 15rem;
+    right: 2rem;
+    z-index: 900;
+    background: var(--color-1);
+    color: var(--color-9);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+/* Hover effect */
+.back-to-top:hover {
+    background: var(--color-10);
+    transform: translateY(-3px);
+}
+
+/* Show the button */
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* from Bulma - font awesome icon styling */
 .icon {
     align-items: center;
@@ -257,10 +304,15 @@ a.social-icon:hover {
         left: 0;
         z-index: 1030;
     }
+
+    body {
+        position: relative;
+        padding-bottom: 100px;
+    }
 }
 
 /* Smaller screens */
-@media (max-width: 992px) {
+@media (max-width: 993px) {
 
     main {
         padding-top: 72px;
@@ -296,5 +348,10 @@ a.social-icon:hover {
     .input-group {
         max-width: 90%;
         margin: 0 auto;
+    }
+
+    .back-to-top {
+        bottom: 4rem;
+        right: 1.5rem;
     }
 }

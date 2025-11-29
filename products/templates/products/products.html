@@ -19,56 +19,115 @@
             {% if products %}
             {% if current_categories %}
             {% if current_categories|length == 1 %}
-                <h1>{{ current_categories.0.name }} {% if search_term %} - containing "{{ search_term }}"{% endif %}</h1>
+            <h1>{{ current_categories.0.name }} {% if search_term %} - containing "{{ search_term }}"{% endif %}</h1>
             {% else %}
-                <h1>Products in{% for cat in current_categories %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% if search_term %} - containing "{{ search_term }}"{% endif %}</h1>
+            <h1>Products in{% for cat in current_categories %}{{ cat.name }}{% if not forloop.last %},
+                {% endif %}{% endfor %}{% if search_term %} - containing "{{ search_term }}"{% endif %}</h1>
             {% endif %}
             {% else %}
-                <h1>All Products {% if search_term %} - containing "{{ search_term }}"{% endif %}</h1>
+            <h1>All Products {% if search_term %} - containing "{{ search_term }}"{% endif %}</h1>
             {% endif %}
             {% else %}
-                <h1>No products found {% if current_categories %}in{% for cat in current_categories %} {{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %} {% if search_term %} containing "{{ search_term }}"{% endif %}</h1>
+            <h1>{% for cat in current_categories %}
+                {{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %} {% if search_term %}
+                containing "{{ search_term }}"{% endif %}</h1>
             {% endif %}
             <hr class="mb-1">
         </div>
     </div>
-    <!-- Rows of products -->
+
     <div class="row">
-        <div class="product-container col-10 offset-1">
-            <div class="row mt-1 mb-2"></div>
-            <div class="row">
+        <div class="product-container col-10 offset-1 ">
+            <!-- Sort results number -->
+            <div class="row mt-1 mb-2 align-items-center">
+                <!-- Left text -->
+                <div class="col-12 col-md-6 order-md-first">
+                    <div class="products-header-inner">
+                        <p class="text-muted mt-3 text-center text-md-start fw-bold">
+                            {% if search_term or current_categories or current_sorting != 'None_None' %}
+                            <span><a id="products-home-btn" href="{% url 'products' %}">Products Home</a> |
+                            </span>
+                            {% endif %}
+                            {{ products|length }} Products{% if search_term %} found for
+                            "{{ search_term }}"{% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right sort dropdown -->
+                <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end mb-1">
+                    <div class="products-header-inner d-flex justify-content-md-end">
+                        <div class="sort-select-wrapper">
+                            <select id="sort-selector"
+                                class="form-select form-select-sm rounded-0 sort-dropdown fw-bold">
+                                <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort
+                                    By...</option>
+                                <option value="price-asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>
+                                    Price: Low to High{% if current_sorting == 'price_asc' %} ▲{% endif %}</option>
+                                <option value="price-desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>
+                                    Price: High to Low{% if current_sorting == 'price_desc' %} ▼{% endif %}</option>
+                                <option value="name-asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name:
+                                    A to Z{% if current_sorting == 'name_asc' %} ▲{% endif %}</option>
+                                <option value="name-desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>
+                                    Name: Z to A{% if current_sorting == 'name_desc' %} ▼{% endif %}</option>
+                                <option value="category-asc"
+                                    {% if current_sorting == 'category_asc' %}selected{% endif %}>Category: A to Z
+                                    {% if current_sorting == 'category_asc' %}▲{% endif %}
+                                </option>
+                                <option value="category-desc"
+                                    {% if current_sorting == 'category_desc' %}selected{% endif %}>Category: Z to A
+                                    {% if current_sorting == 'category_desc' %}▼{% endif %}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rows of products -->
+            <div class="row mt-1 mb-2">
                 {% if products %}
                 {% for product in products %}
                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                     <!-- Individual Product card -->
                     <div class="card h-100 border-0">
                         {% if product.image %}
-                        <a href="{% url 'product_detail' product.id %}">
-                            <img class="card-img-top img-fluid w-75" src="{{ product.image.url }}"
+                        <a href="{% url 'product_detail' product.id %}" class="d-block text-center">
+                            <img class="card-img-top img-fluid w-75 mx-auto" src="{{ product.image.url }}"
                                 alt="{{ product.name }}">
                         </a>
                         {% else %}
-                        <a href="{% url 'product_detail' product.id %}">
-                            <img class="card-img-top img-fluid w-75" src="{{ MEDIA_URL }}noimage.png"
+                        <a href="{% url 'product_detail' product.id %}" class="d-block text-center">
+                            <img class="card-img-top img-fluid w-75 mx-auto" src="{{ MEDIA_URL }}noimage.png"
                                 alt="{{ product.name }}">
                         </a>
                         {% endif %}
-                        <div class="card-body pb-0">
-                            <p class="mb-0">{{ product.name }}</p>
-                        </div>
-                        <div class="card-footer bg-white pt-0 border-0 text-left">
-                            <div class="row">
-                                <div class="col">
-                                    {% if product.lowest_price %}
-                                    <p class="price">
-                                        From £{{ product.lowest_price|floatformat:2 }}
-                                        {% if product.highest_price and product.highest_price != product.lowest_price %}
-                                        – £{{ product.highest_price|floatformat:2 }}
+                        <div class="mx-auto w-75">
+                            <div class="card-body pb-0">
+                                <p class="mb-0">{{ product.name }}</p>
+                            </div>
+                            <div class="card-footer bg-white pt-0 border-0 text-left">
+                                <div class="row">
+                                    <div class="col">
+                                        {% if product.lowest_price %}
+                                        <p class="price mb-0">
+                                            From £{{ product.lowest_price|floatformat:2 }}
+                                            {% if product.highest_price and product.highest_price != product.lowest_price %}
+                                            – £{{ product.highest_price|floatformat:2 }}
+                                            {% endif %}
+                                        </p>
+                                        {% else %}
+                                        <p class="price">Price coming soon</p>
                                         {% endif %}
-                                    </p>
-                                    {% else %}
-                                    <p class="price">Price coming soon</p>
-                                    {% endif %}
+                                        {% if product.category %}
+                                        <p class="small mb-0">
+                                            <a href="{% url 'products' %}?category={{ product.category.name }}"
+                                                class="text-muted">
+                                                <i class="fas fa-tag mr-1 nav-icon"></i>{{ product.category.name }}
+                                            </a>
+                                        </p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -77,22 +136,22 @@
 
                 <!-- Horizontal rules at breakpoints -->
                 {% if forloop.counter|divisibleby:"1" %}
-                <div class="col-12 d-sm-none mb-5">
+                <div class="col-12 d-sm-none mb-2">
                     <hr>
                 </div>
                 {% endif %}
                 {% if forloop.counter|divisibleby:"2" %}
-                <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-2">
                     <hr>
                 </div>
                 {% endif %}
                 {% if forloop.counter|divisibleby:"3" %}
-                <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                <div class="col-12 d-none d-lg-block d-xl-none mb-2">
                     <hr>
                 </div>
                 {% endif %}
                 {% if forloop.counter|divisibleby:"4" %}
-                <div class="col-12 d-none d-xl-block mb-5">
+                <div class="col-12 d-none d-xl-block mb-2">
                     <hr>
                 </div>
                 {% endif %}
@@ -112,5 +171,49 @@
 
         </div>
     </div>
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    $('#back-to-top').click(function (e) {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    window.addEventListener("scroll", () => {
+        const btt = document.getElementById("back-to-top");
+        if (window.scrollY > 300) {
+            btt.classList.add("show");
+        } else {
+            btt.classList.remove("show");
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $("#sort-selector").change(function () {
+        let selectedVal = $(this).val();
+        let currentURL = new URL(window.location);
+
+        if (selectedVal !== "reset") {
+            let [sort, direction] = selectedVal.split("-");
+            currentURL.searchParams.set("sort", sort);
+            currentURL.searchParams.set("direction", direction);
+        } else {
+            currentURL.searchParams.delete("sort");
+            currentURL.searchParams.delete("direction");
+        }
+
+        window.location.replace(currentURL);
+    });
+</script>
 {% endblock %}

@@ -33,7 +33,14 @@
         </div>
         <div class="col-12 col-md-6 col-lg-4">
             <div class="product-details-container mb-5 mt-md-5 text-start">
-                <h1 class="text-md-start text-center">{{ product.name }}</h1>
+                <h1 class="text-md-start text-center mb-0">{{ product.name }}</h1>
+                {% if product.category %}
+                    <p class="small mb-1 text-md-end text-center">
+                        <a href="{% url 'products' %}?category={{ product.category.name }}" class="text-muted">
+                            <i class="fas fa-tag mr-1 nav-icon"></i>{{ product.category.name }}
+                        </a>
+                    </p>
+                {% endif %}
                 <h6 class="text-18 font-semibold pb-1 text-md-start text-center"> GMO FREE | VEGAN | SOURCE OF FIBER
                 </h6>
                 <!-- Size and quantity cards -->
