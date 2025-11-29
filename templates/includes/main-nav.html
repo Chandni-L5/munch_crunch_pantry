@@ -6,9 +6,7 @@
         </a>
         <ul class="dropdown-menu dropdown-border" aria-labelledby="all-products-link">
             <hr class="dropdown-divider">
-            <li><a class="dropdown-item menu-font-style" href="">By Price</a></li>
-            <hr class="dropdown-divider">
-            <li><a class="dropdown-item menu-font-style" href="">By Rating</a></li>
+            <li><a class="dropdown-item menu-font-style" href="{% url 'products' %}?sort=price&direction=asc">By Price</a></li>
             <hr class="dropdown-divider">
             <li><a class="dropdown-item menu-font-style" href="{% url 'products' %}">All Products</a></li>
             <hr class="dropdown-divider">
