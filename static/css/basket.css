@@ -1,0 +1,9 @@
+.basket-btns {
+    text-decoration: none;
+    color: var(--color-8);
+    font-weight: bold;
+}
+
+.basket-btns:hover {
+    color: var(--color-10);
+}
