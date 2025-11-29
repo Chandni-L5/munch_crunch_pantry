@@ -70,7 +70,4 @@ def product_detail(request, product_id):
         Product.objects.prefetch_related('quantities__quantity'),
         pk=product_id
     )
-    context = {
-        'product': product,
-    }
-    return render(request, 'products/product_detail.html', context)
+    return render(request, "products/product_detail.html", {"product": product})

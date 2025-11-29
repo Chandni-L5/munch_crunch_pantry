@@ -439,6 +439,19 @@ During the designing and styling process of the website, I have kept in mind to 
 
 ## Testing
 ### Automated Testing
+Products App Tests
+I created automated unit tests for the products app (models and constraints) and run them using python3 manage.py test products to ensure data integrity and model behaviour remain correct as the project evolves.
+
+The tests cover:
+- Category model string representation
+- Product model string representation
+- Quantity model string representation
+- ProductQuantity model string representation and unique_together constraint
+- NutritionMetric model string representation
+- NutritionLabel model string representation and unique_together constraint
+
+They ensure that the models behave as expected and that data integrity is maintained through unique constraints. In addition these checks are repeatable as the project develops further. The full directory of products have not been included in the early stages and as more products are added, the integrity of the data entered in relation to products can be verified through the same tests.
+
 ### Manual Testing
 ### Testing User Stories
 ### Bugs & Fixes
