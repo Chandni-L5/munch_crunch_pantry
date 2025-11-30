@@ -1,5 +1,5 @@
 /* Product quantity/price selection */
-.size-card {
+.package-size-card {
     background-color: var(--color-8);
     color: #fff;
     border-radius: 12px;
@@ -12,14 +12,14 @@
     text-align: center;
 }
 
-.size-card.selectable:hover {
+.package-size-card.selectable:hover {
     background-color: var(--color-4);
     cursor: pointer;
 }
 
-.size-card.selected {
+.package-size-card.selected {
     background-color: var(--color-4);
-    border: 3px solid var(--color-6);
+    border: 3px solid var(--color-7);
 }
 
 .disabled-card {
@@ -106,19 +106,120 @@
 }
 
 .add-to-basket-btn.disabled-btn {
-    opacity: 0.5;
     cursor: not-allowed;
+}
+
+.btn-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-wrapper::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-1);
+    color: var(--color-9);
+    padding: 6px 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.btn-wrapper::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent var(--color-1) transparent;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.btn-wrapper[data-tooltip]:hover::after,
+.btn-wrapper[data-tooltip]:hover::before {
+    opacity: 1;
+}
+
+/* Quantity buttons */
+.quantity-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.quantity-block .input-group-quantity {
+    max-width: 150px;
+}
+
+.input-group-quantity {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+.input-group-quantity .qty-btn-minus,
+.input-group-quantity .qty-btn-plus {
+    border-radius: 12px;
+    border: none;
+    padding-inline: 10px;
+    font-weight: bold;
+    background-color: var(--color-5);
+    color: var(--color-9);
+}
+
+.input-group-quantity .qty-btn-minus,
+.input-group-quantity .qty-btn-plus {
+    cursor: pointer;
+}
+
+.input-group-quantity .qty-btn {
+    flex: 0 0 auto;
+}
+
+/* Input between buttons */
+.input-group-quantity .qty-input {
+    max-width: 100px;
+    text-align: center;
+    border: 1px solid var(--color-2);
+    box-shadow: none;
+    flex: 1 1 auto;
+    min-width: 0;
+    font-weight: 600;
+}
+
+/* Remove number spinners */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 /* smaller screens */
 @media (max-width: 992px) {
-    .size-card, 
+    .package-size-card, 
     .add-to-basket-btn {
         min-width: 100px;
         min-height: 70px;
     }
 
-    .size-card span, 
+    .package-size-card span, 
     .add-to-basket-btn {
         font-size: 0.85rem;
     }
@@ -130,7 +231,7 @@
 
 /* larger screens */
 @media (min-width: 992px) {
-    .size-card, 
+    .package-size-card, 
     .add-to-basket-btn {
         min-width: 140px;
         min-height: 85px;
