@@ -1,14 +1,32 @@
 // Size card selection
-document.addEventListener("DOMContentLoaded", function () {
-    const cards = document.querySelectorAll(".size-card.selectable");
+document.addEventListener('DOMContentLoaded', function () {
+    const sizeCards = document.querySelectorAll('.size-card.selectable');
+    const pqInput = document.getElementById('product-quantity-id');
+    const addBtn = document.querySelector('.add-to-basket-btn');
 
-    cards.forEach(card => {
-        card.addEventListener("click", () => {
-            cards.forEach(c => c.classList.remove("selected"));
-            card.classList.add("selected");
+    if (addBtn) {
+        addBtn.disabled = true;
+        addBtn.classList.add('disabled-btn');
+    }
+
+    sizeCards.forEach(card => {
+        card.addEventListener('click', function () {
+            sizeCards.forEach(c => c.classList.remove('selected'));
+            this.classList.add('selected');
+
+            const pqId = this.dataset.pq
+            if (pqInput) {
+                pqInput.value = pqId;
+            }
+
+            if (addBtn) {
+                addBtn.disabled = false;
+                addBtn.classList.remove('disabled-btn');
+            }
         });
     });
 });
+
 
 // Dropdown chevron rotation on info sections
 document.addEventListener("DOMContentLoaded", () => {

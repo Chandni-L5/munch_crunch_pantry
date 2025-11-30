@@ -105,6 +105,11 @@
     border: 3px solid var(--color-6);
 }
 
+.add-to-basket-btn.disabled-btn {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* smaller screens */
 @media (max-width: 992px) {
     .size-card, 
