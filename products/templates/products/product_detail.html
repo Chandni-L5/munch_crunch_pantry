@@ -20,6 +20,10 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
+        <a href="{% url 'products' %}" class="keep-shopping-btn ms-2 mt-2">
+            <span class="icon"><i class="fa fa-chevron-left"></i></span>
+            <span class="text-uppercase">Keep Shopping</span>
+        </a>
         <div class="col-12 col-md-6 col-lg-4 offset-lg-2 text-center text-lg-start">
             <div class="image-container my-5">
                 {% if product.image %}
@@ -37,16 +41,16 @@
             <div class="product-details-container mb-5 mt-md-5 text-start">
                 <h1 class="text-md-start text-center mb-0">{{ product.name }}</h1>
                 {% if product.category %}
-                    <p class="small mb-1 text-md-end text-center">
-                        <a href="{% url 'products' %}?category={{ product.category.name }}" class="text-muted">
-                            <i class="fas fa-tag mr-1 nav-icon"></i>{{ product.category.name }}
-                        </a>
-                    </p>
+                <p class="small mb-1 text-md-end text-center">
+                    <a href="{% url 'products' %}?category={{ product.category.name }}" class="text-muted">
+                        <i class="fas fa-tag mr-1 nav-icon"></i>{{ product.category.name }}
+                    </a>
+                </p>
                 {% endif %}
                 <h6 class="text-18 font-semibold pb-1 text-md-start text-center"> GMO FREE | VEGAN | SOURCE OF FIBER
                 </h6>
                 <!-- Size and quantity cards -->
-                <div class="size-selector my-1">
+                <div class="my-1">
                     <div class="row g-3 justify-content-center">
                         {% for pq in product.quantities.all %}
                         <div class="col-auto">
@@ -70,6 +74,29 @@
                     {{ product.description }}
                 </p>
                 <!-- add to basket -->
+                <!-- Basket quantity selector -->
+                <form action="{% url 'add_to_basket' item_id=product.id %}" method="POST" class="form">
+                    {% csrf_token %}
+                    <div class="form-row d-flex align-items-center">
+                        <!-- Quantity -->
+                        <div class="col-6">
+                            <p class="mt-3"><strong>Quantity:</strong></p>
+                            <div class="form-group w-50">
+                                <input type="number" class="form-control qty_input" name="quantity" value="1" min="1"
+                                    max="99" data-item_id="{{ product.id }}">
+                            </div>
+                        </div>
+                        <!-- Add to Basket -->
+                        <div class="col-6 d-flex justify-content-end">
+                            <button type="submit" class="add-to-basket-btn selectable text-center py-3 fw-bold text-uppercase">
+                                Add to <br>Basket <i class="fa fa-shopping-basket"></i>
+                            </button>
+                        </div>
+                        <!-- Redirect to product page -->
+                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                    </div>
+                </form>
+
                 <!-- dropdown info points -->
                 <div class="mt-4 me-4 me-lg-0 text-end">
                     <!-- Ingredients -->
@@ -116,7 +143,8 @@
 
                     <!-- Storage instructions -->
                     <p>
-                        <a class="dropdown-toggle-section" data-bs-toggle="collapse" href="#storageCollapse" role="button">
+                        <a class="dropdown-toggle-section" data-bs-toggle="collapse" href="#storageCollapse"
+                            role="button">
                             Storage Instructions <i class="fa-solid fa-chevron-down chevron-icon"></i>
                         </a>
                     </p>
@@ -126,7 +154,8 @@
 
                     <!-- Country of origin -->
                     <p>
-                        <a class="dropdown-toggle-section" data-bs-toggle="collapse" href="#originCollapse" role="button">
+                        <a class="dropdown-toggle-section" data-bs-toggle="collapse" href="#originCollapse"
+                            role="button">
                             Country of Origin <i class="fa-solid fa-chevron-down chevron-icon"></i>
                         </a>
                     </p>
