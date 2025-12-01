@@ -133,7 +133,8 @@
                     </li>
                     <!-- Basket -->
                     <li class="list-inline-item me-3">
-                        <a class="{% if grand_total %}text-info fw-bold{% else %}text-dark{% endif %} nav-link" href="{% url 'view_basket' %}">
+                        <a class="{% if grand_total %}text-info fw-bold{% else %}text-dark{% endif %} nav-link"
+                            href="{% url 'view_basket' %}">
                             <div class="text-center">
                                 <div><i class="fa-solid fa-basket-shopping fa-lg nav-icon"></i></div>
                                 <p class="my-0 nav-icon">
@@ -166,11 +167,25 @@
         {% include "includes/info-banner.html" %}
     </header>
 
-    
+
     <!-- Page Content below the header/nav -->
     <main class="page-content">
         {% if messages %}
-        <div class="message-container"></div>
+        <div class="message-container">
+            {% for message in messages %}
+                {% with message.level as level %}
+                    {% if level == 40 %}
+                        {% include "includes/toasts/toast_error.html" with message=message %}
+                    {% elif level == 30 %}
+                        {% include "includes/toasts/toast_warning.html" with message=message %}
+                    {% elif level == 25 %}
+                        {% include "includes/toasts/toast_success.html" with message=message %}
+                    {% elif level == 20 %}
+                        {% include "includes/toasts/toast_info.html" with message=message %}
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </div>
         {% endif %}
 
         {% block page_header %}{% endblock %}
@@ -181,7 +196,7 @@
     <!-- Footer -->
     <div class="site-footer">
         {% block newsletter_banner %}
-            {% include "includes/newsletter-banner.html" %}
+        {% include "includes/newsletter-banner.html" %}
         {% endblock %}
 
         {% include "includes/footer-desktop.html" %}
@@ -193,10 +208,12 @@
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content mobile-search-modal-content">
                 <div class="modal-body d-flex flex-column justify-content-center align-items-center">
-                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                     <form method="GET" action="{% url 'products' %}" class="w-100 px-4" id="mobile-search-form">
                         <div class="input-group">
-                            <input type="text" class="form-control border border-black rounded-0" name="q" placeholder="Search our site">
+                            <input type="text" class="form-control border border-black rounded-0" name="q"
+                                placeholder="Search our site">
                             <button class="btn search-btn-style border border-black rounded-0" type="submit">
                                 <span class="icon">
                                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -209,7 +226,18 @@
         </div>
     </div>
 
-    {% block postloadjs %}{% endblock %}
+    {% block postloadjs %}
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastElList = document.querySelectorAll('.toast');
+            toastElList.forEach((toastEl) => {
+                const toast = new bootstrap.Toast(toastEl);
+                toast.show();
+            });
+        });
+    </script>
+
+    {% endblock %}
 </body>
 
 </html>
