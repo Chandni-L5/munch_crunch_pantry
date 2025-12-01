@@ -3,7 +3,7 @@
 
 {% block extra_title %}Your Basket{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/basket.css' %}">
+<link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
 {% endblock %}
 
 {% block page_header %}
@@ -30,8 +30,8 @@
             {% if basket_items %}
             <div class="table-responsive rounded">
                 <table class="table table-sm table-borderless">
-                    <thead class="text-black">
-                        <tr>
+                    <thead class="text-black d-none d-md-table-header-group">
+                        <tr class="d-block d-md-table-row mb-4">
                             <th scope="col">Product Info</th>
                             <th scope="col"></th>
                             <th scope="col">Price</th>
@@ -41,21 +41,26 @@
                     </thead>
 
                     {% for item in basket_items %}
-                    <tr>
-                        <td class="p-3 w-25">
+                    <tr class="d-flex flex-column flex-md-row align-items-center">
+                        <td class="p-3 text-center col-md-3">
+                            {% if item.product.product.image %}
                             <img src="{{ item.product.product.image.url }}" alt="{{ item.product.product.name }}"
                                 class="img-fluid rounded">
+                            {% else %}
+                            <img src="{{ MEDIA_URL }}noimage.png"
+                                alt="{{ item.product.product.name }} (image coming soon)" class="img-fluid rounded">
+                            {% endif %}
                         </td>
-                        <td class="py-3">
+
+                        <td class="py-3 col-md-3 text-center text-md-start">
                             <p class="my-0"><strong>{{ item.product.product.name }}</strong></p>
                             <p class="my-0 text-muted">Package Size: {{ item.product.quantity.name }}</p>
                             <p class="my-0 text-muted">SKU: {{ item.product.product.sku|upper }}</p>
                         </td>
-                        <td class="py-3">
+                        <td class="py-3 col-md-2 text-center text-md-start">
                             <p class="my-0">£ {{ item.product.price }}</p>
-                            <p class="my-0"></p>
                         </td>
-                        <td class="py-3 w-25">
+                        <td class="py-3 col-md-2 text-center">
                             <form method="POST" action="{% url 'adjust_basket' item.item_id %}" class="update-form">
                                 {% csrf_token %}
                                 <div class="quantity-block">
@@ -83,17 +88,17 @@
                                     </div>
                                 </div>
                             </form>
-                            <a href="#" class="update-link ms-3 text-center fw-bold" data-tooltip="Update quantity"><small>Update</small></a>
+                            <a href="#" class="update-link ms-3 text-center fw-bold"
+                                data-tooltip="Update quantity"><small>Update</small></a>
                         </td>
-                        <td class="py-3">
+                        <td class="py-3 col-md-2 text-center text-md-start">
                             <p class="my-0">£ {{ item.total_price }}</p>
-                            <p class="my-0"></p>
                         </td>
                     </tr>
                     {% endfor %}
                     <tr>
-                        <td colspan="5" class="pt-5 text-right">
-                            <h6><strong>Basket Total: £{{ total|floatformat:2 }}</strong></h6>
+                        <td colspan="5" class="pt-5 text-md-end text-center">
+                            <h6>Basket Total: £{{ total|floatformat:2 }}</h6>
                             <h6>Delivery: £ {{ delivery|floatformat:2 }}</h6>
                             <h4 class="mt-2"><strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong></h4>
                             {% if free_delivery_delta > 0 %}
@@ -104,12 +109,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="5" class="text-right">
+                        <td colspan="5" class="text-end">
                             <a href="{% url 'products' %}" class="continue-shopping-btn">
                                 <span class="icon"><i class="fas fa-chevron-left"></i></span>
                                 <span class="text-uppercase">Continue Shopping</span>
                             </a>
-                            <a href="#" class="checkout-btn ms-4">
+                            <a href="{% url 'checkout' %}" class="checkout-btn ms-4">
                                 <span class="text-uppercase">Proceed to Secure Checkout</span>
                                 <span class="icon"><i class="fas fa-lock"></i></span>
                             </a>

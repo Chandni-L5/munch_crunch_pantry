@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+<link rel="stylesheet" href="{% static 'products/css/product_detail.css' %}">
 {% endblock %}
 
 {% block extra_title %}{{ product.name }}{% endblock %}
@@ -26,15 +26,9 @@
         </a>
         <div class="col-12 col-md-6 col-lg-4 offset-lg-2 text-center text-lg-start">
             <div class="image-container my-5">
-                {% if product.image %}
-                <a href="{{ product.image.url }}" target="_blank">
-                    <img class="card-img-top img-fluid w-75" src="{{ product.image.url }}" alt="{{ product.name }}">
-                </a>
-                {% else %}
-                <a href="">
-                    <img class="card-img-top img-fluid w-75" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
-                </a>
-                {% endif %}
+                <img class="img-fluid"
+                    src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}noimage.png{% endif %}"
+                    alt="{{ product.name }}">
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-4">
@@ -55,7 +49,8 @@
                         {% for pq in product.quantities.all %}
                         <div class="col-auto">
                             {% if pq.stock > 0 %}
-                            <div class="package-size-card selectable d-block text-center py-3 fw-bold" data-pq="{{ pq.id }}">
+                            <div class="package-size-card selectable d-block text-center py-3 fw-bold"
+                                data-pq="{{ pq.id }}">
                                 <span>{{ pq.quantity.name }}</span><br>
                                 <span>£{{ pq.price }}</span>
                             </div>
@@ -102,7 +97,8 @@
                                 <!-- Add to Basket -->
                                 <div class="btn-wrapper" data-tooltip="Select a package size above first">
                                     <button type="submit"
-                                        class="add-to-basket-btn selectable text-center py-3 fw-bold text-uppercase ms-4" disabled>
+                                        class="add-to-basket-btn selectable text-center py-3 fw-bold text-uppercase ms-4"
+                                        disabled>
                                         Add to <br>Basket <i class="fa fa-shopping-basket"></i>
                                     </button>
                                 </div>
@@ -187,7 +183,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/product_detail.js' %}"></script>
+<script src="{% static 'products/js/product_detail.js' %}"></script>
 {% endblock %}
 
 {% block postloadjs %}
