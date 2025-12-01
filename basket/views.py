@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.contrib import messages
 from products.models import ProductQuantity, Product
 
 
 def remove_from_basket(request, item_id):
     """Remove a ProductQuantity from the basket completely."""
+    if request.method != "POST":
+        return HttpResponseNotAllowed(['POST'])
+
     product_quantity = get_object_or_404(ProductQuantity, pk=item_id)
     basket = request.session.get('basket', {})
     item_key = str(item_id)

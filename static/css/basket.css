@@ -53,14 +53,56 @@ input[type=number] {
 }
 
 
-.update-link, 
+.update-link  {
+    cursor: pointer;
+    position: relative;
+    color: var(--color-8);
+}
+
 .remove-item {
     cursor: pointer;
+    font-size: 28px;
+    position: relative;
+}
+
+.remove-item[data-tooltip]:hover::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    border: 1px solid var(--color-2);
+    background: #fff;
+    color: var(--color-2);
+    padding: 4px 8px;
+    border-radius: 4px;
+    top: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+
+}
+
+.update-link[data-tooltip]:hover::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    border: 1px solid var(--color-2);
+    background: #fff;
+    color: var(--color-2);
+    padding: 4px 8px;
+    border-radius: 4px;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 /* Continue shopping button */
-.continue-shopping-btn,
-.checkout-btn {
+a.continue-shopping-btn,
+a.checkout-btn {
     background-color: var(--color-6);
     color: #fff;
     border-radius: 12px;
@@ -75,7 +117,7 @@ input[type=number] {
     font-size: 15px;
 }
 
-.continue-shopping-btn:hover,
+a.continue-shopping-btn:hover,
 .checkout-btn:hover {
     color: var(--color-2);
     transition: 0.2s ease, transform 0.15s ease;

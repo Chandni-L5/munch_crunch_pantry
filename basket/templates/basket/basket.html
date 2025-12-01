@@ -75,13 +75,14 @@
                                                 data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
                                                 <i class="fas fa-plus fa-sm"></i>
                                             </button>
+                                            <a href="#" class="remove-item text-danger float-right fw-bold ms-4"
+                                                id="remove_{{ item.item_id }}" data-tooltip="Remove from basket"><i
+                                                    class="fa-solid fa-trash-can"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                            <a href="#" class="remove-item text-danger float-right fw-bold"
-                                id="remove_{{ item.item_id }}"><small>Remove</small></a>
-                            <a href="#" class="update-link text-info fw-bold"><small>Update</small></a>
+                            <a href="#" class="update-link ms-3 text-center fw-bold" data-tooltip="Update quantity"><small>Update</small></a>
                         </td>
                         <td class="py-3">
                             <p class="my-0">£ {{ item.total_price }}</p>
