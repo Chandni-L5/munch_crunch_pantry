@@ -454,8 +454,3 @@ a.continue-shopping-btn:hover,
         right: 1.5rem;
     }
 }
-
-/* Media query: phones (425 and down) */
-@media (max-width: 426px) {
-    
-}

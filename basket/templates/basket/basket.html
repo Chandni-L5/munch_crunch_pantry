@@ -9,9 +9,7 @@
 {% block page_header %}
 <div class="container header-container">
     <div class="row">
-        <div class="col">
-
-        </div>
+        <div class="col"></div>
     </div>
 </div>
 {% endblock %}
@@ -25,109 +23,166 @@
             <hr>
         </div>
     </div>
+
     <div class="row">
         <div class="col">
             {% if basket_items %}
             <div class="table-responsive rounded">
-                <table class="table table-sm table-borderless">
-                    <thead class="text-black d-none d-md-table-header-group">
-                        <tr class="d-block d-md-table-row mb-4">
-                            <th scope="col">Product Info</th>
-                            <th scope="col"></th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Subtotal</th>
+                <table class="table table-sm table-borderless basket-table mb-0">
+                    <!-- Desktop headers only -->
+                    <thead class="text-black">
+                        <tr>
+                            <th scope="col" colspan="2" class="text-center ps-3">Product Info</th>
+                            <th scope="col" class="text-start">Price</th>
+                            <th scope="col" class="text-start ps-5">Qty</th>
+                            <th scope="col" class="text-start">Subtotal</th>
                         </tr>
+                        {% if not forloop.last %}
+                        <tr class="basket-divider-row">
+                            <td colspan="5">
+                                <div class="basket-divider"></div>
+                            </td>
+                        </tr>
+                        {% endif %}
+
                     </thead>
 
-                    {% for item in basket_items %}
-                    <tr class="d-flex flex-column flex-md-row align-items-center">
-                        <td class="p-3 text-center col-md-3">
-                            {% if item.product.product.image %}
-                            <img src="{{ item.product.product.image.url }}" alt="{{ item.product.product.name }}"
-                                class="img-fluid rounded">
-                            {% else %}
-                            <img src="{{ MEDIA_URL }}noimage.png"
-                                alt="{{ item.product.product.name }} (image coming soon)" class="img-fluid rounded">
-                            {% endif %}
-                        </td>
+                    <tbody>
+                        {% for item in basket_items %}
+                        <!-- Flex column on mobile -->
+                        <tr class="d-flex d-md-table-row flex-column align-items-center">
+                            <!-- Product image -->
+                            <td class="p-3 text-center align-middle">
+                                {% if item.product.product.image %}
+                                <img src="{{ item.product.product.image.url }}" alt="{{ item.product.product.name }}"
+                                    class="img-fluid rounded">
+                                {% else %}
+                                <img src="{{ MEDIA_URL }}noimage.png"
+                                    alt="{{ item.product.product.name }} (image coming soon)" class="img-fluid rounded">
+                                {% endif %}
+                            </td>
 
-                        <td class="py-3 col-md-3 text-center text-md-start">
-                            <p class="my-0"><strong>{{ item.product.product.name }}</strong></p>
-                            <p class="my-0 text-muted">Package Size: {{ item.product.quantity.name }}</p>
-                            <p class="my-0 text-muted">SKU: {{ item.product.product.sku|upper }}</p>
-                        </td>
-                        <td class="py-3 col-md-2 text-center text-md-start">
-                            <p class="my-0">£ {{ item.product.price }}</p>
-                        </td>
-                        <td class="py-3 col-md-2 text-center">
-                            <form method="POST" action="{% url 'adjust_basket' item.item_id %}" class="update-form">
-                                {% csrf_token %}
-                                <div class="quantity-block">
-                                    <div class="form-group">
-                                        <div class="input-group input-group-quantity basket-qty">
-                                            <!-- Minus -->
-                                            <button type="button" class="qty-btn qty-btn-sm qty-btn-minus"
-                                                data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
-                                                <i class="fas fa-minus fa-sm"></i>
-                                            </button>
-                                            <!-- Input -->
-                                            <input type="number"
-                                                class="form-control form-control-sm qty-input text-center"
-                                                name="quantity" value="{{ item.quantity }}" min="1" max="99"
-                                                data-item_id="{{ item.item_id }}">
-                                            <!-- Plus -->
-                                            <button type="button" class="qty-btn qty-btn-sm qty-btn-plus"
-                                                data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
-                                                <i class="fas fa-plus fa-sm"></i>
-                                            </button>
-                                            <a href="#" class="remove-item text-danger float-right fw-bold ms-4"
-                                                id="remove_{{ item.item_id }}" data-tooltip="Remove from basket"><i
-                                                    class="fa-solid fa-trash-can"></i></a>
-                                        </div>
+                            <!-- Product info -->
+                            <td class="py-1 py-md-3 text-center text-md-start align-middle">
+                                <p class="my-0"><strong>{{ item.product.product.name }}</strong></p>
+                                <p class="my-0 text-muted">Package Size: {{ item.product.quantity.name }}</p>
+                                <p class="my-0 text-muted">SKU: {{ item.product.product.sku|upper }}</p>
+                            </td>
+
+                            <!-- Price -->
+                            <td class="py-1 py-md-3 text-center text-md-start align-middle">
+                                <p class="my-0">
+                                    <span class="fw-semibold d-inline d-md-none me-1">Price:</span>
+                                    £ {{ item.product.price }}
+                                </p>
+                            </td>
+
+                            <!-- Quantity + actions -->
+                            <td class="py-1 py-md-3 text-center align-middle">
+                                <div class="d-flex d-md-block justify-content-center align-items-center">
+                                    <!-- Mobile label -->
+                                    <span class="fw-semibold d-inline d-md-none me-2">Quantity:</span>
+
+                                    <div class="basket-actions-wrapper">
+                                        <!-- Remove button -->
+                                        <a href="#" class="remove-item text-danger fw-bold me-2"
+                                            id="remove_{{ item.item_id }}" data-tooltip="Remove from basket">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
+
+                                        <!-- Qty controls -->
+                                        <form method="POST" action="{% url 'adjust_basket' item.item_id %}"
+                                            class="update-form mb-0">
+                                            {% csrf_token %}
+                                            <div class="quantity-block">
+                                                <div class="form-group">
+                                                    <div class="input-group input-group-quantity basket-qty">
+                                                        <!-- Minus -->
+                                                        <button type="button" class="qty-btn qty-btn-sm qty-btn-minus"
+                                                            data-item_id="{{ item.item_id }}"
+                                                            id="decrement-qty_{{ item.item_id }}">
+                                                            <i class="fas fa-minus fa-sm"></i>
+                                                        </button>
+                                                        <!-- Input -->
+                                                        <input type="number"
+                                                            class="form-control form-control-sm qty-input text-center"
+                                                            name="quantity" value="{{ item.quantity }}" min="1" max="99"
+                                                            data-item_id="{{ item.item_id }}">
+                                                        <!-- Plus -->
+                                                        <button type="button" class="qty-btn qty-btn-sm qty-btn-plus"
+                                                            data-item_id="{{ item.item_id }}"
+                                                            id="increment-qty_{{ item.item_id }}">
+                                                            <i class="fas fa-plus fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <!-- Update link -->
+                                        <a href="#" class="update-link ms-2 text-center fw-bold"
+                                            data-tooltip="Update quantity">
+                                            <small>Update</small>
+                                        </a>
                                     </div>
                                 </div>
-                            </form>
-                            <a href="#" class="update-link ms-3 text-center fw-bold"
-                                data-tooltip="Update quantity"><small>Update</small></a>
-                        </td>
-                        <td class="py-3 col-md-2 text-center text-md-start">
-                            <p class="my-0">£ {{ item.total_price }}</p>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td colspan="5" class="pt-5 text-md-end text-center">
-                            <h6>Basket Total: £{{ total|floatformat:2 }}</h6>
-                            <h6>Delivery: £ {{ delivery|floatformat:2 }}</h6>
-                            <h4 class="mt-2"><strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong></h4>
-                            {% if free_delivery_delta > 0 %}
-                            <p class="mb-1 text-danger">
-                                Spend £ {{ free_delivery_delta|floatformat:2 }} more for free delivery!
-                            </p>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" class="text-end">
-                            <a href="{% url 'products' %}" class="continue-shopping-btn">
-                                <span class="icon"><i class="fas fa-chevron-left"></i></span>
-                                <span class="text-uppercase">Continue Shopping</span>
-                            </a>
-                            <a href="{% url 'checkout' %}" class="checkout-btn ms-4">
-                                <span class="text-uppercase">Proceed to Secure Checkout</span>
-                                <span class="icon"><i class="fas fa-lock"></i></span>
-                            </a>
-                        </td>
-                    </tr>
+                            </td>
+
+                            <!-- Subtotal -->
+                            <td class="py-1 py-md-3 text-center text-md-start align-middle">
+                                <p class="my-0">
+                                    <span class="fw-semibold d-inline d-md-none me-1">Subtotal:</span>
+                                    £ {{ item.total_price }}
+                                </p>
+                            </td>
+                        </tr>
+                        {% if not forloop.last %}
+                        <tr class="basket-divider-row">
+                            <td colspan="5">
+                                <div class="basket-divider"></div>
+                            </td>
+                        </tr>
+                        {% endif %}
+
+                        {% endfor %}
+
+                        <!-- Totals -->
+                        <tr>
+                            <td colspan="5" class="pt-5 text-center text-md-end">
+                                <h6>Basket Total: £{{ total|floatformat:2 }}</h6>
+                                <h6>Delivery: £ {{ delivery|floatformat:2 }}</h6>
+                                <h4 class="mt-2">
+                                    <strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong>
+                                </h4>
+                                {% if free_delivery_delta > 0 %}
+                                <p class="mb-1 text-danger">
+                                    Spend £ {{ free_delivery_delta|floatformat:2 }} more for free delivery!
+                                </p>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <!-- Buttons row -->
+                        <tr>
+                            <td colspan="5" class="pb-3 text-center text-md-end">
+                                <a href="{% url 'products' %}"
+                                    class="bskt-continue-shopping-btn d-inline-block mb-2 mb-md-0">
+                                    <span class="icon"><i class="fas fa-chevron-left"></i></span>
+                                    <span class="text-uppercase">Continue Shopping</span>
+                                </a>
+                                <a href="{% url 'checkout' %}" class="bskt-checkout-btn ms-md-4 d-inline-block mt-2 mt-md-0">
+                                    <span class="text-uppercase">Proceed to Secure Checkout</span>
+                                    <span class="icon"><i class="fas fa-lock"></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             {% else %}
             <p class="lead mb-5">Your basket is empty.</p>
-            <a href="{% url 'products' %}" class="continue-shopping-btn">
-                <span class="icon">
-                    <i class="fas fa-chevron-left"></i>
-                </span>
+            <a href="{% url 'products' %}" class="bskt-continue-shopping-btn">
+                <span class="icon"><i class="fas fa-chevron-left"></i></span>
                 <span class="text-uppercase">Continue Shopping</span>
             </a>
             {% endif %}
@@ -144,7 +199,7 @@
     // Submit the update form when "Update" is clicked
     $('.update-link').click(function (e) {
         e.preventDefault();
-        const form = $(this).closest('td').find('.update-form');
+        const form = $(this).closest('.basket-actions-wrapper').find('.update-form');
         form.submit();
     });
 
