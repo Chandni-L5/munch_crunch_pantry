@@ -67,7 +67,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         },
     };
 
-    card = elements.create("card", { style: style });
+    card = elements.create("card", {
+        style: style
+    });
     card.mount("#card-element");
 
     card.on("change", function (event) {
@@ -150,9 +152,14 @@ async function handleSubmit(e) {
     };
 
     toggleFormDisabled(true);
-    card.update({ disabled: true });
+    card.update({
+        disabled: true
+    });
 
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+    const {
+        error,
+        paymentIntent
+    } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
             billing_details: billingDetails,
@@ -163,9 +170,11 @@ async function handleSubmit(e) {
     if (error) {
         setLoading(false);
         toggleFormDisabled(false);
-        card.update({ disabled: false });
+        card.update({
+            disabled: false
+        });
         isProcessing = false;
-    } else if (paymentIntent && paymentIntent.status === "succeeded") {
+    } else {
         window.location.href = "/checkout/success/";
     }
 }
@@ -207,3 +216,56 @@ function toggleFormDisabled(disabled) {
         }
     });
 }
+
+// Full form validation
+document.addEventListener("DOMContentLoaded", function () {
+    const fields = document.querySelectorAll("input.form-control");
+
+    fields.forEach(field => {
+        if (field.id === "card-element") return;
+
+        const error = document.createElement("div");
+        error.classList.add("invalid-feedback");
+        error.style.display = "none";
+        error.textContent = "This field is required.";
+        field.parentNode.appendChild(error);
+
+        function validateField() {
+            const value = field.value.trim();
+            if (value === "") {
+                field.classList.remove("is-invalid");
+                error.style.display = "none";
+                return;
+            }
+
+            let isValid = true;
+
+            if (field.type === "email") {
+                isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+                if (!isValid) {
+                    error.textContent = "Please enter a valid email address.";
+                }
+            }
+
+            if (field.id === "id_phone_number") {
+                const digits = value.replace(/\D/g, "");
+                isValid = digits.length >= 7 && digits.length <= 15;
+                if (!isValid) {
+                    error.textContent = "Please enter a valid phone number.";
+                }
+            }
+            if (!isValid) {
+                field.classList.add("is-invalid");
+                error.style.display = "block";
+            } else {
+                field.classList.remove("is-invalid");
+                error.style.display = "none";
+            }
+        }
+
+        ["input", "blur", "change"].forEach(evt =>
+            field.addEventListener(evt, validateField)
+        );
+        validateField();
+    });
+});

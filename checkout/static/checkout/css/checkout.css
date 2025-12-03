@@ -1,3 +1,15 @@
+input.form-control:-webkit-autofill,
+input.form-control:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset;
+    box-shadow: 0 0 0 30px #ffffff inset;
+    -webkit-text-fill-color: #000000;
+}
+
+.form-label {
+    display: none !important;
+}
+
+
 #card-element,
 #card-element .StripeElement {
     background-color: var(--color-9);
