@@ -4,3 +4,5 @@ __pycache__
 .flake8
 .vscode
 .notes
+env
+env.py

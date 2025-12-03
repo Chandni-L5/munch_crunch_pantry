@@ -1,4 +1,33 @@
-a.basket-btns {
+#card-element,
+#card-element .StripeElement {
+    background-color: var(--color-9);
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    min-height: 48px;
+    font-family: var(--primary-font);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#card-element .StripeElement {
+    width: 100%;
+}
+
+#card-element .StripeElement--focus {
+    border-color: var(--color-8);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+#card-element .StripeElement--invalid {
+    border-color: var(--color-10);
+}
+
+fieldset .fieldset-label + #card-element {
+    margin-top: 0.5rem;
+}
+
+.checkout-btn,
+a.checkout-btn {
     background-color: var(--color-10);
     color: var(--color-9);
     border-radius: 12px;
@@ -7,14 +36,63 @@ a.basket-btns {
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
     padding: 0.5rem;
     min-width: 130px;
-    min-height: 80px;
+    min-height: 45px;
     text-align: center;
     font-weight: 600;
     font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+    white-space: nowrap;
+    flex-shrink: 1;
 }
 
-.basket-btns:hover {
+.checkout-btn:hover,
+a.checkout-btn:hover {
     color: var(--color-7);
     transition: 0.2s ease, transform 0.15s ease;
     cursor: pointer;
+}
+
+.checkout-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.spinner {
+    position: absolute;
+    right: 12px;
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 576px) {
+    #card-element,
+    #card-element .StripeElement {
+        padding: 0.5rem 0.75rem;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 415px) {
+    .checkout-btn,
+    a.checkout-btn {
+        font-size: 12px;
+    }
 }

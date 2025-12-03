@@ -1,6 +1,17 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.conf import settings
+from django.http import JsonResponse, HttpResponseBadRequest
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import OrderForm
+from basket.context_processor import basket_contents
+
+import json
+import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def checkout(request):
@@ -12,5 +23,41 @@ def checkout(request):
 
     order_form = OrderForm()
     template = 'checkout/checkout.html'
-    context = {'order_form': order_form, }
+    context = {
+        'order_form': order_form,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+        'client_secret': intent.client_secret,
+    }
     return render(request, template, context)
+
+
+@require_POST
+@csrf_exempt
+def create_payment_intent(request):
+    """
+    AJAX call to create the PaymentIntent
+    - Calculate order amount on server
+    - Create PaymentIntent
+    - Return clientSecret as JSON
+    """
+    try:
+        basket = basket_contents(request)
+        grand_total = basket["grand_total"]
+        amount = int(round(grand_total * 100))
+        if amount <= 0:
+            return HttpResponseBadRequest("Invalid amount.")
+        intent = stripe.PaymentIntent.create(
+            amount=amount,
+            currency="gbp",
+            payment_method_types=["card"],
+        )
+
+        return JsonResponse({"clientSecret": intent.client_secret})
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+def checkout_success(request):
+    """ A view to handle successful checkouts """
+    return render(request, "checkout/checkout_success.html")

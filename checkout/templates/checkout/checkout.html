@@ -56,7 +56,7 @@
                 </div>
             </div>
             {% endfor %}
-            <hr class="my-0">
+            <hr class="my-2">
             <div class="row text-black text-right">
                 <div class="col-7 offset-2">
                     <p class="my-0"><strong>Order Total: </strong></p>
@@ -74,21 +74,23 @@
         <!-- Details/Payment section -->
         <div class="col-12 col-lg-6">
             <p class="text-muted">Please review your order and provide your details to complete the purchase.</p>
+
             <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                 {% csrf_token %}
                 <fieldset class="rounded px-3 mb-5">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Details</legend>
+                    <legend class="fieldset-label text-black px-2 w-auto">Details</legend>
                     {{ order_form.full_name | as_crispy_field }}
                     {{ order_form.email | as_crispy_field }}
                 </fieldset>
+
                 <fieldset class="rounded px-3 mb-5">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Delivery</legend>
+                    <legend class="fieldset-label text-black px-2 w-auto">Delivery</legend>
                     {{ order_form.phone_number | as_crispy_field }}
                     {{ order_form.street_address1 | as_crispy_field }}
                     {{ order_form.street_address2 | as_crispy_field }}
                     {{ order_form.town_or_city | as_crispy_field }}
-                    {{ order_form.postcode }}
-                    {{ order_form.country }}
+                    {{ order_form.postcode | as_crispy_field }}
+                    {{ order_form.country | as_crispy_field }}
                     <div class="form-check form-check-inline float-right mr-0">
                         {% if user.is_authenticated %}
                         <label class="form-check-label" for="id-save-info">Save this information for next time</label>
@@ -103,32 +105,47 @@
                         {% endif %}
                     </div>
                 </fieldset>
-                <!-- Payment section -->
+
+                <!-- Stripe Payment Element  -->
                 <fieldset class="px-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
-                    <div class="mb-3" id="card-element">
-                        <!-- A Stripe Element will be inserted here. -->
-                    </div>
-                    <div class="mb-3 text-danger" id="card-errors" role="alert">
-                        <!-- used to display form errors -->
-                    </div>
+                    <legend class="fieldset-label text-black px-2 w-auto">Payment</legend>
+                    <label for="card-element" class="small text-muted d-block mb-1 mt-1">
+                        Card details*
+                    </label>
+                    <div id="card-element" class="mb-4 mt-4 stripe-card-input"></div>
+                    <p id="error-message" class="text-danger mt-2" role="alert"></p>
                 </fieldset>
-                <div class="submit-button text-right mt-5 mb-2">
-                    <a href="{% url 'view_basket' %}" class="basket-btns">
+
+                <div class="submit-button mt-2 mb-2 d-flex flex-nowrap justify-content-end align-items-center">
+                    <a href="{% url 'view_basket' %}" class="checkout-btn">
                         <span class="icon"><i class="fas fa-chevron-left"></i></span>
                         <span class="fw-bold">Return to Basket</span>
                     </a>
-                    <a href="#" class="basket-btns ms-4">
-                        <span class="fw-bold">Complete Purchase</span>
-                        <span class="icon"><i class="fas fa-lock"></i></span>
-                    </a>
-                    <p class="small text-danger my-0 mt-2">
-                        <span class="icon"><i class="fas fa-exclamation-circle"></i></span>
-                        <span>Your card will be charged <strong>${{ grand_total|floatformat:2 }}</strong></span>
-                    </p>
+
+                    <button id="submit" class="checkout-btn ms-4" type="submit">
+                        <span class="btn-content">
+                            <span class="fw-bold">Complete Purchase</span>
+                            <span class="icon"><i class="fas fa-lock"></i></span>
+                        </span>
+                        <span class="spinner hidden" id="button-spinner"></span>
+                    </button>
                 </div>
+                <p class="small text-danger my-0 mt-2 mb-2 text-end">
+                    <span class="icon"><i class="fas fa-exclamation-circle"></i></span>
+                    <span>Your card will be charged <strong>£{{ grand_total|floatformat:2 }}</strong></span>
+                </p>
             </form>
         </div>
+
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const STRIPE_PUBLIC_KEY = "{{ stripe_public_key|escapejs }}";
+</script>
+<script src="{% static 'checkout/js/checkout.js' %}"></script>
 {% endblock %}
