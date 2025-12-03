@@ -1,6 +1,31 @@
 let stripe;
 let card;
 let clientSecret;
+let isProcessing = false;
+let cardComplete = false;
+let cardError = null;
+
+// Validate form 
+function isFormValid() {
+    const fullName = document.getElementById("id_full_name");
+    const email = document.getElementById("id_email");
+    const phone = document.getElementById("id_phone_number");
+    const address1 = document.getElementById("id_street_address1");
+    const city = document.getElementById("id_town_or_city");
+    const postcode = document.getElementById("id_postcode");
+    const country = document.getElementById("id_country");
+
+    const requiredFields = [fullName, email, phone, address1, city, postcode, country];
+
+    return requiredFields.every(field => field && field.value.trim() !== "");
+}
+
+// Enable/disable the submit button based on validity + card status
+function updateSubmitState() {
+    const submitButton = document.getElementById("submit");
+    const shouldEnable = isFormValid() && cardComplete && !cardError && !isProcessing;
+    submitButton.disabled = !shouldEnable;
+}
 
 // Sets up Stripe on page load, creates a PaymentIntent, and mounts the card element
 document.addEventListener("DOMContentLoaded", async () => {
@@ -49,17 +74,46 @@ document.addEventListener("DOMContentLoaded", async () => {
         const displayError = document.getElementById("error-message");
         if (event.error) {
             displayError.textContent = event.error.message;
+            cardError = event.error.message;
         } else {
             displayError.textContent = "";
+            cardError = null;
         }
+
+        cardComplete = event.complete === true;
+        updateSubmitState();
     });
+
     const form = document.getElementById("payment-form");
     form.addEventListener("submit", handleSubmit);
+
+    const submitButton = document.getElementById("submit");
+    submitButton.disabled = true;
+
+    const watchedFields = [
+        "id_full_name",
+        "id_email",
+        "id_phone_number",
+        "id_street_address1",
+        "id_town_or_city",
+        "id_postcode",
+        "id_country"
+    ];
+
+    watchedFields.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const eventName = el.tagName === "SELECT" ? "change" : "input";
+        el.addEventListener(eventName, updateSubmitState);
+    });
 });
 
 // Handles form submission and payment confirmation
 async function handleSubmit(e) {
     e.preventDefault();
+
+    if (isProcessing) return;
+    isProcessing = true;
     setLoading(true);
 
     const fullName = document.getElementById("id_full_name");
@@ -70,6 +124,7 @@ async function handleSubmit(e) {
     const city = document.getElementById("id_town_or_city");
     const postcode = document.getElementById("id_postcode");
     const country = document.getElementById("id_country");
+
     const billingDetails = {
         name: fullName.value.trim(),
         email: email.value.trim(),
@@ -93,6 +148,10 @@ async function handleSubmit(e) {
             country: country.value,
         },
     };
+
+    toggleFormDisabled(true);
+    card.update({ disabled: true });
+
     const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
@@ -102,8 +161,10 @@ async function handleSubmit(e) {
     });
 
     if (error) {
-        showError(error.message);
         setLoading(false);
+        toggleFormDisabled(false);
+        card.update({ disabled: false });
+        isProcessing = false;
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
         window.location.href = "/checkout/success/";
     }
@@ -134,4 +195,15 @@ function setLoading(isLoading) {
         btnContent.style.opacity = "1";
         spinner.classList.add("hidden");
     }
+}
+
+// Disable form fields when submit button is clicked
+function toggleFormDisabled(disabled) {
+    const form = document.getElementById("payment-form");
+    const elements = form.querySelectorAll("input, select, button, textarea");
+    elements.forEach(element => {
+        if (element.id !== "submit") {
+            element.disabled = disabled;
+        }
+    });
 }

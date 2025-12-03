@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.conf import settings
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 
@@ -26,7 +26,6 @@ def checkout(request):
     context = {
         'order_form': order_form,
         'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
-        'client_secret': intent.client_secret,
     }
     return render(request, template, context)
 
@@ -56,6 +55,35 @@ def create_payment_intent(request):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+
+
+@csrf_exempt
+def stripe_webhook(request):
+    """Listen for Stripe events."""
+    if request.method != "POST":
+        return HttpResponse(status=200)
+
+    payload = request.body
+    sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
+    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError:
+        # Invalid signature
+        return HttpResponse(status=400)
+
+    if event["type"] == "payment_intent.succeeded":
+        payment_intent = event["data"]["object"]
+        print("💳 Payment succeeded:", payment_intent["id"])
+        # TODO: create Order here
+
+    return HttpResponse(status=200)
 
 
 def checkout_success(request):
