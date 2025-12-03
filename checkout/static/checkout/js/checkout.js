@@ -22,7 +22,7 @@ function isFormValid() {
 
 // Enable/disable the submit button based on validity + card status
 function updateSubmitState() {
-    const submitButton = document.getElementById("submit");
+    const submitButton = document.getElementById("submit-btn");
     const shouldEnable = isFormValid() && cardComplete && !cardError && !isProcessing;
     submitButton.disabled = !shouldEnable;
 }
@@ -87,9 +87,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const form = document.getElementById("payment-form");
-    form.addEventListener("submit", handleSubmit);
+    form.addEventListener("submit-btn", handleSubmit);
 
-    const submitButton = document.getElementById("submit");
+    const submitButton = document.getElementById("submit-btn");
     submitButton.disabled = true;
 
     const watchedFields = [
@@ -116,6 +116,7 @@ async function handleSubmit(e) {
 
     if (isProcessing) return;
     isProcessing = true;
+
     setLoading(true);
 
     const fullName = document.getElementById("id_full_name");
@@ -139,6 +140,7 @@ async function handleSubmit(e) {
             country: country.value,
         },
     };
+
     const shippingDetails = {
         name: fullName.value.trim(),
         phone: phone.value.trim(),
@@ -152,32 +154,45 @@ async function handleSubmit(e) {
     };
 
     toggleFormDisabled(true);
-    card.update({
-        disabled: true
-    });
+    card.update({ disabled: true });
 
-    const {
-        error,
-        paymentIntent
-    } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-            card: card,
-            billing_details: billingDetails,
-        },
-        shipping: shippingDetails,
-    });
+    console.log("Client secret:", clientSecret);
+
+    let result;
+    try {
+        result = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: billingDetails,
+            },
+            shipping: shippingDetails,
+        });
+    } catch (err) {
+        console.error("Stripe threw an error:", err);
+        showError("There was a problem confirming your payment. Please try again.");
+        resetProcessingState();
+        return;
+    }
+
+    const { error, paymentIntent } = result;
 
     if (error) {
-        setLoading(false);
-        toggleFormDisabled(false);
-        card.update({
-            disabled: false
-        });
-        isProcessing = false;
+        console.error("Stripe error:", error);
+        showError(error.message);
+        resetProcessingState();
+        return;
+    }
+
+    if (paymentIntent && paymentIntent.status === "succeeded") {
+        console.log("Payment succeeded, submitting form to Django…");
+        const form = document.getElementById("payment-form");
+        HTMLFormElement.prototype.submit.call(form);
     } else {
-        window.location.href = "/checkout/success/";
+        showError("Payment did not complete. Please try again.");
+        resetProcessingState();
     }
 }
+
 
 // Display message in event of error
 function showError(messageText) {
@@ -191,7 +206,7 @@ function showError(messageText) {
 
 // Show loading state on the submit button
 function setLoading(isLoading) {
-    const submitButton = document.getElementById("submit");
+    const submitButton = document.getElementById("submit-btn");
     const spinner = document.getElementById("button-spinner");
     const btnContent = submitButton.querySelector(".btn-content");
 
@@ -211,10 +226,21 @@ function toggleFormDisabled(disabled) {
     const form = document.getElementById("payment-form");
     const elements = form.querySelectorAll("input, select, button, textarea");
     elements.forEach(element => {
-        if (element.id !== "submit") {
+        if (element.name === "csrfmiddlewaretoken") {
+            return;
+        }
+        if (element.id !== "submit-btn") {
             element.disabled = disabled;
         }
     });
+}
+
+// Reset loading state and re-enable form
+function resetProcessingState() {
+    setLoading(false);
+    toggleFormDisabled(false);
+    card.update({ disabled: false });
+    isProcessing = false;
 }
 
 // Full form validation

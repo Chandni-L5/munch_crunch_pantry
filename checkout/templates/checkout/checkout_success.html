@@ -1,9 +1,89 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}Order Confirmation{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
 
 {% block content %}
-<div class="container my-5 text-center">
-    <h2 class="logo-font">Payment successful 🎉</h2>
-    <p>Thank you for your order!</p>
-    <a href="{% url 'products' %}" class="btn btn-outline-primary mt-3">Continue shopping</a>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-8 col-lg-6">
+            <div class="order-summary-card">
+                <div class="order-summary-status">
+                    <span class="badge bg-success-soft text-success">
+                        <i class="fa-solid fa-check-circle me-1"></i>
+                        Payment successful
+                    </span>
+                </div>
+
+                <h1 class="order-summary-title mb-2">
+                    Thank you for your order!
+                </h1>
+                <p class="order-summary-subtitle mb-4">
+                    Order number: <span class="fw-semibold text-break">{{ order.order_number }}</span>
+                </p>
+
+                <!-- Order summary -->
+                <div class="order-items mb-4">
+                    <h2 class="section-title mb-3">Order Summary:</h2>
+
+                    {% for item in order.lineitems.all %}
+                        <div class="order-item">
+                            <div class="order-item-main">
+                                <div class="order-item-details">
+                                    <p class="item-name mb-1">
+                                        {{ item.product_quantity.product.name }}
+                                    </p>
+                                    <p class="item-details mb-0">
+                                        Size: {{ item.product_quantity.quantity.name }}
+                                    </p>
+                                    <p class="item-details mb-0">
+                                        Qty: {{ item.quantity }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="order-item-price">
+                                <span class="price">£{{ item.lineitem_total }}</span>
+                            </div>
+                        </div>
+                        <hr class="mt-1">
+                    {% empty %}
+                        <p class="text-muted mb-0">No items found for this order.</p>
+                    {% endfor %}
+                </div>
+
+                <div class="order-summary-totals mb-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="label">Subtotal</span>
+                        <span class="value">£{{ order.order_total }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="label">Delivery</span>
+                        <span class="value">£{{ order.delivery_cost }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between total-row pt-2">
+                        <span class="label">Total paid</span>
+                        <span class="value">£{{ order.grand_total }}</span>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="{% url 'products' %}" class="continue-shopping-btn px-4">
+                        Continue shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -1,0 +1,118 @@
+div.order-summary-card {
+    background: var(--color-9);
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    border: 1px solid var(--color-11);
+}
+
+.order-summary-status {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+}
+
+/* Titles */
+.order-summary-title {
+    font-size: 1.9rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.order-summary-subtitle {
+    text-align: center;
+    color: var(--color-1);
+}
+
+/* Items */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.order-items {
+    padding-top: 1.25rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+}
+
+.order-item-main {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.order-item-details .item-name {
+    font-weight: 600;
+}
+
+.order-item-details .item-details {
+    font-size: 0.85rem;
+}
+
+.order-item-price .price {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Totals */
+.order-summary-totals {
+    padding-top: 1.25rem;
+    font-size: 0.95rem;
+}
+
+.order-summary-totals .value {
+    font-weight: 500;
+}
+
+.order-summary-totals .total-row {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+/* Button */
+.continue-shopping-btn {
+    background-color: var(--color-10);
+    color: var(--color-9);
+    border-radius: 12px;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    padding: 0.5rem;
+    min-width: 130px;
+    min-height: 45px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+    white-space: nowrap;
+    flex-shrink: 1;
+}
+
+.continue-shopping-btn:hover {
+    color: var(--color-7);
+    transition: 0.2s ease, transform 0.15s ease;
+    cursor: pointer;
+}
+
+@media (min-width: 576px) {
+    .user-details {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    div.order-summary-card {
+        padding-inline: 1.5rem;
+    }
+}
