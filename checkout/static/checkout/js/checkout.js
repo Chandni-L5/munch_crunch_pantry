@@ -1,3 +1,7 @@
+/* Core logic/payment flow for this comes from here:
+    https://stripe.com/docs/payments/accept-a-payment
+*/
+
 let stripe;
 let card;
 let clientSecret;
@@ -22,7 +26,7 @@ function isFormValid() {
 
 // Enable/disable the submit button based on validity + card status
 function updateSubmitState() {
-    const submitButton = document.getElementById("submit-btn");
+    const submitButton = document.getElementById("submit");
     const shouldEnable = isFormValid() && cardComplete && !cardError && !isProcessing;
     submitButton.disabled = !shouldEnable;
 }
@@ -89,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const form = document.getElementById("payment-form");
     form.addEventListener("submit", handleSubmit);
 
-    const submitButton = document.getElementById("submit-btn");
+    const submitButton = document.getElementById("submit");
     submitButton.disabled = true;
 
     const watchedFields = [
@@ -153,6 +157,41 @@ async function handleSubmit(e) {
         },
     };
 
+    const saveInfoCheckbox = document.getElementById("id-save-info");
+    const saveInfo = saveInfoCheckbox ? saveInfoCheckbox.checked : false;
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    try {
+        const cacheResponse = await fetch("/checkout/cache_checkout_data/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken,
+            },
+            body: JSON.stringify({
+                client_secret: clientSecret,
+                save_info: saveInfo,
+            }),
+        });
+
+        const cacheData = await cacheResponse.json();
+
+        if (!cacheResponse.ok) {
+            console.error("Error caching checkout data:", cacheData);
+            showError(
+                cacheData.error ||
+                    "We couldn't process your payment. Please try again."
+            );
+            resetProcessingState();
+            return;
+        }
+    } catch (error) {
+        console.error("Network error when caching checkout data:", error);
+        showError("We couldn't process your payment. Please try again.");
+        resetProcessingState();
+        return;
+    }
+
     toggleFormDisabled(true);
     card.update({ disabled: true });
 
@@ -185,6 +224,7 @@ async function handleSubmit(e) {
 
     if (paymentIntent && paymentIntent.status === "succeeded") {
         console.log("Payment succeeded, submitting form to Django…");
+        toggleFormDisabled(false);
         const form = document.getElementById("payment-form");
         HTMLFormElement.prototype.submit.call(form);
     } else {
@@ -206,7 +246,7 @@ function showError(messageText) {
 
 // Show loading state on the submit button
 function setLoading(isLoading) {
-    const submitButton = document.getElementById("submit-btn");
+    const submitButton = document.getElementById("submit");
     const spinner = document.getElementById("button-spinner");
     const btnContent = submitButton.querySelector(".btn-content");
 
@@ -229,7 +269,7 @@ function toggleFormDisabled(disabled) {
         if (element.name === "csrfmiddlewaretoken") {
             return;
         }
-        if (element.id !== "submit-btn") {
+        if (element.id !== "submit") {
             element.disabled = disabled;
         }
     });
