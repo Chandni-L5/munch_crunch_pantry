@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const form = document.getElementById("payment-form");
-    form.addEventListener("submit-btn", handleSubmit);
+    form.addEventListener("submit", handleSubmit);
 
     const submitButton = document.getElementById("submit-btn");
     submitButton.disabled = true;
