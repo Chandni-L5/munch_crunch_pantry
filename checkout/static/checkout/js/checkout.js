@@ -51,6 +51,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     clientSecret = data.clientSecret;
+    const clientSecretInput = document.getElementById("id_client_secret");
+    if (clientSecretInput) {
+        clientSecretInput.value = clientSecret;
+    }
+    
     const elements = stripe.elements();
     const style = {
         base: {
