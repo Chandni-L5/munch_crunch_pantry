@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extra_title %}{% trans "Connected Accounts" %}{% endblock %}
+{% block page_header %}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+            <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm">
+
+                <h2 class="logo-font mb-3 text-center">
+                    {% trans "Connected Accounts" %}
+                </h2>
+                <hr>
+
+                {% if form.accounts %}
+                    <p class="mb-3">
+                        {% trans "These third party accounts are linked to your profile." %}
+                    </p>
+
+                    <form method="post" action="{% url 'socialaccount_connections' %}">
+                        {% csrf_token %}
+
+                        <ul class="list-group mb-4">
+                            {% for base_account in form.accounts %}
+                                {% with account=base_account.get_account %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <div>
+                                            <strong>{{ account.get_provider.name }}</strong>
+                                            <span class="ms-2 text-muted">
+                                                {{ account }}
+                                            </span>
+                                        </div>
+                                        <div class="mt-2 mt-sm-0">
+                                            <label class="mb-0">
+                                                {{ base_account.get_logout_form.id }}
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-outline-danger"
+                                                        name="{{ base_account.get_logout_form::name }}"
+                                                        value="{{ base_account.get_logout_form::value }}">
+                                                    {% trans "Disconnect" %}
+                                                </button>
+                                            </label>
+                                        </div>
+                                    </li>
+                                {% endwith %}
+                            {% endfor %}
+                        </ul>
+                    </form>
+                {% else %}
+                    <p class="mb-4">
+                        {% trans "You do not have any connected social accounts yet." %}
+                    </p>
+                {% endif %}
+
+                <p class="text-muted mb-0">
+                    {% trans "You can connect new accounts from the login or signup pages." %}
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

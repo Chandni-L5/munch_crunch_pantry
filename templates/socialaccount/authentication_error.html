@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extra_title %}{% trans "Social Login Error" %}{% endblock %}
+{% block page_header %}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+            <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm text-center">
+
+                <h2 class="logo-font mb-3">
+                    {% trans "Social Login Error" %}
+                </h2>
+                <hr>
+
+                <p class="mb-4">
+                    {% trans "Something went wrong while trying to sign you in with a social account." %}
+                </p>
+
+                {% if auth_error %}
+                    <p class="text-muted mb-4">
+                        {{ auth_error }}
+                    </p>
+                {% endif %}
+
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+                    <a href="{% url 'account_login' %}" class="btn btn-primary">
+                        {% trans "Back to sign in" %}
+                    </a>
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                        {% trans "Back to shop" %}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

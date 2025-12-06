@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block extra_title %}{% trans "Complete Your Account" %}{% endblock %}
+{% block page_header %}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+            <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm">
+
+                <h2 class="logo-font mb-3 text-center">
+                    {% trans "Complete Your Account" %}
+                </h2>
+                <hr>
+
+                <p class="text-muted mb-4 text-center">
+                    {% blocktrans with provider=account.get_provider.name %}
+                        You have successfully signed in with {{ provider }}.
+                        Please confirm the remaining details to complete your account.
+                    {% endblocktrans %}
+                </p>
+
+                <form method="post" action="{% url 'socialaccount_signup' %}">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <button type="submit" class="btn btn-primary w-100 mt-3">
+                        {% trans "Create Account" %}
+                    </button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">
+                        ← {% trans "Back to shop" %}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

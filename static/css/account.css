@@ -1,0 +1,20 @@
+.google-btn {
+    background-color: #ffffff;
+    border: 1px solid #dadce0;
+    color: #3c4043;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    text-decoration: none;
+    width: 100%;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.google-btn:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.google-btn img {
+    display: inline-block;
+}
