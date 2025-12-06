@@ -1,4 +1,5 @@
 from django import forms
+from django_countries.widgets import CountrySelectWidget
 from .models import Order
 
 
@@ -6,7 +7,7 @@ class OrderForm(forms.ModelForm):
     address_search = forms.CharField(
         required=False,
         label="Address Search",
-        widget=forms.TextInput(attrs={"placeholder": "Start typing your address..."}),
+        widget=forms.TextInput(attrs={"placeholder": "Start typing your address...", "class": "form-control", }),
     )
 
     class Meta:
@@ -23,51 +24,50 @@ class OrderForm(forms.ModelForm):
             "country",
         ]
         widgets = {
-            "full_name": forms.TextInput(attrs={"placeholder": "Full name*"}),
+            "full_name": forms.TextInput(
+                attrs={"placeholder": "Full name*", "class": "form-control"}
+            ),
             "email": forms.EmailInput(
-                attrs={"id": "id_email", "placeholder": "Email address*"}
+                attrs={
+                    "id": "id_email",
+                    "placeholder": "Email address*",
+                    "class": "form-control",
+                }
             ),
             "phone_number": forms.TextInput(
-                attrs={"id": "id_phone_number", "placeholder": "Phone number*"}
+                attrs={
+                    "id": "id_phone_number",
+                    "placeholder": "Phone number*",
+                    "class": "form-control",
+                }
             ),
-            "street_address1": forms.TextInput(attrs={"placeholder": "Street address 1*"}),
-            "street_address2": forms.TextInput(attrs={"placeholder": "Apartment, flat, suite (optional)"}),
-            "town_or_city": forms.TextInput(attrs={"placeholder": "Town or city*"}),
-            "postcode": forms.TextInput(attrs={"placeholder": "Postcode*"}),
-            "country": forms.TextInput(attrs={"placeholder": "Country*"}),
+            "street_address1": forms.TextInput(
+                attrs={"placeholder": "Street address 1*", "class": "form-control"}
+            ),
+            "street_address2": forms.TextInput(
+                attrs={
+                    "placeholder": "Apartment, flat, suite (optional)",
+                    "class": "form-control",
+                }
+            ),
+            "town_or_city": forms.TextInput(
+                attrs={"placeholder": "Town or city*", "class": "form-control"}
+            ),
+            "postcode": forms.TextInput(
+                attrs={"placeholder": "Postcode*", "class": "form-control"}
+            ),
+            "country": CountrySelectWidget(
+                attrs={
+                    "class": "form-control",
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.fields["address_search"].required = False
+        self.fields["street_address2"].required = False
+
         for name, field in self.fields.items():
-            if name != "street_address2":
-                field.required = False
-
-
-def __init__(self, *args, **kwargs):
-    """
-    Add placeholders and classes,
-    remove auto-generated labels
-    """
-    super().__init__(*args, **kwargs)
-    placeholders = {
-        "full_name": "Full Name",
-        "email": "Email Address",
-        "phone_number": "Phone Number",
-        "street_address1": "Street Address 1",
-        "street_address2": "Apartment, flat, suite (optional)",
-        "town_or_city": "Town or City",
-        "postcode": "Postal Code",
-        "country": "Country",
-    }
-
-    self.fields["full_name"].widget.attrs["autofocus"] = True
-    for field in self.fields:
-        if self.fields[field].required:
-            placeholder = f"{placeholders[field]} *"
-        else:
-            placeholder = placeholders[field]
-        self.fields[field].widget.attrs["placeholder"] = placeholder
-        self.fields[field].widget.attrs["class"] = "stripe-style-input"
-        self.fields[field].label = False
+            field.label = False

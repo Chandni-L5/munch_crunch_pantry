@@ -38,6 +38,15 @@ fieldset .fieldset-label + #card-element {
     margin-top: 0.5rem;
 }
 
+select, 
+select option {
+    color: (#212529)
+}
+
+select:invalid,
+select option[value=""] {
+    color:#4a4d50;
+}
 
 /* Checkout buttons */
 .checkout-btn,
