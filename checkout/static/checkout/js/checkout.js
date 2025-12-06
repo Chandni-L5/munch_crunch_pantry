@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (clientSecretInput) {
         clientSecretInput.value = clientSecret;
     }
-    
+
     const elements = stripe.elements();
     const style = {
         base: {
@@ -118,6 +118,46 @@ document.addEventListener("DOMContentLoaded", async () => {
         el.addEventListener(eventName, updateSubmitState);
     });
 });
+
+// Map Stripe error codes to user-friendly messages
+function getFriendlyStripeErrorMessage(error) {
+    if (!error) {
+        return "Something went wrong while processing your payment. Please try again.";
+    }
+
+    const code = error.code || "";
+    const declineCode = error.decline_code || "";
+    const piStatus = error.payment_intent && error.payment_intent.status;
+
+    if (
+        code === "authentication_required" ||
+        code === "payment_intent_authentication_failure" ||
+        declineCode === "authentication_required" ||
+        piStatus === "requires_action"
+    ) {
+        return "We couldn’t verify your payment with your bank. Please try again and complete the security check.";
+    }
+
+    const declineCodes = [
+        "card_declined",
+        "insufficient_funds",
+        "do_not_honor",
+        "generic_decline",
+    ];
+
+    if (
+        declineCodes.includes(code) ||
+        (declineCode && declineCode !== "authentication_required") ||
+        piStatus === "requires_payment_method"
+    ) {
+        return "Your bank declined this card. Please use a different card or contact your bank.";
+    }
+
+    if (error.type === "validation_error") {
+        return error.message || "There’s a problem with the details you entered. Please check and try again.";
+    }
+    return "We’re having trouble processing payments right now. Your card hasn’t been charged. Please try again in a few minutes.";
+}
 
 // Handles form submission and payment confirmation
 async function handleSubmit(e) {
@@ -221,14 +261,21 @@ async function handleSubmit(e) {
     const { error, paymentIntent } = result;
 
     if (error) {
-        console.error("Stripe error:", error);
-        showError(error.message);
-        resetProcessingState();
-        return;
-    }
+        console.error("Stripe error debug:", {
+            code: error.code,
+            decline_code: error.decline_code,
+            status: error.payment_intent && error.payment_intent.status,
+            full_error: error,
+        });
+
+    const friendlyMessage = getFriendlyStripeErrorMessage(error);
+    showError(friendlyMessage);
+    resetProcessingState();
+    return;
+}
+
 
     if (paymentIntent && paymentIntent.status === "succeeded") {
-        console.log("Payment succeeded, submitting form to Django…");
         toggleFormDisabled(false);
         const form = document.getElementById("payment-form");
         HTMLFormElement.prototype.submit.call(form);
@@ -239,14 +286,14 @@ async function handleSubmit(e) {
 }
 
 
-// Display message in event of error
+// Display message Stripe card error messages for 10 seconds
 function showError(messageText) {
     const messageContainer = document.querySelector("#error-message");
     messageContainer.textContent = messageText;
 
     setTimeout(function () {
         messageContainer.textContent = "";
-    }, 5000);
+    }, 10000);
 }
 
 // Show loading state on the submit button
