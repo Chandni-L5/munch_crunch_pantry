@@ -70,4 +70,5 @@ class OrderForm(forms.ModelForm):
         self.fields["street_address2"].required = False
 
         for name, field in self.fields.items():
+            field.widget.attrs.setdefault("class", "form-control")
             field.label = False

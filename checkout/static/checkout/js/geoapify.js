@@ -2,8 +2,6 @@
 https://www.geoapify.com/tutorial/address-input-for-address-validation-and-address-verification-forms-tutorial/
 */
 
-// checkout/static/checkout/js/geoapify.js
-
 function addressAutocomplete(containerElement, callback, options) {
   // Find the existing input inside the container (crispy address_search field)
   const inputElement = containerElement.querySelector("input");
