@@ -60,6 +60,10 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid var(--color-8);
 }
 
+.allauth-card {
+    border-radius: 1rem;
+}
+
 /* Back to Top button */
 .back-to-top {
     position: fixed;

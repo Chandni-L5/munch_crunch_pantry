@@ -1,0 +1,17 @@
+{% extends "allauth/layouts/base.html" %}
+{% load allauth %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="allauth-card bg-white p-4 p-md-5 shadow-sm rounded-4">
+                {% block body %}
+                    {{ block.super }}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

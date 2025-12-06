@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extra_title %}{% trans "Confirm Email" %}{% endblock %}
+{% block page_header %}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+            <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm text-center">
+
+                {% if confirmation %}
+                    <h2 class="logo-font mb-3">{% trans "Confirm Email Address" %}</h2>
+                    <hr>
+
+                    <p class="mb-4">
+                        {% trans "Please confirm that you want to use the following email address with your account:" %}
+                    </p>
+
+                    <p class="mb-4"><strong>{{ confirmation.email_address.email }}</strong></p>
+
+                    <form method="post" action="{{ action_url }}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">
+                            {% trans "Confirm" %}
+                        </button>
+                    </form>
+
+                {% else %}
+                    <h2 class="logo-font mb-3">{% trans "Email Confirmation" %}</h2>
+                    <hr>
+                    <p class="mb-4">
+                        {% trans "This email confirmation link is invalid or has already been used." %}
+                    </p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
