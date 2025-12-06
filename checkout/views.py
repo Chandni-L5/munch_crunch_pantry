@@ -84,6 +84,7 @@ def checkout(request):
         'order_form': order_form,
         'basket': basket,
         'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+        'geoapify_api_key': settings.GEOAPIFY_API_KEY,
     }
     return render(request, "checkout/checkout.html", context)
 

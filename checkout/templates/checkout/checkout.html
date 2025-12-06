@@ -81,11 +81,15 @@
                     <legend class="fieldset-label text-black px-2 w-auto">Details</legend>
                     {{ order_form.full_name | as_crispy_field }}
                     {{ order_form.email | as_crispy_field }}
+                    {{ order_form.phone_number | as_crispy_field }}
+
                 </fieldset>
 
                 <fieldset class="rounded px-3 mb-5">
                     <legend class="fieldset-label text-black px-2 w-auto">Delivery</legend>
-                    {{ order_form.phone_number | as_crispy_field }}
+                    <div id="autocomplete-container">
+                        {{ order_form.address_search|as_crispy_field }}
+                    </div>
                     {{ order_form.street_address1 | as_crispy_field }}
                     {{ order_form.street_address2 | as_crispy_field }}
                     {{ order_form.town_or_city | as_crispy_field }}
@@ -149,6 +153,68 @@
 <script>
     const STRIPE_PUBLIC_KEY = "{{ stripe_public_key|escapejs }}";
     const CACHE_CHECKOUT_DATA_URL = "{% url 'cache_checkout_data' %}";
+    const GEOAPIFY_API_KEY = "{{ geoapify_api_key|escapejs }}";
 </script>
+
 <script src="{% static 'checkout/js/checkout.js' %}"></script>
+<script src="{% static 'checkout/js/geoapify.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const container = document.getElementById("autocomplete-container");
+        if (!container) return;
+
+        addressAutocomplete(
+            container,
+            function (selected) {
+                if (!selected) return;
+
+                const addr1 = document.getElementById("id_street_address1");
+                const addr2 = document.getElementById("id_street_address2");
+                const city = document.getElementById("id_town_or_city");
+                const postcode = document.getElementById("id_postcode");
+                const country = document.getElementById("id_country");
+                const r = selected;
+
+                // ---- STREET ADDRESS 1 ----
+                // address_line1 is usually "Street + house number"
+                const line1 =
+                    r.address_line1 || [r.housenumber, r.street].filter(Boolean).join(" ");
+
+                if (addr1 && line1) addr1.value = line1;
+
+                // ---- STREET ADDRESS 2 (ONLY TRUE "INFILL") ----
+                if (addr2) {
+                    // Build line2 only from actual unit/level info, not city/postcode/country
+                    const line2Parts = [];
+                    if (r.unit) {
+                        line2Parts.push(r.unit); // e.g. "Flat 2"
+                    }
+                    if (r.level) {
+                        line2Parts.push(`Level ${r.level}`);
+                    }
+                    if (r.block) {
+                        line2Parts.push(r.block);
+                    }
+
+                    const line2 = line2Parts.join(", ");
+
+                    // If we found any real infill, use it; otherwise keep field truly empty
+                    addr2.value = line2 || "";
+                }
+
+                const cityValue =
+                    r.city || r.town || r.village || r.hamlet || "";
+                if (city && cityValue) city.value = cityValue;
+
+                if (postcode && r.postcode) postcode.value = r.postcode;
+
+                if (country && r.country_code) {
+                    country.value = r.country_code.toUpperCase();
+                }
+            }, {
+                placeholder: "Start typing your address…"
+            }
+        );
+    });
+</script>
 {% endblock %}
