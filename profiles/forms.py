@@ -1,8 +1,35 @@
 from django import forms
+from django.contrib.auth.models import User
 from .models import UserProfile
 
 
+class UserUpdateForm(forms.ModelForm):
+    """
+    Form to update user information
+    """
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        placeholders = {
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
+            'username': 'Username',
+        }
+
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'profile-form-input'
+            self.fields[field].widget.attrs['placeholder'] = placeholders[field]
+            self.fields[field].label = False
+
+
 class UserProfileForm(forms.ModelForm):
+    """
+    Form to manage user delivery information
+    """
     class Meta:
         model = UserProfile
         exclude = ('user',)
