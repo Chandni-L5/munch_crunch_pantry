@@ -120,7 +120,6 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
-ACCOUNT_EMAIL_REQUIRED = True
 
 WSGI_APPLICATION = 'munch_crunch_pantry.wsgi.application'
 

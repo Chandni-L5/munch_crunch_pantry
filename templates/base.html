@@ -119,7 +119,7 @@
                             <a href="" class="dropdown-item fw-bold menu-font-style">Product Management</a>
                             <hr class="dropdown-divider">
                             {% endif %}
-                            <a href="" class="dropdown-item fw-bold menu-font-style">My Profile</a>
+                            <a href="{% url 'profile' %}" class="dropdown-item fw-bold menu-font-style">My Profile</a>
                             <hr class="dropdown-divider">
                             <a href="{% url 'account_logout' %}"
                                 class="dropdown-item fw-bold menu-font-style">Logout</a>
