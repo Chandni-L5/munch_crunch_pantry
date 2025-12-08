@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-
-{% block extra_title %}Your Basket{% endblock %}
+{% block extra_title %}Your Basket{%endblock %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
+<link rel="stylesheet" href="{% static 'basket/css/basket.css' %}" />
 {% endblock %}
-
 {% block page_header %}
 <div class="container header-container">
     <div class="row">
@@ -13,14 +11,13 @@
     </div>
 </div>
 {% endblock %}
-
 {% block content %}
 <div class="container mb-2">
     <div class="row">
         <div class="col">
-            <hr>
+            <hr />
             <h2 class="logo-font mb-4">Your Basket</h2>
-            <hr>
+            <hr />
         </div>
     </div>
 
@@ -32,7 +29,9 @@
                     <!-- Desktop headers only -->
                     <thead class="text-black">
                         <tr>
-                            <th scope="col" colspan="2" class="text-center ps-3">Product Info</th>
+                            <th scope="col" colspan="2" class="text-center ps-3">
+                                Product Info
+                            </th>
                             <th scope="col" class="text-start">Price</th>
                             <th scope="col" class="text-start ps-5">Qty</th>
                             <th scope="col" class="text-start">Subtotal</th>
@@ -44,7 +43,6 @@
                             </td>
                         </tr>
                         {% endif %}
-
                     </thead>
 
                     <tbody>
@@ -55,18 +53,25 @@
                             <td class="p-3 text-center align-middle">
                                 {% if item.product.product.image %}
                                 <img src="{{ item.product.product.image.url }}" alt="{{ item.product.product.name }}"
-                                    class="img-fluid rounded">
+                                    class="img-fluid rounded" />
                                 {% else %}
                                 <img src="{{ MEDIA_URL }}noimage.png"
-                                    alt="{{ item.product.product.name }} (image coming soon)" class="img-fluid rounded">
+                                    alt="{{ item.product.product.name }} (image coming soon)"
+                                    class="img-fluid rounded" />
                                 {% endif %}
                             </td>
 
                             <!-- Product info -->
                             <td class="py-1 py-md-3 text-center text-md-start align-middle">
-                                <p class="my-0"><strong>{{ item.product.product.name }}</strong></p>
-                                <p class="my-0 text-muted">Package Size: {{ item.product.quantity.name }}</p>
-                                <p class="my-0 text-muted">SKU: {{ item.product.product.sku|upper }}</p>
+                                <p class="my-0">
+                                    <strong>{{ item.product.product.name }}</strong>
+                                </p>
+                                <p class="my-0 text-muted">
+                                    Package Size: {{ item.product.quantity.name }}
+                                </p>
+                                <p class="my-0 text-muted">
+                                    SKU: {{ item.product.product.sku|upper }}
+                                </p>
                             </td>
 
                             <!-- Price -->
@@ -86,10 +91,13 @@
                                     <div class="basket-actions-wrapper">
                                         <!-- Remove button -->
                                         <a href="#" class="remove-item text-danger fw-bold me-2"
-                                            id="remove_{{ item.item_id }}" data-tooltip="Remove from basket">
+                                            id="remove_{{ item.item_id }}"
+                                            data-url="{% url 'remove_from_basket' item.item_id %}"
+                                            data-csrf="{{ csrf_token }}"
+                                            data-item-name="{{ item.product.product.name }}"
+                                            data-tooltip="Remove from basket">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a>
-
                                         <!-- Qty controls -->
                                         <form method="POST" action="{% url 'adjust_basket' item.item_id %}"
                                             class="update-form mb-0">
@@ -107,7 +115,7 @@
                                                         <input type="number"
                                                             class="form-control form-control-sm qty-input text-center"
                                                             name="quantity" value="{{ item.quantity }}" min="1" max="99"
-                                                            data-item_id="{{ item.item_id }}">
+                                                            data-item_id="{{ item.item_id }}" />
                                                         <!-- Plus -->
                                                         <button type="button" class="qty-btn qty-btn-sm qty-btn-plus"
                                                             data-item_id="{{ item.item_id }}"
@@ -142,9 +150,7 @@
                                 <div class="basket-divider"></div>
                             </td>
                         </tr>
-                        {% endif %}
-
-                        {% endfor %}
+                        {% endif %} {% endfor %}
 
                         <!-- Totals -->
                         <tr>
@@ -156,7 +162,8 @@
                                 </h4>
                                 {% if free_delivery_delta > 0 %}
                                 <p class="mb-1 text-danger">
-                                    Spend £ {{ free_delivery_delta|floatformat:2 }} more for free delivery!
+                                    Spend £ {{ free_delivery_delta|floatformat:2 }} more for free
+                                    delivery!
                                 </p>
                                 {% endif %}
                             </td>
@@ -170,7 +177,8 @@
                                     <span class="icon"><i class="fas fa-chevron-left"></i></span>
                                     <span class="text-uppercase">Continue Shopping</span>
                                 </a>
-                                <a href="{% url 'checkout' %}" class="bskt-checkout-btn ms-md-4 d-inline-block mt-2 mt-md-0">
+                                <a href="{% url 'checkout' %}"
+                                    class="bskt-checkout-btn ms-md-4 d-inline-block mt-2 mt-md-0">
                                     <span class="text-uppercase">Proceed to Secure Checkout</span>
                                     <span class="icon"><i class="fas fa-lock"></i></span>
                                 </a>
@@ -189,33 +197,41 @@
         </div>
     </div>
 </div>
-{% endblock %}
 
+<!-- Remove Item Confirmation Modal -->
+<div class="modal fade" id="removeItemModal" tabindex="-1" aria-labelledby="removeItemModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="removeItemModalLabel">
+                    Remove item from basket?
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-1">
+                    Are you sure you want to remove
+                    <strong id="removeItemName">this item</strong> from your basket?
+                </p>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-danger" id="confirmRemoveBtn">
+                    Remove item
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
 {% block postloadjs %}
 {{ block.super }}
 {% include "products/includes/quantity_input_script.html" %}
-
-<script type="text/javascript">
-    // Submit the update form when "Update" is clicked
-    $('.update-link').click(function (e) {
-        e.preventDefault();
-        const form = $(this).closest('.basket-actions-wrapper').find('.update-form');
-        form.submit();
-    });
-
-    // Remove item from basket
-    $('.remove-item').click(function (e) {
-        e.preventDefault();
-        const csrf_token = '{{ csrf_token }}';
-        const item_id = $(this).attr('id').split('remove_')[1];
-        const url = "{% url 'remove_from_basket' 0 %}".replace('0', item_id);
-        const data = {
-            'csrfmiddlewaretoken': csrf_token,
-        };
-
-        $.post(url, data).done(function () {
-            location.reload();
-        });
-    });
-</script>
+<script type="text/javascript" src="{% static 'basket/js/basket.js' %}"></script>
 {% endblock %}
