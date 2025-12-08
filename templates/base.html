@@ -55,163 +55,19 @@
 </head>
 
 <body>
-    <header class="container-fluid fixed-top px-0">
-        <div id="topnav" class="row d-none d-lg-flex">
-            <!-- Logo/home button -->
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-start">
-                <a href="{% url 'home' %}" class="nav-link main-logo-link">
-                    <img src="/media/mcp-logo.webp" alt="Munch Crunch Pantry Logo" class="main-logo img-fluid w-75">
-                </a>
-            </div>
-            <!-- Search Function -->
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <form method="GET" action="{% url 'products' %}">
-                    <div class="input-group w-100">
-                        <input type="text" class="form-control border border-black rounded-0" name="q"
-                            placeholder="Search our site">
-                        <button class="btn search-btn-style border border-black rounded-0" type="submit">
-                            <span class="icon">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <!-- Menu, My Account and Basket -->
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <ul class="list-inline list-unstyled text-center text-lg-end my-0">
-                    <!-- Menu -->
-                    <li class="list-inline-item dropdown">
-                        <a href="" class="nav-link dropdown-toggle p-0 remove-arrow" id="menu-dropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="text-center">
-                                <div>
-                                    <i class="fa-solid fa-bars fa-lg nav-icon"></i>
-                                </div>
-                                <p class="my-0 nav-icon">Menu</p>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-border" aria-labelledby="menu-dropdown">
-                            <a href="" class="dropdown-item fw-bold menu-font-style">About us</a>
-                            <hr class="dropdown-divider">
-                            <a href="" class="dropdown-item fw-bold menu-font-style">Product Origins</a>
-                            <hr class="dropdown-divider">
-                            <a href="" class="dropdown-item fw-bold menu-font-style">Contact Us</a>
-                            <hr class="dropdown-divider">
-                            <a href="" class="dropdown-item fw-bold menu-font-style">FAQs</a>
-                            <hr class="dropdown-divider">
-                            <a href="" class="dropdown-item fw-bold menu-font-style">Delivery & Returns</a>
-                        </div>
-                    </li>
-                    <li class="list-inline-item dropdown">
-                        <a class="nav-link dropdown-toggle remove-arrow p-0" href="#" id="user-options" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="text-center">
-                                <div>
-                                    <i class="fa-solid fa-user fa-lg nav-icon"></i>
-                                </div>
-                                <p class="my-0 nav-icon">My Account</p>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-border" aria-labelledby="user-options">
-                            {% if request.user.is_authenticated %}
-                            {% if request.user.is_superuser %}
-                            <a href="" class="dropdown-item fw-bold menu-font-style">Product Management</a>
-                            <hr class="dropdown-divider">
-                            {% endif %}
-                            <a href="{% url 'profile' %}" class="dropdown-item fw-bold menu-font-style">My Profile</a>
-                            <hr class="dropdown-divider">
-                            <a href="{% url 'account_logout' %}"
-                                class="dropdown-item fw-bold menu-font-style">Logout</a>
-                            {% else %}
-                            <a href="{% url 'account_login' %}" class="dropdown-item fw-bold menu-font-style">Login</a>
-                            <hr class="dropdown-divider">
-                            <a href="{% url 'account_signup' %}"
-                                class="dropdown-item fw-bold menu-font-style">Register</a>
-                            {% endif %}
-                        </div>
-                    </li>
-                    <!-- Basket -->
-                    <li class="list-inline-item me-3">
-                        <a class="{% if grand_total %}text-info fw-bold{% else %}text-dark{% endif %} nav-link"
-                            href="{% url 'view_basket' %}">
-                            <div class="text-center">
-                                <div><i class="fa-solid fa-basket-shopping fa-lg nav-icon"></i></div>
-                                <p class="my-0 nav-icon">
-                                    {% if grand_total %}
-                                    £{{ grand_total|floatformat:2 }}
-                                    {% else %}
-                                    £0.00
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <nav class="navbar navbar-expand-lg w-100 mobile-nav-style p-0">
-            <div class="container-fluid px-0">
-
-                <!-- Smaller screen navbar -->
-                <div class="w-100 d-flex d-lg-none">
-                    {% include "includes/mobile-top-header.html" %}
+    <div class="page-wrapper d-flex flex-column min-vh-100">
+        <header class="container-fluid fixed-top px-0">
+            <div id="topnav" class="row d-none d-lg-flex">
+                <!-- Logo/home button -->
+                <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-start">
+                    <a href="{% url 'home' %}" class="nav-link main-logo-link">
+                        <img src="/media/mcp-logo.webp" alt="Munch Crunch Pantry Logo" class="main-logo img-fluid w-75">
+                    </a>
                 </div>
-
-                <!-- Desktop navbar -->
-                <div class="collapse navbar-collapse" id="main-nav">
-                    {% include "includes/main-nav.html" %}
-                </div>
-            </div>
-        </nav>
-        {% include "includes/info-banner.html" %}
-    </header>
-
-
-    <!-- Page Content below the header/nav -->
-    <main class="page-content">
-        {% if messages %}
-        <div class="message-container">
-            {% for message in messages %}
-                {% with message.level as level %}
-                    {% if level == 40 %}
-                        {% include "includes/toasts/toast_error.html" with message=message %}
-                    {% elif level == 30 %}
-                        {% include "includes/toasts/toast_warning.html" with message=message %}
-                    {% elif level == 25 %}
-                        {% include "includes/toasts/toast_success.html" with message=message %}
-                    {% elif level == 20 %}
-                        {% include "includes/toasts/toast_info.html" with message=message %}
-                    {% endif %}
-                {% endwith %}
-            {% endfor %}
-        </div>
-        {% endif %}
-
-        {% block page_header %}{% endblock %}
-
-        {% block content %}{% endblock %}
-    </main>
-
-    <!-- Footer -->
-    <div class="site-footer">
-        {% block newsletter_banner %}
-        {% include "includes/newsletter-banner.html" %}
-        {% endblock %}
-
-        {% include "includes/footer-desktop.html" %}
-        {% include "includes/footer-mobile.html" %}
-    </div>
-
-    <!-- Mobile Fullscreen Search Modal -->
-    <div class="modal fade" id="mobileSearchModal" tabindex="-1" aria-labelledby="mobileSearchLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content mobile-search-modal-content">
-                <div class="modal-body d-flex flex-column justify-content-center align-items-center">
-                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                    <form method="GET" action="{% url 'products' %}" class="w-100 px-4" id="mobile-search-form">
-                        <div class="input-group">
+                <!-- Search Function -->
+                <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+                    <form method="GET" action="{% url 'products' %}">
+                        <div class="input-group w-100">
                             <input type="text" class="form-control border border-black rounded-0" name="q"
                                 placeholder="Search our site">
                             <button class="btn search-btn-style border border-black rounded-0" type="submit">
@@ -222,8 +78,155 @@
                         </div>
                     </form>
                 </div>
+                <!-- Menu, My Account and Basket -->
+                <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+                    <ul class="list-inline list-unstyled text-center text-lg-end my-0">
+                        <!-- Menu -->
+                        <li class="list-inline-item dropdown">
+                            <a href="" class="nav-link dropdown-toggle p-0 remove-arrow" id="menu-dropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="text-center">
+                                    <div>
+                                        <i class="fa-solid fa-bars fa-lg nav-icon"></i>
+                                    </div>
+                                    <p class="my-0 nav-icon">Menu</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-border" aria-labelledby="menu-dropdown">
+                                <a href="" class="dropdown-item fw-bold menu-font-style">About us</a>
+                                <hr class="dropdown-divider">
+                                <a href="" class="dropdown-item fw-bold menu-font-style">Product Origins</a>
+                                <hr class="dropdown-divider">
+                                <a href="" class="dropdown-item fw-bold menu-font-style">Contact Us</a>
+                                <hr class="dropdown-divider">
+                                <a href="" class="dropdown-item fw-bold menu-font-style">FAQs</a>
+                                <hr class="dropdown-divider">
+                                <a href="" class="dropdown-item fw-bold menu-font-style">Delivery & Returns</a>
+                            </div>
+                        </li>
+                        <li class="list-inline-item dropdown">
+                            <a class="nav-link dropdown-toggle remove-arrow p-0" href="#" id="user-options" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="text-center">
+                                    <div>
+                                        <i class="fa-solid fa-user fa-lg nav-icon"></i>
+                                    </div>
+                                    <p class="my-0 nav-icon">My Account</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-border" aria-labelledby="user-options">
+                                {% if request.user.is_authenticated %}
+                                {% if request.user.is_superuser %}
+                                <a href="" class="dropdown-item fw-bold menu-font-style">Product Management</a>
+                                <hr class="dropdown-divider">
+                                {% endif %}
+                                <a href="{% url 'profile' %}" class="dropdown-item fw-bold menu-font-style">My Profile</a>
+                                <hr class="dropdown-divider">
+                                <a href="{% url 'account_logout' %}"
+                                    class="dropdown-item fw-bold menu-font-style">Logout</a>
+                                {% else %}
+                                <a href="{% url 'account_login' %}" class="dropdown-item fw-bold menu-font-style">Login</a>
+                                <hr class="dropdown-divider">
+                                <a href="{% url 'account_signup' %}"
+                                    class="dropdown-item fw-bold menu-font-style">Register</a>
+                                {% endif %}
+                            </div>
+                        </li>
+                        <!-- Basket -->
+                        <li class="list-inline-item me-3">
+                            <a class="{% if grand_total %}text-info fw-bold{% else %}text-dark{% endif %} nav-link"
+                                href="{% url 'view_basket' %}">
+                                <div class="text-center">
+                                    <div><i class="fa-solid fa-basket-shopping fa-lg nav-icon"></i></div>
+                                    <p class="my-0 nav-icon">
+                                        {% if grand_total %}
+                                        £{{ grand_total|floatformat:2 }}
+                                        {% else %}
+                                        £0.00
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <nav class="navbar navbar-expand-lg w-100 mobile-nav-style p-0">
+                <div class="container-fluid px-0">
+
+                    <!-- Smaller screen navbar -->
+                    <div class="w-100 d-flex d-lg-none">
+                        {% include "includes/mobile-top-header.html" %}
+                    </div>
+
+                    <!-- Desktop navbar -->
+                    <div class="collapse navbar-collapse" id="main-nav">
+                        {% include "includes/main-nav.html" %}
+                    </div>
+                </div>
+            </nav>
+            {% include "includes/info-banner.html" %}
+        </header>
+
+
+        <!-- Page Content below the header/nav -->
+        <main class="page-content">
+            {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                    {% with message.level as level %}
+                        {% if level == 40 %}
+                            {% include "includes/toasts/toast_error.html" with message=message %}
+                        {% elif level == 30 %}
+                            {% include "includes/toasts/toast_warning.html" with message=message %}
+                        {% elif level == 25 %}
+                            {% include "includes/toasts/toast_success.html" with message=message %}
+                        {% elif level == 20 %}
+                            {% include "includes/toasts/toast_info.html" with message=message %}
+                        {% endif %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% block page_header %}{% endblock %}
+
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Footer -->
+        <div class="site-footer">
+            {% block newsletter_banner %}
+            {% include "includes/newsletter-banner.html" %}
+            {% endblock %}
+
+            {% include "includes/footer-desktop.html" %}
+            {% include "includes/footer-mobile.html" %}
         </div>
+
+    </div>
+
+        <!-- Mobile Fullscreen Search Modal -->
+    <div class="modal fade" id="mobileSearchModal" tabindex="-1" aria-labelledby="mobileSearchLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content mobile-search-modal-content">
+                    <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+                        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                        <form method="GET" action="{% url 'products' %}" class="w-100 px-4" id="mobile-search-form">
+                            <div class="input-group">
+                                <input type="text" class="form-control border border-black rounded-0" name="q"
+                                    placeholder="Search our site">
+                                <button class="btn search-btn-style border border-black rounded-0" type="submit">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
     </div>
 
     {% block postloadjs %}
