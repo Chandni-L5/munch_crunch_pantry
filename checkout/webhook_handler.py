@@ -122,6 +122,7 @@ class StripeWH_Handler:
         if order_exists:
             logger.info(f"Order already exists for PI {pid} ({order.order_number})")
             self._send_confirmation_email(order)
+            logger.info(f"Confirmation email sent for order {order.order_number} to {order.email}")
             return HttpResponse("Webhook: order already exists", status=200)
 
         try:
