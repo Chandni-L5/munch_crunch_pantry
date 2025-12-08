@@ -74,7 +74,6 @@ def checkout(request):
             request.session['save_info'] = 'save_info' in request.POST
             return redirect('checkout_success', order_number=order.order_number)
         else:
-            print("Order form invalid", order_form.errors)  # DEBUG: watch runserver output
             messages.error(
                 request,
                 "There was an error with your form. Please double-check your information."
@@ -94,7 +93,10 @@ def checkout(request):
                     'country': profile.default_country,
                 })
             except UserProfile.DoesNotExist:
-                order_form = OrderForm()
+                order_form = OrderForm(initial={
+                    "full_name": request.user.get_full_name() or request.user.username,
+                    "email": request.user.email,
+                })
         else:
             order_form = OrderForm()
 
@@ -147,15 +149,6 @@ def checkout_success(request, order_number):
         order.save()
 
         if save_info:
-            print("ORDER DATA:", {
-                "phone_number": order.phone_number,
-                "street_address1": order.street_address1,
-                "street_address2": order.street_address2,
-                "town_or_city": order.town_or_city,
-                "postcode": order.postcode,
-                "country": order.country,
-            })
-
             profile_data = {
                 "default_phone_number": order.phone_number,
                 "default_street_address1": order.street_address1,
@@ -167,9 +160,8 @@ def checkout_success(request, order_number):
             user_profile_form = UserProfileForm(profile_data, instance=profile)
             if user_profile_form.is_valid():
                 user_profile_form.save()
-                print("Profile updated successfully")  # DEBUG
             else:
-                print("UserProfileForm invalid:", user_profile_form.errors)  # DEBUG
+                messages.error(request, "There was an error updating your profile. Please check the form.")
 
     messages.success(
         request,
