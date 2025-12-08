@@ -111,6 +111,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
+DEFAULT_FROM_EMAIL = 'noreply@munchcrunchpantry.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_LOGIN_METHODS = {"username", "email"}

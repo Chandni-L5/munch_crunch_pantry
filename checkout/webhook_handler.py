@@ -6,6 +6,8 @@ import logging
 from django.http import HttpResponse
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
 
 from .models import Order, OrderLineItem
 from products.models import ProductQuantity
@@ -23,6 +25,24 @@ class StripeWH_Handler:
 
     def __init__(self, request):
         self.request = request
+
+    def _send_confirmation_email(self, order):
+        """Send the user an order confirmation email."""
+        cust_email = order.email
+        subject = render_to_string(
+            "checkout/confirmation_emails/confirmation_email_subject.txt",
+            {"order": order},
+        ).strip()
+        body = render_to_string(
+            "checkout/confirmation_emails/confirmation_email_body.txt",
+            {"order": order, 'contact_email': settings.DEFAULT_FROM_EMAIL},
+        )
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email],
+        )
 
     def handle_event(self, event):
         """Handle unexpected webhook events."""
@@ -101,6 +121,7 @@ class StripeWH_Handler:
 
         if order_exists:
             logger.info(f"Order already exists for PI {pid} ({order.order_number})")
+            self._send_confirmation_email(order)
             return HttpResponse("Webhook: order already exists", status=200)
 
         try:
@@ -134,7 +155,7 @@ class StripeWH_Handler:
                 )
 
             order.update_total()
-
+            self._send_confirmation_email(order)
             logger.info(f"Order created by webhook for PI {pid} ({order.order_number})")
             return HttpResponse("Webhook: order created", status=200)
 

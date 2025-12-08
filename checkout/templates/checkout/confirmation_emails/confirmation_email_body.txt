@@ -1,0 +1,24 @@
+Hi {{ order.full_name }} 👋🏼
+
+This is a confirmation of your order at Munch Crunch Pantry. 🌴🥜
+
+Your order {{ order.order_number }} was received on {{ order.date }}.
+
+Order Summary:
+------------------------------
+Order Total: £{{ order.order_total }}
+Delivery: £{{ order.delivery_cost }}
+Grand Total: £{{ order.grand_total }}
+------------------------------
+
+Your order will be shipped to {{ order.street_address1 }}, {% if order.street_address2 %}{{ order.street_address2 }}, {% endif %}{{ order.town_or_city }}, {{ order.postcode }}, {{ order.country}}.
+
+We've got your phone number on file as {{ order.phone_number }} and your email address as {{ order.email }}.
+
+If you have any questions about your order, please contact us at info@munchcrunchpantry.com quoting your order number ({{ order.order_number }}).
+
+Thank you for shopping with us! 
+
+Happy munching 
+
+The Munch Crunch Pantry Team
