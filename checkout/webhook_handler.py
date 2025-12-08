@@ -5,9 +5,11 @@ import logging
 
 from django.http import HttpResponse
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from .models import Order, OrderLineItem
 from products.models import ProductQuantity
+from profiles.models import UserProfile
 
 logger = logging.getLogger(__name__)
 
@@ -34,8 +36,10 @@ class StripeWH_Handler:
         """Handle the payment_intent.succeeded webhook."""
         intent = event["data"]["object"]
         pid = intent["id"]
-        metadata = intent.get("metadata", {})
+        metadata = intent.get("metadata", {}) or {}
         basket_str = metadata.get("basket")
+        username = metadata.get("username", "AnonymousUser")
+        save_info = metadata.get("save_info", "false")
 
         if not basket_str:
             logger.error(f"No basket metadata for PI {pid}")
@@ -51,6 +55,25 @@ class StripeWH_Handler:
         for field, value in shipping_address.items():
             if value == "":
                 shipping_address[field] = None
+
+        profile = None
+        if username != "AnonymousUser":
+            try:
+                user = User.objects.get(username=username)
+                profile, created = UserProfile.objects.get_or_create(user=user)
+
+                if save_info == "true":
+                    profile.default_phone_number = shipping_details.get("phone")
+                    profile.default_street_address1 = shipping_address.get("line1")
+                    profile.default_street_address2 = shipping_address.get("line2")
+                    profile.default_town_or_city = shipping_address.get("city")
+                    profile.default_postcode = shipping_address.get("postal_code")
+                    profile.default_country = shipping_address.get("country")
+                    profile.save()
+            except User.DoesNotExist:
+                logger.warning(
+                    f"Username {username} from metadata not found when handling PI {pid}"
+                )
 
         order_exists = False
         order = None
@@ -92,6 +115,7 @@ class StripeWH_Handler:
                 street_address2=shipping_address.get("line2"),
                 original_basket=basket_str or "",
                 stripe_pid=pid,
+                user_profile=profile,
             )
 
             basket = json.loads(basket_str)
@@ -111,9 +135,7 @@ class StripeWH_Handler:
 
             order.update_total()
 
-            logger.info(
-                f"Order created by webhook for PI {pid} ({order.order_number})"
-            )
+            logger.info(f"Order created by webhook for PI {pid} ({order.order_number})")
             return HttpResponse("Webhook: order created", status=200)
 
         except Exception as e:

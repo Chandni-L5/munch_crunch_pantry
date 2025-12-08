@@ -211,9 +211,9 @@ def cache_checkout_data(request):
             pid,
             metadata={
                 "basket": json.dumps(basket),
-                "save_info": json.dumps(save_info),
+                "save_info": str(save_info).lower(),
                 "username": (
-                    request.user.username if request.user.is_authenticated else "anonymous"
+                    request.user.username if request.user.is_authenticated else "AnonymousUser"
                 ),
             },
         )

@@ -86,6 +86,7 @@
 
 {% block postloadjs %}
 {{ block.super }}
+<script>
 document.addEventListener("DOMContentLoaded", function () {
 const form = document.getElementById("profile-update-form");
 const button = document.getElementById("update-profile-btn");
@@ -106,4 +107,5 @@ return;
 button.disabled = true;
 });
 });
+</script>
 {% endblock %}

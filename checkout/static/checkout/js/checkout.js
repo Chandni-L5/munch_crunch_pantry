@@ -225,7 +225,7 @@ async function handleSubmit(e) {
             console.error("Error caching checkout data:", cacheData);
             showError(
                 cacheData.error ||
-                    "We couldn't process your payment. Please try again."
+                "We couldn't process your payment. Please try again."
             );
             resetProcessingState();
             return;
@@ -238,7 +238,9 @@ async function handleSubmit(e) {
     }
 
     toggleFormDisabled(true);
-    card.update({ disabled: true });
+    card.update({
+        disabled: true
+    });
 
     console.log("Client secret:", clientSecret);
 
@@ -258,7 +260,10 @@ async function handleSubmit(e) {
         return;
     }
 
-    const { error, paymentIntent } = result;
+    const {
+        error,
+        paymentIntent
+    } = result;
 
     if (error) {
         console.error("Stripe error debug:", {
@@ -268,12 +273,11 @@ async function handleSubmit(e) {
             full_error: error,
         });
 
-    const friendlyMessage = getFriendlyStripeErrorMessage(error);
-    showError(friendlyMessage);
-    resetProcessingState();
-    return;
-}
-
+        const friendlyMessage = getFriendlyStripeErrorMessage(error);
+        showError(friendlyMessage);
+        resetProcessingState();
+        return;
+    }
 
     if (paymentIntent && paymentIntent.status === "succeeded") {
         toggleFormDisabled(false);
@@ -331,7 +335,9 @@ function toggleFormDisabled(disabled) {
 function resetProcessingState() {
     setLoading(false);
     toggleFormDisabled(false);
-    card.update({ disabled: false });
+    card.update({
+        disabled: false
+    });
     isProcessing = false;
 }
 
