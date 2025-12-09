@@ -40,23 +40,30 @@ def profile(request):
     return render(request, template, context)
 
 
+@login_required
 def order_history(request, order_number):
-    """ A view to return the user's order history page """
     order = get_object_or_404(
         Order,
         order_number=order_number,
-        user_profile=request.user.userprofile
+        user_profile=request.user.userprofile,
     )
 
-    messages.info(request, (
-        f'This is a past confirmation for order number {order_number}. '
-        'A confirmation email was sent on the order date.'
-    ))
+    from_email = request.GET.get("from_email") == "1"
 
-    template = 'checkout/checkout_success.html'
+    if not from_email:
+        messages.info(
+            request,
+            (
+                f"This is a past confirmation for order number {order_number}. "
+                "A confirmation email was sent on the order date."
+            )
+        )
+
+    template = "checkout/checkout_success.html"
     context = {
-        'order': order,
-        'from_profile': True,
+        "order": order,
+        "from_profile": True,
+        "from_email": from_email,
     }
 
     return render(request, template, context)

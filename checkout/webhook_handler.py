@@ -31,19 +31,25 @@ class StripeWH_Handler:
         """Send the user an order confirmation email."""
         cust_email = order.email
         request = self.request
-        order_history_url = request.build_absolute_uri(
-            reverse('order_history', args=[order.order_number])
-        )
+
+        if order.user_profile:
+            base_url = reverse("order_history", args=[order.order_number])
+        else:
+            base_url = reverse("checkout_success", args=[order.order_number])
+
+        order_url = request.build_absolute_uri(f"{base_url}?from_email=1")
+
         subject = render_to_string(
             "checkout/confirmation_emails/confirmation_email_subject.txt",
             {"order": order},
         ).strip()
+
         body = render_to_string(
             "checkout/confirmation_emails/confirmation_email_body.txt",
             {
                 "order": order,
                 "contact_email": settings.DEFAULT_FROM_EMAIL,
-                "order_history_url": order_history_url,
+                "order_url": order_url,
             },
         )
         send_mail(

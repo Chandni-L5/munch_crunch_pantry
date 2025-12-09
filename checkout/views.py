@@ -141,8 +141,9 @@ def checkout_success(request, order_number):
     """
     Handle successful checkouts
     """
-    save_info = request.session.get("save_info")
     order = get_object_or_404(Order, order_number=order_number)
+    from_email = request.GET.get("from_email") == "1"
+    save_info = request.session.get("save_info", False)
 
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
@@ -164,22 +165,26 @@ def checkout_success(request, order_number):
             else:
                 messages.error(request, "There was an error updating your profile. Please check the form.")
 
-    messages.success(
-        request,
-        f"Order successfully processed! "
-        f"Your order number is {order.order_number}. "
-        "A confirmation email will be sent to "
-        f"{order.email}.",
-    )
+    if not from_email:
+        messages.success(
+            request,
+            f"Order successfully processed! "
+            f"Your order number is {order.order_number}. "
+            "A confirmation email will be sent to "
+            f"{order.email}.",
+        )
 
     if "basket" in request.session:
         del request.session["basket"]
 
+    template = "checkout/checkout_success.html"
     context = {
         "order": order,
+        "from_profile": False,
+        "from_email": from_email,
     }
 
-    return render(request, "checkout/checkout_success.html", context)
+    return render(request, template, context)
 
 
 @require_POST
