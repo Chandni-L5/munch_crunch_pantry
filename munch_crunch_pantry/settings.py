@@ -116,11 +116,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_LOGIN_METHODS = {"username", "email"}
 ACCOUNT_SIGNUP_FIELDS = ["email*", "email2*",  "username*",  "password1*", "password2*",]
+ACCOUNT_EMAIL_UNIQUE = True
+ACCOUNT_PREVENT_ENUMERATION = False
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
+ACCOUNT_FORMS = {"signup": "profiles.forms.CustomSignupForm", }
 
 WSGI_APPLICATION = 'munch_crunch_pantry.wsgi.application'
 

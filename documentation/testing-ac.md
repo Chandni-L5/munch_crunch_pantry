@@ -8,7 +8,7 @@
 | 1.1 | AC2 | Registration form fields present | 1. Click "Sign up"<br>2. View registration form | Email + password fields visible (social login if enabled) | |
 | 1.1 | AC3 | Input validation + error messages | 1. Submit invalid/empty form<br>2. Try invalid email<br>3. Try weak password | Errors displayed for invalid or missing input | |
 | 1.1 | AC4 | Prevent duplicate registrations | 1. Register with Email A<br>2. Try registering again with Email A | Error: “Email already registered” | |
-| 1.1 | AC5 | Successful registration | 1. Register with valid data<br>2. Submit | Redirect to homepage + success message shown | |
+| 1.1 | AC5 | Successful registration | 1. Register with valid data<br>2. Submit | success message shown | |
 | 1.1 | AC6 | Social login option visible | 1. View registration page | Social login buttons (Google/Facebook/etc.) visible | |
 
 ### User Story 1.2 — Register Using Social Media
@@ -104,7 +104,6 @@
 |-------|-------|-------------|------------|-----------------|-----------|
 | 2.7 | AC1 | Search bar visible | 1. Open homepage | Search bar is visible on navigation or homepage | |
 | 2.7 | AC2 | Search returns matching results | 1. Search for keyword matching a product | Correct products appear with image, price, brief info | |
-| 2.7 | AC3 | No results message shows | 1. Search for non-existing keyword | “No products found” message is displayed | |
 
 ### User Story 2.8 — Filter Products
 

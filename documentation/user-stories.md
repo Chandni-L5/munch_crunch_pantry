@@ -129,8 +129,6 @@
 
 <strong>AC2:</strong> Applying filters should dynamically update the product listing to show only products that meet the selected criteria.
 
-<strong>AC3:</strong> Users should be able to clear applied filters to return to the full product listing.
-
 ### 2.8 - As admin, I want to add, edit, and delete products so that I can manage the product catalog effectively.
 
 <strong>AC1:</strong> The admin dashboard should include a "Product Management" section where admins can view a list of all products.

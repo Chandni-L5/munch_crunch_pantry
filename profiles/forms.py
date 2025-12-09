@@ -1,5 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+
+from allauth.account.forms import SignupForm
+
 from .models import UserProfile
 
 
@@ -57,3 +62,24 @@ class UserProfileForm(forms.ModelForm):
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'profile-form-input'
             self.fields[field].label = False
+
+
+User = get_user_model()
+
+
+class CustomSignupForm(SignupForm):
+    def clean_username(self):
+        username = self.cleaned_data["username"]
+        if User.objects.filter(username__iexact=username).exists():
+            raise ValidationError(
+                "This username is already taken. Please choose another."
+            )
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        if User.objects.filter(email__iexact=email).exists():
+            raise ValidationError(
+                "An account with this email already exists. Please sign in or reset your password."
+            )
+        return email
