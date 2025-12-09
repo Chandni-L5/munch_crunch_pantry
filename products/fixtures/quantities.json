@@ -1,0 +1,65 @@
+[
+{
+    "model": "products.quantity",
+    "pk": 1,
+    "fields": {
+        "name": "200g"
+    }
+},
+{
+    "model": "products.quantity",
+    "pk": 2,
+    "fields": {
+        "name": "500g"
+    }
+},
+{
+    "model": "products.quantity",
+    "pk": 3,
+    "fields": {
+        "name": "1kg"
+    }
+},
+{
+    "model": "products.quantity",
+    "pk": 4,
+    "fields": {
+        "name": "100ml"
+    }
+},
+{
+    "model": "products.quantity",
+    "pk": 5,
+    "fields": {
+        "name": "600ml"
+    }
+},
+{
+    "model": "products.quantity",
+    "pk": 6,
+    "fields": {
+        "name": "1.5L"
+    }
+},
+{
+    "model": "products.quantity",
+    "pk": 7,
+    "fields": {
+        "name": "100g"
+    }
+},
+{
+    "model": "products.quantity",
+    "pk": 8,
+    "fields": {
+        "name": "400g"
+    }
+},
+{
+    "model": "products.quantity",
+    "pk": 9,
+    "fields": {
+        "name": "800g"
+    }
+}
+]

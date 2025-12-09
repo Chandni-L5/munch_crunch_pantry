@@ -1,0 +1,464 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "category": 1,
+        "sku": "51507202",
+        "name": "Walnuts",
+        "description": "Our walnuts are sustainably sourced from farms that use responsible water management and soil-friendly practices, ensuring long-term environmental care and consistently high-quality harvests.\r\n\r\nThey’re naturally rich in omega-3 fatty acids, antioxidants, and essential minerals, supporting heart health, brain function, and overall wellbeing. Perfect for snacking, baking, salads, and nutritious everyday meals.",
+        "image": "walnuts_UGJCzxb.webp",
+        "ingredients": "100% walnuts",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Romania"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "category": 1,
+        "sku": "C8888892",
+        "name": "Hazlenuts",
+        "description": "Crunchy, naturally sweet, and packed with goodness — our premium hazelnuts are the perfect pantry staple. Each batch is sustainably sourced from trusted growers who prioritise soil health and biodiversity, ensuring quality you can taste in every bite.\r\n\r\nRich in healthy fats, vitamin E, and plant protein, hazelnuts support glowing skin, long-lasting energy, and heart-healthy nutrition. Enjoy them straight from the pouch, blend into nut butter, or sprinkle over breakfast bowls for a delicious nutrient boost.\r\n\r\nPure. Wholesome. Sustainably grown. Perfect for snacking or creating your favourite recipes.",
+        "image": "hazlenuts_bqB8WH6.webp",
+        "ingredients": "100% hazlenuts",
+        "storage_instructions": "Store in a cool dry place",
+        "country_of_origin": "Serbia"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "category": 1,
+        "sku": "4BBFD2F7",
+        "name": "Blanched almonds",
+        "description": "Our blanched almonds boast a clean, creamy ivory colour with a smooth, velvety surface — created naturally when the almonds are gently steamed to remove their skins. Their light, uniform tone is a hallmark of premium-grade nuts, ensuring consistent quality in every pack.\r\n\r\nSustainably sourced from trusted growers who prioritise ethical farming and water-responsible cultivation, these almonds are harvested with respect for the land and local communities. Each batch is carefully selected to support environmentally conscious agriculture, ensuring freshness, purity, and long-term sustainability.\r\n\r\nBeyond their beautiful pale-gold colour, blanched almonds are packed with health benefits. They’re naturally rich in vitamin E, magnesium, healthy fats, and plant-based protein — supporting skin health, energy levels, and overall wellbeing. Their gentle flavour and nutrient density make them perfect for snacking, baking, blending, or adding a wholesome boost to your favourite dishes.\r\n\r\nPure, sustainable, and nourishing — these blanched almonds are a staple for every healthy pantry.",
+        "image": "blanched-almonds_zkMQK4K.webp",
+        "ingredients": "100% almonds",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Morocco"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "category": 3,
+        "sku": "43B64F56",
+        "name": "Dried Apricots",
+        "description": "Naturally sweet, soft, and full of goodness. Our dried apricots are sustainably sourced from family-run orchards in Turkey, where responsible farming protects the land and supports local growers.\r\n\r\nPacked with vitamin A, potassium, fibre, and natural antioxidants, they’re a simple, nourishing snack you can enjoy anytime. No added sugar. Just pure, sun-dried flavour.",
+        "image": "apricots.webp",
+        "ingredients": "100% Apricots",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Turkey"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+        "category": 1,
+        "sku": "091FE200",
+        "name": "Brazil Nuts",
+        "description": "Rich, crunchy, and naturally nourishing. Our Brazil nuts are ethically sourced from sustainable Amazon rainforest cooperatives, supporting local communities and protecting native ecosystems.\r\n\r\nA powerhouse of selenium, plus healthy fats and antioxidants, they help support immunity, skin health, and long-lasting energy. Pure, creamy flavour — no additives, no fuss.",
+        "image": "brazil-nuts.webp",
+        "ingredients": "100% Brazil nuts",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Brazil"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+        "category": 1,
+        "sku": "BF1C1BDA",
+        "name": "Cashews",
+        "description": "Creamy, buttery, and effortlessly snackable. Our cashews are responsibly sourced from smallholder farms in Vietnam, where sustainable harvesting supports fair livelihoods and soil-friendly growing practices.\r\n\r\nNaturally rich in healthy fats, magnesium, and plant protein, they’re perfect for clean energy, smoother skin, and everyday nourishment. Pure, lightly sweet cashew flavour — nothing added.",
+        "image": "cashews.webp",
+        "ingredients": "100% Cashews",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Vietnam"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 7,
+    "fields": {
+        "category": 2,
+        "sku": "5099E87D",
+        "name": "Chia Seeds",
+        "description": "Tiny seeds with big benefits. Our chia seeds are sustainably grown on responsible farms in South America, where water-efficient methods and regenerative soil practices protect the environment.\r\n\r\nNaturally high in omega-3s, fibre, and plant protein, they help support digestion, steady energy, and overall wellbeing. Add them to smoothies, oats, or yoghurt for an easy nutrient boost — clean, simple, powerful.",
+        "image": "chia-seeds.webp",
+        "ingredients": "100% Chia seeds",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Chile"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 8,
+    "fields": {
+        "category": 3,
+        "sku": "B7337C37",
+        "name": "Dried Coconut",
+        "description": "Light, crunchy, and naturally sweet. Our dried coconut is sustainably sourced from family-owned coconut farms in Sri Lanka, where responsible harvesting and zero-waste practices help protect local ecosystems.\r\n\r\nRich in healthy fats, fibre, and natural energy, it’s perfect for snacking, baking, or topping your bowls. Pure coconut goodness — no added sugar, no additives.",
+        "image": "coconut.webp",
+        "ingredients": "100% coconut",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Sri Lanka"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 9,
+    "fields": {
+        "category": 3,
+        "sku": "78084035",
+        "name": "Dates",
+        "description": "Soft, caramel-sweet, and naturally energising. Our dates are responsibly sourced from sustainable farms in Tunisia, where water-smart growing and fair farming practices support local communities.\r\n\r\nPacked with fibre, potassium, and natural antioxidants, they’re ideal for steady energy, better digestion, and wholesome snacking. No added sugar — just pure, rich date flavour.",
+        "image": "dates.webp",
+        "ingredients": "100% Dates",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Tunisia"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 10,
+    "fields": {
+        "category": 3,
+        "sku": "6CFF33E7",
+        "name": "Exotic Fruit Mix",
+        "description": "A vibrant blend of naturally sweet, sun-dried tropical fruits. Our exotic mix is sustainably sourced from small farms across Southeast Asia, where responsible growing and fair partnerships support local communities and protect biodiversity.\r\n\r\nBursting with fibre, antioxidants, and natural energy, it’s the perfect grab-and-go snack or smoothie topper. Pure tropical flavour — colourful, nourishing, and completely additive-free.",
+        "image": "exotic-fruit-mix.webp",
+        "ingredients": "Papaya, mango, coconut, pineapple",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Thailand, Laos, Philipines"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 11,
+    "fields": {
+        "category": 3,
+        "sku": "386A88AA",
+        "name": "Dried Figs",
+        "description": "Soft, chewy, and naturally sweet. Our dried figs are sustainably sourced from Mediterranean family farms, where traditional drying methods and eco-friendly practices help preserve soil health and support local growers.\r\n\r\nRich in fibre, calcium, and natural antioxidants, they’re great for digestion, bone health, and everyday nourishment. Pure fig flavour — no added sugar, just wholesome sweetness.",
+        "image": "figs.webp",
+        "ingredients": "100% Figs",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Bosnia & Herzegovina"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 12,
+    "fields": {
+        "category": 3,
+        "sku": "F3A97EA9",
+        "name": "Dried Mango",
+        "description": "Sweet, tangy, and irresistibly chewy. Our dried mango is responsibly sourced from sustainable farms, where eco-friendly growing and fair partnerships support local communities.\r\n\r\nPacked with vitamin C, fibre, and natural energy, it’s the perfect clean snack for a fruity boost anytime. No added sugar — just pure, sun-ripened mango goodness.",
+        "image": "mango.png",
+        "ingredients": "100% Alphonso mango",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Thailand"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 13,
+    "fields": {
+        "category": 3,
+        "sku": "26E1E096",
+        "name": "Fruit Mix",
+        "description": "A naturally sweet, wholesome blend of dried figs, apricots, raisins, sultanas, and other juicy favourites. Our mix is sustainably sourced from trusted farms across Europe, where responsible growing and gentle drying methods retain maximum flavour and nutrition.\r\n\r\nHigh in fibre, natural energy, and essential micronutrients, it’s perfect for snacking, baking, lunchboxes, or topping your morning bowls. Simple, fruity goodness — no added sugar, no artificial ingredients.",
+        "image": "mixed-fruits.webp",
+        "ingredients": "Apricot, sultana, raisins, dates, figs",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Albania, Greece and Morocco"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 14,
+    "fields": {
+        "category": 3,
+        "sku": "17E10818",
+        "name": "Dried papaya",
+        "description": "Bright, sweet, and naturally tropical. Our dried papaya is responsibly sourced from sustainable farms in Thailand, where eco-friendly growing and careful drying protect both flavour and the environment.\r\n\r\nRich in vitamin C, antioxidants, and natural digestive enzymes, it’s a clean, energising snack that brings a sunny boost to your day. No added sugar — just pure papaya goodness.",
+        "image": "papaya.webp",
+        "ingredients": "Papaya",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Thailand"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 15,
+    "fields": {
+        "category": 3,
+        "sku": "CE51C8F7",
+        "name": "Prunes",
+        "description": "Soft, rich, and naturally sweet. Our prunes are sustainably sourced from family-run orchards in France, where traditional drying methods and earth-friendly farming support healthier soils and local growers.\r\n\r\nPacked with fibre, potassium, and natural antioxidants, they’re well-known for supporting digestion, steady energy, and overall wellbeing. Pure, juicy flavour — no added sugar, no additives.",
+        "image": "prunes.webp",
+        "ingredients": "Prunes, Water, Preservative: Potassium sorbate.",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "France"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 16,
+    "fields": {
+        "category": 3,
+        "sku": "49067C83",
+        "name": "Seedless Raisins",
+        "description": "Sweet, chewy, and naturally energising. Our raisins are sustainably sourced from sun-drenched vineyards in Turkey, where responsible farming and careful drying preserve their natural goodness.\r\n\r\nA great source of fibre, iron, and natural antioxidants, they support steady energy and everyday wellness. No added sugar — just pure, sun-dried sweetness.",
+        "image": "raisins.webp",
+        "ingredients": "Raisins, Sunflower Oil.",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Turkey"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 18,
+    "fields": {
+        "category": 2,
+        "sku": "1B72CAED",
+        "name": "Flaxseeds",
+        "description": "Nutty, versatile, and nutrient-dense. Our flaxseeds are responsibly sourced from sustainable European farms, where regenerative growing methods support healthy soils and low-impact agriculture.\r\n\r\nPacked with omega-3s, fibre, and lignans, they help support digestion, heart health, and steady energy. Sprinkle onto oats, salads, or smoothies for an easy, clean nutrition boost — nothing added.",
+        "image": "flaxseeds.webp",
+        "ingredients": "Brown Flaxseed",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "France"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 19,
+    "fields": {
+        "category": 2,
+        "sku": "A55765F5",
+        "name": "Roasted Hemp Seeds",
+        "description": "Mild, nutty, and naturally nourishing. Our hemp seeds come from sustainably grown European hemp farms, where low-impact, regenerative practices protect biodiversity and enrich the soil.\r\n\r\nA complete source of plant protein, rich in omega-3 & omega-6 fats, plus essential minerals, they support muscle recovery, skin health, and steady energy. Sprinkle over salads, yoghurt, or oats for a clean, effortless nutrition boost.",
+        "image": "hemp-seeds.webp",
+        "ingredients": "Roasted Hemp Seeds",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "UK"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 20,
+    "fields": {
+        "category": 1,
+        "sku": "2CDAEFD5",
+        "name": "Macademia",
+        "description": "Rich, buttery, and incredibly smooth. Our macadamia nuts are ethically sourced from sustainable orchards in Australia, where regenerative farming and careful harvesting protect native habitats.\r\n\r\nNaturally high in healthy monounsaturated fats, antioxidants, and essential minerals, they support heart health, skin nourishment, and long-lasting energy. Pure, creamy macadamia flavour — no additives, just premium quality.",
+        "image": "macademia.webp",
+        "ingredients": "Macadamia nuts",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Australia"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 21,
+    "fields": {
+        "category": 1,
+        "sku": "11BD0AA6",
+        "name": "Mixed Salted Nuts",
+        "description": "Crunchy, savoury, and seriously satisfying. Our mixed salted nuts are responsibly sourced from sustainable farms, supporting fair partnerships and eco-conscious growing.\r\n\r\nA natural source of healthy fats, plant protein, and essential minerals, they’re perfect for smart snacking and steady energy. Lightly salted for the ideal balance — clean flavour, premium quality, nothing unnecessary.",
+        "image": "mixed-salted-nuts.webp",
+        "ingredients": "Peanuts, almonds, cashews",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Kenya, Spain"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 22,
+    "fields": {
+        "category": 1,
+        "sku": "ED34F665",
+        "name": "Pecan Halves",
+        "description": "Sweet, buttery, and naturally rich. Our pecans are sustainably sourced from responsible orchards in the USA, where eco-friendly farming protects soil health and supports local growers.\r\n\r\nPacked with healthy fats, antioxidants, and essential minerals, they’re great for heart health, steady energy, and wholesome snacking. Pure pecan flavour — no additives, just quality you can taste.",
+        "image": "pecans.webp",
+        "ingredients": "Pecans",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "USA"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 23,
+    "fields": {
+        "category": 1,
+        "sku": "C3774DFF",
+        "name": "Roasted Pistachios",
+        "description": "Vibrant, crunchy, and naturally moreish. Our pistachios are responsibly sourced from sustainable orchards in Iran, where water-efficient farming and ethical practices support healthier lands and fair grower partnerships.\r\n\r\nRich in plant protein, healthy fats, and antioxidants, they’re perfect for clean energy, heart health, and wholesome snacking. Pure pistachio flavour — no extras, just premium quality.",
+        "image": "pistachios.webp",
+        "ingredients": "Pistachios",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Iran"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 24,
+    "fields": {
+        "category": 2,
+        "sku": "5B4A948E",
+        "name": "Pumpkin Seeds",
+        "description": "Crunchy, earthy, and nutrient-packed. Our pumpkin seeds are sustainably grown on responsible European farms, where regenerative practices support soil health and low-impact agriculture.\r\n\r\nA natural source of zinc, magnesium, iron, and plant protein, they support immunity, energy, and everyday wellbeing. Ideal for snacking, baking, or sprinkling over salads — clean, simple, nourishing.",
+        "image": "pumpkin-seeds.webp",
+        "ingredients": "Pumpkin Seeds",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Poland"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 25,
+    "fields": {
+        "category": 1,
+        "sku": "AE26A88A",
+        "name": "Raw Almonds",
+        "description": "Crunchy, clean, and naturally nourishing. Our almonds are sustainably sourced from eco-focused orchards in Spain, where water-smart farming and responsible harvesting protect the land and support local growers.\r\n\r\nRich in vitamin E, healthy fats, and plant protein, they’re perfect for skin health, steady energy, and everyday snacking. Pure almond goodness — no additives, just quality you can taste.",
+        "image": "raw_almonds.webp",
+        "ingredients": "Almonds",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Spain"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 26,
+    "fields": {
+        "category": 1,
+        "sku": "CBAE771C",
+        "name": "Red-skin Peanuts",
+        "description": "Bold, earthy, and naturally flavourful. Our red-skin peanuts are responsibly sourced from sustainable farms in India, where soil-friendly growing and fair partnerships support healthier harvests.\r\n\r\nNaturally rich in antioxidants, plant protein, and healthy fats, they’re great for energy, heart health, and everyday snacking. Pure peanut crunch — nothing added, nothing unnecessary.",
+        "image": "redskin-peanuts.webp",
+        "ingredients": "Red-skin Peanuts",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "India"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 27,
+    "fields": {
+        "category": 1,
+        "sku": "FB671FC0",
+        "name": "Salted Peanuts",
+        "description": "Bold, earthy, and naturally flavourful. Our peanuts are responsibly sourced from sustainable farms in  India, where soil-friendly growing and fair partnerships support healthier harvests.\r\n\r\nNaturally rich in antioxidants, plant protein, and healthy fats, they’re great for energy, heart health, and everyday snacking. Pure peanut crunch — nothing added, nothing unnecessary.",
+        "image": "salted_peanuts.webp",
+        "ingredients": "Peanuts",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "India"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 28,
+    "fields": {
+        "category": null,
+        "sku": "EEC92E82",
+        "name": "Omega-3 Seed Mix",
+        "description": "A powerful blend of nutrient-dense seeds designed for clean, everyday nourishment. Our Omega-3 Seed Mix is sustainably sourced from responsible farms across Europe and South America, using regenerative methods that protect soil health and biodiversity.\r\n\r\nRich in omega-3s, fibre, and plant protein, it supports heart health, digestion, and steady energy. Perfect for topping oats, yoghurt, salads, or blending into smoothies — simple, wholesome, and naturally functional.",
+        "image": "seed-mix.png",
+        "ingredients": "Pumpkin seeds, sunflower seeds, linseeds and sesame seeds.",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Serbia, Spain and Peru"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 29,
+    "fields": {
+        "category": 2,
+        "sku": "B5BD5C9D",
+        "name": "Sesame Seeds",
+        "description": "Delicate, nutty, and naturally nutrient-rich. Our sesame seeds are responsibly sourced from sustainable farms, where traditional growing and eco-friendly practices support healthy soils and fair livelihoods.\r\n\r\nPacked with calcium, healthy fats, and antioxidants, they’re great for bone health, energy, and everyday cooking. Sprinkle over salads, stir-fries, bakes, or breads — simple, clean, versatile.",
+        "image": "sesame.webp",
+        "ingredients": "Sesame seeds",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "India and Iran"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 30,
+    "fields": {
+        "category": 3,
+        "sku": "AD7970CD",
+        "name": "Sultanas",
+        "description": "Sweet, soft, and naturally juicy. Our sultanas are sustainably sourced from sun-grown vineyards in Turkey, where responsible farming and gentle drying protect their natural flavour.\r\n\r\nA great source of fibre, iron, and natural energy, they’re perfect for baking, snacking, or topping your breakfast bowls. Pure, sun-dried sweetness — nothing added.",
+        "image": "sultanas.webp",
+        "ingredients": "Sultanas, sunflower oil",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Turkey"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 31,
+    "fields": {
+        "category": 2,
+        "sku": "363810F6",
+        "name": "Sunflower seeds",
+        "description": "Light, crunchy, and naturally nourishing. Our sunflower seeds are sustainably grown on responsible European farms, where eco-friendly, low-impact methods support healthy soils and biodiversity.\r\n\r\nRich in vitamin E, healthy fats, and plant protein, they’re ideal for energy, skin health, and everyday snacking. Perfect for salads, bakes, granola, or on their own — clean, simple, wholesome.",
+        "image": "sunflower.webp",
+        "ingredients": "Sunflower seeds",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "Bulgaria"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 32,
+    "fields": {
+        "category": 1,
+        "sku": "55AEFEB0",
+        "name": "Unsalted Peanuts",
+        "description": "Bold, earthy, and naturally flavourful. Our peanuts are responsibly sourced from sustainable farms in India, where soil-friendly growing and fair partnerships support healthier harvests. Naturally rich in antioxidants, plant protein, and healthy fats, they’re great for energy, heart health, and everyday snacking. Pure peanut crunch — nothing added, nothing unnecessary.",
+        "image": "unsalted-peanuts.webp",
+        "ingredients": "Peanuts",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "India"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 33,
+    "fields": {
+        "category": 3,
+        "sku": "46D71518",
+        "name": "Dried Apple Rings",
+        "description": "Light, chewy, and naturally sweet. Our dried apple rings are sustainably sourced from European orchards, where eco-friendly growing and gentle drying lock in flavour without additives.\r\n\r\nHigh in fibre, natural energy, and essential nutrients, they’re perfect for clean snacking, lunchboxes, or topping your breakfast bowls. Pure apple goodness — nothing added, just simple and wholesome.",
+        "image": "dried-apple.webp",
+        "ingredients": "Apple, preservative: sulphur dioxide",
+        "storage_instructions": "Store in a cool dry place, away from direct sunlight, heat and damp. Reseal when no longer in use or move to an airtight container.",
+        "country_of_origin": "UK"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 34,
+    "fields": {
+        "category": 7,
+        "sku": "EB65E28F",
+        "name": "test product",
+        "description": "test",
+        "image": "",
+        "ingredients": "",
+        "storage_instructions": "",
+        "country_of_origin": null
+    }
+}
+]

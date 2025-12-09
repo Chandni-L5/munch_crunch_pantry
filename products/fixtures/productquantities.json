@@ -1,0 +1,782 @@
+[
+{
+    "model": "products.productquantity",
+    "pk": 1,
+    "fields": {
+        "product": 1,
+        "quantity": 1,
+        "price": "3.99",
+        "stock": 0
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 2,
+    "fields": {
+        "product": 1,
+        "quantity": 2,
+        "price": "6.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 3,
+    "fields": {
+        "product": 1,
+        "quantity": 3,
+        "price": "12.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 4,
+    "fields": {
+        "product": 2,
+        "quantity": 1,
+        "price": "4.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 5,
+    "fields": {
+        "product": 2,
+        "quantity": 2,
+        "price": "8.99",
+        "stock": 76
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 6,
+    "fields": {
+        "product": 2,
+        "quantity": 3,
+        "price": "14.99",
+        "stock": 90
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 7,
+    "fields": {
+        "product": 3,
+        "quantity": 1,
+        "price": "4.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 8,
+    "fields": {
+        "product": 3,
+        "quantity": 2,
+        "price": "8.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 9,
+    "fields": {
+        "product": 3,
+        "quantity": 3,
+        "price": "16.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 10,
+    "fields": {
+        "product": 4,
+        "quantity": 1,
+        "price": "5.99",
+        "stock": 0
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 11,
+    "fields": {
+        "product": 4,
+        "quantity": 2,
+        "price": "9.99",
+        "stock": 52
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 12,
+    "fields": {
+        "product": 4,
+        "quantity": 3,
+        "price": "16.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 13,
+    "fields": {
+        "product": 5,
+        "quantity": 1,
+        "price": "6.99",
+        "stock": 50
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 14,
+    "fields": {
+        "product": 5,
+        "quantity": 2,
+        "price": "10.99",
+        "stock": 330
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 15,
+    "fields": {
+        "product": 6,
+        "quantity": 1,
+        "price": "4.99",
+        "stock": 0
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 16,
+    "fields": {
+        "product": 6,
+        "quantity": 2,
+        "price": "7.99",
+        "stock": 0
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 17,
+    "fields": {
+        "product": 6,
+        "quantity": 3,
+        "price": "12.99",
+        "stock": 0
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 18,
+    "fields": {
+        "product": 7,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 2
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 19,
+    "fields": {
+        "product": 7,
+        "quantity": 8,
+        "price": "4.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 20,
+    "fields": {
+        "product": 8,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 21,
+    "fields": {
+        "product": 8,
+        "quantity": 8,
+        "price": "4.99",
+        "stock": 555
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 22,
+    "fields": {
+        "product": 9,
+        "quantity": 1,
+        "price": "3.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 23,
+    "fields": {
+        "product": 9,
+        "quantity": 8,
+        "price": "6.99",
+        "stock": 1293
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 24,
+    "fields": {
+        "product": 9,
+        "quantity": 9,
+        "price": "9.99",
+        "stock": 55
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 25,
+    "fields": {
+        "product": 10,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 0
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 26,
+    "fields": {
+        "product": 10,
+        "quantity": 8,
+        "price": "4.99",
+        "stock": 0
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 27,
+    "fields": {
+        "product": 11,
+        "quantity": 1,
+        "price": "3.99",
+        "stock": 23
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 28,
+    "fields": {
+        "product": 11,
+        "quantity": 8,
+        "price": "6.99",
+        "stock": 0
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 29,
+    "fields": {
+        "product": 12,
+        "quantity": 1,
+        "price": "6.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 30,
+    "fields": {
+        "product": 12,
+        "quantity": 8,
+        "price": "12.99",
+        "stock": 44
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 31,
+    "fields": {
+        "product": 13,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 32,
+    "fields": {
+        "product": 13,
+        "quantity": 8,
+        "price": "4.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 33,
+    "fields": {
+        "product": 14,
+        "quantity": 1,
+        "price": "6.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 34,
+    "fields": {
+        "product": 14,
+        "quantity": 8,
+        "price": "12.99",
+        "stock": 0
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 35,
+    "fields": {
+        "product": 15,
+        "quantity": 1,
+        "price": "3.99",
+        "stock": 60
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 36,
+    "fields": {
+        "product": 15,
+        "quantity": 8,
+        "price": "6.99",
+        "stock": 70
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 37,
+    "fields": {
+        "product": 15,
+        "quantity": 9,
+        "price": "9.99",
+        "stock": 78
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 38,
+    "fields": {
+        "product": 16,
+        "quantity": 1,
+        "price": "1.99",
+        "stock": 100
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 39,
+    "fields": {
+        "product": 16,
+        "quantity": 2,
+        "price": "3.99",
+        "stock": 90
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 40,
+    "fields": {
+        "product": 16,
+        "quantity": 3,
+        "price": "5.99",
+        "stock": 789
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 43,
+    "fields": {
+        "product": 18,
+        "quantity": 2,
+        "price": "7.99",
+        "stock": 76
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 44,
+    "fields": {
+        "product": 19,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 67
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 45,
+    "fields": {
+        "product": 19,
+        "quantity": 2,
+        "price": "4.99",
+        "stock": 65
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 46,
+    "fields": {
+        "product": 20,
+        "quantity": 7,
+        "price": "4.99",
+        "stock": 66
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 47,
+    "fields": {
+        "product": 20,
+        "quantity": 8,
+        "price": "18.99",
+        "stock": 664
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 48,
+    "fields": {
+        "product": 20,
+        "quantity": 3,
+        "price": "39.99",
+        "stock": 6
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 49,
+    "fields": {
+        "product": 21,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 77
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 50,
+    "fields": {
+        "product": 21,
+        "quantity": 2,
+        "price": "4.99",
+        "stock": 89
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 51,
+    "fields": {
+        "product": 22,
+        "quantity": 1,
+        "price": "6.99",
+        "stock": 87
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 52,
+    "fields": {
+        "product": 22,
+        "quantity": 8,
+        "price": "11.99",
+        "stock": 99
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 53,
+    "fields": {
+        "product": 22,
+        "quantity": 3,
+        "price": "24.99",
+        "stock": 567
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 54,
+    "fields": {
+        "product": 23,
+        "quantity": 1,
+        "price": "3.99",
+        "stock": 67
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 55,
+    "fields": {
+        "product": 23,
+        "quantity": 2,
+        "price": "8.99",
+        "stock": 99
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 56,
+    "fields": {
+        "product": 23,
+        "quantity": 3,
+        "price": "14.99",
+        "stock": 0
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 57,
+    "fields": {
+        "product": 24,
+        "quantity": 7,
+        "price": "1.25",
+        "stock": 22
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 58,
+    "fields": {
+        "product": 24,
+        "quantity": 2,
+        "price": "3.99",
+        "stock": 33
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 59,
+    "fields": {
+        "product": 24,
+        "quantity": 3,
+        "price": "10.99",
+        "stock": 55
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 60,
+    "fields": {
+        "product": 25,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 990
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 61,
+    "fields": {
+        "product": 25,
+        "quantity": 2,
+        "price": "6.99",
+        "stock": 88
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 62,
+    "fields": {
+        "product": 25,
+        "quantity": 3,
+        "price": "14.99",
+        "stock": 66
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 63,
+    "fields": {
+        "product": 26,
+        "quantity": 1,
+        "price": "1.99",
+        "stock": 77
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 64,
+    "fields": {
+        "product": 26,
+        "quantity": 2,
+        "price": "3.99",
+        "stock": 88
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 65,
+    "fields": {
+        "product": 27,
+        "quantity": 1,
+        "price": "1.99",
+        "stock": 44
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 66,
+    "fields": {
+        "product": 27,
+        "quantity": 2,
+        "price": "3.99",
+        "stock": 566
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 67,
+    "fields": {
+        "product": 27,
+        "quantity": 9,
+        "price": "6.99",
+        "stock": 43
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 68,
+    "fields": {
+        "product": 28,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 33
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 69,
+    "fields": {
+        "product": 29,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 45
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 70,
+    "fields": {
+        "product": 29,
+        "quantity": 2,
+        "price": "4.99",
+        "stock": 33
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 71,
+    "fields": {
+        "product": 30,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 345
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 72,
+    "fields": {
+        "product": 30,
+        "quantity": 2,
+        "price": "5.99",
+        "stock": 55
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 73,
+    "fields": {
+        "product": 31,
+        "quantity": 7,
+        "price": "1.99",
+        "stock": 33
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 74,
+    "fields": {
+        "product": 31,
+        "quantity": 2,
+        "price": "8.99",
+        "stock": 43
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 75,
+    "fields": {
+        "product": 31,
+        "quantity": 3,
+        "price": "14.99",
+        "stock": 12
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 76,
+    "fields": {
+        "product": 32,
+        "quantity": 1,
+        "price": "1.99",
+        "stock": 33
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 77,
+    "fields": {
+        "product": 32,
+        "quantity": 2,
+        "price": "3.99",
+        "stock": 55
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 78,
+    "fields": {
+        "product": 32,
+        "quantity": 3,
+        "price": "6.99",
+        "stock": 66
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 79,
+    "fields": {
+        "product": 33,
+        "quantity": 1,
+        "price": "2.99",
+        "stock": 33
+    }
+},
+{
+    "model": "products.productquantity",
+    "pk": 80,
+    "fields": {
+        "product": 34,
+        "quantity": 1,
+        "price": "0.50",
+        "stock": 70
+    }
+}
+]
