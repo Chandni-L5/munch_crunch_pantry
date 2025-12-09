@@ -11,6 +11,9 @@ Delivery: £{{ order.delivery_cost }}
 Grand Total: £{{ order.grand_total }}
 ------------------------------
 
+You can view the full details of your order in your account here:
+{{ order_history_url }}
+
 Your order will be shipped to {{ order.street_address1 }}, {% if order.street_address2 %}{{ order.street_address2 }}, {% endif %}{{ order.town_or_city }}, {{ order.postcode }}, {{ order.country}}.
 
 We've got your phone number on file as {{ order.phone_number }} and your email address as {{ order.email }}.
