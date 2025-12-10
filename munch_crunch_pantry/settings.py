@@ -144,6 +144,7 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
 ACCOUNT_FORMS = {"signup": "profiles.forms.CustomSignupForm", }
+PASSWORD_RESET_TIMEOUT = 900  # 15 minutes in seconds
 
 WSGI_APPLICATION = 'munch_crunch_pantry.wsgi.application'
 
