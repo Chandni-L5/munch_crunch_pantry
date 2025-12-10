@@ -8,7 +8,7 @@
 | 1.1 | AC2 | Registration form fields present | 1. Click "Sign up"<br>2. View registration form | Email + password fields visible (social login if enabled) | |
 | 1.1 | AC3 | Input validation + error messages | 1. Submit invalid/empty form<br>2. Try invalid email<br>3. Try weak password | Errors displayed for invalid or missing input | |
 | 1.1 | AC4 | Prevent duplicate registrations | 1. Register with Email A<br>2. Try registering again with Email A | Error: “Email already registered” | |
-| 1.1 | AC5 | Successful registration | 1. Register with valid data<br>2. Submit | success message shown | |
+| 1.1 | AC5 | Successful registration | 1. Register with valid data<br>2. Submit |  success message shown | |
 | 1.1 | AC6 | Social login option visible | 1. View registration page | Social login buttons (Google/Facebook/etc.) visible | |
 
 ### User Story 1.2 — Register Using Social Media
@@ -17,7 +17,7 @@
 |-------|-------|-------------|------------|-----------------|-----------|
 | 1.2 | AC1 | Social login options visible | 1. Open registration page | Social login buttons visible | |
 | 1.2 | AC2 | Social login flow | 1. Click provider<br>2. Authenticate externally | User returned to site and account created | |
-| 1.2 | AC3 | Successful social registration redirect | 1. Complete social registration | Redirect to homepage + success message | |
+| 1.2 | AC3 | Successful social registration redirect | 1. Complete social registration | Success message | |
 
 ### User Story 1.3 — Login & Logout
 
@@ -185,20 +185,11 @@
 |-------|-------|-------------|------------|-----------------|-----------|
 | 4.4 | AC1 | Newsletter form visible | 1. Open homepage<br>2. Scroll to footer | Newsletter signup form is displayed | |
 | 4.4 | AC2 | Validation for email input works | 1. Submit empty form<br>2. Submit invalid email<br>3. Submit duplicate email | Appropriate error messages shown | |
-| 4.4 | AC3 | Confirmation email sent on subscription | 1. Submit valid email | Confirmation email received | |
-| 4.4 | AC4 | Email saved securely for future marketing | 1. Submit valid email<br>2. Check admin or database | Email appears correctly in subscriber list | |
 
-### User Story 4.5 — Admin Newsletter Management
+### User Story 4.5 — Contact Customer Support
 
 | US ID | AC ID | Description | Test Steps | Expected Result | Pass/Fail |
 |-------|-------|-------------|------------|-----------------|-----------|
-| 4.5 | AC1 | Admin can view subscriber list | 1. Log in as admin<br>2. Open Newsletter Management | All subscribers are listed | |
-| 4.5 | AC2 | Admin can add/remove subscribers or send newsletters | 1. Add a subscriber manually<br>2. Remove a subscriber<br>3. (If implemented) Send newsletter | Subscriber list updates correctly; newsletter sends to all subscribers (if implemented) | |
-
-### User Story 4.6 — Contact Customer Support
-
-| US ID | AC ID | Description | Test Steps | Expected Result | Pass/Fail |
-|-------|-------|-------------|------------|-----------------|-----------|
-| 4.6 | AC1 | Contact page accessible from navigation/footer | 1. Open site navigation or footer<br>2. Click “Contact Us” | Contact page loads successfully | |
-| 4.6 | AC2 | Contact form fields visible | 1. View contact form | Name, email, subject, and message fields are visible | |
-| 4.6 | AC3 | Confirmation message displays after submission | 1. Fill in form with valid data<br>2. Submit | Confirmation message displayed (“Your message has been received”) | |
+| 4.5 | AC1 | Contact page accessible from navigation/footer | 1. Open site navigation or footer<br>2. Click “Contact Us” | Contact page loads successfully | |
+| 4.5 | AC2 | Contact form fields visible | 1. View contact form | Name, email, subject, and message fields are visible | |
+| 4.5 | AC3 | Confirmation message displays after submission | 1. Fill in form with valid data<br>2. Submit | Confirmation message displayed (“Your message has been received”) | |

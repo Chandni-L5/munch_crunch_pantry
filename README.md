@@ -99,8 +99,7 @@ To support the estimation, I have also used story points based on a Fibonacci me
 | 🟧 Should have | **4.6** Contact form | AC1, AC2, AC3, AC4 | 3 | 🟢 Small |
 | 🟩 Could have | **4.2** Certifications | AC1 | 2 | 🟢 Small |
 | 🟩 Could have | **4.3** Admin content management | AC1, AC2, AC3 | 5 | 🟡 Medium |
-| 🟩 Could have | **4.4** Newsletter signup | AC1, AC2, AC3, AC4 | 5 | 🟡 Medium |
-| 🟩 Could have | **4.5** Newsletter admin | AC1, AC2 | 5 | 🟡 Medium |
+| 🟩 Could have | **4.4** Newsletter signup | AC1, AC2 | 5 | 🟢 Small |
 
 During the planning stages, the MoSCoW priorities were distributed as 52% Must have, 24% Should have and 24% Could have. The total number of story points estimated for the project was 130 including the Could have features.
 

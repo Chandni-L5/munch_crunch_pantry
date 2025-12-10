@@ -207,19 +207,9 @@
 
 <strong>AC1:</strong> The application should provide a visible and accessible newsletter signup form on the homepage and footer of the website.
 
-<strong>AC2:</strong> The newsletter signup form should include a field for entering an email address and a "Subscribe" button. Error messages should be displayed for invalid/duplicate email or empty submissions.
+<strong>AC2:</strong> The newsletter signup form should include a field for entering an email address and a "Subscribe" button. Error messages should be displayed for invalid email or empty submissions.
 
-<strong>AC3:</strong> Upon successful subscription, the user should receive a confirmation email.
-
-<strong>AC4:</strong> The application should store subscribed email addresses securely for future newsletter distribution.
-
-### 4.5 - As admin, I want to manage newsletter subscriptions so that I can effectively communicate with interested shoppers.
-
-<strong>AC1:</strong> The admin dashboard should include a "Newsletter Management" section where admins can view, add, and remove newsletter subscribers.
-
-<strong>AC2:</strong> Only admin users should be able to access this feature.
-
-### 4.6 - As a shopper, I want to be able to contact customer support through the website so that I can get assistance with any issues or questions I may have.
+### 4.5 - As a shopper, I want to be able to contact customer support through the website so that I can get assistance with any issues or questions I may have.
 
 <strong>AC1:</strong> The application should provide a "Contact Us" page accessible from the main navigation or footer of the website.
 
