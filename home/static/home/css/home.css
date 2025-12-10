@@ -1,3 +1,9 @@
+p,
+h1.h4,
+h2.h5 {
+    color: var(--color-10);
+}
+
 /* Hero section */
 .homepage-hero-logo {
     max-width: 220px;
@@ -9,10 +15,33 @@
     box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.1);
 }
 
+.hero-cta-btn {
+    background-color: var(--color-6);
+    color: var(--color-1);
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 3px solid var(--color-1);
+    box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.1);
+    transition: transform .15s ease, background-color .2s ease;
+}
+
+.hero-cta-btn:hover {
+    transform: translateY(-2px);
+    background-color: var(--color-7);
+    color: var(--color-1);
+    border: 3px solid var(--color-1);
+
+}
+
+
 /* USP cards */
 .homepage-usp-card {
     background-color: var(--color-10);
     color: var(--color-9);
+    border: 3px solid var(--color-1);
     border-radius: 12px;
     padding: 1.5rem 1rem;
     text-decoration: none;
@@ -22,4 +51,22 @@
 }
 .homepage-usp-card:hover {
     filter: brightness(1.05);
+}
+
+/* Product cards */
+.card-body p,
+.card-footer p {
+    white-space: normal !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+}
+
+.view-all-link {
+    font-size: 0.9rem;
+    color: var(--color-10);
+    text-decoration: none;
+}
+
+.view-all-link:hover {
+    text-decoration: underline;
 }

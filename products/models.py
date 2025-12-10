@@ -31,6 +31,7 @@ class Product(models.Model):
     ingredients = models.TextField(null=True, blank=True)
     storage_instructions = models.TextField(null=True, blank=True)
     country_of_origin = models.CharField(max_length=254, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
