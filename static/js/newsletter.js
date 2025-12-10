@@ -35,12 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
             banner.classList.add("fade-out");
             setTimeout(() => {
                 banner.style.display = "none";
-            }, 600); // matches CSS transition
+            }, 600);
         }, 2000);
     });
-
-    // Mark as subscribed in localStorage on successful subscription
-    localStorage.setItem("newsletterSubscribed", "true");
 
     function showMessage(message, type) {
         responseBox.style.display = "block";

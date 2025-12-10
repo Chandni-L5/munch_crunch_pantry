@@ -151,7 +151,7 @@
                     </ul>
                 </div>
             </div>
-            <nav class="navbar navbar-expand-lg w-100 mobile-nav-style p-0">
+            <nav class="navbar navbar-expand-lg w-100 mobile-nav-style p-1">
                 <div class="container-fluid px-0">
 
                     <!-- Smaller screen navbar -->
@@ -230,16 +230,17 @@
     </div>
 
     {% block postloadjs %}
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-            const toastElList = document.querySelectorAll('.toast');
-            toastElList.forEach((toastEl) => {
-                const toast = new bootstrap.Toast(toastEl);
-                toast.show();
+        {{ block.super }}
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function () {
+                const toastElList = document.querySelectorAll('.toast');
+                toastElList.forEach((toastEl) => {
+                    const toast = new bootstrap.Toast(toastEl);
+                    toast.show();
+                });
             });
-        });
-    </script>
-
+        </script>
+        <script src="{% static 'js/newsletter.js' %}"></script>
     {% endblock %}
 </body>
 
