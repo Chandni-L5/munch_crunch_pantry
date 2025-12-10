@@ -85,13 +85,11 @@ h1, h2, h3, h4, h5, h6 {
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
 }
 
-/* Hover effect */
 .back-to-top:hover {
     background: var(--color-10);
     transform: translateY(-3px);
 }
 
-/* Show the button */
 .back-to-top.show {
     opacity: 1;
     visibility: visible;

@@ -147,5 +147,31 @@
         </a>
     </div>
 
+        <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    $('#back-to-top').click(function (e) {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    window.addEventListener("scroll", () => {
+        const btt = document.getElementById("back-to-top");
+        if (window.scrollY > 300) {
+            btt.classList.add("show");
+        } else {
+            btt.classList.remove("show");
+        }
+    });
+</script>
 {% endblock %}
