@@ -1,0 +1,25 @@
+/* Hero section */
+.homepage-hero-logo {
+    max-width: 220px;
+}
+
+.homepage-hero-intro {
+    border-radius: 12px;
+    border: 1.5px solid var(--color-1);
+    box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+/* USP cards */
+.homepage-usp-card {
+    background-color: var(--color-10);
+    color: var(--color-9);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-decoration: none;
+    min-height: 90px;
+    font-weight: 600;
+    box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.1);
+}
+.homepage-usp-card:hover {
+    filter: brightness(1.05);
+}

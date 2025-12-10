@@ -37,6 +37,7 @@
     "setuptools",
     "signups",
     "sqlparse",
+    "staticfiles",
     "superfoods",
     "topnav",
     "Ubersuggest",

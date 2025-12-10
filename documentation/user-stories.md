@@ -49,19 +49,11 @@
 
 <strong>AC6:</strong> The new password form should include fields for the new password and confirmation.
 
-<strong>AC7:</strong> The application should validate the new password input (e.g., password strength, matching confirmation).
+### 1.5 - As a shopper, I want to receive confirmation emails for password resets and order confirmations so that I have a record of my transactions and account activities.
 
-<strong>AC8:</strong> Upon successful password reset, the user should receive a confirmation email.
+<strong>AC1:</strong> The application should send a password reset email when a user requests to reset their password.
 
-<strong>AC9:</strong> Upon successful password reset, the user should be redirected to the login page with a success message.
-
-### 1.5 - As a shopper, I want to receive confirmation emails for account registration, password resets, and order confirmations so that I have a record of my transactions and account activities.
-
-<strong>AC1:</strong> The application should send a confirmation email upon successful account registration.
-
-<strong>AC2:</strong> The application should send a password reset email when a user requests to reset their password.
-
-<strong>AC3:</strong> The application should send an order confirmation email upon successful purchase with a summary of the order.
+<strong>AC2:</strong> The application should send an order confirmation email upon successful purchase with a summary of the order.
 
 
 ### 1.6 - As a returning shopper, I want to access account-based features such as viewing order history and saving personal info for speedy checkout so that I can have a more convenient shopping experience.

@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+{% endblock %}
+
 {% block page_header %}
 <div class="container header-container">
     <div class="row">
@@ -14,36 +18,45 @@
 {% block content %}
 
 <div class="container h-100">
-
-    <div class="row h-100">
-        <div class="col my-auto">
-            <!-- logo here -->
+    <!-- Homepage hero section -->
+    <section class="container py-4 homepage-hero">
+        <div class="row align-items-center g-4">
+            <div class="col-12 col-md-4 text-center">
+                <img src="{% static 'images/mcp-logo.webp' %}" alt="Munch Crunch Pantry Logo"
+                    class="img-fluid homepage-hero-logo">
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="homepage-hero-intro p-4">
+                    <h1 class="h4 mb-3 text-center">Welcome to Munch Crunch Pantry</h1>
+                    <p class="mb-0">Welcome to Munch Crunch Pantry — your trusted home for premium wholefoods.
+                        We believe healthy eating should be simple, transparent, and joyful. That’s why every product we
+                        offer is carefully sourced, naturally nutritious, and packed with flavour — without unnecessary
+                        additives or hidden ingredients.
+                        <br><br>
+                        Browse our range of nuts, seeds, fruits, and pantry staples, discover honest nutritional details
+                        at a glance, and enjoy a smooth, user-friendly shopping experience from basket to doorstep.
+                        <br><br></p>
+                        <p class="text-center"><strong>Real food. Real quality. Made easy.</strong></p>
+                </div>
+            </div>
         </div>
-        <div class="col my-auto">
-            <!-- intro para here -->
-        </div>
-    </div>
+    </section>
 
-    <div class="row">
-        <!-- <h4>
-            <a href="" class="shop-now-button btn btn-lg rounded-0 text-uppercase py-3">Shop Now</a>
-        </h4> -->
-    </div>
-    <div class="row">
-        <!-- info points here -->
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <!-- row of best sellers -->
-    </div>
-    <div class="row">
-        <!-- row of new arrivals -->
-    </div>
-</div>
-<div class="row">
-    <!-- <h4>
-        <a href="" class="shop-now-button btn btn-lg rounded-0 text-uppercase py-3">Shop Now</a>
-    </h4> -->
+    <!-- USP cards -->
+    <section class="container pb-4 homepage-usps">
+        <div class="row g-3 justify-content-center">
+            <div class="col-12 col-md-4">
+                <span class="homepage-usp-card d-flex align-items-center justify-content-center text-center">Free Delivery on orders over £20</span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span class="homepage-usp-card d-flex align-items-center justify-content-center text-center">Quality Assured Products</span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span class="homepage-usp-card d-flex align-items-center justify-content-center text-center">Sustainably Sourced</span>
+            </div>
+        </div>
+    </section>
+
+
 </div>
 {% endblock %}

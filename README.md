@@ -60,9 +60,9 @@ To support the estimation, I have also used story points based on a Fibonacci me
 |------------|------------|------------|--------------|------------|
 | 🟥 Must have | **1.1** Email registration | AC1, AC2, AC3, AC4, AC5 | 5 | 🟡 Medium |
 | 🟥 Must have | **1.3** Login/Logout | AC1, AC2, AC3, AC4, AC5 | 3 | 🟢 Small |
-| 🟥 Must have | **1.5** Confirmation emails | AC1, AC2, AC3 | 3 | 🟢 Small |
+| 🟥 Must have | **1.5** Confirmation emails | AC1, AC2 | 1 | 🟢 Small |
 | 🟥 Must have | **1.6** User profile management | AC1, AC2, AC3, AC4, AC5 | 8 | 🟠 Large |
-| 🟧 Should have | **1.4** Password reset | AC1, AC2, AC3, AC4, AC5, AC6, AC7, AC8, AC9 | 5 | 🟡 Medium |
+| 🟧 Should have | **1.4** Password reset | AC1, AC2, AC3, AC4, AC5, AC6 | 5 | 🟡 Medium |
 | 🟩 Could have | **1.2** Social media registration | AC1, AC2, AC3 | 8 | 🟠 Large |
 
 | Epic 2: Product Discovery |
