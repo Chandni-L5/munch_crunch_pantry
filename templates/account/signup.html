@@ -26,30 +26,36 @@
                     <a href="{% url 'account_login' %}">{% trans "Sign in here" %}</a>.
                 </p>
 
-                {# --- Google signup button --- #}
-                <div class="mb-4">
-                    <a href="{% provider_login_url 'google' process='signup' %}"
-                       class="google-btn d-flex align-items-center justify-content-center gap-2 w-100">
-                        <img src="https://developers.google.com/identity/images/g-logo.png"
-                             alt="Google logo" width="18" height="18">
-                        <span>{% trans "Sign up with Google" %}</span>
-                    </a>
+                <div class="mb-3 text-center">
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <!-- Google sign up -->
+                        <a href="{% provider_login_url 'google' process='signup' %}"
+                            class="google-btn d-flex align-items-center justify-content-center gap-2 w-100">
+                            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo"
+                                width="18" height="18">
+                            <span>{% trans "Sign up with Google" %}</span>
+                        </a>
+                        <!-- Facebook sign up -->
+                        <a href="{% provider_login_url 'facebook' process='signup' %}"
+                            class="facebook-btn d-flex align-items-center justify-content-center gap-2 w-100 my-2">
+                            <i class="fa-brands fa-facebook"></i>
+                            <span>{% trans "Sign up with Facebook" %}</span>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="text-center my-3 text-muted">
                     <span>— {% trans "or sign up with email" %} —</span>
                 </div>
-                {# --- end Google signup button --- #}
 
-                {# Django messages #}
                 {% if messages %}
-                    <div class="mb-3">
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }} mb-2">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
+                <div class="mb-3">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} mb-2">
+                        {{ message }}
                     </div>
+                    {% endfor %}
+                </div>
                 {% endif %}
 
                 <form method="post" action="{% url 'account_signup' %}">
@@ -58,9 +64,7 @@
                     {{ form|crispy }}
 
                     {% if redirect_field_value %}
-                        <input type="hidden"
-                               name="{{ redirect_field_name }}"
-                               value="{{ redirect_field_value }}">
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
                     {% endif %}
 
                     <div class="d-flex justify-content-between align-items-center mt-3">

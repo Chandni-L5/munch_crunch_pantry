@@ -267,3 +267,32 @@ STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 
 # Geoapify settings
 GEOAPIFY_API_KEY = os.environ.get("GEOAPIFY_API_KEY", "")
+
+# Facebook OAuth settings
+FACEBOOK_APP_ID = os.environ.get("FACEBOOK_APP_ID")
+FACEBOOK_APP_SECRET = os.environ.get("FACEBOOK_APP_SECRET")
+
+SOCIALACCOUNT_PROVIDERS = {
+    "facebook": {
+        "METHOD": "oauth2",
+        "SCOPE": ["email", "public_profile"],
+        "AUTH_PARAMS": {"auth_type": "reauthenticate"},
+        "FIELDS": [
+            "id",
+            "first_name",
+            "last_name",
+            "name",
+            "email",
+            "picture",
+        ],
+        "EXCHANGE_TOKEN": True,
+        "VERIFIED_EMAIL": False,
+        "VERSION": "v13.0",
+    }
+}
+
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_EMAIL_VERIFICATION = "optional"
+SOCIALACCOUNT_ADAPTER = "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"
+
