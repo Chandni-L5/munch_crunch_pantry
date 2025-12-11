@@ -56,6 +56,30 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-10);
 }
 
+.nav-btns {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background-color: var(--color-10);
+    color: var(--color-9);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.45rem 0.8rem;
+    min-height: 44px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    border: 2px solid transparent;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav-btns:hover {
+    color: var(--color-7);
+    transform: translateY(-1px);
+    cursor: pointer;
+}
+
 .sort-dropdown {
     border: 1px solid var(--color-8);
 }
