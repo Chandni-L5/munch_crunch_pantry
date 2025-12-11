@@ -1,27 +1,16 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
+
 {% block content %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col"></div>
-    </div>
-</div>
-<div class="container h-100">
-    <div class="row h-100">
-        <div class="col-7 col-md-6 my-auto">
-            <h1 class="display-4 logo-font text-black">
-                The page you are looking for isn't available
-            </h1>
-            <div class="my-5">
-                <h4>
-                    <div class="text-center mt-3">
-                        <a href="{% url 'products' %}" class="nav-btns mb-4">
-                            Browse Products
-                        </a>
-                    </div>
-                </h4>
-            </div>
-        </div>
-    </div>
+<div class="container text-center py-5">
+    <h1 class="mb-3 logo-font">404 – Page Not Found</h1>
+    <p class="text-muted mb-4">
+        Looks like this page has wandered off our pantry shelves.
+        Don’t worry — there’s plenty more to explore!
+    </p>
+
+    <a href="{% url 'products' %}" class="nav-btns mb-3 d-inline-block">
+        Browse Products
+    </a>
 </div>
 {% endblock %}
