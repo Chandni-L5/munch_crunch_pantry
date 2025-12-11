@@ -26,7 +26,8 @@
     <section class="mb-5 px-4">
         <h2 class="h5"><strong>If you’ve changed your mind 🤔</strong></h2>
         <p>
-            If you change your mind about an item, please contact us within <strong>3 days</strong> of receiving your order.
+            If you change your mind about an item, please contact us within <strong>3 days</strong> of receiving your
+            order.
             We may be able to accept a return for:
         </p>
         <ul>
@@ -92,9 +93,19 @@
     <section class="mb-5 px-4">
         <h2 class="h5"><strong>Questions ❓</strong></h2>
         <p>
-            If you’re unsure whether your order is eligible for a return or refund, 
+            If you’re unsure whether your order is eligible for a return or refund,
             please <a href="{% url 'contact' %}">get in touch</a> and we’ll be happy to help.
         </p>
     </section>
+    <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+        <a href="{% url 'home' %}" class="contact-success-btn">
+            <i class="fa-solid fa-angle-left"></i>
+            Back to homepage
+        </a>
+        <a href="{% url 'products' %}" class="contact-success-btn">
+            <i class="fa-solid fa-globe"></i>
+            Browse products
+        </a>
+    </div>
 </div>
 {% endblock %}
