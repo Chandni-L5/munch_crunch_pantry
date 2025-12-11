@@ -1,29 +1,66 @@
 <ul class="navbar-nav mx-auto w-100 justify-content-center bg-white py-2">
-    <li class="nav-item d-block d-md-none">
-        <a href="{% url 'home' %}" class="logo-font fw-bold nav-link me-5 ms-2">
+    <!-- Home (mobile only) -->
+    <li class="nav-item d-block d-lg-none">
+        <a href="{% url 'home' %}" class="logo-font fw-bold nav-link me-3 ms-2">
             Home
         </a>
     </li>
-    <li class="nav-item dropdown">
-        <a href="" class="logo-font fw-bold nav-link me-5 ms-2 dropdown-toggle" id="all-products-link"
-            data-bs-toggle="dropdown" aria-expanded="false" role="button">
-            All Products
+    <!-- Shop dropdown (All Products + categories) – mobile only -->
+    <li class="nav-item dropdown d-lg-none">
+        <a class="nav-link logo-font fw-bold dropdown-toggle me-3"
+           href="#" id="shop-dropdown-mobile" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            Shop
         </a>
-        <ul class="dropdown-menu dropdown-border" aria-labelledby="all-products-link">
-            <hr class="dropdown-divider">
-            <li><a class="dropdown-item menu-font-style" href="{% url 'products' %}?sort=price&direction=asc">By Price</a></li>
-            <hr class="dropdown-divider">
-            <li><a class="dropdown-item menu-font-style" href="{% url 'products' %}?sort=name&direction=asc">By A-Z</a></li>
-            <hr class="dropdown-divider">
-            <li><a class="dropdown-item menu-font-style" href="{% url 'products' %}?sort=category&direction=asc">By Category</a></li>
-            <hr class="dropdown-divider">
-            <li><a class="dropdown-item menu-font-style" href="{% url 'products' %}">All Products</a></li>
-            <hr class="dropdown-divider">
+        <ul class="dropdown-menu dropdown-border" aria-labelledby="shop-dropdown-mobile">
+            <li>
+                <a class="dropdown-item menu-font-style fw-bold" href="{% url 'products' %}">
+                    All Products
+                </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            {% for category in nav_categories %}
+            <li>
+                <a class="dropdown-item menu-font-style"
+                   href="{% url 'products' %}?category={{ category.slug }}">
+                    {{ category.name }}
+                </a>
+            </li>
+            {% endfor %}
         </ul>
     </li>
+    <!-- Other pages (mobile only) -->
+    <li class="nav-item d-lg-none">
+        <a href="{% url 'about' %}" class="nav-link logo-font fw-bold me-3">
+            About us
+        </a>
+    </li>
+    <li class="nav-item d-lg-none">
+        <a href="" class="nav-link logo-font fw-bold me-3">
+            Product Origins
+        </a>
+    </li>
+    <li class="nav-item d-lg-none">
+        <a href="{% url 'contact' %}" class="nav-link logo-font fw-bold me-3">
+            Contact Us
+        </a>
+    </li>
+    <li class="nav-item d-lg-none">
+        <a href="{% url 'faq' %}" class="nav-link logo-font fw-bold me-3">
+            FAQs
+        </a>
+    </li>
+    <!-- All Products (desktop only) -->
+    <li class="nav-item d-none d-lg-block">
+        <a href="{% url 'products' %}" class="nav-link logo-font fw-bold me-3">
+            All Products
+        </a>
+    </li>
+    <!-- Categories (desktop only) -->
     {% for category in nav_categories %}
-    <li>
-        <a class="nav-link logo-font fw-bold me-3" href="{% url 'products' %}?category={{ category.slug }}">
+    <li class="nav-item d-none d-lg-block">
+        <a class="nav-link logo-font fw-bold me-3"
+           href="{% url 'products' %}?category={{ category.slug }}">
             {{ category.name|upper }}
         </a>
     </li>
