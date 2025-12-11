@@ -34,6 +34,7 @@
     "pycodestyle",
     "pycparser",
     "pyflakes",
+    "resellable",
     "setuptools",
     "signups",
     "sqlparse",

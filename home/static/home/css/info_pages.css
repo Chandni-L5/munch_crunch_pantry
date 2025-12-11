@@ -1,0 +1,18 @@
+h1,h2 strong {
+    color: var(--color-4)
+}
+
+.accordion-button {
+    font-weight: 600;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--color-9, #fffaf0);
+}
+
+.accordion-item {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--color-11);
+    margin-bottom: 0.5rem;
+}

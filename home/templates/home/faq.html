@@ -1,5 +1,247 @@
-{% extends "home/base.html" %}
-
+{% extends "base.html" %}
+{% load static %}
 {% block title %}FAQ - Munch Crunch Pantry{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/info_pages.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="container py-4 mt-4">
+    <h1 class="mb-3 px-4">Frequently Asked Questions</h1>
+    <p class="mb-5 px-4">
+        Have a question about Munch Crunch Pantry, our wholefoods, or how we deliver?
+        You might find the answer below. If not, <a href="{% url 'contact' %}">get in touch</a>
+        and we’ll be happy to help.
+    </p>
+
+    <div class="accordion px-md-4" id="faqAccordion">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-1">
+                <button class="accordion-button" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#faq-collapse-1"
+                        aria-expanded="true"
+                        aria-controls="faq-collapse-1">
+                    How long will my order take to arrive?
+                </button>
+            </h2>
+            <div id="faq-collapse-1"
+                 class="accordion-collapse collapse show"
+                 aria-labelledby="faq-heading-1"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        We aim to dispatch all orders within <strong>1–2 working days</strong>.
+                        Once shipped, standard delivery usually takes <strong>2–4 working days</strong>,
+                        and express delivery <strong>1–2 working days</strong>, depending on your location
+                        and our courier.
+                    </p>
+                    <p class="mb-0">
+                        For more details, see our
+                        <a href="{% url 'shipping' %}">Shipping &amp; Delivery</a> page.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-2">
+                <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#faq-collapse-2"
+                        aria-expanded="false"
+                        aria-controls="faq-collapse-2">
+                    Do you deliver outside the UK?
+                </button>
+            </h2>
+            <div id="faq-collapse-2"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="faq-heading-2"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        We currently deliver to addresses within the United Kingdom.
+                        If you’re outside the UK and would like to order, please
+                        <a href="{% url 'contact' %}">contact us</a> and we’ll see if we can help.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-3">
+                <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#faq-collapse-3"
+                        aria-expanded="false"
+                        aria-controls="faq-collapse-3">
+                    Is there a free delivery option?
+                </button>
+            </h2>
+            <div id="faq-collapse-3"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="faq-heading-3"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        Yes! We sometimes offer <strong>free standard delivery</strong> when your basket
+                        reaches a certain total. Any current free delivery threshold will be clearly shown
+                        at checkout and in our banners.
+                    </p>
+                    <p class="mb-0">
+                        Check the <a href="{% url 'shipping' %}">Shipping &amp; Delivery</a> page
+                        or homepage banner for the latest offer.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-4">
+                <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#faq-collapse-4"
+                        aria-expanded="false"
+                        aria-controls="faq-collapse-4">
+                    What if something is wrong with my order?
+                </button>
+            </h2>
+            <div id="faq-collapse-4"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="faq-heading-4"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        If your order arrives damaged, faulty, or not as expected,
+                        please contact us within <strong>3 days</strong> of delivery with your order number,
+                        photos (if possible), and a short description of the issue.
+                    </p>
+                    <p class="mb-0">
+                        You can read more on our
+                        <a href="{% url 'returns' %}">Returns &amp; Refunds</a> page.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-5">
+                <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#faq-collapse-5"
+                        aria-expanded="false"
+                        aria-controls="faq-collapse-5">
+                    Are your products suitable for people with allergies?
+                </button>
+            </h2>
+            <div id="faq-collapse-5"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="faq-heading-5"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        Many of our products contain or are packed in an environment that handles
+                        <strong>nuts, peanuts, sesame, gluten, and soy</strong>.
+                        Because of this, we can’t guarantee that any product is completely free from
+                        traces of allergens.
+                    </p>
+                    <p class="mb-0">
+                        Always check the packaging for the latest ingredient and allergen information.
+                        If you have a severe allergy, please
+                        <a href="{% url 'contact' %}">contact us</a> before ordering.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-6">
+                <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#faq-collapse-6"
+                        aria-expanded="false"
+                        aria-controls="faq-collapse-6">
+                    How should I store my nuts, seeds and dried fruits?
+                </button>
+            </h2>
+            <div id="faq-collapse-6"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="faq-heading-6"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        For best freshness, we recommend keeping your wholefoods in an airtight container,
+                        stored in a cool, dry place away from direct sunlight.
+                    </p>
+                    <p class="mb-0">
+                        Some products can also be kept in the fridge or freezer for extended freshness –
+                        always check the packaging or product page for any specific storage advice.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-7">
+                <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#faq-collapse-7"
+                        aria-expanded="false"
+                        aria-controls="faq-collapse-7">
+                    How do I use a discount code?
+                </button>
+            </h2>
+            <div id="faq-collapse-7"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="faq-heading-7"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        If you have a valid discount or promo code, you can enter it at checkout in the
+                        <strong>“Discount Code”</strong> field. Once applied, you’ll see the updated total
+                        before you complete payment.
+                    </p>
+                    <p class="mb-0">
+                        Some codes may have expiry dates or minimum spend requirements – these will be
+                        mentioned wherever the code is shared (e.g. newsletter or homepage banner).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-8">
+                <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#faq-collapse-8"
+                        aria-expanded="false"
+                        aria-controls="faq-collapse-8">
+                    Do I need an account to place an order?
+                </button>
+            </h2>
+            <div id="faq-collapse-8"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="faq-heading-8"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        You can usually checkout as a guest, but creating an account makes future shopping
+                        much easier. With an account, you can:
+                    </p>
+                    <ul>
+                        <li>Save delivery details for faster checkout</li>
+                        <li>View your order history</li>
+                        <li>Manage your details and preferences</li>
+                    </ul>
+                    <p class="mb-0">
+                        You can create an account when you checkout, or via the
+                        <a href="{% url 'account_signup' %}">Sign Up</a> page.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

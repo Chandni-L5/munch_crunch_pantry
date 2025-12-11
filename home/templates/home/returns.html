@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Returns &amp; Refunds - Munch Crunch Pantry{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/info_pages.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4 mt-4">
+    <h1 class="mb-3 px-4"><strong>Returns &amp; Refunds</strong></h1>
+    <p class="mb-5 px-4">
+        We want you to be completely happy with your order from Munch Crunch Pantry.
+        If something isn’t right, we’ll do our best to make it better.
+    </p>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Food products &amp; safety 🌴</strong></h2>
+        <p>
+            As we sell food products, we must follow strict food safety guidelines.
+            This means that in most cases we can only accept returns for
+            <strong>unopened, unused and sealed</strong> items, unless the product is damaged,
+            faulty, or not as described.
+        </p>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>If you’ve changed your mind 🤔</strong></h2>
+        <p>
+            If you change your mind about an item, please contact us within <strong>3 days</strong> of receiving your order.
+            We may be able to accept a return for:
+        </p>
+        <ul>
+            <li>Unopened, sealed items</li>
+            <li>In their original packaging</li>
+            <li>In a resellable condition</li>
+        </ul>
+        <p>
+            Once we receive and inspect the returned items, we’ll confirm if a refund is approved.
+            You’ll be responsible for the cost of return postage unless the item is faulty or incorrect.
+        </p>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Damaged, faulty or incorrect items 🛠 </strong></h2>
+        <p>
+            If your order arrives damaged, faulty, or you’ve received the wrong item,
+            please contact us within <strong>3 days</strong> of delivery with:
+        </p>
+        <ul>
+            <li>Your order number</li>
+            <li>Photos of the item and packaging</li>
+            <li>A brief description of the issue</li>
+        </ul>
+        <p>
+            We’ll investigate and, where appropriate, offer a replacement, store credit or refund.
+        </p>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Refunds 💰</strong></h2>
+        <p>
+            If a refund is approved, it will be processed to your original payment method.
+            Please allow up to <strong>5–10 working days</strong> for the refund to appear on your statement,
+            depending on your bank or payment provider.
+        </p>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>How to request a return 📩</strong></h2>
+        <p>
+            To request a return or report an issue with your order, please:
+        </p>
+        <ol>
+            <li>Contact us via our <a href="{% url 'contact' %}">contact page</a>.</li>
+            <li>Include your order number and details of the issue.</li>
+            <li>Wait for confirmation and return instructions before sending anything back.</li>
+        </ol>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Non-returnable items 🚫</strong></h2>
+        <p>
+            We are unable to accept returns for:
+        </p>
+        <ul>
+            <li>Opened food items</li>
+            <li>Items not in their original packaging</li>
+            <li>Items returned outside the stated timeframes (unless required by law)</li>
+        </ul>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Questions ❓</strong></h2>
+        <p>
+            If you’re unsure whether your order is eligible for a return or refund, 
+            please <a href="{% url 'contact' %}">get in touch</a> and we’ll be happy to help.
+        </p>
+    </section>
+</div>
+{% endblock %}
