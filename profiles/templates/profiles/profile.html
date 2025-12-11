@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block newsletter_banner %} {% endblock %}
+{% block newsletter_banner %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'profiles/css/profiles.css' %}">
@@ -17,11 +17,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container px-3">
     <div class="row">
         <div class="col">
             <hr>
-            <h2 class="logo-font mb-4">Your Account  - Welcome {{ profile.user.username }}</h2>
+            <h2 class="logo-font mb-4">Your Account - Welcome {{ profile.user.username }}</h2>
             <hr>
         </div>
     </div>
@@ -49,9 +49,13 @@
                 </div>
             </form>
         </div>
-        <div class="col-12 col-lg-6">
+
+        <hr class="section-divider d-lg-none">
+
+        <div class="col-12 col-lg-6 mb-5">
+            <!-- Order History -->
             <p class="text-muted">Order History</p>
-            <div class="order-history table-responsive">
+            <div class="order-history table-responsive mb-5">
                 <table class="table table-sm table-borderless">
                     <thead>
                         <tr>
@@ -65,7 +69,7 @@
                         <tr>
                             <td>
                                 <a href="{% url 'order_history' order_number=order.order_number %}"
-                                    title="{{order.order_number}}">
+                                   title="{{ order.order_number }}">
                                     {{ order.order_number|truncatechars:15 }}
                                 </a>
                             </td>
@@ -80,6 +84,75 @@
                     </tbody>
                 </table>
             </div>
+
+            <hr class="section-divider d-lg-none">
+
+            <!-- Contact Messages -->
+            <p class="text-muted">Your Queries</p>
+            {% if contact_messages %}
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col" class="text-end">Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for message in contact_messages %}
+                        <tr>
+                            <td>{{ message.created_at|date:"d M Y" }}</td>
+                            <td>{{ message.subject }}</td>
+                            <td class="text-end">
+                                <button class="contact-toggle-btn" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#msg{{ message.id }}" aria-expanded="false"
+                                        aria-controls="msg{{ message.id }}">
+                                    <span class="toggle-text">View</span>
+                                    <i class="fas fa-chevron-down toggle-icon ms-1"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Collapsible message row -->
+                        <tr class="collapse" id="msg{{ message.id }}">
+                            <td colspan="3">
+                                <!-- User message -->
+                                <div class="p-3 border rounded bg-light">
+                                    <strong>Message:</strong>
+                                    <p class="mb-1">{{ message.message }}</p>
+
+                                    {% if message.order_number %}
+                                    <strong>Order:</strong>
+                                    <a href="{% url 'order_history' order_number=message.order_number %}"
+                                       title="{{ message.order_number }}">
+                                        {{ message.order_number|truncatechars:15 }}
+                                    </a>
+                                    {% endif %}
+                                    <div class="text-muted small mt-2">
+                                        Sent: {{ message.created_at|date:"d M Y H:i" }}
+                                    </div>
+                                </div>
+                                <!-- Admin response -->
+                                <div class="response-box mt-1 p-3 rounded">
+                                    {% if message.status == "resolved" %}
+                                    <p class="mb-0">Thanks for your message! We’ve emailed you our response.</p>
+                                    {% else %}
+                                    <p class="mb-0 text-muted">
+                                        Our team will reply to your query by email.
+                                        You’ll see any updates here once responded to.
+                                    </p>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-muted">You have no previous queries.</p>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -87,26 +160,41 @@
 
 {% block postloadjs %}
 {{ block.super }}
+<!-- Disable/enable buttons depending if form fields have changed -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-const form = document.getElementById("profile-update-form");
-const button = document.getElementById("update-profile-btn");
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("profile-update-form");
+        const button = document.getElementById("update-profile-btn");
 
-if (!form || !button) return;
+        if (!form || !button) return;
 
-const initialData = new FormData(form);
+        const initialData = new FormData(form);
 
-form.addEventListener("input", () => {
-const currentData = new FormData(form);
+        form.addEventListener("input", () => {
+            const currentData = new FormData(form);
 
-for (let [key, value] of currentData.entries()) {
-if (value !== initialData.get(key)) {
-button.disabled = false;
-return;
-}
-}
-button.disabled = true;
-});
-});
+            for (let [key, value] of currentData.entries()) {
+                if (value !== initialData.get(key)) {
+                    button.disabled = false;
+                    return;
+                }
+            }
+            button.disabled = true;
+        });
+    });
+</script>
+<!-- view/hide for queries dropdowns -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggles = document.querySelectorAll('.contact-toggle-btn');
+
+        toggles.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const isOpen = btn.getAttribute('aria-expanded') === 'true';
+                const textSpan = btn.querySelector('.toggle-text');
+                textSpan.textContent = isOpen ? 'View' : 'Hide';
+            });
+        });
+    });
 </script>
 {% endblock %}

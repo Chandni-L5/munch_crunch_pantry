@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Contact Us - Munch Crunch Pantry{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/info_pages.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 text-center">
+
+            <div class="contact-success-card p-4">
+                <div class="contact-success-icon mb-3">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+
+                <h1 class="h4 mb-3">Message sent</h1>
+                <p class="mb-4">
+                    Thanks for getting in touch with Munch Crunch Pantry.
+                    We’ve received your message and will reply by email as soon as we can.
+                </p>
+
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                    <a href="{% url 'home' %}" class="contact-success-btn">
+                        <i class="fa-solid fa-angle-left"></i> 
+                        Back to homepage
+                    </a>
+                    <a href="{% url 'products' %}" class="contact-success-btn">
+                        <i class="fa-solid fa-globe"></i>
+                        Browse products
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

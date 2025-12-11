@@ -23,10 +23,6 @@
         </a>
         <div class="dropdown-menu dropdown-border" aria-labelledby="user-options">
             {% if request.user.is_authenticated %}
-                {% if request.user.is_superuser %}
-                    <a href="" class="dropdown-item fw-bold menu-font-style">Product Management</a>
-                    <hr class="dropdown-divider">
-                {% endif %}
                 <a href="" class="dropdown-item fw-bold menu-font-style">My Profile</a>
                 <hr class="dropdown-divider">
                 <a href="{% url 'account_logout' %}" class="dropdown-item fw-bold menu-font-style">Logout</a>

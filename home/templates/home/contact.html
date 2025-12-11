@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Contact Us - Munch Crunch Pantry{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/info_pages.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4 px-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <h1 class="mb-3">Contact Us</h1>
+            <p class="mb-4">
+                Got a question about your order, our products, or delivery?  
+                Send us a message and we’ll get back to you by email.
+            </p>
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <div class="text-danger small">{{ form.name.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="text-danger small">{{ form.email.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.order_number }}
+                    {% if form.order_number.errors %}
+                        <div class="text-danger small">{{ form.order_number.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.subject }}
+                    {% if form.subject.errors %}
+                        <div class="text-danger small">{{ form.subject.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.message }}
+                    {% if form.message.errors %}
+                        <div class="text-danger small">{{ form.message.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="contact-btn">
+                        Send message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -37,3 +37,53 @@ button.profile-btns {
     border: none;
     background: var(--color-10);
 }
+
+.toggle-icon {
+    transition: transform 0.25s ease;
+}
+
+.contact-toggle-btn[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.contact-toggle-btn {
+    background-color: transparent;
+    border: 2px solid var(--color-10);
+    color: var(--color-10);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-toggle-btn:hover {
+    background-color: var(--color-10);
+    color: var(--color-9);
+    cursor: pointer;
+}
+
+.contact-toggle-btn[aria-expanded="true"] {
+    background-color: var(--color-10);
+    color: var(--color-9);
+}
+
+.response-box {
+    background-color: #ffffff;
+    border-left: 4px solid var(--color-10);
+    border-radius: 8px;
+}
+
+
+h2 {
+    color: var(--color-10)
+}
+
+.section-divider {
+    border: 0;
+    border-top: 3px solid var(--color-11);
+    margin: 1.5rem 0;
+}

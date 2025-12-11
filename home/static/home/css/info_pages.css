@@ -2,6 +2,7 @@ h1,h2 strong {
     color: var(--color-4)
 }
 
+/* Faqs */
 .accordion-button {
     font-weight: 600;
 }
@@ -15,4 +16,36 @@ h1,h2 strong {
     overflow: hidden;
     border: 1px solid var(--color-11);
     margin-bottom: 0.5rem;
+}
+
+/* Contact/success page */
+.contact-btn,
+.contact-success-btn {
+    background-color: var(--color-10);
+    color: var(--color-9);
+    border-radius: 12px;
+    font-weight: 600;
+    padding: 0.5rem;
+    min-width: 130px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    border: 2px solid transparent;
+    text-decoration: none;
+}
+
+.contact-btn:hover,
+.contact-success-btn:hover {
+    color: var(--color-7);
+    transform: translateY(-1px);
+    cursor: pointer;
+}
+
+/* Contact success page */
+.contact-success-card {
+    border-radius: 16px;
+    border: 1px solid #e5e5e5;
+}
+
+.contact-success-icon i {
+    font-size: 3rem;
+    color: var(--color-10);
 }

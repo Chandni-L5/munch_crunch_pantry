@@ -34,8 +34,7 @@ The philosophy behind Munch Crunch Pantry is to promote healthy living by making
 - Customer reviews and ratings - Users can leave reviews and ratings for products they have purchased.
 
 #### Admin Features
-- Admin dashboard - A dedicated interface for administrators to manage products, orders, and customer information.
-- Product management - Admins can add, edit, and delete products, including images, descriptions, and pricing.
+- Admin dashboard - A dedicated interface for administrators to manage products, orders, and customer information, Admins can add, edit, and delete products, including images, descriptions, and pricing.
 
 ### Agile Development & Planning 
 #### User Stories

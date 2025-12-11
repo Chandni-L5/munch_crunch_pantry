@@ -12,6 +12,7 @@ from checkout.models import Order
 def profile(request):
     """ A view to return the user's profile page """
     profile = get_object_or_404(UserProfile, user=request.user)
+    contact_messages = profile.contact_messages.order_by('-created_at')
 
     if request.method == 'POST':
         delivery_form = UserProfileForm(request.POST, instance=profile)
@@ -35,6 +36,7 @@ def profile(request):
         'orders': orders,
         'profile': profile,
         'on_profile_page': True,
+        'contact_messages': contact_messages,
     }
 
     return render(request, template, context)
