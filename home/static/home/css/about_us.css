@@ -1,0 +1,162 @@
+h1, h2 {
+    color: var(--color-10)
+}
+
+.about-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-8);
+}
+
+.about-title {
+    font-family: var(--primary-font);
+    font-weight: 700;
+}
+
+.about-subtitle {
+    color: #555555;
+    font-size: 0.95rem;
+}
+
+.about-hero-image {
+    max-width: 320px;
+}
+
+/* Cards / layout */
+.about-content {
+    background-color: var(--color-9);
+}
+
+.about-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    font-size: 0.95rem;
+}
+
+.about-section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.about-section-subtitle {
+    font-size: 0.95rem;
+    color: #666666;
+}
+
+/* Pill cards */
+.about-pill-card {
+    background-color: #ffffff;
+    border-radius: 18px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    padding: 1.5rem 1.25rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.about-pill-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-9);
+    color: var(--color-10);
+    margin-bottom: 0.5rem;
+}
+
+.about-pill-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.about-pill-text {
+    font-size: 0.9rem;
+    color: #555555;
+}
+
+/* Quote */
+.about-quote {
+    font-style: italic;
+    border-left: 3px solid var(--color-10);
+    padding-left: 0.75rem;
+    color: #444444;
+}
+
+/* List */
+.about-list {
+    padding-left: 1.2rem;
+    list-style: none;
+}
+
+.about-list li::before {
+    content: "•";
+    color: var(--color-10);
+    margin-right: 0.4rem;
+}
+
+/* CTA button */
+.about-cta-btn {
+    background-color: var(--color-10);
+    color: var(--color-9);
+    border-radius: 999px;
+    padding: 0.75rem 1.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: none;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.about-cta-btn:hover {
+    background-color: var(--color-8);
+    color: var(--color-9);
+    transform: translateY(-1px);
+}
+
+.nav-btns-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.nav-btns {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background-color: var(--color-10);
+    color: var(--color-9);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.45rem 0.8rem;
+    min-height: 44px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    border: 2px solid transparent;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav-btns:hover {
+    color: var(--color-7);
+    transform: translateY(-1px);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .nav-btns {
+        font-size: 0.85rem;
+        padding: 0.45rem 1rem;
+        min-height: 40px;
+    }
+}

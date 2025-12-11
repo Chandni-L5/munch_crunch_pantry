@@ -113,3 +113,7 @@ def contact(request):
 
 def contact_success(request):
     return render(request, 'home/contact_success.html')
+
+
+def about(request):
+    return render(request, 'home/about_us.html')

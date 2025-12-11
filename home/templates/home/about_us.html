@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us - Munch Crunch Pantry{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/about_us.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="px-2">
+    <div class="container pt-5 px-5">
+        <div class="row align-items-center g-4">
+            <div class="col-12 col-md-6">
+                <h1 class="about-title mb-3">About us</h1>
+                <p class="about-subtitle mb-0">
+                    Simple, honest, nourishing wholefoods — carefully chosen for real life.
+                </p>
+            </div>
+            <div class="col-12 col-md-6 text-md-end text-center">
+                <img src="{% static 'images/mcp-logo.webp' %}" alt="mcp logo" class="img-fluid about-hero-image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container pb-5 about-content">
+    <!-- Intro -->
+    <section class="mb-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="about-card p-4 p-md-5">
+                    <p>
+                        At <strong>Munch Crunch Pantry</strong>, we believe that good food should be simple, honest,
+                        and nourishing. What began as a small passion for natural wholefoods has grown into a trusted
+                        source for premium nuts, seeds, dried fruits, and pantry essentials — all carefully selected
+                        for quality, freshness, and flavour.
+                    </p>
+                    <p>
+                        We know that healthy eating isn’t about complicated rules or restrictive choices. It’s about
+                        feeling confident in what you’re bringing into your home. That’s why we’re committed to
+                        offering ingredients that are naturally nutritious, minimally processed, and free from
+                        unnecessary additives.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Promise / 4 columns -->
+    <section class="mb-5">
+        <div class="text-center mb-4">
+            <h2 class="about-section-title">Our Promise to You</h2>
+            <p class="about-section-subtitle mb-0">
+                Thoughtfully sourced ingredients, made to fit into everyday life.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="about-pill-card h-100">
+                    <div class="about-pill-icon">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3 class="about-pill-title">Quality You Can Trust</h3>
+                    <p class="about-pill-text">
+                        We partner with reliable suppliers who share our standards.
+                        Every product is chosen for its purity, taste, and nutritional value.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="about-pill-card h-100">
+                    <div class="about-pill-icon">
+                        <i class="fa-solid fa-apple-whole"></i>
+                    </div>
+                    <h3 class="about-pill-title">Naturally Nutritious</h3>
+                    <p class="about-pill-text">
+                        From antioxidant-rich nuts to fibre-packed seeds and wholesome dried fruits,
+                        our range supports balanced, everyday wellbeing.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="about-pill-card h-100">
+                    <div class="about-pill-icon">
+                        <i class="fa-regular fa-clipboard"></i>
+                    </div>
+                    <h3 class="about-pill-title">Transparent Sourcing</h3>
+                    <p class="about-pill-text">
+                        We care where your food comes from, prioritizing responsible sourcing
+                        and clear information you can trust.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="about-pill-card h-100">
+                    <div class="about-pill-icon">
+                        <i class="fa-solid fa-kitchen-set"></i>
+                    </div>
+                    <h3 class="about-pill-title">Easy, Everyday Wholefoods</h3>
+                    <p class="about-pill-text">
+                        Pantry staples, healthy swaps, and discovery ingredients — all in one place,
+                        ready to slot into your daily routine.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission + Why shop -->
+    <section class="mb-5">
+        <div class="row g-4">
+            <div class="col-12 col-lg-6">
+                <div class="about-card h-100 p-4 p-md-5">
+                    <h2 class="about-section-title mb-3">Our Mission</h2>
+                    <p class="mb-3">
+                        Our mission is simple:
+                    </p>
+                    <p class="about-quote mb-4">
+                        “To bring you high-quality wholefoods that are accessible, enjoyable,
+                        and made for real life.”
+                    </p>
+                    <p class="mb-0">
+                        We want every order you receive to reflect care, freshness, and the joy of eating well.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <div class="about-card h-100 p-4 p-md-5">
+                    <h2 class="about-section-title mb-3">Why Shop With Us?</h2>
+                    <ul class="about-list mb-0">
+                        <li>Carefully curated, premium wholefoods</li>
+                        <li>Additive-free and naturally nutritious</li>
+                        <li>Clear labelling and ingredient transparency</li>
+                        <li>Fast delivery straight to your door</li>
+                        <li>Friendly support whenever you need us</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thank you -->
+    <section class="mb-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="about-card p-4 p-md-5 text-center">
+                    <h2 class="about-section-title mb-3">Thank You for Supporting Us</h2>
+                    <p class="mb-3">
+                        Every time you shop with Munch Crunch Pantry, you’re supporting small, sustainable farming
+                        communities around the world. We work closely with growers who prioritise responsible practices,
+                        fair relationships, and care for the land — and your purchase helps these communities continue
+                        their craft with pride.
+                    </p>
+                    <p class="mb-4">
+                        If you’d like to learn more about where your food comes from, explore our Origin Stories pages,
+                        where we highlight the people, places, and traditions behind our wholefoods.
+                    </p>
+                    <a href="#" class="nav-btns my-2">
+                        <i class="fa-solid fa-book-open"></i>
+                        Origin Stories
+                    </a>
+                    <!-- refactor cards to display origin story examples and link to origin page -->
+                    <section class="mb-5">
+                        <div class="row g-4">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="about-pill-card h-100">
+                                    <div class="about-pill-icon">
+                                        <i class="fa-solid fa-seedling"></i>
+                                    </div>
+                                    <h3 class="about-pill-title">Quality You Can Trust</h3>
+                                    <p class="about-pill-text">
+                                        We partner with reliable suppliers who share our standards.
+                                        Every product is chosen for its purity, taste, and nutritional value.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="about-pill-card h-100">
+                                    <div class="about-pill-icon">
+                                        <i class="fa-solid fa-apple-whole"></i>
+                                    </div>
+                                    <h3 class="about-pill-title">Naturally Nutritious</h3>
+                                    <p class="about-pill-text">
+                                        From antioxidant-rich nuts to fibre-packed seeds and wholesome dried fruits,
+                                        our range supports balanced, everyday wellbeing.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="about-pill-card h-100">
+                                    <div class="about-pill-icon">
+                                        <i class="fa-regular fa-clipboard"></i>
+                                    </div>
+                                    <h3 class="about-pill-title">Transparent Sourcing</h3>
+                                    <p class="about-pill-text">
+                                        We care where your food comes from, prioritizing responsible sourcing
+                                        and clear information you can trust.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="about-pill-card h-100">
+                                    <div class="about-pill-icon">
+                                        <i class="fa-solid fa-kitchen-set"></i>
+                                    </div>
+                                    <h3 class="about-pill-title">Easy, Everyday Wholefoods</h3>
+                                    <p class="about-pill-text">
+                                        Pantry staples, healthy swaps, and discovery ingredients — all in one place,
+                                        ready to slot into your daily routine.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="nav-btns-row mt-4 text-center">
+                <a href="{% url 'home' %}" class="nav-btns">
+                    <i class="fa-solid fa-angle-left"></i>
+                    Back to homepage
+                </a>
+                <a href="{% url 'products' %}" class="nav-btns">
+                    <i class="fa-solid fa-globe"></i>
+                    Browse products
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

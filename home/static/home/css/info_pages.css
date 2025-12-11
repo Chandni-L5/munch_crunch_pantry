@@ -18,22 +18,33 @@ h1,h2 strong {
     margin-bottom: 0.5rem;
 }
 
-/* Contact/success page */
-.contact-btn,
-.contact-success-btn {
+.nav-btns-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.nav-btns {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
     background-color: var(--color-10);
     color: var(--color-9);
     border-radius: 12px;
+    font-size: 0.9rem;
     font-weight: 600;
-    padding: 0.5rem;
-    min-width: 130px;
+    padding: 0.45rem 0.8rem;
+    min-height: 44px;
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
     border: 2px solid transparent;
     text-decoration: none;
+    white-space: nowrap;
 }
 
-.contact-btn:hover,
-.contact-success-btn:hover {
+.nav-btns:hover {
     color: var(--color-7);
     transform: translateY(-1px);
     cursor: pointer;
@@ -48,4 +59,12 @@ h1,h2 strong {
 .contact-success-icon i {
     font-size: 3rem;
     color: var(--color-10);
+}
+
+@media (max-width: 768px) {
+    .nav-btns {
+        font-size: 0.85rem;
+        padding: 0.45rem 1rem;
+        min-height: 40px;
+    }
 }

@@ -93,15 +93,13 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-border" aria-labelledby="menu-dropdown">
-                                <a href="" class="dropdown-item fw-bold menu-font-style">About us</a>
+                                <a href="{% url 'about' %}" class="dropdown-item fw-bold menu-font-style">About us</a>
                                 <hr class="dropdown-divider">
                                 <a href="" class="dropdown-item fw-bold menu-font-style">Product Origins</a>
                                 <hr class="dropdown-divider">
-                                <a href="" class="dropdown-item fw-bold menu-font-style">Contact Us</a>
+                                <a href="{% url 'contact' %}" class="dropdown-item fw-bold menu-font-style">Contact Us</a>
                                 <hr class="dropdown-divider">
-                                <a href="" class="dropdown-item fw-bold menu-font-style">FAQs</a>
-                                <hr class="dropdown-divider">
-                                <a href="" class="dropdown-item fw-bold menu-font-style">Delivery & Returns</a>
+                                <a href="{% url 'faq' %}" class="dropdown-item fw-bold menu-font-style">FAQs</a>
                             </div>
                         </li>
                         <li class="list-inline-item dropdown">
