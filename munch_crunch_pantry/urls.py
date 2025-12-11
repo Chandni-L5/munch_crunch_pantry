@@ -32,3 +32,6 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'munch_crunch_pantry.views.handler404'
+handler500 = 'munch_crunch_pantry.views.handler500'
+handler403 = 'munch_crunch_pantry.views.handler403'
+handler400 = 'munch_crunch_pantry.views.handler400'
