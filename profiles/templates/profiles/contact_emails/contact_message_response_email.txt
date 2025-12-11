@@ -1,0 +1,16 @@
+Hi {{ contact_message.user_profile.user.first_name|default:contact_message.email }},
+
+Thanks for getting in touch with Munch Crunch Pantry.
+
+Your original message:
+----------------------
+{{ contact_message.message }}
+
+Our response:
+-------------
+{{ contact_message.response }}
+
+If you have any further questions, just reply to this email.
+
+Best wishes,
+The Munch Crunch Pantry Team
