@@ -66,6 +66,8 @@ class OrderForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.fields["country"].initial = "GB"
+        self.fields["country"].widget.attrs["class"] += " d-none"
         self.fields["address_search"].required = False
         self.fields["street_address2"].required = False
 

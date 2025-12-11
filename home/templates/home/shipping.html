@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-4 px-4">
+    <h1 class="mb-3">Shipping &amp Delivery</h1>
+    <p class="mb-5">
+        At Munch Crunch Pantry, we want your wholefoods to reach you quickly, safely, and in great condition.
+        Below you’ll find all the details about how we pack, ship, and deliver your orders.
+    </p>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Where we deliver 📍</strong></h2>
+        <p>
+            We currently deliver to addresses within the United Kingdom.
+            If you’re outside the UK and would like to place an order, please contact us and we’ll see what we can do.
+        </p>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Order Processing time ⏳</strong></h2>
+        <p>
+            Orders are typically processed within 1-2 business days. During peak periods, processing times may be slightly longer.
+        </p>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Delivery rates 💷</strong></h2>
+        <p>Delivery is calculated at checkout based on your basket total.</p>
+        <ul>
+            <li>
+                <strong>Free Delivery</strong> on orders over <strong>£{{ free_delivery_threshold|floatformat:2 }}</strong>
+            </li>
+            <li>
+                £{{ standard_delivery }} <strong>flat rate</strong> delivery for orders under <strong>£{{ free_delivery_threshold|floatformat:2 }}</strong>
+            </li>
+        </ul>
+        <p>Your delivery cost (if any) will be shown clearly before payment.</p>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Delivery timeframes ⏰</strong></h2>
+        <p>
+            Once your order has been processed, delivery typically takes 2-4 business days. Please note that delivery times are estimates and may vary due to courier delays or seasonal demand.
+        </p>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Packaging 📦</strong></h2>
+        <p>
+            We use eco-friendly and sustainable packaging materials to ensure your wholefoods arrive fresh and intact.
+        </p>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Address accuracy 📬</strong></h2>
+        <p>Please ensure your delivery address and postcode are entered correctly at checkout.
+            <br><br>
+            Munch Crunch Pantry cannot be held responsible for delays or lost packages due to incorrect or incomplete addresses.
+        </p>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Redelivery or Returned Parcels 🔄</strong></h2>
+        <p>If a parcel is returned to us due to being unclaimed, refused, or delivered to an incorrect address provided at checkout:</p>
+        <ul>
+            <li>You may be responsible for additional redelivery costs.</li>
+            <li>We will contact you to arrange redelivery and any associated fees.</li>
+        </ul>
+    </section>
+
+    <section class="mb-5 px-4">
+        <h2 class="h5"><strong>Contact Us 📞</strong></h2>
+        <p>
+            If you have any questions or concerns about your delivery, please don’t hesitate to <a href="{% url 'contact' %}">contact our customer service team</a>.
+        </p>
+    </section>
+</div>
+
+{% endblock %}

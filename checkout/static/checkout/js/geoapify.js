@@ -33,9 +33,9 @@ function addressAutocomplete(containerElement, callback, options) {
   if (!inputElement.getAttribute("placeholder")) {
     inputElement.setAttribute(
       "placeholder",
-      options && options.placeholder
-        ? options.placeholder
-        : "Start typing your address…"
+      options && options.placeholder ?
+      options.placeholder :
+      "Start typing your address…"
     );
   }
   inputElement.setAttribute("autocomplete", "off");
@@ -58,7 +58,9 @@ function addressAutocomplete(containerElement, callback, options) {
 
     // Cancel previous pending API call
     if (currentPromiseReject) {
-      currentPromiseReject({ canceled: true });
+      currentPromiseReject({
+        canceled: true
+      });
       currentPromiseReject = null;
     }
 
@@ -77,15 +79,16 @@ function addressAutocomplete(containerElement, callback, options) {
 
         // Use the global Django-injected key if available
         const apiKey =
-          typeof GEOAPIFY_API_KEY !== "undefined"
-            ? GEOAPIFY_API_KEY
-            : "YOUR_API_KEY";
+          typeof GEOAPIFY_API_KEY !== "undefined" ?
+          GEOAPIFY_API_KEY :
+          "YOUR_API_KEY";
 
         // You can add filter=countrycode:gb if you want only UK:
         // &filter=countrycode:gb
         const url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(
-          currentValue
-        )}&format=json&limit=5&apiKey=${apiKey}`;
+        currentValue
+        )}&format=json&limit=5&filter=countrycode:gb&apiKey=${apiKey}`;
+
 
         fetch(url).then((response) => {
           currentPromiseReject = null;
@@ -161,7 +164,9 @@ function addressAutocomplete(containerElement, callback, options) {
       }
     } else {
       if (e.key === "ArrowDown") {
-        const event = new Event("input", { bubbles: true });
+        const event = new Event("input", {
+          bubbles: true
+        });
         inputElement.dispatchEvent(event);
       }
     }
@@ -184,7 +189,9 @@ function addressAutocomplete(containerElement, callback, options) {
       e.target === inputElement &&
       !inputContainerElement.querySelector(".autocomplete-items")
     ) {
-      const event = new Event("input", { bubbles: true });
+      const event = new Event("input", {
+        bubbles: true
+      });
       inputElement.dispatchEvent(event);
     }
   });
