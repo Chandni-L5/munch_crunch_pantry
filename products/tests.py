@@ -3,7 +3,14 @@ from decimal import Decimal
 from django.test import TestCase
 from django.db import IntegrityError
 
-from products.models import (Category, Product, Quantity, ProductQuantity, NutritionMetric, NutritionLabel,)
+from products.models import (
+    Category,
+    Product,
+    Quantity,
+    ProductQuantity,
+    NutritionMetric,
+    NutritionLabel,
+)
 
 
 class CategoryModelTests(TestCase):

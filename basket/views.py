@@ -18,7 +18,8 @@ def remove_from_basket(request, item_id):
             basket.pop(item_key)
             messages.success(
                 request,
-                f"Removed {product_quantity.product.name} ({product_quantity.quantity.name}) from your basket. ✅"
+                f"Removed {product_quantity.product.name} "
+                f"({product_quantity.quantity.name}) from your basket. ✅"
             )
 
         request.session['basket'] = basket
@@ -51,13 +52,15 @@ def adjust_basket(request, item_id):
         basket[item_key] = quantity
         messages.success(
             request,
-            f"Updated {product_quantity.product.name} ({product_quantity.quantity.name}) to {quantity}. ✅"
+            f"Updated {product_quantity.product.name} "
+            f"({product_quantity.quantity.name}) to {quantity}. ✅"
         )
     else:
         basket.pop(item_key, None)
         messages.success(
             request,
-            f"Removed {product_quantity.product.name} ({product_quantity.quantity.name}) from your basket.  ✅"
+            f"Removed {product_quantity.product.name} "
+            f"({product_quantity.quantity.name}) from your basket.  ✅"
         )
 
     request.session['basket'] = basket
@@ -70,12 +73,19 @@ def add_to_basket(request, item_id):
 
     pq_id = request.POST.get('product_quantity_id')
     if not pq_id:
-        messages.error(request, "Please select a size before adding this product to your basket.")
+        messages.error(
+            request,
+            "Please select a size before adding this product to your basket."
+        )
         return redirect(reverse('product_detail', args=[item_id]))
 
-    product_quantity = get_object_or_404(ProductQuantity, pk=pq_id, product=product)
+    product_quantity = get_object_or_404(
+        ProductQuantity, pk=pq_id, product=product
+    )
     quantity = int(request.POST.get('quantity', 1))
-    redirect_url = request.POST.get('redirect_url', reverse('product_detail', args=[item_id]))
+    redirect_url = request.POST.get(
+        'redirect_url', reverse('product_detail', args=[item_id])
+    )
 
     basket = request.session.get('basket', {})
 
@@ -83,15 +93,16 @@ def add_to_basket(request, item_id):
         basket[pq_id] += quantity
         messages.success(
             request,
-            f" Updated: {product_quantity.product.name} ({product_quantity.quantity.name})"
+            f" Updated: {product_quantity.product.name} "
+            f"({product_quantity.quantity.name})"
             f"is now set to {basket[pq_id]} in your basket. ✅"
         )
     else:
         basket[pq_id] = quantity
         messages.success(
             request,
-            f"Added:  {product_quantity.product.name} ({product_quantity.quantity.name}) "
-            f"added to your basket. ✅"
+            f"Added:  {product_quantity.product.name} "
+            f"({product_quantity.quantity.name}) added to your basket. ✅"
         )
 
     request.session['basket'] = basket

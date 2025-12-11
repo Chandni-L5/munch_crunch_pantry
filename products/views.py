@@ -24,10 +24,14 @@ def all_products(request):
                 products = products.annotate(name_lower=Lower('name'))
                 sortkey = 'name_lower'
             elif sort == 'category':
-                products = products.annotate(category_name_lower=Lower('category__name'))
+                products = products.annotate(
+                    category_name_lower=Lower('category__name')
+                )
                 sortkey = 'category_name_lower'
             elif sort == 'price':
-                products = products.annotate(min_price=Min('quantities__price'))
+                products = products.annotate(
+                    min_price=Min('quantities__price')
+                )
                 sortkey = 'min_price'
             if sortkey and direction == 'desc':
                 sortkey = f'-{sortkey}'
@@ -44,10 +48,16 @@ def all_products(request):
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
-                messages.error(request, "You didn't enter any search criteria!")
+                messages.error(
+                    request, "You didn't enter any search criteria!"
+                )
                 return redirect(reverse('products'))
 
-            queries = Q(name__icontains=query) | Q(description__icontains=query)
+            queries = Q(
+                name__icontains=query
+            ) | Q(
+                description__icontains=query
+            )
             products = products.filter(queries)
 
     current_sorting = f'{sort}_{direction}' if sort and direction else ''
@@ -68,4 +78,6 @@ def product_detail(request, product_id):
         Product.objects.prefetch_related('quantities__quantity'),
         pk=product_id
     )
-    return render(request, "products/product_detail.html", {"product": product})
+    return render(
+        request, "products/product_detail.html", {"product": product}
+    )

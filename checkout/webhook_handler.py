@@ -61,7 +61,7 @@ class StripeWH_Handler:
 
     def handle_event(self, event):
         """Handle unexpected webhook events."""
-        logger.warning(f"Unhandled webhook received: {event['type']}")
+        logger.warning("Unhandled webhook received: %s", event["type"])
         return HttpResponse(
             content=f"Unhandled webhook received: {event['type']}",
             status=200,
@@ -77,7 +77,7 @@ class StripeWH_Handler:
         save_info = metadata.get("save_info", "false")
 
         if not basket_str:
-            logger.error(f"No basket metadata for PI {pid}")
+            logger.error("No basket metadata for PI %s", pid)
             return HttpResponse("Webhook: missing basket metadata", status=400)
 
         stripe_charge = stripe.Charge.retrieve(intent["latest_charge"])
@@ -98,16 +98,26 @@ class StripeWH_Handler:
                 profile, created = UserProfile.objects.get_or_create(user=user)
 
                 if save_info == "true":
-                    profile.default_phone_number = shipping_details.get("phone")
-                    profile.default_street_address1 = shipping_address.get("line1")
-                    profile.default_street_address2 = shipping_address.get("line2")
+                    profile.default_phone_number = shipping_details.get(
+                        "phone"
+                    )
+                    profile.default_street_address1 = shipping_address.get(
+                        "line1"
+                    )
+                    profile.default_street_address2 = shipping_address.get(
+                        "line2"
+                    )
                     profile.default_town_or_city = shipping_address.get("city")
-                    profile.default_postcode = shipping_address.get("postal_code")
+                    profile.default_postcode = shipping_address.get(
+                        "postal_code"
+                    )
                     profile.default_country = shipping_address.get("country")
                     profile.save()
             except User.DoesNotExist:
                 logger.warning(
-                    f"Username {username} from metadata not found when handling PI {pid}"
+                    "Username %s from metadata not found when handling PI %s",
+                    username,
+                    pid,
                 )
 
         order_exists = False
@@ -135,9 +145,17 @@ class StripeWH_Handler:
                 time.sleep(1)
 
         if order_exists:
-            logger.info(f"Order already exists for PI {pid} ({order.order_number})")
+            logger.info(
+                "Order already exists for PI %s (%s)",
+                pid,
+                order.order_number,
+            )
             self._send_confirmation_email(order)
-            logger.info(f"Confirmation email sent for order {order.order_number} to {order.email}")
+            logger.info(
+                "Confirmation email sent for order %s to %s",
+                order.order_number,
+                order.email,
+            )
             return HttpResponse("Webhook: order already exists", status=200)
 
         try:
@@ -161,7 +179,10 @@ class StripeWH_Handler:
                 try:
                     product_quantity = ProductQuantity.objects.get(pk=item_id)
                 except ProductQuantity.DoesNotExist:
-                    logger.warning(f"ProductQuantity {item_id} missing – skipping")
+                    logger.warning(
+                        "ProductQuantity %s missing – skipping",
+                        item_id,
+                    )
                     continue
 
                 OrderLineItem.objects.create(
@@ -172,11 +193,15 @@ class StripeWH_Handler:
 
             order.update_total()
             self._send_confirmation_email(order)
-            logger.info(f"Order created by webhook for PI {pid} ({order.order_number})")
+            logger.info(
+                "Order created by webhook for PI %s (%s)",
+                pid,
+                order.order_number,
+            )
             return HttpResponse("Webhook: order created", status=200)
 
         except Exception as e:
-            logger.error(f"Error creating order for PI {pid}: {e}")
+            logger.error("Error creating order for PI %s: %s", pid, e)
             if order:
                 order.delete()
             return HttpResponse("Webhook: error creating order", status=500)
@@ -184,7 +209,7 @@ class StripeWH_Handler:
     def handle_payment_intent_payment_failed(self, event):
         """Handle the payment_intent.payment_failed webhook."""
         pid = event["data"]["object"]["id"]
-        logger.warning(f"Payment failed for PI {pid}")
+        logger.warning("Payment failed for PI %s", pid)
         return HttpResponse(
             content=f"Webhook: payment failed for {pid}",
             status=200,

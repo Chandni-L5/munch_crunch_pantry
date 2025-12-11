@@ -7,7 +7,10 @@ class OrderForm(forms.ModelForm):
     address_search = forms.CharField(
         required=False,
         label="Address Search",
-        widget=forms.TextInput(attrs={"placeholder": "Start typing your address...", "class": "form-control", }),
+        widget=forms.TextInput(attrs={
+            "placeholder": "Start typing your address...",
+            "class": "form-control",
+        }),
     )
 
     class Meta:
@@ -42,7 +45,10 @@ class OrderForm(forms.ModelForm):
                 }
             ),
             "street_address1": forms.TextInput(
-                attrs={"placeholder": "Street address 1*", "class": "form-control"}
+                attrs={
+                    "placeholder": "Street address 1*",
+                    "class": "form-control"
+                }
             ),
             "street_address2": forms.TextInput(
                 attrs={

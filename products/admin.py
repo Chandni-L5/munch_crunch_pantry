@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import (Product, Category, Quantity, ProductQuantity, NutritionMetric, NutritionLabel,)
+from .models import (
+    Product, Category, Quantity, ProductQuantity, NutritionMetric,
+    NutritionLabel,
+)
 
 
 class ProductQuantityInline(admin.TabularInline):

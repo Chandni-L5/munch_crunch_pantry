@@ -16,7 +16,9 @@ class CreatePaymentIntentTests(TestCase):
     """
 
     @patch("checkout.views.stripe.PaymentIntent.create")
-    def test_create_payment_intent_returns_error_when_basket_empty(self, mock_stripe):
+    def test_create_payment_intent_returns_error_when_basket_empty(
+        self, mock_stripe
+    ):
         client = Client()
 
         response = client.post(
@@ -61,7 +63,9 @@ class WebhookViewTests(TestCase):
 
     @patch("checkout.webhooks.stripe.Webhook.construct_event")
     @patch("checkout.webhooks.StripeWH_Handler")
-    def test_webhook_dispatches_to_handler(self, mock_handler_cls, mock_construct_event):
+    def test_webhook_dispatches_to_handler(
+        self, mock_handler_cls, mock_construct_event
+    ):
         """
         - construct_event() is called to validate the event
         - StripeWH_Handler is instantiated
@@ -74,7 +78,9 @@ class WebhookViewTests(TestCase):
 
         mock_construct_event.return_value = payload
         mock_handler_instance = mock_handler_cls.return_value
-        mock_handler_instance.handle_payment_intent_succeeded.return_value = HttpResponse(status=200)
+        mock_handler_instance.handle_payment_intent_succeeded.return_value = (
+            HttpResponse(status=200)
+        )
 
         response = self.client.post(
             reverse("webhook"),
@@ -86,7 +92,8 @@ class WebhookViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         mock_construct_event.assert_called_once()
         mock_handler_cls.assert_called_once()
-        mock_handler_instance.handle_payment_intent_succeeded.assert_called_once_with(payload)
+        mock_handler_instance.handle_payment_intent_succeeded\
+            .assert_called_once_with(payload)
 
 
 class WebhookHandlerTests(TestCase):
@@ -109,7 +116,9 @@ class WebhookHandlerTests(TestCase):
 
     @patch("checkout.webhook_handler.stripe.Charge.retrieve")
     @patch("checkout.webhook_handler.time.sleep")
-    def test_handle_payment_intent_succeeded_creates_order(self, mock_sleep, mock_retrieve_charge):
+    def test_handle_payment_intent_succeeded_creates_order(
+        self, mock_sleep, mock_retrieve_charge
+    ):
         """
         Test that a valid payment_intent.succeeded event with basket metadata
         Order and OrderLineItem created.
@@ -164,7 +173,9 @@ class WebhookHandlerTests(TestCase):
 
     @patch("checkout.webhook_handler.stripe.Charge.retrieve")
     @patch("checkout.webhook_handler.time.sleep")
-    def test_webhook_retries_finding_order(self, mock_sleep, mock_retrieve_charge):
+    def test_webhook_retries_finding_order(
+        self, mock_sleep, mock_retrieve_charge
+    ):
         """
         Test that the handler retries up to 5 times to find an existing order
         before creating a new one.
@@ -203,7 +214,9 @@ class WebhookHandlerTests(TestCase):
             },
         }
 
-        with patch.object(Order.objects, "get", side_effect=Order.DoesNotExist):
+        with patch.object(
+            Order.objects, "get", side_effect=Order.DoesNotExist
+        ):
             handler = StripeWH_Handler(request=None)
             response = handler.handle_payment_intent_succeeded(event)
 

@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseBadRequest
-from django.urls import reverse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 
@@ -73,18 +72,22 @@ def checkout(request):
                     return redirect('view_basket')
             order.update_total()
             request.session['save_info'] = 'save_info' in request.POST
-            return redirect('checkout_success', order_number=order.order_number)
+            return redirect(
+                'checkout_success', order_number=order.order_number
+            )
         else:
             messages.error(
                 request,
-                "There was an error with your form. Please double-check your information."
+                "There was an error with your form. "
+                "Please double-check your information."
             )
     else:
         if request.user.is_authenticated:
             try:
                 profile = UserProfile.objects.get(user=request.user)
                 order_form = OrderForm(initial={
-                    'full_name': profile.user.get_full_name() or profile.user.username,
+                    'full_name': profile.user.get_full_name()
+                    or profile.user.username,
                     'email': profile.user.email,
                     'phone_number': profile.default_phone_number,
                     'street_address1': profile.default_street_address1,
@@ -95,7 +98,8 @@ def checkout(request):
                 })
             except UserProfile.DoesNotExist:
                 order_form = OrderForm(initial={
-                    "full_name": request.user.get_full_name() or request.user.username,
+                    "full_name": request.user.get_full_name()
+                    or request.user.username,
                     "email": request.user.email,
                 })
         else:
@@ -163,7 +167,11 @@ def checkout_success(request, order_number):
             if user_profile_form.is_valid():
                 user_profile_form.save()
             else:
-                messages.error(request, "There was an error updating your profile. Please check the form.")
+                messages.error(
+                    request,
+                    "There was an error updating your profile."
+                    " Please check the form."
+                )
 
     if not from_email:
         messages.success(
@@ -211,7 +219,9 @@ def cache_checkout_data(request):
                 "basket": json.dumps(basket),
                 "save_info": str(save_info).lower(),
                 "username": (
-                    request.user.username if request.user.is_authenticated else "AnonymousUser"
+                    request.user.username
+                    if request.user.is_authenticated
+                    else "AnonymousUser"
                 ),
             },
         )

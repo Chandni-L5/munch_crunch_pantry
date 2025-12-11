@@ -69,7 +69,9 @@ def contact(request):
             body_lines.append(message)
 
             email_body = "\n".join(body_lines)
-            to_email = getattr(settings, "SUPPORT_EMAIL", settings.DEFAULT_FROM_EMAIL)
+            to_email = getattr(
+                settings, "SUPPORT_EMAIL", settings.DEFAULT_FROM_EMAIL
+            )
 
             try:
                 email = EmailMessage(
@@ -82,11 +84,17 @@ def contact(request):
                 email.send(fail_silently=False)
             except Exception as e:
                 logger.error(f"Failed to send contact email: {e}")
-                messages.error(request, "An error occurred while sending your message. Please try again later.")
+                messages.error(
+                    request,
+                    "An error occurred while sending your message. "
+                    "Please try again later."
+                )
             else:
                 if request.user.is_authenticated:
                     try:
-                        user_profile = UserProfile.objects.get(user=request.user)
+                        user_profile = UserProfile.objects.get(
+                            user=request.user
+                        )
                     except UserProfile.DoesNotExist:
                         user_profile = None
 
@@ -104,7 +112,9 @@ def contact(request):
     else:
         initial = {}
         if request.user.is_authenticated:
-            initial["name"] = request.user.get_full_name() or request.user.username
+            initial["name"] = (
+                request.user.get_full_name() or request.user.username
+            )
             initial["email"] = request.user.email
         form = ContactForm(initial=initial)
 

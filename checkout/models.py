@@ -12,7 +12,12 @@ class Order(models.Model):
     order_number = models.CharField(
         max_length=32, unique=True, null=False, editable=False
     )
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
+    user_profile = models.ForeignKey(
+        UserProfile,
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        related_name='orders'
+    )
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
@@ -32,7 +37,9 @@ class Order(models.Model):
         max_digits=10, decimal_places=2, null=False, default=0
     )
     original_basket = models.TextField(null=False, blank=False, default="")
-    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default="")
+    stripe_pid = models.CharField(
+        max_length=254, null=False, blank=False, default=""
+    )
 
     def _generate_order_number(self):
         """Generate a random, unique order number using UUID"""
@@ -44,7 +51,8 @@ class Order(models.Model):
         accounting for delivery costs.
         """
         lineitem_total = (
-            self.lineitems.aggregate(Sum("lineitem_total"))["lineitem_total__sum"] or 0
+            self.lineitems.aggregate(Sum("lineitem_total"))
+            ["lineitem_total__sum"] or 0
         )
 
         self.order_total = lineitem_total

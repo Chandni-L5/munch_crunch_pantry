@@ -32,4 +32,6 @@ class ContactViewTests(TestCase):
         self.assertTemplateUsed(response, "home/contact.html")
 
         messages = list(response.context["messages"])
-        self.assertTrue(any("Something went wrong" in str(m) for m in messages))
+        self.assertTrue(
+            any("Something went wrong" in str(m) for m in messages)
+        )

@@ -22,11 +22,18 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(
+        Category, null=True, blank=True, on_delete=models.SET_NULL
+    )
     sku = models.CharField(max_length=32, null=True, blank=True, unique=True)
     name = models.CharField(max_length=254)
     description = models.TextField()
-    sizes = models.ManyToManyField('Quantity', through='ProductQuantity', blank=True, related_name='products')
+    sizes = models.ManyToManyField(
+        'Quantity',
+        through='ProductQuantity',
+        blank=True,
+        related_name='products'
+    )
     image = models.ImageField(null=True, blank=True)
     ingredients = models.TextField(null=True, blank=True)
     storage_instructions = models.TextField(null=True, blank=True)
@@ -79,7 +86,11 @@ class ProductQuantity(models.Model):
     Join model linking a product to a specific size (Quantity),
     with its own price and stock.
     """
-    product = models.ForeignKey(Product, related_name='quantities', on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product,
+        related_name='quantities',
+        on_delete=models.CASCADE
+    )
     quantity = models.ForeignKey(Quantity, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
@@ -104,7 +115,11 @@ class NutritionMetric(models.Model):
 
 
 class NutritionLabel(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='nutrition_labels')
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='nutrition_labels'
+    )
     metric = models.ForeignKey(NutritionMetric, on_delete=models.CASCADE)
     amount_per_100g = models.DecimalField(max_digits=6, decimal_places=2)
 

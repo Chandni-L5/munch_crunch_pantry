@@ -27,7 +27,9 @@ class UserUpdateForm(forms.ModelForm):
 
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'profile-form-input'
-            self.fields[field].widget.attrs['placeholder'] = placeholders[field]
+            self.fields[field].widget.attrs['placeholder'] = (
+                placeholders[field]
+            )
             self.fields[field].label = False
 
 
@@ -80,6 +82,7 @@ class CustomSignupForm(SignupForm):
         email = self.cleaned_data["email"]
         if User.objects.filter(email__iexact=email).exists():
             raise ValidationError(
-                "An account with this email already exists. Please sign in or reset your password."
+                "An account with this email already exists."
+                " Please sign in or reset your password."
             )
         return email

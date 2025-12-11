@@ -12,7 +12,11 @@ from checkout.models import Order
 def profile(request):
     """ A view to return the user's profile page """
     profile = get_object_or_404(UserProfile, user=request.user)
-    contact_messages = ContactMessage.objects.filter(user_profile=profile).order_by('-created_at')
+    contact_messages = (
+        ContactMessage.objects
+        .filter(user_profile=profile)
+        .order_by("-created_at")
+    )
 
     if request.method == 'POST':
         delivery_form = UserProfileForm(request.POST, instance=profile)
@@ -56,8 +60,9 @@ def order_history(request, order_number):
         messages.info(
             request,
             (
-                f"This is a past confirmation for order number {order_number}. "
-                "A confirmation email was sent on the order date."
+                f"This is a past confirmation "
+                f"for order number {order_number}. "
+                f"A confirmation email was sent on the order date."
             )
         )
 
