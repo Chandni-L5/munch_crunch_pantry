@@ -80,7 +80,7 @@
                             <td class="py-1 py-md-3 text-center text-md-start align-middle">
                                 <p class="my-0">
                                     <span class="fw-semibold d-inline d-md-none me-1">Price:</span>
-                                    £ {{ item.product.price }}
+                                    £ {{ item.product.price|floatformat:2 }}
                                 </p>
                             </td>
 
@@ -142,7 +142,7 @@
                             <td class="py-1 py-md-3 text-center text-md-start align-middle">
                                 <p class="my-0">
                                     <span class="fw-semibold d-inline d-md-none me-1">Subtotal:</span>
-                                    £ {{ item.total_price }}
+                                    £ {{ item.total_price|floatformat:2 }}
                                 </p>
                             </td>
                         </tr>
