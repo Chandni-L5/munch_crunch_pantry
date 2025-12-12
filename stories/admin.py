@@ -8,7 +8,7 @@ from .models import Story
 class StoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_published', 'created_at')
     prepopulated_fields = {'slug': ('title',)}
-    search_fields = ('title', 'origin_country', 'origin_region')
+    search_fields = ('title', 'origin_country')
     list_filter = ('is_published', 'created_at', 'origin_country')
     readonly_fields = ('created_at',)
 

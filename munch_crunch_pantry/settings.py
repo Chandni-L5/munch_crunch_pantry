@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'profiles',
     'storages',
     'stories',
+    'django_ckeditor_5',
 ]
 
 MIDDLEWARE = [
@@ -298,3 +299,14 @@ SOCIALACCOUNT_EMAIL_VERIFICATION = "optional"
 SOCIALACCOUNT_ADAPTER = (
     "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"
 )
+
+# CKEditor settings
+CKEDITOR_5_CONFIGS = {
+    "default": {
+        "toolbar": [
+            "heading", "|", "bold", "italic", "link",
+            "bulletedList", "numberedList", "|",
+            "blockQuote", "undo", "redo",
+        ],
+    }
+}

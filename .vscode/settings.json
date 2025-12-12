@@ -1,4 +1,6 @@
 {
+  "git.showIgnoredFiles": false,
+
   "cSpell.words": [
     "asgiref",
     "boto",
@@ -56,4 +58,5 @@
   // Stop Pylance/pycodestyle duplicating Flake8’s checks
   "python.analysis.ignore": ["pycodestyle"],
   "python.analysis.maxLineLength": 120
+  
 }
