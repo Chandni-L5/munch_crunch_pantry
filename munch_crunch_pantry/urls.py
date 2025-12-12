@@ -20,10 +20,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from profiles.views_allauth import RemoveEmail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
+    path("accounts/email/", RemoveEmail.as_view(), name="account_email"),
     path('accounts/', include('allauth.urls')),
     path('', include('home.urls')),
     path('products/', include('products.urls')),

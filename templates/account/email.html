@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load i18n crispy_forms_tags %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
 
 {% block extra_title %}{% trans "Email Addresses" %}{% endblock %}
 {% block page_header %}{% endblock %}
@@ -18,55 +23,65 @@
                     <br>3. (Optional) Remove the old one.
                 </p>
                 {% if emailaddresses %}
-                <form method="post" action="{% url 'account_email' %}">
+                <form method="post" action="{% url 'account_email' %}" id="email-management-form">
                     {% csrf_token %}
-                    <table class="table align-middle">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Email</th>
-                                <th>Primary</th>
-                                <th>Verified</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for radio in emailaddress_radios %}
+                    <div class="table-responsive allauth-email-table">
+                        <table class="table align-middle mb-3">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Email</th>
+                                    <th>Primary</th>
+                                    <th>Verified</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for radio in emailaddress_radios %}
                                 {% with e=radio.emailaddress %}
                                 <tr>
                                     <td>
-                                        <input type="radio"
-                                               name="email"
-                                               value="{{ e.email }}"
-                                               id="{{ radio.id }}"
-                                               {% if radio.checked %}checked{% endif %}>
+                                        <input type="radio" name="email" value="{{ e.email }}" id="{{ radio.id }}"
+                                            {% if radio.checked %}checked{% endif %}>
                                     </td>
                                     <td><label for="{{ radio.id }}">{{ e.email }}</label></td>
                                     <td>{% if e.primary %}Yes{% else %}No{% endif %}</td>
                                     <td>{% if e.verified %}Yes{% else %}No{% endif %}</td>
                                 </tr>
                                 {% endwith %}
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <div class="d-flex flex-wrap gap-2 mb-4">
-                        <button type="submit" name="action_primary" class="btn btn-outline-primary btn-sm">
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="allauth-btn-group d-flex gap-2 mb-4 align-items-center">
+                        <button type="submit" name="action_primary" class="allauth-btns allauth-btns--outline">
                             {% trans "Make Primary" %}
                         </button>
-                        <button type="submit" name="action_send" class="btn btn-outline-secondary btn-sm">
+                        <button type="submit" name="action_send" class="allauth-btns allauth-btns--outline">
                             {% trans "Re-send Verification" %}
                         </button>
-                        <button type="submit" name="action_remove" class="btn btn-outline-danger btn-sm">
+                        {% if emailaddresses|length <= 1 %}
+                        <span class="d-inline-block allauth-btn-wrapper" tabindex="0" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title="You must keep at least one email address on your account.">
+                            <button type="button" class="allauth-btns allauth-btns--outline allauth-btns--disabled"
+                                disabled>
+                                {% trans "Remove" %}
+                            </button>
+                        </span>
+                        {% else %}
+                        <button type="submit" name="action_remove" class="allauth-btns allauth-btns--outline">
                             {% trans "Remove" %}
                         </button>
+                        {% endif %}
                     </div>
                 </form>
                 {% elif user.email %}
-                    <p class="mb-2"><strong>Current email:</strong> {{ user.email }}</p>
-                    <p class="text-muted mb-4">
-                        You can add a new email below and set it as primary.
-                    </p>
+                <p class="mb-2"><strong>Current email:</strong> {{ user.email }}</p>
+                <p class="text-muted mb-4">
+                    You can add a new email below and set it as primary.
+                </p>
                 {% else %}
-                    <p>You currently have no email addresses associated with your account.</p>
+                <p>You currently have no email addresses associated with your account.</p>
                 {% endif %}
 
                 <hr>
@@ -75,8 +90,8 @@
                     {% csrf_token %}
                     {{ form|crispy }}
 
-                    <div class="d-flex justify-content-end mt-3">
-                        <button type="submit" name="action_add" class="btn btn-primary">
+                    <div class="allauth-add-btn d-flex justify-content-end mt-3">
+                        <button type="submit" name="action_add" class="allauth-btns allauth-btns--outline">
                             {% trans "Add Email" %}
                         </button>
                     </div>
@@ -85,4 +100,49 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<!-- trigger tooltip on remove button when disabled -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+            new bootstrap.Tooltip(el);
+        });
+    });
+</script>
+<!-- remove email validation -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+      new bootstrap.Tooltip(el);
+    });
+
+    const form = document.getElementById("email-management-form");
+    if (!form) return;
+
+    const removeBtn = form.querySelector('button[name="action_remove"]');
+    if (!removeBtn) return;
+
+    form.addEventListener("submit", function (e) {
+      const submitter = e.submitter;
+      if (!submitter) return;
+
+      if (submitter.name === "action_remove") {
+        const selected = form.querySelector('input[name="email"]:checked');
+        const selectedEmail = selected ? selected.value : "";
+
+        const ok = confirm(
+          selectedEmail
+            ? `Remove ${selectedEmail} from your account?\n\nYou will no longer be able to use it to sign in or receive order updates.`
+            : "Remove the selected email address?\n\nYou will no longer be able to use it to sign in or receive order updates."
+        );
+
+        if (!ok) e.preventDefault();
+      }
+    });
+  });
+</script>
+
 {% endblock %}
