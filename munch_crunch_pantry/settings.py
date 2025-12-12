@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'storages',
     'stories',
     'django_ckeditor_5',
+    'newsletter',
 ]
 
 MIDDLEWARE = [

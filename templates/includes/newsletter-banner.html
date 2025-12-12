@@ -1,12 +1,37 @@
 <div id="newsletter-banner" class="row text-center g-0">
-    <form id="newsletter-form" class="d-flex justify-content-center w-100 g-0">
-        <div class="w-100" style="max-width: 500px;">
-            <p class="m-2"><strong>Sign up to our newsletter for special offers and new releases</strong></p>
-            <div class="input-group my-2">
-                <input type="email" id="newsletter-email" name="email" class="form-control mb-2" placeholder="Email*" required>
-                <button type="submit" id="subscribe-btn" class="mb-2"><strong>Subscribe</strong></button>
+    <div class="d-flex align-items-center position-relative px-3 py-2 newsletter-header">
+        <button type="button" id="newsletter-toggle"
+            class="newsletter-caret-toggle position-absolute start-0 top-50 translate-middle-y" aria-expanded="true"
+            aria-controls="newsletter-body">
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+
+        <p class="m-0 text-center w-100 pe-none">
+            <strong>Sign up to our newsletter for special offers and new releases</strong>
+        </p>
+    </div>
+
+
+    <div id="newsletter-body" class="px-3 pb-3">
+        <form id="newsletter-form" class="d-flex justify-content-center w-100"
+            data-url="{% url 'newsletter_subscribe' %}">
+            <div class="w-100" style="max-width: 500px;">
+                {% csrf_token %}
+
+                <label for="newsletter-email" class="visually-hidden">
+                    Email address
+                </label>
+
+                <div class="input-group my-2">
+                    <input type="email" id="newsletter-email" name="email" class="form-control" placeholder="Email*"
+                        required>
+                    <button type="submit" id="subscribe-btn" class="btn btn-dark">
+                        <strong>Subscribe</strong>
+                    </button>
+                </div>
+
+                <div id="newsletter-response" class="mt-2" style="display:none;"></div>
             </div>
-            <div id="newsletter-response" class="mt-2" style="display: none;"></div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
