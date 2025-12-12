@@ -5,6 +5,8 @@ from django.db.models import Sum
 from django.conf import settings
 from django_countries.fields import CountryField
 
+from decimal import Decimal
+
 from profiles.models import UserProfile
 
 
@@ -51,18 +53,22 @@ class Order(models.Model):
         accounting for delivery costs.
         """
         lineitem_total = (
-            self.lineitems.aggregate(Sum("lineitem_total"))
-            ["lineitem_total__sum"] or 0
+            self.lineitems.aggregate(
+                Sum("lineitem_total")
+            )["lineitem_total__sum"] or Decimal("0.00")
         )
 
         self.order_total = lineitem_total
 
-        if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
-            self.delivery_cost = (
-                self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE / 100
-            )
+        free_threshold = Decimal(str(settings.FREE_DELIVERY_THRESHOLD))
+        standard_delivery = Decimal(str(settings.STANDARD_DELIVERY))
+
+        if self.order_total == 0:
+            self.delivery_cost = Decimal("0.00")
+        elif self.order_total < free_threshold:
+            self.delivery_cost = standard_delivery
         else:
-            self.delivery_cost = 0
+            self.delivery_cost = Decimal("0.00")
 
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
