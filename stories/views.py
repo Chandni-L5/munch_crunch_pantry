@@ -6,10 +6,8 @@ from .models import Story
 
 def stories_intro(request):
     """ A view to return the origin stories index page """
-    stories = Story.objects.filter(is_published=True).order_by("title")
-    return render(
-        request, "stories/stories_intro.html", {"stories": stories}
-    )
+    stories = Story.objects.filter(is_published=True).order_by("-created_at")
+    return render(request, "stories/stories_intro.html", {"stories": stories})
 
 
 def story_detail(request, slug):
