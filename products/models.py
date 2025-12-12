@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Min, Max
 from django.utils.text import slugify
+
 import uuid
 
 
@@ -128,5 +129,3 @@ class NutritionLabel(models.Model):
 
     def __str__(self):
         return f"{self.product.name} - {self.metric.name}"
-
-    from django.shortcuts import get_object_or_404

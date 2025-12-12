@@ -1,6 +1,9 @@
+from decimal import Decimal
+
 from django.conf import settings
-from products.models import ProductQuantity
 from django.shortcuts import get_object_or_404
+
+from products.models import ProductQuantity
 
 
 def basket_contents(request):
@@ -8,13 +11,13 @@ def basket_contents(request):
     A context processor to add the shopping basket contents to the context.
     """
     basket_items = []
-    total = 0.00
+    total = Decimal('0.00')
     product_count = 0
     basket = request.session.get('basket', {})
 
     for item_id, quantity in basket.items():
         product = get_object_or_404(ProductQuantity, pk=item_id)
-        price = float(product.price)
+        price = product.price
         line_total = price * quantity
         total += line_total
         product_count += quantity
@@ -25,22 +28,27 @@ def basket_contents(request):
             'total_price': line_total
         })
 
-    if total < settings.FREE_DELIVERY_THRESHOLD:
-        delivery = float(settings.STANDARD_DELIVERY)
-        free_delivery_delta = settings.FREE_DELIVERY_THRESHOLD - total
+    free_delivery_threshold = Decimal(str(settings.FREE_DELIVERY_THRESHOLD))
+    standard_delivery = Decimal(str(settings.STANDARD_DELIVERY))
+
+    if product_count == 0:
+        delivery = Decimal('0.00')
+        free_delivery_delta = Decimal('0.00')
+    elif total < free_delivery_threshold:
+        delivery = standard_delivery
+        free_delivery_delta = free_delivery_threshold - total
     else:
-        delivery = 0.00
-        free_delivery_delta = 0.00
+        delivery = Decimal('0.00')
+        free_delivery_delta = Decimal('0.00')
+
     grand_total = total + delivery
 
-    context = {
-        'basket_items': basket_items,
-        'total': total,
-        'product_count': product_count,
-        'delivery': delivery,
-        'free_delivery_delta': free_delivery_delta,
-        'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
-        'grand_total': grand_total,
+    return {
+        "basket_items": basket_items,
+        "total": total,
+        "product_count": product_count,
+        "delivery": delivery,
+        "free_delivery_delta": free_delivery_delta,
+        "free_delivery_threshold": free_delivery_threshold,
+        "grand_total": grand_total,
     }
-
-    return context
