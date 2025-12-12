@@ -9,3 +9,5 @@ env.py
 .staticfiles
 staticfiles
 .DS_Store
+.venv/
+*.log

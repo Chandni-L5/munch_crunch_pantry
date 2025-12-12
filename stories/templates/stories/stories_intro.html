@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container px-3 py-4">
+
+  <div class="row mb-4">
+    <div class="col-12 col-lg-10">
+      <h1 class="logo-font mb-2">Origin Stories</h1>
+      <p class="text-muted mb-0">
+        Discover where our ingredients come from and the farming communities we support around the world.
+      </p>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    {% for story in stories %}
+    <div class="col-12 col-md-6 col-xl-4">
+      <a href="{% url 'story_detail' story.slug %}" class="text-decoration-none">
+        <div class="card h-100 shadow-sm rounded-3 border-0">
+          {% if story.featured_image %}
+          <img src="{{ story.featured_image.url }}" class="card-img-top" alt="{{ story.title }}">
+          {% endif %}
+
+          <div class="card-body">
+            <h5 class="menu-font-style fw-bold mb-2">{{ story.title }}</h5>
+
+            {% if story.origin_country %}
+            <p class="small text-muted mb-2">
+              {{ story.origin_region }}{% if story.origin_region %}, {% endif %}{{ story.origin_country }}
+            </p>
+            {% endif %}
+
+            {% if story.excerpt %}
+            <p class="mb-0 text-muted">{{ story.excerpt|truncatechars:120 }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <p class="text-muted mb-0">No stories have been published yet.</p>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

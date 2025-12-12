@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="logo-font mb-3">{{ story.title }}</h1>
+    {% if is_preview %}
+    <div class="alert alert-warning">
+        Preview mode — this story may not be published yet.
+    </div>
+    {% endif %}
+
+    {% if story.featured_image %}
+    <img class="img-fluid rounded mb-4" src="{{ story.featured_image.url }}" alt="{{ story.title }}">
+    {% endif %}
+
+    <div class="mb-4">
+        {{ story.content|linebreaks }}
+    </div>
+
+    {% if story.origin_country or story.origin_region %}
+    <div id="country-map" style="height: 350px;" class="mb-4"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+const countryName = "{{ story.origin_country.name|default_if_none:''|escapejs }}";
+
+if (countryName) {
+    const map = L.map("country-map", {
+        zoomControl: false,
+        dragging: false,
+        scrollWheelZoom: false,
+    }).setView([20, 0], 2);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap"
+    }).addTo(map);
+
+    fetch("{% static 'stories/maps/world_countries.geojson' %}")
+        .then(res => res.json())
+        .then(data => {
+            L.geoJSON(data, {
+                style: feature => {
+                    const featureName = feature.properties.ADMIN || feature.properties.NAME;
+                    const isMatch = featureName === countryName;
+
+                    return {
+                        fillColor: isMatch ? "#7CB342" : "#ddd",
+                        weight: 1,
+                        color: "#999",
+                        fillOpacity: isMatch ? 0.7 : 0.3,
+                    };
+                },
+                onEachFeature: (feature, layer) => {
+                    const featureName = feature.properties.ADMIN || feature.properties.NAME;
+                    if (featureName === countryName) {
+                        map.fitBounds(layer.getBounds());
+                    }
+                }
+            }).addTo(map);
+        });
+}
+</script>
+
+{% endblock %}
