@@ -28,6 +28,7 @@ class Product(models.Model):
     )
     sku = models.CharField(max_length=32, null=True, blank=True, unique=True)
     name = models.CharField(max_length=254)
+    slug = models.SlugField(max_length=254, unique=True, null=True, blank=True)
     description = models.TextField()
     sizes = models.ManyToManyField(
         'Quantity',
@@ -49,8 +50,19 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            counter = 1
+            while (Product.objects.filter(slug=slug)
+                   .exclude(pk=self.pk).exists()):
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+
         if not self.sku:
             self.sku = uuid.uuid4().hex[:8].upper()
+
         super().save(*args, **kwargs)
 
     def from_price(self):

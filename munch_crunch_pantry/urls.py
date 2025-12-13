@@ -35,7 +35,12 @@ urlpatterns = [
     path('stories/', include('stories.urls')),
     path('newsletter/', include('newsletter.urls')),
     path('reviews/', include('reviews.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )
 
 handler404 = 'munch_crunch_pantry.views.handler404'
 handler500 = 'munch_crunch_pantry.views.handler500'
