@@ -6,12 +6,13 @@ from django.conf import settings
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.db import IntegrityError, transaction
 
 from profiles.forms import UserProfileForm
 from profiles.models import UserProfile
 from .forms import OrderForm
 from products.models import ProductQuantity
-from .models import Order, OrderLineItem
+from .models import Order, OrderLineItem, DiscountSingleUse
 from basket.context_processor import basket_contents
 from basket.utils import get_discount_amount
 
@@ -59,17 +60,39 @@ def checkout(request):
             order = order_form.save(commit=False)
             order.stripe_pid = pid
             order.original_basket = json.dumps(basket)
-
-            # --- DISCOUNT (correct + consistent) ---
+            order.discount_code = None
+            order.discount_amount = Decimal("0.00")
             discount_details = get_discount_amount(request)
-            order.discount_code = (
-                discount_details["code"] if discount_details["valid"] else None
-            )
-            order.discount_amount = basket_data.get(
-                "discount_amount", Decimal("0.00")
-            )
 
             order.save()
+
+            if discount_details["valid"]:
+                code = discount_details["code"]
+                email = order.email.strip().lower()
+
+                try:
+                    with transaction.atomic():
+                        DiscountSingleUse.objects.create(
+                            code=code,
+                            email=email,
+                            order_number=order.order_number,
+                        )
+
+                        order.discount_code = code
+                        order.discount_amount = basket_data.get(
+                            "discount_amount", Decimal("0.00")
+                        )
+                        order.save()
+
+                except IntegrityError:
+                    request.session.pop("discount_amount", None)
+                    messages.error(
+                        request,
+                        "This discount code has already been used with "
+                        "this email address."
+                    )
+                    order.delete()
+                    return redirect("view_basket")
 
             for item_id, quantity in basket.items():
                 try:
@@ -133,9 +156,7 @@ def checkout(request):
         "order_form": order_form,
         "basket": basket,
         "stripe_public_key": settings.STRIPE_PUBLIC_KEY,
-        "geoapify_api_key": settings.GEOAPIFY_API_KEY
-        if hasattr(settings, "GEOAPIFY_API_KEY")
-        else settings.GEOAPIFY_API_KEY,
+        "geoapify_api_key": settings.GEOAPIFY_API_KEY,
     }
     return render(request, "checkout/checkout.html", context)
 
@@ -209,7 +230,6 @@ def checkout_success(request, order_number):
             f"{order.email}.",
         )
 
-    # Clear basket + discount after successful checkout
     request.session.pop("basket", None)
     request.session.pop("discount_amount", None)
 

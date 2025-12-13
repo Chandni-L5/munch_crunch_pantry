@@ -132,3 +132,24 @@ class OrderLineItem(models.Model):
             f"({product.name} - {self.product_quantity.quantity.name}) "
             f"on order {self.order.order_number}"
         )
+
+
+class DiscountSingleUse(models.Model):
+    """Model to track single-use discount codes per user
+    - linked the the email address attached to the order
+    """
+    code = models.CharField(max_length=50)
+    email = models.EmailField()
+    used_at = models.DateTimeField(auto_now_add=True)
+    order_number = models.CharField(max_length=32, blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['code', 'email'],
+                name='unique_discount_per_email'
+            )
+        ]
+
+    def __str__(self):
+        return f"Discount code {self.code} used by {self.email}"
