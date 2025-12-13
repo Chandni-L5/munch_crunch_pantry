@@ -154,57 +154,70 @@
                         </tr>
                         {% endif %} {% endfor %}
 
-                        <!-- Discount code entry -->
                         <tr>
-                            <td colspan="5" class="pt-3 pb-2">
-                                <div class="discount-card p-3 rounded">
-                                    <form method="POST" action="{% url 'apply_discount' %}" class="row g-2 align-items-center">
-                                        {% csrf_token %}
-                                        <div class="col-12 col-md-6 col-lg-4">
-                                            <label for="discount_code" class="form-label mb-1">Have a discount code?</label>
-                                            <input type="text" name="discount_code" id="discount_code"
-                                                   class="form-control" placeholder="Enter code" required
-                                                   value="{{ discount_code|default_if_none:'' }}">
-                                        </div>
-                                        <div class="col-12 col-md-auto mt-2 mt-md-4">
-                                            <button type="submit" class="btn btn-primary">Apply Code</button>
-                                        </div>
+                            <td colspan="5" class="pt-4">
+                                <div class="row g-3 align-items-start">
+                                    <!-- LEFT: Discount code -->
+                                    <div class="col-12 col-lg-6">
+                                        <div class="discount-card p-3 rounded">
+                                            <form method="POST" action="{% url 'apply_discount' %}"
+                                                class="row g-2 align-items-end">
+                                                {% csrf_token %}
 
-                                        {% if discount_code %}
-                                            <div class="col-12 col-md-6 col-lg-4 mt-3 mt-md-0 text-md-end">
-                                                <p class="mb-1 fw-semibold text-success">
-                                                    Code {{ discount_code }} applied ({{ discount_percentage }}% off)
-                                                </p>
-                                                <button type="submit" name="remove" value="1" class="btn btn-outline-secondary btn-sm">
-                                                    Remove code
-                                                </button>
-                                            </div>
+                                                <div class="col-12 col-md-8">
+                                                    <label for="discount_code" class="form-label mb-1">
+                                                        Do you have a discount code?
+                                                    </label>
+                                                    <input type="text" name="discount_code" id="discount_code"
+                                                        class="form-control" placeholder="Enter code"
+                                                        value="{{ discount_code|default_if_none:'' }}">
+                                                </div>
+
+                                                <div class="col-12 col-md-4">
+                                                    <button type="submit" class="btn btn-primary w-100">
+                                                        Apply Code
+                                                    </button>
+                                                </div>
+
+                                                {% if discount_code %}
+                                                <div class="col-12">
+                                                    <p class="mb-0 fw-semibold text-success">
+                                                        Code {{ discount_code }} applied ({{ discount_percentage }}%
+                                                        off)
+                                                    </p>
+                                                </div>
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- RIGHT: Totals -->
+                                    <div class="col-12 col-lg-6 text-center text-lg-end">
+                                        <h6>Basket Total: £{{ total|floatformat:2 }}</h6>
+
+                                        {% if discount_amount > 0 %}
+                                        <h6 class="text-success">
+                                            Discount ({{ discount_code }}): -£{{ discount_amount|floatformat:2 }}
+                                        </h6>
+                                        <h6>Subtotal after discount: £{{ discounted_total|floatformat:2 }}</h6>
                                         {% endif %}
-                                    </form>
+
+                                        <h6>Delivery: £{{ delivery|floatformat:2 }}</h6>
+
+                                        <h4 class="mt-2">
+                                            <strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong>
+                                        </h4>
+
+                                        {% if free_delivery_delta > 0 %}
+                                        <p class="mb-1 text-danger">
+                                            Spend £{{ free_delivery_delta|floatformat:2 }} more for free delivery!
+                                        </p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
 
-                        <!-- Totals -->
-                        <tr>
-                            <td colspan="5" class="pt-5 text-center text-md-end">
-                                <h6>Basket Total: £{{ total|floatformat:2 }}</h6>
-                                {% if discount_amount > 0 %}
-                                <h6 class="text-success">Discount ({{ discount_code }}): -£{{ discount_amount|floatformat:2 }}</h6>
-                                <h6>Subtotal after discount: £{{ discounted_total|floatformat:2 }}</h6>
-                                {% endif %}
-                                <h6>Delivery: £ {{ delivery|floatformat:2 }}</h6>
-                                <h4 class="mt-2">
-                                    <strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong>
-                                </h4>
-                                {% if free_delivery_delta > 0 %}
-                                <p class="mb-1 text-danger">
-                                    Spend £ {{ free_delivery_delta|floatformat:2 }} more for free
-                                    delivery!
-                                </p>
-                                {% endif %}
-                            </td>
-                        </tr>
 
                         <!-- Buttons row -->
                         <tr>
@@ -236,16 +249,14 @@
 </div>
 
 <!-- Remove Item Confirmation Modal -->
-<div class="modal fade" id="removeItemModal" tabindex="-1" aria-labelledby="removeItemModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="removeItemModal" tabindex="-1" aria-labelledby="removeItemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4">
             <div class="modal-header border-0">
                 <h5 class="modal-title" id="removeItemModalLabel">
                     Remove item from basket?
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p class="mb-1">
@@ -254,8 +265,7 @@
                 </p>
             </div>
             <div class="modal-footer border-0">
-                <button type="button" class="btn btn-outline-secondary"
-                        data-bs-dismiss="modal">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     Cancel
                 </button>
                 <button type="button" class="btn btn-danger" id="confirmRemoveBtn">

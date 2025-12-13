@@ -61,7 +61,7 @@
             <div class="row text-black text-right">
                 <div class="col-7 offset-2">
                     <p class="my-0"><strong>Order Total: </strong></p>
-                    {% if discount > 0 %}
+                    {% if discount_amount > 0 %}
                         <p class="my-0 text-success"><strong>Discount:</strong></p>
                     {% endif %}
                     <p class="my-0"><strong>Delivery: </strong></p>
@@ -69,8 +69,8 @@
                 </div>
                 <div class="col-3">
                     <p class="my-0">£{{ total | floatformat:2 }}</p>
-                    {% if discount > 0 %}
-                        <p class="my-0 text-success">-£{{ discount | floatformat:2 }}</p>
+                    {% if discount_amount > 0 %}
+                        <p class="my-0 text-success">-£{{ discount_amount | floatformat:2 }}</p>
                     {% endif %}
                     <p class="my-0">£{{ delivery | floatformat:2 }}</p>
                     <p class="my-0"><strong>£{{ grand_total | floatformat:2 }}</strong></p>

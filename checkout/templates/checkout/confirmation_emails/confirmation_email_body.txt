@@ -7,6 +7,8 @@ Your order {{ order.order_number }} was received on {{ order.date }}.
 Order Summary:
 ------------------------------
 Order Total: £{{ order.order_total }}
+{% if order.discount_amount %}Discount{% if order.discount_code %} ({{ order.discount_code }}){% endif %}: -£{{ order.discount_amount }}
+{% endif %}
 Delivery: £{{ order.delivery_cost }}
 Grand Total: £{{ order.grand_total }}
 ------------------------------

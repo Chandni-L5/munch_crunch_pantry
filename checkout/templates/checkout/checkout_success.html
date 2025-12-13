@@ -68,6 +68,12 @@
                         <span class="label">Subtotal</span>
                         <span class="value">£{{ order.order_total }}</span>
                     </div>
+                    {% if order.discount_amount > 0 %}
+                    <div class="d-flex justify-content-between mb-1 text-success">
+                        <span class="label">Discount {% if order.discount_code %}({{ order.discount_code }}){% endif %}</span>
+                        <span class="value">-£{{ order.discount_amount }}</span>
+                    </div>
+                    {% endif %}
                     <div class="d-flex justify-content-between mb-1">
                         <span class="label">Delivery</span>
                         <span class="value">£{{ order.delivery_cost }}</span>

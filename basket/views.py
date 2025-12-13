@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.http import HttpResponse, HttpResponseNotAllowed
 from django.contrib import messages
-from django.conf import settings
+from django.views.decorators.http import require_POST
 
 from products.models import ProductQuantity, Product
 from .utils import get_discount_amount
-
-from decimal import Decimal
 
 
 def remove_from_basket(request, item_id):
@@ -36,7 +34,6 @@ def remove_from_basket(request, item_id):
 
 
 def view_basket(request):
-    # Render the basket template
     return render(request, "basket/basket.html")
 
 
@@ -65,7 +62,7 @@ def adjust_basket(request, item_id):
         messages.success(
             request,
             f"Removed {product_quantity.product.name} "
-            f"({product_quantity.quantity.name}) from your basket.  ✅",
+            f"({product_quantity.quantity.name}) from your basket. ✅",
         )
 
     request.session["basket"] = basket
@@ -79,11 +76,14 @@ def add_to_basket(request, item_id):
     pq_id = request.POST.get("product_quantity_id")
     if not pq_id:
         messages.error(
-            request, "Please select a size before adding this product to your basket."
+            request,
+            "Please select a size before adding this product to your basket."
         )
         return redirect(reverse("product_detail", args=[item_id]))
 
-    product_quantity = get_object_or_404(ProductQuantity, pk=pq_id, product=product)
+    product_quantity = get_object_or_404(
+        ProductQuantity, pk=pq_id, product=product
+    )
     quantity = int(request.POST.get("quantity", 1))
     redirect_url = request.POST.get(
         "redirect_url", reverse("product_detail", args=[item_id])
@@ -95,15 +95,15 @@ def add_to_basket(request, item_id):
         basket[pq_id] += quantity
         messages.success(
             request,
-            f" Updated: {product_quantity.product.name} "
-            f"({product_quantity.quantity.name})"
+            f"Updated: {product_quantity.product.name} "
+            f"({product_quantity.quantity.name}) "
             f"is now set to {basket[pq_id]} in your basket. ✅",
         )
     else:
         basket[pq_id] = quantity
         messages.success(
             request,
-            f"Added:  {product_quantity.product.name} "
+            f"Added: {product_quantity.product.name} "
             f"({product_quantity.quantity.name}) added to your basket. ✅",
         )
 
@@ -111,46 +111,31 @@ def add_to_basket(request, item_id):
     return redirect(redirect_url)
 
 
+@require_POST
 def apply_discount(request):
     """
     Validate and apply a discount code to the basket.
+    Empty or invalid code clears any existing discount.
     """
-    if request.method != "POST":
-        return HttpResponseNotAllowed(["POST"])
-
-    code = request.POST.get("discount_code", "").strip()
-    remove_code = request.POST.get("remove")
-
-    if remove_code:
-        request.session.pop("discount", None)
-        messages.info(request, "Discount code removed.")
-        return redirect(reverse("view_basket"))
+    code = (request.POST.get("discount_code") or "").strip().upper()
 
     if not code:
-        messages.error(request, "Please enter a discount code.")
+        request.session.pop("discount_amount", None)
+        messages.info(request, "Discount code cleared.")
         return redirect(reverse("view_basket"))
 
-    available_codes = getattr(settings, "DISCOUNT_CODES", {})
-    percentage = available_codes.get(code.upper())
-    if not percentage:
-        request.session.pop("discount", None)
-        messages.error(request, "That discount code is not valid.")
+    # Store code in the shape utils expects
+    request.session["discount_amount"] = {"code": code}
+
+    discount = get_discount_amount(request)
+
+    if not discount["valid"]:
+        request.session.pop("discount_amount", None)
+        messages.error(request, "Sorry, that discount code is not valid.")
         return redirect(reverse("view_basket"))
-    request.session["discount"] = {
-        "code": code.upper(),
-        "percentage": float(Decimal(str(percentage))),
-    }
 
-    discount_details = get_discount_amount(request)
-    if discount_details:
-        messages.success(
-            request,
-            f"Code {discount_details['code']} applied for "
-            f"{discount_details['percentage']}% off! ✅",
-        )
-    else:
-        messages.error(
-            request,
-            "Unable to apply discount code. Please try again."
-        )
-
+    messages.success(
+        request,
+        f"Discount applied: {discount['percentage']}% off."
+    )
+    return redirect(reverse("view_basket"))

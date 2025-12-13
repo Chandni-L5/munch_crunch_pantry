@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.conf import settings
@@ -11,6 +13,7 @@ from .forms import OrderForm
 from products.models import ProductQuantity
 from .models import Order, OrderLineItem
 from basket.context_processor import basket_contents
+from basket.utils import get_discount_amount
 
 import json
 import stripe
@@ -26,12 +29,12 @@ def checkout(request):
     - Create Order and OrderLineItems
     - Redirect to success page
     """
-    basket = request.session.get('basket', {})
+    basket = request.session.get("basket", {})
     if not basket:
         messages.error(request, "Your basket is empty.")
-        return redirect('products')
+        return redirect("products")
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form_data = {
             "full_name": request.POST.get("full_name"),
             "email": request.POST.get("email"),
@@ -46,14 +49,28 @@ def checkout(request):
         order_form = OrderForm(form_data)
 
         if order_form.is_valid():
+            basket_data = basket_contents(request)
+
             client_secret = request.POST.get("client_secret")
             pid = None
             if client_secret:
                 pid = client_secret.split("_secret")[0]
+
             order = order_form.save(commit=False)
             order.stripe_pid = pid
             order.original_basket = json.dumps(basket)
+
+            # --- DISCOUNT (correct + consistent) ---
+            discount_details = get_discount_amount(request)
+            order.discount_code = (
+                discount_details["code"] if discount_details["valid"] else None
+            )
+            order.discount_amount = basket_data.get(
+                "discount_amount", Decimal("0.00")
+            )
+
             order.save()
+
             for item_id, quantity in basket.items():
                 try:
                     product_quantity = ProductQuantity.objects.get(pk=item_id)
@@ -69,47 +86,56 @@ def checkout(request):
                         "Please contact us for assistance."
                     )
                     order.delete()
-                    return redirect('view_basket')
+                    return redirect("view_basket")
+
             order.update_total()
-            request.session['save_info'] = 'save_info' in request.POST
+
+            request.session["save_info"] = "save_info" in request.POST
             return redirect(
-                'checkout_success', order_number=order.order_number
+                "checkout_success", order_number=order.order_number
             )
-        else:
-            messages.error(
-                request,
-                "There was an error with your form. "
-                "Please double-check your information."
-            )
+
+        messages.error(
+            request,
+            "There was an error with your form. "
+            "Please double-check your information."
+        )
+
     else:
         if request.user.is_authenticated:
             try:
                 profile = UserProfile.objects.get(user=request.user)
-                order_form = OrderForm(initial={
-                    'full_name': profile.user.get_full_name()
-                    or profile.user.username,
-                    'email': profile.user.email,
-                    'phone_number': profile.default_phone_number,
-                    'street_address1': profile.default_street_address1,
-                    'street_address2': profile.default_street_address2,
-                    'town_or_city': profile.default_town_or_city,
-                    'postcode': profile.default_postcode,
-                    'country': profile.default_country,
-                })
+                order_form = OrderForm(
+                    initial={
+                        "full_name": profile.user.get_full_name()
+                        or profile.user.username,
+                        "email": profile.user.email,
+                        "phone_number": profile.default_phone_number,
+                        "street_address1": profile.default_street_address1,
+                        "street_address2": profile.default_street_address2,
+                        "town_or_city": profile.default_town_or_city,
+                        "postcode": profile.default_postcode,
+                        "country": profile.default_country,
+                    }
+                )
             except UserProfile.DoesNotExist:
-                order_form = OrderForm(initial={
-                    "full_name": request.user.get_full_name()
-                    or request.user.username,
-                    "email": request.user.email,
-                })
+                order_form = OrderForm(
+                    initial={
+                        "full_name": request.user.get_full_name()
+                        or request.user.username,
+                        "email": request.user.email,
+                    }
+                )
         else:
             order_form = OrderForm()
 
     context = {
-        'order_form': order_form,
-        'basket': basket,
-        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
-        'geoapify_api_key': settings.GEOAPIFY_API_KEY,
+        "order_form": order_form,
+        "basket": basket,
+        "stripe_public_key": settings.STRIPE_PUBLIC_KEY,
+        "geoapify_api_key": settings.GEOAPIFY_API_KEY
+        if hasattr(settings, "GEOAPIFY_API_KEY")
+        else settings.GEOAPIFY_API_KEY,
     }
     return render(request, "checkout/checkout.html", context)
 
@@ -127,14 +153,15 @@ def create_payment_intent(request):
         basket = basket_contents(request)
         grand_total = basket["grand_total"]
         amount = int(round(grand_total * 100))
+
         if amount <= 0:
             return HttpResponseBadRequest("Invalid amount.")
+
         intent = stripe.PaymentIntent.create(
             amount=amount,
             currency="gbp",
             payment_method_types=["card"],
         )
-
         return JsonResponse({"clientSecret": intent.client_secret})
 
     except Exception as e:
@@ -169,8 +196,8 @@ def checkout_success(request, order_number):
             else:
                 messages.error(
                     request,
-                    "There was an error updating your profile."
-                    " Please check the form."
+                    "There was an error updating your profile. "
+                    "Please check the form."
                 )
 
     if not from_email:
@@ -182,8 +209,9 @@ def checkout_success(request, order_number):
             f"{order.email}.",
         )
 
-    if "basket" in request.session:
-        del request.session["basket"]
+    # Clear basket + discount after successful checkout
+    request.session.pop("basket", None)
+    request.session.pop("discount_amount", None)
 
     template = "checkout/checkout_success.html"
     context = {
@@ -191,7 +219,6 @@ def checkout_success(request, order_number):
         "from_profile": False,
         "from_email": from_email,
     }
-
     return render(request, template, context)
 
 
@@ -227,5 +254,6 @@ def cache_checkout_data(request):
         )
 
         return JsonResponse({"success": True})
+
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)

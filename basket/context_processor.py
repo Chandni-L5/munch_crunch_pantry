@@ -37,11 +37,13 @@ def basket_contents(request):
 
         subtotal_after_discount = total
 
-        if discount_details:
-            discount_amount = (total * (discount_details['percentage'] / Decimal("100"))).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        if discount_details['valid']:
+            discount_amount = (
+                total * (discount_details['percentage'] / Decimal("100"))
+            ).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
             subtotal_after_discount -= discount_amount
 
-        if subtotal_after_discount < 0
+        if subtotal_after_discount < 0:
             subtotal_after_discount = Decimal("0.00")
 
         if subtotal_after_discount < free_threshold:
@@ -62,9 +64,16 @@ def basket_contents(request):
         "total": total,
         "discount_amount": discount_amount,
         "discount_details": discount_details,
-        "discounted_total": discounted_total,
-        "discount_code": discount_details['code'] if discount_details else None,
-        "discount_percentage": discount_details['percentage'] if discount_details else Decimal("0.00"),
+        "discount_code": (
+            discount_details["code"]
+            if discount_details["valid"]
+            else None
+        ),
+        "discount_percentage": (
+            discount_details["percentage"]
+            if discount_details["valid"]
+            else Decimal("0.00")
+        ),
         "discounted_total": discounted_total,
         "product_count": product_count,
         "delivery": delivery,
