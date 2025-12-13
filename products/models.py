@@ -73,6 +73,7 @@ class Product(models.Model):
         return pq.price if pq else None
     from_price.short_description = "From price"
 
+    @property
     def lowest_price(self):
         """ Helper: lowest price across quantities, for product display. """
         agg = self.quantities.aggregate(min_price=Min('price'))

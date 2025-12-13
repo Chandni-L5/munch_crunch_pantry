@@ -115,14 +115,11 @@
                                 <div class="row">
                                     <div class="col">
                                         {% if product.lowest_price %}
-                                        <p class="price mb-0">
-                                            From £{{ product.lowest_price|floatformat:2 }}
-                                            {% if product.highest_price and product.highest_price != product.lowest_price %}
-                                            – £{{ product.highest_price|floatformat:2 }}
-                                            {% endif %}
-                                        </p>
+                                        From £{{ product.lowest_price|floatformat:2 }}
+                                        {% elif product.lowest_price_value %}
+                                        From £{{ product.lowest_price_value|floatformat:2 }}
                                         {% else %}
-                                        <p class="price">Price coming soon</p>
+                                        Price coming soon
                                         {% endif %}
                                         {% if product.rating_count %}
                                         <div class="small text-muted">
@@ -132,9 +129,9 @@
                                         {% endif %}
                                         {% if product.category %}
                                         <p class="small mb-0">
-                                            <a href="{% url 'products' %}?category={{ product.category.name }}"
+                                            <a href="{% url 'products' %}?category={{ product.category.slug }}"
                                                 class="text-muted">
-                                                <i class="fas fa-tag mr-1 nav-icon"></i>{{ product.category.name }}
+                                                <i class="fas fa-tag mr-1 nav-icon"></i>{{ product.category.slug }}
                                             </a>
                                         </p>
                                         {% endif %}

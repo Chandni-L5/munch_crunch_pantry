@@ -40,7 +40,7 @@
 
                     {% if product.category %}
                     <p class="small mb-0">
-                        <a href="{% url 'products' %}?category={{ product.category.name }}"
+                        <a href="{% url 'products' %}?category={{ product.category.slug }}"
                             class="text-muted">
                             <i class="fas fa-tag me-1 nav-icon"></i>{{ product.category.name }}
                         </a>
