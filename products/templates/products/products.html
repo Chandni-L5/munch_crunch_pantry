@@ -114,14 +114,13 @@
                             <div class="card-footer bg-white pt-0 border-0 text-left">
                                 <div class="row">
                                     <div class="col">
-                                        {% if product.lowest_price %}
-                                        From £{{ product.lowest_price|floatformat:2 }}
-                                        {% elif product.lowest_price_value %}
+                                        {% if product.lowest_price_value %}
                                         From £{{ product.lowest_price_value|floatformat:2 }}
+                                        {% elif product.lowest_price %}
+                                        From £{{ product.lowest_price|floatformat:2 }}
                                         {% else %}
                                         Price coming soon
                                         {% endif %}
-                                        {% if product.rating_count %}
                                         <div class="small text-muted">
                                             <i class="fas fa-star nav-icon text-warning"></i>
                                             {{ product.rating_avg|floatformat:1 }} ({{ product.rating_count }})

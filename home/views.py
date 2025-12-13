@@ -17,7 +17,7 @@ import logging
 
 def index(request):
     base_qs = Product.objects.annotate(
-        lowest_price=Min("quantities__price"),
+        lowest_price_value=Min("quantities__price"),
         reviews_avg=Coalesce(
             Avg("reviews__rating", filter=Q(reviews__is_approved=True)),
             Value(0.0),

@@ -69,15 +69,12 @@ class Product(models.Model):
         """
         Helper: lowest price across quantities, for admin display.
         """
-        pq = self.quantities.order_by('price').first()
+        pq = self.quantities.order_by("price").first()
         return pq.price if pq else None
-    from_price.short_description = "From price"
 
     @property
     def lowest_price(self):
-        """ Helper: lowest price across quantities, for product display. """
-        agg = self.quantities.aggregate(min_price=Min('price'))
-        return agg['min_price']
+        return self.quantities.aggregate(min_price=Min("price"))["min_price"]
 
     def highest_price(self):
         """ Helper: highest price across quantities, for product display. """

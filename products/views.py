@@ -22,7 +22,9 @@ def product_detail_legacy(request, product_id):
 def all_products(request):
     """A view to show all products, including sorting and search queries"""
 
-    products = Product.objects.all()
+    products = Product.objects.annotate(
+        lowest_price_value=Min("quantities__price")
+    )
     query = None
     categories = None
 
@@ -43,10 +45,8 @@ def all_products(request):
                 )
                 sortkey = "category_name_lower"
             elif sort == "price":
-                products = products.annotate(
-                    min_price=Min("quantities__price")
-                )
-                sortkey = "min_price"
+                sortkey = "lowest_price_value"
+
             if sortkey and direction == "desc":
                 sortkey = f"-{sortkey}"
             if sortkey:

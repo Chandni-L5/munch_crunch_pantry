@@ -91,7 +91,7 @@
                         </div>
                         <div class="card-footer bg-white pt-0 border-0 text-left">
                             <p class="price mb-0">
-                                From £{{ product.lowest_price|floatformat:2 }}
+                                From £{{ product.lowest_price_value|floatformat:2 }}
                             </p>
                         </div>
                         {% if product.reviews_count %}
@@ -140,7 +140,7 @@
                         </div>
                         <div class="card-footer bg-white pt-0 border-0 text-left">
                             <p class="price mb-0">
-                                From £{{ product.lowest_price|floatformat:2 }}
+                                From £{{ product.lowest_price_value|floatformat:2 }}
                             </p>
                         </div>
                         {% if product.reviews_count %}
