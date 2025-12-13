@@ -32,17 +32,18 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if 'DEVELOPMENT' in os.environ:
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'munch-crunch-pantry-c0989406ec70.herokuapp.com',
 ]
-CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1']
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost',
+    'http://127.0.0.1',
+    'https://munch-crunch-pantry-c0989406ec70.herokuapp.com',
+]
 
 
 # Application definition
