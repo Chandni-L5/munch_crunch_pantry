@@ -121,6 +121,7 @@
                                         {% else %}
                                         Price coming soon
                                         {% endif %}
+                                        {% if product.rating_count %}
                                         <div class="small text-muted">
                                             <i class="fas fa-star nav-icon text-warning"></i>
                                             {{ product.rating_avg|floatformat:1 }} ({{ product.rating_count }})
