@@ -2,6 +2,8 @@ from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
+from django.db.models import Avg, Count, Q, Value, FloatField, IntegerField
+from django.db.models.functions import Coalesce
 
 from home.forms import ContactForm
 from products.models import Product
@@ -12,17 +14,30 @@ import logging
 
 
 def index(request):
-    products = list(Product.objects.all())
+    base_qs = Product.objects.annotate(
+        reviews_avg=Coalesce(
+            Avg("reviews__rating", filter=Q(reviews__is_approved=True)),
+            Value(0.0),
+            output_field=FloatField(),
+        ),
+        reviews_count=Coalesce(
+            Count("reviews", filter=Q(reviews__is_approved=True)),
+            Value(0),
+            output_field=IntegerField(),
+        ),
+    )
+
+    products = list(base_qs)
     random.shuffle(products)
     random_products = products[:6]
-    new_arrivals = Product.objects.order_by('-created_at')[:6]
+
+    new_arrivals = base_qs.order_by("-created_at")[:6]
 
     context = {
-        'products': random_products,
-        'new_arrivals': new_arrivals,
+        "products": random_products,
+        "new_arrivals": new_arrivals,
     }
-
-    return render(request, 'home/index.html', context)
+    return render(request, "home/index.html", context)
 
 
 def shipping(request):

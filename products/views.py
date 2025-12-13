@@ -121,8 +121,9 @@ def product_detail(request, product_id):
         if action == "delete_review" and user_review:
             user_review.delete()
             messages.success(request, "Your review was deleted.")
-            return redirect(reverse("product_detail", args=[product.id]) + anchor)
-
+            return redirect(
+                reverse("product_detail", args=[product.id]) + anchor
+            )
 
         if action in ("create_review", "update_review") and has_purchased:
             form_instance = user_review if (
@@ -147,7 +148,9 @@ def product_detail(request, product_id):
                         request, "Thanks! Your review is pending approval."
                     )
 
-                return redirect(reverse("product_detail", args=[product.id]) + anchor)
+                return redirect(
+                    reverse("product_detail", args=[product.id]) + anchor
+                )
 
     review_form = None
     if can_create:

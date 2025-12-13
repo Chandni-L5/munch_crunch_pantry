@@ -291,6 +291,15 @@ input[type=number] {
     line-height: 1;
 }
 
+.rating-link {
+    cursor: pointer;
+}
+
+.rating-link:hover {
+    text-decoration: underline;
+}
+
+
 .review-approval {
     margin-top: .5rem;
     padding: .45rem .7rem;

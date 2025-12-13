@@ -35,18 +35,28 @@
         <div class="col-12 col-md-6 col-lg-4">
             <div class="product-details-container mb-5 mt-md-5 text-start">
                 <h1 class="text-md-start text-center mb-0">{{ product.name }}</h1>
-                {% if product.category %}
-                <p class="small mb-1 text-md-end text-center">
-                    <a href="{% url 'products' %}?category={{ product.category.name }}" class="text-muted">
-                        <i class="fas fa-tag mr-1 nav-icon"></i>{{ product.category.name }}
+                {% if product.category or product.rating_count %}
+                <div class="text-md-end text-center mb-2 product-meta">
+
+                    {% if product.category %}
+                    <p class="small mb-0">
+                        <a href="{% url 'products' %}?category={{ product.category.name }}"
+                            class="text-muted">
+                            <i class="fas fa-tag me-1 nav-icon"></i>{{ product.category.name }}
+                        </a>
+                    </p>
+                    {% endif %}
+                    {% if product.rating_count %}
+                    <a href="#reviews-section"
+                        class="small text-muted d-inline-block rating-link mt-1">
+                        <i class="fas fa-star nav-icon text-warning"></i>
+                        {{ product.rating_avg|floatformat:1 }} ({{ product.rating_count }})
                     </a>
-                </p>
-                {% endif %}
-                {% if product.rating_count %}
-                <div class="small text-muted text-md-end text-center">
-                    {{ product.rating_avg|floatformat:1 }} ({{ product.rating_count }})
+                    {% endif %}
+
                 </div>
                 {% endif %}
+
                 <h6 class="text-18 font-semibold pb-1 text-md-start text-center"> GMO FREE | VEGAN | SOURCE OF FIBER
                 </h6>
                 <!-- Size and quantity cards -->

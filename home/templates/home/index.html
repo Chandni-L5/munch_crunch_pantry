@@ -94,6 +94,15 @@
                                 From £{{ product.lowest_price|floatformat:2 }}
                             </p>
                         </div>
+                        {% if product.reviews_count %}
+                        <div class="card-footer bg-white pt-0 border-0 text-start">
+                            <div class="small text-muted d-inline-flex align-items-center gap-1 product-rating">
+                                <i class="fas fa-star text-warning"></i>
+                                {{ product.reviews_avg|floatformat:1 }} ({{ product.reviews_count }})
+                            </div>
+                        </div>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
@@ -134,6 +143,14 @@
                                 From £{{ product.lowest_price|floatformat:2 }}
                             </p>
                         </div>
+                        {% if product.reviews_count %}
+                        <div class="card-footer bg-white pt-0 border-0 text-start">
+                            <div class="small text-muted d-inline-flex align-items-center gap-1 product-rating">
+                                <i class="fas fa-star text-warning"></i>
+                                {{ product.reviews_avg|floatformat:1 }} ({{ product.reviews_count }})
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

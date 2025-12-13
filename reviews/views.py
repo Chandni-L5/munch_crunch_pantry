@@ -11,6 +11,10 @@ from .utils import user_has_purchased_product
 
 @login_required
 def add_review(request, product_id):
+    """
+    Allow a user to add a review for a product they have purchased.
+    One review per user per product.
+    """
     product = get_object_or_404(Product, id=product_id)
 
     if not user_has_purchased_product(request.user, product):
@@ -19,7 +23,6 @@ def add_review(request, product_id):
         )
         return redirect("product_detail", product_id=product.id)
 
-    # one review per product per user
     existing = Review.objects.filter(
         product=product, user=request.user
     ).first()
@@ -52,6 +55,9 @@ def add_review(request, product_id):
 
 @login_required
 def edit_review(request, review_id):
+    """
+    Allow a user to edit their existing review.
+    """
     review = get_object_or_404(Review, id=review_id, user=request.user)
     product = review.product
 
@@ -82,6 +88,9 @@ def edit_review(request, review_id):
 
 @login_required
 def delete_review(request, review_id):
+    """
+    Allow a user to delete their existing review.
+    """
     review = get_object_or_404(Review, id=review_id, user=request.user)
     product_id = review.product_id
 
