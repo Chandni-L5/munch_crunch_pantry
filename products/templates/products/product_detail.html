@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'products/css/product_detail.css' %}">
@@ -40,6 +41,11 @@
                         <i class="fas fa-tag mr-1 nav-icon"></i>{{ product.category.name }}
                     </a>
                 </p>
+                {% endif %}
+                {% if product.rating_count %}
+                <div class="small text-muted text-md-end text-center">
+                    {{ product.rating_avg|floatformat:1 }} ({{ product.rating_count }})
+                </div>
                 {% endif %}
                 <h6 class="text-18 font-semibold pb-1 text-md-start text-center"> GMO FREE | VEGAN | SOURCE OF FIBER
                 </h6>
@@ -178,15 +184,35 @@
 
             </div>
         </div>
+        <section>
+            <div class="col-12 ">
+                {% include "products/includes/reviews_section.html" %}
+            </div>
+        </section>
     </div>
 </div>
 {% endblock %}
 
-{% block extra_js %}
-<script src="{% static 'products/js/product_detail.js' %}"></script>
-{% endblock %}
-
 {% block postloadjs %}
 {{ block.super }}
-{% include "products/includes/quantity_input_script.html" %}
+<script src="{% static 'products/js/product_detail.js' %}"></script>
+<script src="{% static 'products/js/quantity_input_script.js' %}"></script>
+<script src="{% static 'products/js/star_rating.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".review-scroll-btn");
+        const target = document.getElementById("reviews-section");
+
+        if (!target) return;
+
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            });
+        });
+    });
+</script>
 {% endblock %}

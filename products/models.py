@@ -40,6 +40,10 @@ class Product(models.Model):
     storage_instructions = models.TextField(null=True, blank=True)
     country_of_origin = models.CharField(max_length=254, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    rating_avg = models.DecimalField(
+        max_digits=3, decimal_places=2, default=0.0
+    )
+    rating_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name

@@ -59,7 +59,8 @@
                 </div>
 
                 <!-- Right sort dropdown -->
-                <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end mb-1">
+                <div
+                    class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end mb-1">
                     <div class="products-header-inner d-flex justify-content-md-end">
                         <div class="sort-select-wrapper">
                             <select id="sort-selector"
@@ -122,6 +123,11 @@
                                         </p>
                                         {% else %}
                                         <p class="price">Price coming soon</p>
+                                        {% endif %}
+                                        {% if product.rating_count %}
+                                        <div class="small text-muted">
+                                            {{ product.rating_avg|floatformat:1 }} ({{ product.rating_count }})
+                                        </div>
                                         {% endif %}
                                         {% if product.category %}
                                         <p class="small mb-0">

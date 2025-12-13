@@ -1,0 +1,16 @@
+// Increment quantity
+$('.qty-btn-plus').click(function (e) {
+    e.preventDefault();
+    var closestInput = $(this).closest('.input-group').find('.qty-input')[0];
+    var currentValue = parseInt($(closestInput).val());
+    $(closestInput).val(currentValue + 1);
+});
+// Decrement quantity
+$('.qty-btn-minus').click(function (e) {
+    e.preventDefault();
+    var closestInput = $(this).closest('.input-group').find('.qty-input')[0];
+    var currentValue = parseInt($(closestInput).val());
+    if (currentValue > 1) {
+        $(closestInput).val(currentValue - 1);
+    }
+});

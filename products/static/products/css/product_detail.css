@@ -1,3 +1,7 @@
+h1, h2, h3 {
+    color: var(--color-10)
+}
+
 /* Product quantity/price selection */
 .package-size-card {
     background-color: var(--color-8);
@@ -126,7 +130,7 @@
     font-size: 1rem;
     border-radius: 6px;
     white-space: nowrap;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
@@ -211,15 +215,187 @@ input[type=number] {
     appearance: textfield;
 }
 
+/* Review section */
+.reviews-wrap {
+    max-width: 1100px;
+}
+
+.review-card {
+    border-radius: 12px;
+    border: 1px solid var(--color-6);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
+    overflow: hidden;
+    background: #fff;
+}
+
+.review-card-header {
+    padding: 1.1rem 1.25rem .75rem 1.25rem;    
+}
+
+.review-card-header h3 {
+    margin: 0;
+    letter-spacing: .2px;
+}
+
+.review-card-body {
+    padding: 1rem 1.25rem 1.25rem 1.25rem;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .25rem .65rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-6);
+    background: var(--color-7);
+}
+
+.review-content {
+    border: 1px solid var(--color-8);
+    border-radius: 12px;
+    padding: .9rem 1rem;
+    background: rgba(255, 255, 255, .95);
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.review-content+.review-content {
+    margin-top: .75rem;
+}
+
+.review-content:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .06);
+}
+
+.review-content.faded {
+    opacity: .55;
+    filter: saturate(.85);
+}
+
+.review-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .35rem;
+}
+
+.review-details .dot {
+    opacity: .45;
+}
+
+.rating-stars {
+    letter-spacing: 1px;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.review-approval {
+    margin-top: .5rem;
+    padding: .45rem .7rem;
+    border-radius: 10px;
+    background: rgba(255, 247, 231, .75);
+    border: 1px dashed rgba(0, 0, 0, .15);
+    font-size: .9rem;
+}
+
+.review-actions .btn {
+    border-radius: 10px;
+}
+
+.submit-btn, review-btns {
+    background: var(--color-7);
+    color: var(--color-10);
+    border: 1px solid var(--color-10);
+    border-radius: 12px;
+    padding: 0.75rem 2.2rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: opacify(var(--color-7), 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+    cursor: pointer;}
+
+.submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:focus {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(244, 201, 122, 0.45),
+        0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:disabled {
+    background: #e7e7e7;
+    color: #9a9a9a;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+.star-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+    user-select: none;
+}
+
+.star-rating .star {
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+    opacity: .85;
+    transition: transform .08s ease, opacity .08s ease;
+}
+
+.star-rating .star:hover {
+    transform: translateY(-1px) scale(1.03);
+    opacity: 1;
+}
+
+.star-rating .star.active {
+    opacity: 1;
+}
+
+#id_rating {
+    display: none;
+}
+
+.modal-content {
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, .08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
+}
+
+.modal-header {
+    background: linear-gradient(180deg, rgba(255, 247, 231, .9), rgba(255, 255, 255, 1));
+    border-bottom: 1px solid rgba(0, 0, 0, .06);
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, .06);
+}
+
+
 /* smaller screens */
 @media (max-width: 992px) {
-    .package-size-card, 
+
+    .package-size-card,
     .add-to-basket-btn {
         min-width: 100px;
         min-height: 70px;
     }
 
-    .package-size-card span, 
+    .package-size-card span,
     .add-to-basket-btn {
         font-size: 0.85rem;
     }
@@ -231,7 +407,8 @@ input[type=number] {
 
 /* larger screens */
 @media (min-width: 992px) {
-    .package-size-card, 
+
+    .package-size-card,
     .add-to-basket-btn {
         min-width: 140px;
         min-height: 85px;
