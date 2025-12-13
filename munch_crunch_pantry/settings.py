@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'stories',
     'django_ckeditor_5',
     'newsletter',
+    'reviews.apps.ReviewsConfig',
 ]
 
 MIDDLEWARE = [
