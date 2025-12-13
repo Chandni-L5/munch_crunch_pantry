@@ -154,10 +154,45 @@
                         </tr>
                         {% endif %} {% endfor %}
 
+                        <!-- Discount code entry -->
+                        <tr>
+                            <td colspan="5" class="pt-3 pb-2">
+                                <div class="discount-card p-3 rounded">
+                                    <form method="POST" action="{% url 'apply_discount' %}" class="row g-2 align-items-center">
+                                        {% csrf_token %}
+                                        <div class="col-12 col-md-6 col-lg-4">
+                                            <label for="discount_code" class="form-label mb-1">Have a discount code?</label>
+                                            <input type="text" name="discount_code" id="discount_code"
+                                                   class="form-control" placeholder="Enter code" required
+                                                   value="{{ discount_code|default_if_none:'' }}">
+                                        </div>
+                                        <div class="col-12 col-md-auto mt-2 mt-md-4">
+                                            <button type="submit" class="btn btn-primary">Apply Code</button>
+                                        </div>
+
+                                        {% if discount_code %}
+                                            <div class="col-12 col-md-6 col-lg-4 mt-3 mt-md-0 text-md-end">
+                                                <p class="mb-1 fw-semibold text-success">
+                                                    Code {{ discount_code }} applied ({{ discount_percentage }}% off)
+                                                </p>
+                                                <button type="submit" name="remove" value="1" class="btn btn-outline-secondary btn-sm">
+                                                    Remove code
+                                                </button>
+                                            </div>
+                                        {% endif %}
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+
                         <!-- Totals -->
                         <tr>
                             <td colspan="5" class="pt-5 text-center text-md-end">
                                 <h6>Basket Total: £{{ total|floatformat:2 }}</h6>
+                                {% if discount_amount > 0 %}
+                                <h6 class="text-success">Discount ({{ discount_code }}): -£{{ discount_amount|floatformat:2 }}</h6>
+                                <h6>Subtotal after discount: £{{ discounted_total|floatformat:2 }}</h6>
+                                {% endif %}
                                 <h6>Delivery: £ {{ delivery|floatformat:2 }}</h6>
                                 <h4 class="mt-2">
                                     <strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong>

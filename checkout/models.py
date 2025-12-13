@@ -38,6 +38,10 @@ class Order(models.Model):
     grand_total = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0
     )
+    discount_code = models.CharField(max_length=50, null=True, blank=True)
+    discount_amount = models.DecimalField(
+        max_digits=10, decimal_places=2, null=False, default=Decimal("0.00")
+    )
     original_basket = models.TextField(null=False, blank=False, default="")
     stripe_pid = models.CharField(
         max_length=254, null=False, blank=False, default=""
@@ -60,17 +64,21 @@ class Order(models.Model):
 
         self.order_total = lineitem_total
 
+        discounted_total = self.order_total - self.discount_amount
+        if discounted_total < 0:
+            discounted_total = Decimal("0.00")
+
         free_threshold = Decimal(str(settings.FREE_DELIVERY_THRESHOLD))
         standard_delivery = Decimal(str(settings.STANDARD_DELIVERY))
 
-        if self.order_total == 0:
+        if discounted_total == 0:
             self.delivery_cost = Decimal("0.00")
-        elif self.order_total < free_threshold:
+        elif discounted_total < free_threshold:
             self.delivery_cost = standard_delivery
         else:
             self.delivery_cost = Decimal("0.00")
 
-        self.grand_total = self.order_total + self.delivery_cost
+        self.grand_total = discounted_total + self.delivery_cost
         self.save()
 
     def save(self, *args, **kwargs):
