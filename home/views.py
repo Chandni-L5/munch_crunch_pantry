@@ -2,7 +2,9 @@ from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
-from django.db.models import Avg, Count, Q, Value, FloatField, IntegerField
+from django.db.models import (
+    Avg, Count, Q, Value, FloatField, IntegerField, Min
+)
 from django.db.models.functions import Coalesce
 
 from home.forms import ContactForm
@@ -15,6 +17,7 @@ import logging
 
 def index(request):
     base_qs = Product.objects.annotate(
+        lowest_price=Min("quantities__price"),
         reviews_avg=Coalesce(
             Avg("reviews__rating", filter=Q(reviews__is_approved=True)),
             Value(0.0),
