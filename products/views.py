@@ -10,6 +10,15 @@ from reviews.utils import user_has_purchased_product
 from .models import Category, Product
 
 
+def product_detail_legacy(request, product_id):
+    """A view to show individual product details using legacy ID URL"""
+
+    product = get_object_or_404(
+        Product, pk=product_id
+    )
+    return redirect('product_detail', slug=product.slug, permanent=True)
+
+
 def all_products(request):
     """A view to show all products, including sorting and search queries"""
 
@@ -75,12 +84,8 @@ def all_products(request):
     return render(request, "products/products.html", context)
 
 
-def product_detail(request, product_id):
-    product = get_object_or_404(
-        Product.objects.prefetch_related("quantities__quantity"),
-        pk=product_id,
-    )
-
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)
     anchor = "#review-section"
     all_reviews = Review.objects.filter(product=product).select_related("user")
     approved_reviews = all_reviews.filter(is_approved=True)
@@ -122,34 +127,33 @@ def product_detail(request, product_id):
             user_review.delete()
             messages.success(request, "Your review was deleted.")
             return redirect(
-                reverse("product_detail", args=[product.id]) + anchor
+                reverse(
+                    "product_detail", kwargs={"slug": product.slug}
+                ) + anchor
             )
 
         if action in ("create_review", "update_review") and has_purchased:
-            form_instance = user_review if (
-                action == "update_review"
-            ) else None
+            form_instance = user_review if action == "update_review" else None
             form = ReviewForm(request.POST, instance=form_instance)
 
             if form.is_valid():
                 review = form.save(commit=False)
                 review.product = product
                 review.user = request.user
-                review.is_approved = False  # moderation on create/edit
+                review.is_approved = False
                 review.save()
 
-                if action == "update_review":
-                    messages.success(
-                        request,
-                        "Your review was updated and is pending approval."
-                    )
-                else:
-                    messages.success(
-                        request, "Thanks! Your review is pending approval."
-                    )
+                messages.success(
+                    request,
+                    "Your review was updated and is pending approval."
+                    if action == "update_review"
+                    else "Thanks! Your review is pending approval."
+                )
 
                 return redirect(
-                    reverse("product_detail", args=[product.id]) + anchor
+                    reverse(
+                        "product_detail", kwargs={"slug": product.slug}
+                    ) + anchor
                 )
 
     review_form = None
