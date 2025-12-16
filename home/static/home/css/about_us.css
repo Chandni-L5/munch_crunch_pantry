@@ -51,7 +51,7 @@ h1, h2 {
 .about-pill-card {
     background-color: #ffffff;
     border-radius: 18px;
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--color-7);
     padding: 1.5rem 1.25rem;
     text-align: left;
     display: flex;
@@ -152,6 +152,56 @@ h1, h2 {
     transform: translateY(-1px);
     cursor: pointer;
 }
+
+.origin-card-link {
+  color: inherit;
+}
+
+.origin-card {
+  overflow: hidden;
+}
+
+/* Image container */
+.origin-card-media {
+  width: 100%;
+  border-radius: 12px 12px 0 0;
+  padding: 0.75rem;
+}
+
+/* Image itself */
+.origin-card-img {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (hover: hover) {
+  .origin-card-link {
+    transition: transform 0.25s ease;
+  }
+
+  .origin-card-link:hover {
+    animation: card-bounce 0.45s ease-out;
+  }
+
+  @keyframes card-bounce {
+    0%   { transform: translateY(0); }
+    40%  { transform: translateY(-6px); }
+    70%  { transform: translateY(2px); }
+    100% { transform: translateY(0); }
+  }
+}
+
+
+@media (max-width: 576px) {
+  .origin-card-img {
+    max-height: 260px;
+  }
+}
+
 
 @media (max-width: 768px) {
     .nav-btns {

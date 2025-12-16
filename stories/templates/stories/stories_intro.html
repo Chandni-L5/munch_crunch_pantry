@@ -27,7 +27,7 @@
 
             {% if story.origin_country %}
             <p class="small text-muted mb-2">
-              {{ story.origin_region }}{% if story.origin_region %}, {% endif %}{{ story.origin_country }}
+              {{ story.origin_country.name }}
             </p>
             {% endif %}
 

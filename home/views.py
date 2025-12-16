@@ -10,9 +10,22 @@ from django.db.models.functions import Coalesce
 from home.forms import ContactForm
 from products.models import Product
 from profiles.models import UserProfile, ContactMessage
+from stories.models import Story
 
 import random
 import logging
+
+
+def about_us(request):
+    origin_stories = (
+        Story.objects
+        .filter(is_published=True)
+        .order_by("-created_at")[:4]
+    )
+
+    return render(request, "home/about_us.html", {
+        "stories": origin_stories,
+    })
 
 
 def index(request):

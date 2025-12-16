@@ -164,62 +164,34 @@
                         <i class="fa-solid fa-book-open"></i>
                         Origin Stories
                     </a>
-                    <!-- refactor cards to display origin story examples and link to origin page -->
                     <section class="mb-5">
                         <div class="row g-4">
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="about-pill-card h-100">
-                                    <div class="about-pill-icon">
-                                        <i class="fa-solid fa-seedling"></i>
-                                    </div>
-                                    <h3 class="about-pill-title">Quality You Can Trust</h3>
-                                    <p class="about-pill-text">
-                                        We partner with reliable suppliers who share our standards.
-                                        Every product is chosen for its purity, taste, and nutritional value.
-                                    </p>
-                                </div>
-                            </div>
 
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="about-pill-card h-100">
-                                    <div class="about-pill-icon">
-                                        <i class="fa-solid fa-apple-whole"></i>
+                            {% for story in stories %}
+                            <a href="{% url 'story_detail' story.slug %}"
+                                class="text-decoration-none d-block h-100 origin-card-link">
+                                <div class="about-pill-card h-100 origin-card">
+                                    {% if story.featured_image %}
+                                    <div class="origin-card-media">
+                                        <img src="{{ story.featured_image.url }}" alt="{{ story.title }}"
+                                            class="origin-card-img" loading="lazy">
                                     </div>
-                                    <h3 class="about-pill-title">Naturally Nutritious</h3>
-                                    <p class="about-pill-text">
-                                        From antioxidant-rich nuts to fibre-packed seeds and wholesome dried fruits,
-                                        our range supports balanced, everyday wellbeing.
-                                    </p>
-                                </div>
-                            </div>
+                                    {% endif %}
 
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="about-pill-card h-100">
-                                    <div class="about-pill-icon">
-                                        <i class="fa-regular fa-clipboard"></i>
+                                    <div class="origin-card-body">
+                                        <p class="mb-1">Find out more about our {{ story.title }} and where they come
+                                            from</p>
+                                        <p class="about-pill-text mb-0">
+                                            {{ story.content|striptags|cut:"&nbsp;"|truncatechars:110 }}
+                                        </p>
                                     </div>
-                                    <h3 class="about-pill-title">Transparent Sourcing</h3>
-                                    <p class="about-pill-text">
-                                        We care where your food comes from, prioritizing responsible sourcing
-                                        and clear information you can trust.
-                                    </p>
                                 </div>
-                            </div>
-
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="about-pill-card h-100">
-                                    <div class="about-pill-icon">
-                                        <i class="fa-solid fa-kitchen-set"></i>
-                                    </div>
-                                    <h3 class="about-pill-title">Easy, Everyday Wholefoods</h3>
-                                    <p class="about-pill-text">
-                                        Pantry staples, healthy swaps, and discovery ingredients — all in one place,
-                                        ready to slot into your daily routine.
-                                    </p>
-                                </div>
-                            </div>
+                            </a>
+                            {% endfor %}
                         </div>
                     </section>
+
+
                 </div>
             </div>
             <div class="nav-btns-row mt-4 text-center">
