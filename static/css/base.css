@@ -20,6 +20,7 @@
 
 html {
     height: 100%;
+    overflow-x: hidden;
 }
 
 header {
@@ -32,6 +33,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 main {
@@ -44,6 +46,12 @@ main {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--secondary-font);
+}
+
+header .row,
+.site-footer .row {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 #products-home-btn {
@@ -216,17 +224,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .scroll-banner {
-    overflow: hidden;
-    white-space: nowrap;
+    width: 100%;
     background: var(--color-7);
     color: var(--color-1);
+    max-width: 100%;
+}
+
+.scroll-viewport {
+    overflow: hidden;
+    width: 100%;
     position: relative;
 }
 
 .scroll-content {
-    display: inline-flex;
+    display: flex;
+    white-space: nowrap;
+    will-change: transform;
     gap: 8rem;
     animation: scroll-right 30s linear infinite;
+    width: max-content;
 }
 
 .scroll-banner:hover .scroll-content {
