@@ -24,12 +24,6 @@
                     {% trans "Something went wrong while trying to sign you in with a social account." %}
                 </p>
 
-                {% if auth_error %}
-                    <p class="text-muted mb-4">
-                        {{ auth_error }}
-                    </p>
-                {% endif %}
-
                 <div class="d-flex justify-content-center gap-2 flex-wrap">
                     <a href="{% url 'account_login' %}" class="allauth-btns allauth-btns--outline">
                         {% trans "Back to sign in" %}

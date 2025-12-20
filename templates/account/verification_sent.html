@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
+
+{% block head_title %}{% trans "Confirm your email" %}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+
+      <div class="about-card p-4 p-md-5 text-center">
+        <h1 class="about-section-title mb-3">{% trans "Confirm your email" %}</h1>
+
+        <p class="mb-3">
+          {% trans "We’ve sent a confirmation link to your email address." %}
+        </p>
+
+        <p class="text-muted mb-4" style="font-size: 0.95rem;">
+          {% trans "Click the link in the email to finish creating your account. If you don’t see it, check your spam folder." %}
+        </p>
+
+        <a class="allauth-btns allauth-btns--outline w-100 justify-content-center" href="{% url 'account_login' %}">
+          {% trans "Back to login" %}
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
