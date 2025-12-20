@@ -399,7 +399,7 @@ a.continue-shopping-btn:hover,
 
 a.toast-checkout-btn {
     background-color: var(--color-10);
-    color: #fff;
+    color: var(--color-9);
     border-radius: 12px;
     text-decoration: none;
     border: 2px solid transparent;
@@ -412,7 +412,7 @@ a.toast-checkout-btn {
 }
 
 a.toast-checkout-btn:hover {
-    color: var(--color-2);
+    color: var(--color-7);
     transition: 0.2s ease, transform 0.15s ease;
     cursor: pointer;
 }
