@@ -71,6 +71,21 @@ h2.h5 {
     text-decoration: underline;
 }
 
+.homepage-info-card {
+    background-color: var(--color-1);
+    color: var(--color-9);
+    border: 3px solid var(--color-10);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-decoration: none;
+    min-height: 90px;
+    font-weight: 600;
+    box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.1);
+}
+.homepage-info-card:hover {
+    filter: brightness(2.05);
+}
+
 /* Media query: tablets & mobile (768)  */
 @media (max-width: 991px) {
     .back-to-top {
