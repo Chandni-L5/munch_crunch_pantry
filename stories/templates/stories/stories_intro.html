@@ -1,49 +1,61 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}Origin Stories{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'stories/css/stories.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container px-3 py-4">
 
-  <div class="row mb-4">
-    <div class="col-12 col-lg-10">
-      <h1 class="logo-font mb-2">Origin Stories</h1>
-      <p class="text-muted mb-0">
-        Discover where our ingredients come from and the farming communities we support around the world.
-      </p>
+	<div class="row mb-4">
+		<div class="col-12 col-lg-10">
+			<h1 class="logo-font my-4">Origin Stories</h1>
+			<p class="text-muted mb-2">
+				Discover where our ingredients come from and the farming communities we support around the world.
+				<br>
+				<br>
+				Each story highlights the journey of a specific ingredient, from farm to table, showcasing the people,
+				traditions, and sustainable practices that make our products unique.
+				<br>
+				<br>
+				Click any story to learn more about the people behind our ingredients.
+			</p>
+		</div>
+	</div>
+
+	<div class="row g-4">
+		{% for story in stories %}
+		<div class="col-12 col-md-6 col-xl-4">
+			<a href="{% url 'story_detail' story.slug %}" class="text-decoration-none"
+				aria-label="Read the origin story of {{ story.title }} from {{ story.origin_country.name }}">
+				<div class="card h-100  rounded-3 origin-card pt-2">
+					{% if story.featured_image %}
+					<img src="{{ story.featured_image.url }}" class="card-img-top origin-card-img" alt="{{ story.title }}">
+					{% endif %}
+					<div class="card-body">
+						<h5 class="menu-font-style fw-bold mb-2">{{ story.title }} - {{ story.origin_country.name }}
+						</h5>
+						<p class="origin-read-more text-muted">
+							Read their story →
+						</p>
+					</div>
+				</div>
+			</a>
+		</div>
+		{% empty %}
+		<div class="col-12">
+			<p class="text-muted mb-0">No stories have been published yet.</p>
+		</div>
+		{% endfor %}
+
+		<div class="text-center mx-3">
+        <a href="{% url 'products' %}" class="btn hero-cta-btn">
+            Browse Products
+        </a>
     </div>
-  </div>
-
-  <div class="row g-4">
-    {% for story in stories %}
-    <div class="col-12 col-md-6 col-xl-4">
-      <a href="{% url 'story_detail' story.slug %}" class="text-decoration-none">
-        <div class="card h-100 shadow-sm rounded-3 border-0">
-          {% if story.featured_image %}
-          <img src="{{ story.featured_image.url }}" class="card-img-top" alt="{{ story.title }}">
-          {% endif %}
-
-          <div class="card-body">
-            <h5 class="menu-font-style fw-bold mb-2">{{ story.title }}</h5>
-
-            {% if story.origin_country %}
-            <p class="small text-muted mb-2">
-              {{ story.origin_country.name }}
-            </p>
-            {% endif %}
-
-            {% if story.excerpt %}
-            <p class="mb-0 text-muted">{{ story.excerpt|truncatechars:120 }}</p>
-            {% endif %}
-          </div>
-        </div>
-      </a>
-    </div>
-    {% empty %}
-    <div class="col-12">
-      <p class="text-muted mb-0">No stories have been published yet.</p>
-    </div>
-    {% endfor %}
-  </div>
+	</div>
 
 </div>
 {% endblock %}
