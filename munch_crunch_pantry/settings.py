@@ -32,8 +32,7 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get("DEBUG", "False") == "True"
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -41,8 +40,8 @@ ALLOWED_HOSTS = [
     'munch-crunch-pantry-c0989406ec70.herokuapp.com',
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost',
-    'http://127.0.0.1',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
     'https://munch-crunch-pantry-c0989406ec70.herokuapp.com',
 ]
 
@@ -127,7 +126,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-if "DEVELOPMENT" in os.environ:
+if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
     DEFAULT_FROM_EMAIL = "Munch Crunch Pantry <noreply@munchcrunchpantry.com>"
     SUPPORT_EMAIL = "support@munchcrunchpantry.com"
@@ -173,8 +172,6 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
-SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -301,7 +298,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_EMAIL_REQUIRED = True
-SOCIALACCOUNT_EMAIL_VERIFICATION = "optional"
+SOCIALACCOUNT_EMAIL_VERIFICATION = "mandatory"
 SOCIALACCOUNT_ADAPTER = (
     "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"
 )
