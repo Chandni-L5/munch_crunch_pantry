@@ -1,8 +1,20 @@
 h1,h2 strong {
-    color: var(--color-4)
+    color: var(--color-10)
 }
 
 /* Faqs */
+a {
+    color: var(--color-8);
+    text-decoration: underline;
+    transition: color 0.2s ease, transform 0.15s ease;
+}
+
+a:hover {
+    color: var(--color-5);
+    cursor: pointer;
+    transform: translateY(-1px);
+}
+
 .accordion-button {
     font-weight: 600;
 }
