@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
 
 {% block extra_title %}{% trans "Verify Your Email" %}{% endblock %}
 {% block page_header %}{% endblock %}
@@ -21,7 +26,7 @@
                     {% trans "If you don't see the email, please check your spam folder." %}
                 </p>
 
-                <a href="{% url 'home' %}" class="btn btn-primary">
+                <a href="{% url 'home' %}" class="allauth-btns allauth-btns--outline">
                     {% trans "Back to shop" %}
                 </a>
 

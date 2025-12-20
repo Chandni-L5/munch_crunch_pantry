@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
 
 {% block extra_title %}{% trans "Connected Accounts" %}{% endblock %}
 {% block page_header %}{% endblock %}
@@ -37,7 +42,7 @@
                                             <label class="mb-0">
                                                 {{ base_account.get_logout_form.id }}
                                                 <button type="submit"
-                                                        class="btn btn-sm btn-outline-danger"
+                                                        class="allauth-btns allauth-btns--outline"
                                                         name="{{ base_account.get_logout_form::name }}"
                                                         value="{{ base_account.get_logout_form::value }}">
                                                     {% trans "Disconnect" %}

@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
 
 {% block extra_title %}{% trans "Sign Out" %}{% endblock %}
 {% block page_header %}{% endblock %}
@@ -19,10 +24,10 @@
 
                 <form method="post" action="{% url 'account_logout' %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger me-2">
+                    <button type="submit" class="allauth-btns allauth-btns--outline">
                         {% trans "Sign Out" %}
                     </button>
-                    <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                    <a href="{% url 'home' %}" class="allauth-btns allauth-btns--outline">
                         {% trans "Cancel" %}
                     </a>
                 </form>

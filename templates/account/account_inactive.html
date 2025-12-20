@@ -1,8 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 {% load i18n %}
 
 {% block extra_title %}{% trans "Account Inactive" %}{% endblock %}
 {% block page_header %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -17,7 +22,7 @@
                     {% trans "This account is currently inactive." %}
                 </p>
 
-                <a href="{% url 'home' %}" class="btn btn-primary">
+                <a href="{% url 'home' %}" class="allauth-btns allauth-btns--outline">
                     {% trans "Back to shop" %}
                 </a>
 
