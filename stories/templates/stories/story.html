@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}{{ story.title }} - Origin Story{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'stories/css/stories.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container py-4">
 
