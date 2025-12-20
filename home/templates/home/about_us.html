@@ -148,7 +148,7 @@
     <section class="mb-4">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-8">
-                <div class="about-card p-4 p-md-5 text-center">
+                <div class="origin-card p-4 p-md-5 text-center">
                     <h2 class="about-section-title mb-3">Thank You for Supporting Us</h2>
                     <p class="mb-3">
                         Every time you shop with Munch Crunch Pantry, you’re supporting small, sustainable farming
@@ -156,43 +156,44 @@
                         fair relationships, and care for the land — and your purchase helps these communities continue
                         their craft with pride.
                     </p>
+                    <br>
                     <p class="mb-4">
                         If you’d like to learn more about where your food comes from, explore our Origin Stories pages,
                         where we highlight the people, places, and traditions behind our wholefoods.
                     </p>
-                    <a href="#" class="nav-btns my-2">
+                    <a href="#" class="nav-btns my-2 mb-2">
                         <i class="fa-solid fa-book-open"></i>
                         Origin Stories
                     </a>
-                    <section class="mb-5">
-                        <div class="row g-4">
-
+                </div>
+                <section class="mb-5">
+                    <div class="container-fluid px-2 px-lg-3">
+                        <div class="row g-4 justify-content-center">
                             {% for story in stories %}
-                            <a href="{% url 'story_detail' story.slug %}"
-                                class="text-decoration-none d-block h-100 origin-card-link">
-                                <div class="about-pill-card h-100 origin-card">
-                                    {% if story.featured_image %}
-                                    <div class="origin-card-media">
-                                        <img src="{{ story.featured_image.url }}" alt="{{ story.title }}"
-                                            class="origin-card-img" loading="lazy">
-                                    </div>
-                                    {% endif %}
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-3">
+                                <a href="{% url 'story_detail' story.slug %}"
+                                    class="text-decoration-none d-block h-100 origin-card-link">
 
-                                    <div class="origin-card-body">
-                                        <p class="mb-1">Find out more about our {{ story.title }} and where they come
-                                            from</p>
-                                        <p class="about-pill-text mb-0">
-                                            {{ story.content|striptags|cut:"&nbsp;"|truncatechars:110 }}
-                                        </p>
+                                    <div class="about-pill-card h-100 origin-card">
+                                        {% if story.featured_image %}
+                                        <div class="origin-card-media">
+                                            <img src="{{ story.featured_image.url }}" alt="{{ story.title }}"
+                                                class="origin-card-img" loading="lazy">
+                                        </div>
+                                        {% endif %}
+
+                                        <div class="origin-card-body">
+                                            <p class="about-pill-text mb-0">
+                                                {{ story.content|striptags|cut:"&nbsp;"|truncatechars:110 }}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                             {% endfor %}
                         </div>
-                    </section>
-
-
-                </div>
+                    </div>
+                </section>
             </div>
             <div class="nav-btns-row mt-4 text-center">
                 <a href="{% url 'home' %}" class="nav-btns">

@@ -30,10 +30,15 @@ h1, h2 {
 }
 
 .about-card {
-    background-color: #ffffff;
+    background-color: var(--color-9);
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--color-7);
+    box-shadow: 0 4px 12px var(--color-8);
+    font-size: 0.95rem;
+}
+
+.origin-card {
+    background-color: var(--color-9);
     font-size: 0.95rem;
 }
 
@@ -49,14 +54,19 @@ h1, h2 {
 
 /* Pill cards */
 .about-pill-card {
-    background-color: #ffffff;
+    background-color: var(--color-9);
     border-radius: 18px;
-    border: 1px solid var(--color-7);
+    border: 1px solid var(--color-6);
     padding: 1.5rem 1.25rem;
     text-align: left;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+.about-pill-card.origin-card {
+    width: 100%;
+    max-width: none;
 }
 
 .about-pill-icon {
@@ -155,6 +165,8 @@ h1, h2 {
 
 .origin-card-link {
   color: inherit;
+  display: block;
+  width: 100%;
 }
 
 .origin-card {
@@ -172,10 +184,9 @@ h1, h2 {
 .origin-card-img {
   width: 100%;
   height: auto;
-  max-height: 220px;
   object-fit: contain;
   display: block;
-  margin: 0 auto;
+  margin: 0;
 }
 
 @media (hover: hover) {
