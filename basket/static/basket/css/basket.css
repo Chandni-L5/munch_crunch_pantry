@@ -136,12 +136,28 @@ a.bskt-checkout-btn:hover {
     align-items: center;
 }
 
-
-@media (min-width: 768px) {
-    .basket-actions-wrapper {
-        justify-content: flex-start;
-    }
+button.discount-btn {
+    background-color: var(--color-10);
+    color: var(--color-9);
+    border-radius: 12px;
+    border: 2px solid var(--color-10);
+    padding: 0.55rem 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease,
+                transform 0.15s ease,
+                box-shadow 0.2s ease;
 }
+
+button.discount-btn:hover {
+    background-color: var(--color-8);
+    transform: translateY(-1px);
+    cursor: pointer;
+}
+
+button.discount-btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.25);
+}
+
 
 .remove-item[data-tooltip]:hover::before,
 .update-link[data-tooltip]:hover::before {

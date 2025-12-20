@@ -121,7 +121,7 @@ def apply_discount(request):
 
     if not code:
         request.session.pop("discount_amount", None)
-        messages.info(request, "Discount code cleared.")
+        messages.info(request, "Please enter a discount code.")
         return redirect(reverse("view_basket"))
 
     # Store code in the shape utils expects
