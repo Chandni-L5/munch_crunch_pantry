@@ -126,7 +126,9 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-if DEBUG:
+FORCE_SMTP = os.environ.get("FORCE_SMTP") == "True"
+
+if DEBUG and not FORCE_SMTP:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
     DEFAULT_FROM_EMAIL = "Munch Crunch Pantry <noreply@munchcrunchpantry.com>"
     SUPPORT_EMAIL = "support@munchcrunchpantry.com"
