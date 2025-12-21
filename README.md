@@ -118,9 +118,89 @@ The database for Munch Crunch Pantry has been designed to efficiently store and 
 - Engagement 
 
 #### ERD
+The Entity-Relationship Diagram (ERD) below illustrates the relationships between the main entities in the Munch Crunch Pantry database. It shows how users, products, orders, and other related data are interconnected.
+
+![ERD Diagram](/documentation/images/erd.png)
 
 #### Relational Data Model
+The relational data model for Munch Crunch Pantry is structured to support the e-commerce functionality of the website. PostgreSQL has been used as the database management system to implement the relational model in production.
+
+The model is designed to handle various standard aspects of an e-commerce platform, such as user accounts, products catalog, reviews, shopping cart, orders, and payment processing. The relationships between tables are established using foreign keys to ensure data integrity and consistency whilst also reducing duplication of data
+
+Some additional features that have been incorporated into the relational data model include:
+- Nutritional information for products
+- Product origin stories
+- Customer reviews and ratings
+- Newsletter subscriptions
+- Discount codes and promotions
+- Detailed order history
+- Customer support history
+
 #### Database Schema
+The database schema for Munch Crunch Pantry is designed to efficiently store and manage data related to products, users, orders, and other relevant information. The schema follows a relational database model, ensuring data integrity and consistency. 
+
+The schema includes primary keys for each table to uniquely identify records, as well as foreign keys to establish relationships between tables. This design allows for efficient querying and data retrieval, supporting the e-commerce functionality of the website.
+
+##### Category → Product (1-to-many)
+- A category can have multiple products, but each product belongs to only one category.
+- Category uses a unique slug for clean, SEO friendly URLS
+- Product has foreign key reference to Category
+
+##### Product sizes and pricing (many-to-many)
+- A product can have multiple sizes, and each size can be associated with multiple products.
+- Each individual product size has its own price - Implemented through an intermediary table ProductQuantity that links products to their available sizes and prices.
+- ProductQuantity has foreign key references to both Product and Quantity tables.
+
+##### Product → NutritionLabel (1-to-1)
+- Each product has one associated nutrition label, and each nutrition label corresponds to one product.
+- Product has a foreign key reference to NutritionLabel.
+- NutritionLabel contains multiple nutrition metrics (e.g., calories, fat, protein) stored in a separate NutritionMetric table.
+- The separation between NutritionLabel and NutritionMetric allows for flexibility in adding or modifying nutrition metrics without altering the product table structure.
+
+##### Review → Product/User (many-to-1)
+- A product can have multiple reviews, and a user can write multiple reviews, but each review is associated with only one product and one user.
+- Review has foreign key references to both Product and User tables.
+- `rating_avg` and `rating_count` fields in Product table to store average rating and total number of reviews for quick access - particularly useful for displaying ratings on product listing pages.
+
+##### User profile and customer contact messages
+- Each user has one associated profile, and each profile corresponds to one user.
+- User has a foreign key reference to Profile.
+- Profile contains additional user information such as phone number and address.
+- Contact messages are linked to users through a foreign key reference in the ContactMessage table.
+
+##### OrderLineItem and Orders (checkout)
+- An order line item represents a specific product and quantity within an order - Links to foreign keys for both Order and ProductQuantity.
+- An order can have multiple line items, but each line item belongs to only one order.
+- Order has foreign key reference to User.
+- various details related to payment and shipping are stored in the Order table - linked to a single user as well as costing details, Stripe reference and basket snapshot.
+- An order can have multiple line items, but each line item belongs to only one order.
+
+##### Discounts
+- Discount codes are stored in a separate Discount table, which includes fields for code, email of the user it is assigned to/email and order minimums.
+- Discounts can be applied to orders during checkout, with the discount code linked to the Order table through a foreign key reference.
+
+##### Newsletter Subscriptions
+- Newsletter subscriptions are managed through a separate NewsletterSubscription table, which includes fields for email and subscription status.
+- This is designed independently from the User table to allow for non-registered users to subscribe to the newsletter.
+
+
+##### Origin Stories - Content Marketing 
+- Origin stories are stored in a separate OriginStory table, which includes fields for title, content and origin country.
+- Each origin story can be linked to multiple products, establishing a many-to-many relationship through an intermediary table ProductOriginStory that links products to their associated origin stories.
+
+#### Summary 
+- All tables have been designed with appropriate data types and constraints to ensure data integrity and consistency with the use of a numeric Primary Key. 
+- Relationships between tables are established using foreign keys to support the e-commerce functionality of the website.
+- Unique constraints have been applied where appropriate such as `Category.slug` and `Story.slug` to prevent duplicate entries and support consistent routing.
+- The Join tables (ProductQuantity, NutritionLabel) effectively manage many-to-many relationships between products and their sizes/prices as well as allowing additional attributes to be stored in relation to products independently.
+
+##### Benefits of this design: 
+- **Normalization**: avoids repetition of product rows for every size or nutrient metric
+- **Scalability**: allows for easy addition of new sizes, nutrient metrics, and other attributes without altering the core product table structure
+- **Accurate ordering**: ensures that each order line item accurately reflects the selected product size and price at the time of purchase
+- **Auditable discounts**: single use discount tracking prevents misuse
+- **Flexibility**: allows for easy modification and expansion of the database schema as the e-commerce platform evolves.
+- **Marketing-ready**: supports content marketing strategies through origin stories linked to products.
 
 ### Web Marketing Strategies
 
