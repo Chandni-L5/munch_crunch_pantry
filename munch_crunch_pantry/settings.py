@@ -26,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    "SECRET_KEY",
-    "django-insecure-@=@8jjd0o6-yg!-$_@!6og^1#)u*wmx43d!y&)$)lky!++=2f-"
-)
+SECRET_KEY = os.environ.get("SECRET_KEY")
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY environment variable is not set")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False") == "True"
@@ -126,7 +126,8 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-FORCE_SMTP = os.environ.get("FORCE_SMTP") == "True"
+# Email settings
+FORCE_SMTP = os.environ.get("FORCE_SMTP", "False") == "True"
 
 if DEBUG and not FORCE_SMTP:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -137,12 +138,13 @@ else:
     EMAIL_USE_TLS = True
     EMAIL_PORT = 587
     EMAIL_HOST = "smtp.gmail.com"
-    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASS")
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASS", "")
     DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
     SUPPORT_EMAIL = os.environ.get("SUPPORT_EMAIL", EMAIL_HOST_USER)
 
 
+# Django Allauth settings
 ACCOUNT_LOGIN_METHODS = {"username", "email"}
 ACCOUNT_SIGNUP_FIELDS = [
     "email*", "email2*",  "username*",  "password1*", "password2*",
