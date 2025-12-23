@@ -1,5 +1,4 @@
 # Munch Crunch Pantry 
-![Munch Crunch Pantry Logo](/documentation/images/munch-crunch-logo.png)
 
 Munch Crunch pantry is an online ecommerce store dedicated to providing a wide variety of healthy wholefood snacks. Our mission is to promote wellness and healthy living by offering nutritious, delicious, and convenient snack options for people on the go.
 
@@ -26,8 +25,8 @@ The philosophy behind Munch Crunch Pantry is to promote healthy living by making
 - Responsive design for optimal viewing on various devices (desktops, tablets, smartphones).
 - CRUD Functionality - Customers are able to log in, create accounts, view their past orders and leave reviews on products. 
 - Authentication and account management - Users can register, log in, reset passwords, and manage their account details.
-- Product browsing and search functionality - Users can browse products by categories, search for specific items, and filter results based on preferences.
-- Detailed product pages - Each product has a dedicated page with images, descriptions, nutritional information, and customer reviews.
+- Product browsing and search functionality - Users can browse products by categories and search for specific items.
+- Detailed product pages - Each product has a dedicated page with images, descriptions, nutritional information and customer reviews.
 - Shopping cart - Users can add products to their cart, view cart contents, update quantities, and remove items.
 - Secure checkout process - Integration with Stripe for secure payment processing, order summary, and confirmation.
 - Order history - Customers can view their past orders and order details.
@@ -52,55 +51,88 @@ I have used the MoSCoW method to prioritize the user stories into Must have, Sho
 To support the estimation, I have also used story points based on a Fibonacci methodology to estimate the effort required for each user story. This allows for a more accurate assessment of the complexity and time needed for implementation and helps to guide prioritization and ordering of tasks during the development process.
 
 
-| Epic 1: User Account & Authentication |
-|--------------------------------------------------|
+## Agile Planning
+
+## Epic 1: User Account & Authentication
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
-| 🟥 Must have | **1.1** Email registration | AC1, AC2, AC3, AC4, AC5 | 5 | 🟡 Medium |
-| 🟥 Must have | **1.3** Login/Logout | AC1, AC2, AC3, AC4, AC5 | 3 | 🟢 Small |
-| 🟥 Must have | **1.5** Confirmation emails | AC1, AC2 | 1 | 🟢 Small |
-| 🟥 Must have | **1.6** User profile management | AC1, AC2, AC3, AC4, AC5 | 8 | 🟠 Large |
-| 🟧 Should have | **1.4** Password reset | AC1, AC2, AC3, AC4, AC5, AC6 | 5 | 🟡 Medium |
-| 🟩 Could have | **1.2** Social media registration | AC1, AC2, AC3 | 8 | 🟠 Large |
+| 🟥 Must have | **1.1** Email Registration | AC1–AC5 | 5 | 🟡 Medium |
+| 🟩 Could have | **1.2** Social Media Registration | AC1–AC3 | 5 | 🟡 Medium |
+| 🟥 Must have | **1.3** Login / Logout | AC1–AC5 | 3 | 🟢 Low |
+| 🟥 Must have | **1.4** Password Reset | AC1–AC6 | 5 | 🟡 Medium |
+| 🟥 Must have | **1.5** Confirmation Emails | AC1–AC2 | 3 | 🟢 Low |
+| 🟥 Must have | **1.6** User Profile Management | AC1–AC5 | 8 | 🔴 High |
 
-| Epic 2: Product Discovery |
-|-----------------------------------------------|
+---
 
-| Requirement | User Story | AC Numbers | Story Points | Complexity |
-|------------|------------|------------|--------------|------------|
-| 🟥 Must have | **2.1** Browse categories | AC1, AC2, | 3 | 🟢 Small |
-| 🟥 Must have | **2.2** Product detail page | AC1, AC2, AC3 | 5 | 🟡 Medium |
-| 🟥 Must have | **2.6** Search functionality | AC1, AC2, AC3 | 8 | 🟠 Large |
-| 🟥 Must have | **2.8** Admin CRUD | AC1, AC2, AC3 | 5 | 🟡 Medium |
-| 🟥 Must have | **2.9** Admin product management | AC1, AC2, AC3 | 5 | 🟡 Medium |
-| 🟧 Should have | **2.3** Reviews | AC1, AC2, AC3 | 8 | 🟠 Large |
-| 🟧 Should have | **2.4** Admin approves reviews | AC1, AC2, AC3 | 5 | 🟡 Medium |
-| 🟧 Should have | **2.7** Filters | AC1, AC2, AC3 | 8 | 🟠 Large |
-| 🟩 Could have | **2.5** Discounts | AC1, AC2 | 8 | 🟠 Large |
-
-| Epic 3: Shopping Bag & Checkout Process|
-|---------------------------------------|
+## Epic 2: Product Discovery & Shopping Experience
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
-| 🟥 Must have | **3.1** Shopping bag summary | AC1, AC2, AC3, AC4, AC5 | 5 | 🟡 Medium | 
-| 🟥 Must have | **3.2** Adjust bag items | AC1, AC2, AC3 | 8 | 🟠 Large |
-| 🟥 Must have | **3.3** Secure checkout | AC1, AC2, AC3 | 13 | 🟠 Large |
-| 🟥 Must have | **3.4** Order confirmation | AC1, AC2 | 3 | 🟢 Small |
+| 🟥 Must have | **2.1** Browse Categories | AC1–AC2 | 2 | 🟢 Low |
+| 🟥 Must have | **2.2** Product Detail Page | AC1–AC3 | 5 | 🟡 Medium |
+| 🟧 Should have | **2.3** Reviews | AC1–AC2 | 5 | 🟡 Medium |
+| 🟧 Should have | **2.4** Admin Approves Reviews | AC1–AC3 | 3 | 🟢 Low |
+| 🟩 Could have | **2.5** Discounts & Promotions | AC1–AC2 | 3 | 🟢 Low |
+| 🟥 Must have | **2.6** Search Functionality | AC1–AC3 | 5 | 🟡 Medium |
+| 🟧 Should have | **2.7** Filters | AC1–AC2 | 5 | 🟡 Medium |
+| 🟥 Must have | **2.8** Admin CRUD | AC1–AC3 | 5 | 🟡 Medium |
+| 🟥 Must have | **2.9** Admin Product Management | AC1–AC3 | 8 | 🔴 High |
 
-| Epic 4: Brand Experience & Engagement |
-|--------------------------------------|
+---
+
+## Epic 3: Basket & Checkout
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
-| 🟧 Should have | **4.1** About + educational content | AC1, AC2 | 2 | 🟢 Small |
-| 🟧 Should have | **4.6** Contact form | AC1, AC2, AC3, AC4 | 3 | 🟢 Small |
-| 🟩 Could have | **4.2** Certifications | AC1 | 2 | 🟢 Small |
-| 🟩 Could have | **4.3** Admin content management | AC1, AC2, AC3 | 5 | 🟡 Medium |
-| 🟩 Could have | **4.4** Newsletter signup | AC1, AC2 | 5 | 🟢 Small |
+| 🟥 Must have | **3.1** Shopping Bag Summary | AC1–AC5 | 5 | 🟡 Medium |
+| 🟥 Must have | **3.2** Adjust Bag Items | AC1–AC3 | 3 | 🟢 Low |
+| 🟥 Must have | **3.3** Secure Checkout | AC1–AC3 | 8 | 🔴 High |
+| 🟥 Must have | **3.4** Order Confirmation | AC1–AC2 | 3 | 🟢 Low |
 
-During the planning stages, the MoSCoW priorities were distributed as 52% Must have, 24% Should have and 24% Could have. The total number of story points estimated for the project was 130 including the Could have features.
+---
+
+## Epic 4: Content, Marketing & Engagement
+
+| Requirement | User Story | AC Numbers | Story Points | Complexity |
+|------------|------------|------------|--------------|------------|
+| 🟧 Should have | **4.1** About & Educational Content | AC1–AC2 | 3 | 🟢 Low |
+| 🟩 Could have | **4.2** Certifications | AC1 | 2 | 🟢 Low |
+| 🟩 Could have | **4.3** Admin Content Management | AC1–AC3 | 5 | 🟡 Medium |
+| 🟩 Could have | **4.4** Newsletter Signup | AC1–AC2 | 2 | 🟢 Low |
+| 🟩 Could have | **4.5** Newsletter Admin | AC1–AC2 | 3 | 🟢 Low |
+| 🟧 Should have | **4.6** Contact Form | AC1–AC4 | 3 | 🟢 Low |
+
+---
+
+## MoSCoW Summary
+
+| Priority | Count | Percentage |
+|--------|------|------------|
+| 🟥 Must Have | 14 | **56%** |
+| 🟧 Should Have | 5 | **20%** |
+| 🟩 Could Have | 6 | **24%** |
+| **Total** | 25 | 100% |
+
+---
+
+## Story Point Summary
+
+- **Must Have:** 68 story points  
+- **Should Have:** 19 story points  
+- **Could Have:** 20 story points  
+
+**Total:** **107 story points** (including Could Have features)
+
+---
+
+## Planning Rationale
+
+During the planning stages, the MoSCoW priorities were distributed as **56% Must have**, **20% Should have**, and **24% Could have**.  
+The total number of story points estimated for the project was **107**, including the Could have features.
+
+This distribution aligns with Agile best practice and reflects the requirements of an e-commerce MVP, where authentication, product management, basket functionality, and secure checkout are essential for a viable product.
 
 The implementation and prioritization of user stories as well as the acceptance criteria is recorded and tracked dynamically through the use of GitHub Projects Kanban board. The Kanban board records the user story, acceptance criteria and tasks. These are checked off as we progress through the project. 
 
@@ -508,10 +540,15 @@ During the designing and styling process of the website, I have kept in mind to 
 </details>
 
 ## Technologies Used
-### Languages
-### Hosting Platforms
-### Development Tools:
-### Django Packages
+
+- **Frontend Languages:** - HTML, CSS, JavaScript, 
+- **Backend Technologies:** - Python, Django, PostgreSQL
+- **Version Control:** - Git, GitHub
+- **Deployment Platform:** - Heroku
+- **Payment Processing:** - Stripe
+- **Cloud Storage:** - AWS S3 for static and media file storage
+- **Administrative Interface:** - Django Admin
+- **Additional Libraries & Packages:** - Bootstrap 5, Font Awesome, Geoapify API, Google Fonts, Django Allauth and Socialaccount, Crispy Forms, Pillow, Boto3, Django Storages, Psycopg2, Gunicorn, Django CKEditor, Django Countries, Leaflet JS library
 
 ## Deployment
 
@@ -543,19 +580,21 @@ They ensure that the models behave as expected and that data integrity is mainta
 - [Chatgpt](https://chatgpt.com/) 
 - [Google fonts](https://fonts.google.com/) 
 - [Favicon.io](https://favicon.io/emoji-favicons/) - to create an emoji favicon
+- [Leaflet JS](https://leafletjs.com) - to create the interactive map on origin stories pages
+- [Geoapify](https://www.geoapify.com/) - to source map tiles and geocoding services for the interactive map
 
 ### Media
+- [AWS S3](https://aws.amazon.com/s3/) - to store static and media files
+- [chatgpt](https://chatgpt.com/) - to create AI images
 - [Font Awesome](https://fontawesome.com/)
 - [befunky.com](https://www.befunky.com/dashboard/) - to resize images
-- [pexels.com](https://www.pexels.com/) - to source images
-- [Sora](https://sora.chatgpt.com/explore) - to create AI images
 - [Cloudconvert](https://cloudconvert.com/jpg-to-webp) - to convert images to different file types. 
 - [toWebP](https://towebp.io/) - to convert different file types
 
 ### Documentation and Testing 
-- [color-hex.com] (https://www.color-hex.com/) - to display and compare colour palettes for the logo and website design.
+- [color-hex.com](https://www.color-hex.com/) - to display and compare colour palettes for the logo and website design.
 - [Colourcontrast.cc](https://colourcontrast.cc/) - to check colour contrast ratios for accessibility compliance.
--[befunky.com](https://www.befunky.com/) - to edit and enhance images used in the project documentation.
+- [befunky.com](https://www.befunky.com/) - to edit and enhance images used in the project documentation.
 I have used the following sources to help guide and structure the documentation of this project.
 - [The love running readme template](https://github.com/Code-Institute-Solutions/readme-template?tab=readme-ov-file) 
 - [A markdown cheat sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#tables)
@@ -566,7 +605,8 @@ I have used the following sources to help guide and structure the documentation 
 - [Gyazo](https://gyazo.com/en) plugin- to create gifs to use in the testing documentation
 - [Web Disability Simulator](https://chromewebstore.google.com/detail/web-disability-simulator/olioanlbgbpmdlgjnnampnnlohigkjla) 
 - [Amiresponsive](https://ui.dev/amiresponsive) - to show the website on a range of device screens
-- [Canva](https://www.canva.com/) - to create wireframes and ERD
+- [Canva](https://www.canva.com/) - to create wireframes
+- [Miro](https://miro.com/) - to create ERD diagram
 - [wordtracker.com](https://www.wordtracker.com/)
 - [Ubersuggest](https://neilpatel.com/ubersuggest/)  
 - [Google Keyword Planner](https://ads.google.com/home/tools/keyword-planner/).
