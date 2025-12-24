@@ -40,12 +40,12 @@ fieldset .fieldset-label + #card-element {
 
 select, 
 select option {
-    color: (#212529)
+    color: var(--color-3);
 }
 
 select:invalid,
 select option[value=""] {
-    color:#4a4d50;
+    color: var(--color-6);
 }
 
 /* Checkout buttons */
@@ -105,9 +105,7 @@ a.checkout-btn:hover {
     }
 }
 
-
 /* Geoapify Address Autocomplete Styles */
-
 /* Autocomplete dropdown */
 .address-autocomplete-input-container,
 #autocomplete-container .form-group,

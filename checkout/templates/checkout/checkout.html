@@ -93,7 +93,7 @@
                 </fieldset>
 
                 <fieldset class="rounded px-3 mb-5">
-                    <legend class="fieldset-label text-black px-2 w-auto">Delivery</legend>
+                    <legend class="fieldset-label text-black px-2 w-auto">Delivery - We currently only ship to the United Kingdom</legend>
                     <div id="autocomplete-container">
                         {{ order_form.address_search|as_crispy_field }}
                     </div>
@@ -101,7 +101,7 @@
                     {{ order_form.street_address2 | as_crispy_field }}
                     {{ order_form.town_or_city | as_crispy_field }}
                     {{ order_form.postcode | as_crispy_field }}
-                    {{ order_form.country | as_crispy_field }}
+                    {{ order_form.country }}
                     <div class="form-check form-check-inline float-right mr-0">
                         {% if user.is_authenticated %}
                         <label class="form-check-label" for="id-save-info">Save this information for next time</label>
@@ -120,10 +120,10 @@
                 <!-- Stripe Payment Element  -->
                 <fieldset class="px-3">
                     <legend class="fieldset-label text-black px-2 w-auto">Payment</legend>
-                    <label for="card-element" class="small text-muted d-block mb-1 mt-1">
+                    <label class="small text-muted d-block mb-1 mt-1">
                         Card details*
                     </label>
-                    <div id="card-element" class="mb-4 mt-4 stripe-card-input"></div>
+                    <div id="card-element" class="mb-4 mt-4 stripe-card-input" aria-describedby="error-message"></div>
                     <p id="error-message" class="text-danger mt-2" role="alert"></p>
                 </fieldset>
 
@@ -181,20 +181,13 @@
                 const postcode = document.getElementById("id_postcode");
                 const country = document.getElementById("id_country");
                 const r = selected;
-
-                // ---- STREET ADDRESS 1 ----
-                // address_line1 is usually "Street + house number"
                 const line1 =
                     r.address_line1 || [r.housenumber, r.street].filter(Boolean).join(" ");
-
                 if (addr1 && line1) addr1.value = line1;
-
-                // ---- STREET ADDRESS 2 (ONLY TRUE "INFILL") ----
                 if (addr2) {
-                    // Build line2 only from actual unit/level info, not city/postcode/country
                     const line2Parts = [];
                     if (r.unit) {
-                        line2Parts.push(r.unit); // e.g. "Flat 2"
+                        line2Parts.push(r.unit);
                     }
                     if (r.level) {
                         line2Parts.push(`Level ${r.level}`);
@@ -202,10 +195,7 @@
                     if (r.block) {
                         line2Parts.push(r.block);
                     }
-
                     const line2 = line2Parts.join(", ");
-
-                    // If we found any real infill, use it; otherwise keep field truly empty
                     addr2.value = line2 || "";
                 }
 
@@ -215,9 +205,7 @@
 
                 if (postcode && r.postcode) postcode.value = r.postcode;
 
-                if (country && r.country_code) {
-                    country.value = r.country_code.toUpperCase();
-                }
+                if (country) country.value = "GB";
             }, {
                 placeholder: "Start typing your address…"
             }

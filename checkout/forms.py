@@ -73,7 +73,7 @@ class OrderForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields["country"].initial = "GB"
-        self.fields["country"].widget.attrs["class"] += " d-none"
+        self.fields["country"].widget = forms.HiddenInput()
         self.fields["address_search"].required = False
         self.fields["street_address2"].required = False
 

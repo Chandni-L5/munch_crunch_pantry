@@ -17,9 +17,8 @@ function isFormValid() {
     const address1 = document.getElementById("id_street_address1");
     const city = document.getElementById("id_town_or_city");
     const postcode = document.getElementById("id_postcode");
-    const country = document.getElementById("id_country");
 
-    const requiredFields = [fullName, email, phone, address1, city, postcode, country];
+    const requiredFields = [fullName, email, phone, address1, city, postcode];
 
     return requiredFields.every(field => field && field.value.trim() !== "");
 }
@@ -27,6 +26,7 @@ function isFormValid() {
 // Enable/disable the submit button based on validity + card status
 function updateSubmitState() {
     const submitButton = document.getElementById("submit");
+    if (!submitButton) return;
     const shouldEnable = isFormValid() && cardComplete && !cardError && !isProcessing;
     submitButton.disabled = !shouldEnable;
 }
@@ -97,10 +97,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const form = document.getElementById("payment-form");
-    form.addEventListener("submit", handleSubmit);
+    if (form) {
+        form.addEventListener("submit", handleSubmit);
+    }
 
     const submitButton = document.getElementById("submit");
-    submitButton.disabled = true;
+    if (submitButton) {
+        submitButton.disabled = true;
+    }
 
     const watchedFields = [
         "id_full_name",
@@ -109,7 +113,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         "id_street_address1",
         "id_town_or_city",
         "id_postcode",
-        "id_country"
     ];
 
     watchedFields.forEach(id => {
@@ -176,7 +179,8 @@ async function handleSubmit(e) {
     const address2 = document.getElementById("id_street_address2");
     const city = document.getElementById("id_town_or_city");
     const postcode = document.getElementById("id_postcode");
-    const country = document.getElementById("id_country");
+    const countryInput = document.getElementById("id_country");
+    const countryValue = (countryInput && countryInput.value) ? countryInput.value : "GB";
 
     const billingDetails = {
         name: fullName.value.trim(),
@@ -187,7 +191,7 @@ async function handleSubmit(e) {
             line2: address2.value.trim(),
             city: city.value.trim(),
             postal_code: postcode.value.trim(),
-            country: country.value,
+            country: countryValue,
         },
     };
 
@@ -199,7 +203,7 @@ async function handleSubmit(e) {
             line2: address2.value.trim(),
             city: city.value.trim(),
             postal_code: postcode.value.trim(),
-            country: country.value,
+            country: countryValue,
         },
     };
 
@@ -239,9 +243,9 @@ async function handleSubmit(e) {
     }
 
     toggleFormDisabled(true);
-    card.update({
-        disabled: true
-    });
+    if (card) {
+        card.update({ disabled: true });
+    }
 
     console.log("Client secret:", clientSecret);
 
@@ -304,17 +308,19 @@ function showError(messageText) {
 // Show loading state on the submit button
 function setLoading(isLoading) {
     const submitButton = document.getElementById("submit");
+    if (!submitButton) return;
+
     const spinner = document.getElementById("button-spinner");
     const btnContent = submitButton.querySelector(".btn-content");
 
     if (isLoading) {
         submitButton.disabled = true;
-        btnContent.style.opacity = "0";
-        spinner.classList.remove("hidden");
+        if (btnContent) btnContent.style.opacity = "0";
+        if (spinner) spinner.classList.remove("hidden");
     } else {
         submitButton.disabled = false;
-        btnContent.style.opacity = "1";
-        spinner.classList.add("hidden");
+        if (btnContent) btnContent.style.opacity = "1";
+        if (spinner) spinner.classList.add("hidden");
     }
 }
 
@@ -336,9 +342,9 @@ function toggleFormDisabled(disabled) {
 function resetProcessingState() {
     setLoading(false);
     toggleFormDisabled(false);
-    card.update({
-        disabled: false
-    });
+    if (card) {
+        card.update({ disabled: false });
+    }
     isProcessing = false;
 }
 
