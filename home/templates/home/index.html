@@ -20,6 +20,7 @@
 <div class="container h-100">
     <!-- Homepage hero section -->
     <section class="container py-4 homepage-hero">
+        <h2 class="visually-hidden">Hero section</h2>
         <div class="row align-items-center g-4">
             <div class="col-12 col-md-4 text-center">
                 <img src="{% static 'images/mcp-logo.webp' %}" alt="Munch Crunch Pantry Logo"
@@ -45,6 +46,7 @@
 
     <!-- USP cards -->
     <section class="container pb-4 homepage-usps mb-1">
+        <h2 class="visually-hidden">Unique Selling Points</h2>
         <div class="row g-3 justify-content-center">
             <div class="col-12 col-md-4">
                 <span class="homepage-usp-card d-flex align-items-center justify-content-center text-center">Free
@@ -63,6 +65,7 @@
 
     <!-- Best sellers -->
     <section class="container pb-4">
+        <h2 class="visually-hidden">Best Sellers</h2>
         <div class="d-flex justify-content-between align-items-baseline mb-3">
             <h2 class="h5 mb-0">Best Sellers</h2>
             <a href="{% url 'products' %}" class="view-all-link">View All</a>
@@ -112,6 +115,7 @@
 
     <!-- New arrivals -->
     <section class="container pb-4">
+        <h2 class="visually-hidden">New Arrivals</h2>
         <div class="d-flex justify-content-between align-items-baseline mb-3">
             <h2 class="h5 mb-0">New Arrivals</h2>
             <a href="{% url 'products' %}" class="view-all-link">View All</a>
@@ -165,6 +169,7 @@
 
     <!-- Info page cards -->
     <section class="container pb-4 homepage-usps mb-1">
+        <h2 class="visually-hidden">Information pages</h2>
         <div class="row g-3 justify-content-center">
             <div class="col-12 col-md-4">
                 <a href="{% url 'about' %}" class="text-decoration-none text-white d-block h-100">
@@ -195,7 +200,7 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script type="text/javascript">
+<script>
     $('#back-to-top').click(function (e) {
         window.scrollTo({
             top: 0,
