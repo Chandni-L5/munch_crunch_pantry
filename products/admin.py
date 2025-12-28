@@ -8,7 +8,7 @@ from .models import (
 class ProductQuantityInline(admin.TabularInline):
     model = ProductQuantity
     extra = 1
-    fields = ('quantity', 'price', 'stock')  # include price here, it's valid
+    fields = ('quantity', 'price', 'stock')
 
 
 class NutritionLabelInline(admin.TabularInline):
@@ -35,5 +35,5 @@ class NutritionMetricAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('sku', 'name', 'from_price', 'category')
-    readonly_fields = ('sku',)
+    readonly_fields = ('sku', 'rating_avg', 'rating_count')
     inlines = [ProductQuantityInline, NutritionLabelInline]
