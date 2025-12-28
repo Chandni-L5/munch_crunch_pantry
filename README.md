@@ -559,9 +559,67 @@ During the designing and styling process of the website, I have kept in mind to 
 ## Testing
 ### Automated Testing
 
+The Munch Crunch Pantry project includes a comprehensive suite of automated tests to ensure the reliability and correctness of its core functionality. The tests cover various aspects of the application, including utility functions, views, forms, and webhook handling. The tests are implemented using Django's built-in testing framework, which provides a robust and efficient way to validate the application's behaviour.
+
+```markdown
+This output confirms that all 36 automated tests pass successfully, including
+error-handling scenarios such as simulated email delivery failure.
+
+
+>bash
+python3 manage.py test
+Found 36 test(s).
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+...........Failed to send contact email: boom
+.........................
+--------------------------------------------------------
+Ran 36 tests in 2.171s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+
 #### Basket App Tests
+Most utility functions were tested indirectly through view, form, and webhook tests where they are used in critical flows such as checkout and order creation.
+
+Utility tests were implemented for discount-handling logic to ensure pricing integrity during checkout.
+
+The get_discount_amount() helper was tested to confirm valid discount codes are correctly applied, invalid or expired codes are safely rejected and removed from session data, and default values are returned when no discount is present.
+
+This ensures discounts cannot be incorrectly applied or persisted, protecting order totals and checkout accuracy.
 
 #### Checkout App Tests
+
+The tests focus on the most critical parts of the purchase flow: creating Stripe PaymentIntents, caching checkout metadata, validating incoming webhooks, and ensuring successful payments reliably create orders and line items.
+
+What was tested:
+- Create Payment Intent (View)
+  - Verified that if the basket is empty, `create_payment_intent` returns **HTTP 400** and **does not call Stripe** (`stripe.PaymentIntent.create` is mocked).
+
+ This protects the checkout flow from invalid requests and prevents unnecessary Stripe API calls.
+
+- Cache Checkout Data (View)
+  - Confirmed `cache_checkout_data` returns **HTTP 200** and calls `stripe.PaymentIntent.modify()` exactly once (mocked), ensuring metadata such as `save_info` is correctly stored against the PaymentIntent before payment confirmation.
+
+- Webhook Endpoint (View)
+  - Tested that invalid JSON posted to the webhook returns **HTTP 400**, ensuring the endpoint fails safely.
+  - Tested that valid webhook payloads are passed through Stripe’s event validation (`stripe.Webhook.construct_event` mocked), then correctly dispatched to the relevant handler method (e.g., `handle_payment_intent_succeeded`) on `StripeWH_Handler`.
+
+- Webhook Handler (Business Logic)
+  - Using a minimal `ProductQuantity` setup (Category → Product → Quantity → ProductQuantity), confirmed a `payment_intent.succeeded` event with basket metadata:
+    - returns **HTTP 200**
+    - creates exactly **one Order**
+    - creates exactly **one OrderLineItem**
+    - stores the correct email and line item quantity.
+  - Tested resilience logic where the handler retries up to **5 times** to locate an existing order before creating a new one (`time.sleep` mocked and counted). This helps prevent duplicate orders during delayed/async webhook processing.
+
+- OrderForm Validation
+  - Confirmed the checkout form enforces required fields by verifying `full_name` is required and returns validation errors when missing.
+
+**Mocking approach**
+Stripe calls were mocked throughout the suite (`PaymentIntent.create`, `PaymentIntent.modify`, `Webhook.construct_event`, `Charge.retrieve`) so tests run quickly, deterministically, and without external API dependence, while still verifying that the integration points are called correctly.
 
 #### Home App Tests
 Automated tests were implemented to verify correct template rendering and robust error handling within the Home app.

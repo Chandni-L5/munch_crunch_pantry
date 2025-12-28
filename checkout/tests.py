@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import RequestFactory, TestCase, Client
 from django.urls import reverse
 from django.http import HttpResponse
 from unittest.mock import patch
@@ -97,6 +97,9 @@ class WebhookViewTests(TestCase):
 
 
 class WebhookHandlerTests(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+
     def _create_product_quantity(self):
         """Helper to create a minimal ProductQuantity row."""
         category = Category.objects.create(name="Nuts")
@@ -119,13 +122,8 @@ class WebhookHandlerTests(TestCase):
     def test_handle_payment_intent_succeeded_creates_order(
         self, mock_sleep, mock_retrieve_charge
     ):
-        """
-        Test that a valid payment_intent.succeeded event with basket metadata
-        Order and OrderLineItem created.
-        """
         pq = self._create_product_quantity()
         basket = {str(pq.id): 2}
-        basket_str = json.dumps(basket)
 
         mock_retrieve_charge.return_value = {
             "id": "ch_test",
@@ -138,9 +136,7 @@ class WebhookHandlerTests(TestCase):
             "data": {
                 "object": {
                     "id": "pi_test_123",
-                    "metadata": {
-                        "basket": basket_str,
-                    },
+                    "metadata": {"basket": json.dumps(basket)},
                     "latest_charge": "ch_test",
                     "shipping": {
                         "name": "Test User",
@@ -157,7 +153,8 @@ class WebhookHandlerTests(TestCase):
             },
         }
 
-        handler = StripeWH_Handler(request=None)
+        request = self.factory.post("/checkout/webhook/")
+        handler = StripeWH_Handler(request=request)
         response = handler.handle_payment_intent_succeeded(event)
 
         self.assertEqual(response.status_code, 200)
@@ -176,13 +173,8 @@ class WebhookHandlerTests(TestCase):
     def test_webhook_retries_finding_order(
         self, mock_sleep, mock_retrieve_charge
     ):
-        """
-        Test that the handler retries up to 5 times to find an existing order
-        before creating a new one.
-        """
         pq = self._create_product_quantity()
         basket = {str(pq.id): 1}
-        basket_str = json.dumps(basket)
 
         mock_retrieve_charge.return_value = {
             "id": "ch_test",
@@ -195,9 +187,7 @@ class WebhookHandlerTests(TestCase):
             "data": {
                 "object": {
                     "id": "pi_retry",
-                    "metadata": {
-                        "basket": basket_str,
-                    },
+                    "metadata": {"basket": json.dumps(basket)},
                     "latest_charge": "ch_test",
                     "shipping": {
                         "name": "Retry User",
@@ -217,7 +207,8 @@ class WebhookHandlerTests(TestCase):
         with patch.object(
             Order.objects, "get", side_effect=Order.DoesNotExist
         ):
-            handler = StripeWH_Handler(request=None)
+            request = self.factory.post("/checkout/webhook/")
+            handler = StripeWH_Handler(request=request)
             response = handler.handle_payment_intent_succeeded(event)
 
         self.assertEqual(response.status_code, 200)

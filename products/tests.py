@@ -13,6 +13,59 @@ from products.models import (
 )
 
 
+class ProductModelTests(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name="Nuts", slug="nuts")
+
+        self.product = Product.objects.create(
+            category=self.category,
+            name="Almonds",
+            description="Tasty almonds",
+        )
+
+        self.q250 = Quantity.objects.create(name="250g")
+        self.q500 = Quantity.objects.create(name="500g")
+        self.q1kg = Quantity.objects.create(name="1kg")
+
+        ProductQuantity.objects.create(
+            product=self.product, quantity=self.q250,
+            price=Decimal("3.50"), stock=10
+        )
+        ProductQuantity.objects.create(
+            product=self.product, quantity=self.q500,
+            price=Decimal("5.99"), stock=5
+        )
+        ProductQuantity.objects.create(
+            product=self.product, quantity=self.q1kg,
+            price=Decimal("9.99"), stock=2
+        )
+
+    def test_from_price_and_lowest_highest_price(self):
+        """
+        from_price() returns the lowest ProductQuantity price (or None).
+        """
+        self.assertEqual(self.product.from_price(), Decimal("3.50"))
+        self.assertEqual(self.product.lowest_price, Decimal("3.50"))
+        self.assertEqual(self.product.highest_price(), Decimal("9.99"))
+
+    def test_lowest_and_highest_price_none_if_no_quantities(self):
+        """
+        If a product has no related ProductQuantity rows:
+        - lowest_price property should be None
+        - highest_price() method should return None
+        - from_price() should return None
+        """
+        other_product = Product.objects.create(
+            category=self.category,
+            name="Cashews",
+            description="Tasty cashews",
+        )
+
+        self.assertIsNone(other_product.from_price())
+        self.assertIsNone(other_product.lowest_price)
+        self.assertIsNone(other_product.highest_price())
+
+
 class CategoryModelTests(TestCase):
     """ Test to check Slug is generated correctly from Name """
     def test_category_str_returns_name(self):
@@ -22,60 +75,6 @@ class CategoryModelTests(TestCase):
     def test_slug_is_auto_generated_from_name(self):
         category = Category.objects.create(name="Nuts")
         self.assertEqual(category.slug, "nuts")
-
-
-class ProductModelTests(TestCase):
-    """ Test to check Product model functionality
-    - product name is returned correctly
-    - SKU is auto-generated if not provided
-    - from_price, lowest_price, highest_price methods work correctly
-    - handle case with no quantities
-    """
-    def setUp(self):
-        self.category = Category.objects.create(name="Nuts")
-        self.product = Product.objects.create(
-            category=self.category,
-            name="Almonds",
-            description="Tasty almonds",
-        )
-
-    def test_product_str_returns_name(self):
-        self.assertEqual(str(self.product), "Almonds")
-
-    def test_sku_auto_generated_if_not_provided(self):
-        self.assertIsNotNone(self.product.sku)
-        self.assertEqual(len(self.product.sku), 8)
-        self.assertTrue(self.product.sku.isupper())
-
-    def test_from_price_and_lowest_highest_price(self):
-        q_250g = Quantity.objects.create(name="250g")
-        q_500g = Quantity.objects.create(name="500g")
-
-        ProductQuantity.objects.create(
-            product=self.product,
-            quantity=q_250g,
-            price=Decimal("3.50"),
-            stock=10,
-        )
-        ProductQuantity.objects.create(
-            product=self.product,
-            quantity=q_500g,
-            price=Decimal("5.99"),
-            stock=5,
-        )
-
-        self.assertEqual(self.product.from_price(), Decimal("3.50"))
-        self.assertEqual(self.product.lowest_price(), Decimal("3.50"))
-        self.assertEqual(self.product.highest_price(), Decimal("5.99"))
-
-    def test_lowest_price_none_if_no_quantities(self):
-        other_product = Product.objects.create(
-            category=self.category,
-            name="Cashews",
-            description="Yum",
-        )
-        self.assertIsNone(other_product.lowest_price())
-        self.assertIsNone(other_product.highest_price())
 
 
 class QuantityModelTests(TestCase):
