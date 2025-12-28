@@ -558,7 +558,27 @@ During the designing and styling process of the website, I have kept in mind to 
 
 ## Testing
 ### Automated Testing
-Products App Tests
+
+#### Stories Model Tests
+Automated unit tests were implemented for the Story model to ensure its core behaviour, field constraints, and metadata function correctly. These tests help maintain data integrity, support predictable application behaviour, and prevent regressions as the project evolves.
+
+- Default Field Values
+    - Confirms that newly created stories are unpublished by default (is_published = False).
+    - Verifies that the created_at timestamp is automatically populated when a story is created.
+- String Representation
+    - Ensures the __str__() method returns the story’s title.
+    - This provides clear, human-readable object labels within the Django admin interface and during debugging.
+- Slug Generation and Persistence
+    - Verifies that a URL-friendly slug is automatically generated from the story title when no slug is provided.
+    - Confirms that an existing slug is preserved and not overwritten if the title is later changed, ensuring stable URLs.
+
+- Model Ordering
+    - Validates that stories are ordered alphabetically by title by default, as defined in the model’s Meta.ordering configuration.
+- Required Field Validation
+    - Confirms that the origin_country field is mandatory.
+    - Verifies that attempting to save a story without an origin country fails validation, enforcing consistent and complete data entry.
+
+#### Products App Tests
 I created automated unit tests for the products app (models and constraints) and run them using python3 manage.py test products to ensure data integrity and model behaviour remain correct as the project evolves.
 
 The tests cover:

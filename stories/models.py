@@ -14,7 +14,7 @@ class Story(models.Model):
         blank=True, null=True
     )
 
-    origin_country = CountryField(blank=True)
+    origin_country = CountryField(blank=False, null=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
