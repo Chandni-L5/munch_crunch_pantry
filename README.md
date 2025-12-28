@@ -559,7 +559,46 @@ During the designing and styling process of the website, I have kept in mind to 
 ## Testing
 ### Automated Testing
 
-#### Stories Model Tests
+#### Basket App Tests
+
+#### Checkout App Tests
+
+#### Home App Tests
+Automated tests were implemented to verify correct template rendering and robust error handling within the Home app.
+
+Tests confirm that:
+
+- The newsletter banner is correctly included in the base template and rendered on the home page, including the newsletter form markup and associated JavaScript file
+- The contact view gracefully handles email-sending failures by displaying a user-friendly error message instead of crashing
+- The contact page is re-rendered with the correct template when an email error occurs
+- Email failure handling is tested using mocking to simulate an exception during the email send process, ensuring the application remains stable even when external services fail.
+
+These tests help ensure a reliable user experience and defensive error handling across key user-facing pages.
+
+#### Profiles App Tests
+Automated tests were implemented for the UserProfile and ContactMessage models to ensure correct default behaviour, signal handling, and string representations.
+
+Tests confirm that:
+- A UserProfile is automatically created whenever a new user account is registered, via a post_save signal
+- The UserProfile string representation correctly returns the associated user’s username
+- ContactMessage instances default to a status of “new” upon creation
+- Optional fields on ContactMessage (including user profile, order number, and email) can be left blank without causing errors
+- The ContactMessage string representation outputs a clear, readable summary used in the admin interface
+
+These tests help ensure reliable user profile management and safe handling of customer contact submissions throughout the application.
+
+#### Reviews App Tests
+The Review model is covered by automated tests to ensure correct default behaviour, data integrity, and custom query logic.
+
+Tests confirm that:
+- Default fields are set correctly on creation, including moderation status and timestamps
+- The model’s string representation outputs a clear, user-friendly format used in the frontend
+- Each user can submit only one review per product, enforced via a database-level unique constraint
+- The approved_for_product() helper method returns only approved reviews for a given product
+
+All tests use a minimal valid Product instance and Django’s built-in user model to reflect real application behaviour while keeping tests lightweight and maintainable.
+
+#### Stories App Tests
 Automated unit tests were implemented for the Story model to ensure its core behaviour, field constraints, and metadata function correctly. These tests help maintain data integrity, support predictable application behaviour, and prevent regressions as the project evolves.
 
 - Default Field Values
