@@ -131,6 +131,11 @@ h1, h2 {
     transform: translateY(-1px);
 }
 
+a.external-link {
+    color: var(--color-8);
+    text-decoration: underline;
+}
+
 .nav-btns-row {
     display: flex;
     justify-content: center;

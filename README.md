@@ -315,6 +315,10 @@ The keywords identified to be used throughout the application are based on the h
 
 The content on the website has been optimized by incorporating these keywords naturally into product descriptions, blog posts, meta tags, and other relevant areas of the site. This helps improve the site's relevance for search queries related to healthy wholefoods and increases the likelihood of attracting organic traffic from search engines.
 
+##### Sitemap and Robots.txt
+A robots.txt file has been used to guide search engine crawlers by restricting access to non-SEO and sensitive areas of the site such as authentication, checkout, basket, and admin pages.
+
+ The public content pages remain crawlable, while static and media assets are explicitly allowed to ensure proper rendering and image indexing. A sitemap reference is included to support search engine discovery and indexing.
 
 #### Content Strategy
 
@@ -582,6 +586,7 @@ They ensure that the models behave as expected and that data integrity is mainta
 - [Favicon.io](https://favicon.io/emoji-favicons/) - to create an emoji favicon
 - [Leaflet JS](https://leafletjs.com) - to create the interactive map on origin stories pages
 - [Geoapify](https://www.geoapify.com/) - to source map tiles and geocoding services for the interactive map
+- [XML Sitemaps](https://www.xml-sitemaps.com/) - to create the sitemap for SEO purposes
 
 ### Media
 - [AWS S3](https://aws.amazon.com/s3/) - to store static and media files

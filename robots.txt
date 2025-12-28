@@ -1,0 +1,14 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /basket/
+Disallow: /checkout/
+Disallow: /profiles/
+
+Disallow: /search/
+Disallow: /*?*
+
+Allow: /static/
+Allow: /media/
+
+Sitemap: https://munch-crunch-pantry-c0989406ec70.herokuapp.com/sitemap.xml
