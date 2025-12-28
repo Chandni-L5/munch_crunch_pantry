@@ -1,4 +1,8 @@
-h1,h2 strong {
+h1,h2, strong {
+    color: var(--color-10)
+}
+
+h2.h5 {
     color: var(--color-10)
 }
 

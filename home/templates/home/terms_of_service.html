@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/info_pages.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col">
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="container py-5 px-3">
+        <h1 class="mb-2">Terms of Service</h1>
+
+    <section class="mb-4">
+        <p>
+            These Terms of Service (“Terms”) govern your use of the <strong>Munch Crunch Pantry</strong> website and
+            services.
+            By using our site, creating an account, or placing an order, you agree to these Terms.
+        </p>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h5">1. About us</h2>
+        <p class="mb-0">
+            <strong>Munch Crunch Pantry</strong> (“we”, “us”, “our”) provides an online store for wholefoods and pantry
+            staples.
+            Our contact details are available on our <a href="{% url 'contact' %}">contact page</a> (update the link as
+            needed).
+        </p>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h5">2. Accounts</h2>
+        <ul>
+            <li>You may need an account to access certain features.</li>
+            <li>You’re responsible for keeping your login details secure.</li>
+            <li>We may suspend accounts used in a way that breaches these Terms or harms the site/community.</li>
+        </ul>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h5">3. Orders & payment</h2>
+        <ul>
+            <li>Placing an order is an offer to buy. We’ll confirm acceptance when you receive an order confirmation.
+            </li>
+            <li>Prices are shown in <span>[GBP]</span> unless stated otherwise and may change at any time.</li>
+            <li>Payment is taken securely via our payment provider. We do not store full card details.</li>
+            <li>
+                If there is an issue with stock, pricing, or order processing, we may contact you to amend or cancel the
+                order
+                and provide a refund where appropriate.
+            </li>
+        </ul>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h5">4. Delivery</h2>
+        <ul>
+            <li>Delivery options, costs, and estimated times are shown at checkout.</li>
+            <li>Estimated delivery times are not guaranteed, but we’ll do our best to meet them.</li>
+            <li>Please ensure delivery details are accurate. We may not be responsible for delays or losses caused by
+                incorrect information.</li>
+            <li>We currently only deliver within the United Kingdom.</li>
+        </ul>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h5">5. Returns & refunds</h2>
+        <p>
+            If something isn’t right, contact us as soon as possible and we’ll help. Because we sell food items, returns
+            may be limited
+            for hygiene and safety reasons (unless the product is faulty, damaged, or incorrect).
+        </p>
+        <p class="mb-0">
+            Refunds (where applicable) will be processed back to the original payment method.
+            For full details, see our <a href="{% url 'returns' %}">Returns Policy</a> (add a page/link if you have one).
+        </p>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h5">6. Product information & allergens</h2>
+        <ul>
+            <li>We aim to display accurate descriptions, ingredients, and allergen information, but suppliers can change
+                formulations.</li>
+            <li>
+                Always check product labels on delivery and contact us if you’re unsure. If you have severe allergies,
+                we recommend extra caution.
+            </li>
+            <li>Images are illustrative; packaging may vary.</li>
+        </ul>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h5">7. Acceptable use</h2>
+        <ul>
+            <li>Do not misuse the site, attempt unauthorised access, or interfere with site performance/security.</li>
+            <li>Do not upload or submit content that is illegal, abusive, or infringes rights.</li>
+            <li>We may restrict access if we believe your use poses risk to others or our service.</li>
+        </ul>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h5">8. Intellectual property</h2>
+        <p class="mb-0">
+            All content on this site (text, branding, logos, design) is owned by or licensed to us and may not be used
+            without permission,
+            except as allowed by law.
+        </p>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h5">9. Liability</h2>
+        <p>
+            We provide the site “as is” and try to keep it running smoothly. To the extent permitted by law, we’re not
+            liable for:
+            loss arising from events outside our reasonable control; indirect losses; or issues caused by third-party
+            services.
+        </p>
+        <p class="mb-0">
+            Nothing in these Terms limits liability where it would be unlawful to do so.
+        </p>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h5">10. Changes to these Terms</h2>
+        <p class="mb-0">
+            We may update these Terms occasionally. We’ll notify you of significant changes via the site or email.
+            Continued use of the site after changes indicates acceptance of the new Terms.
+        </p>
+    </section>
+
+    <section>
+        <h2 class="h5">11. Contact</h2>
+        <p class="mb-1">Questions about these Terms?</p>
+        <a href="{% url 'contact' %}">Submit your query here.</a>
+    </section>
+</section>
+{% endblock %}

@@ -158,3 +158,11 @@ def contact_success(request):
 
 def about(request):
     return render(request, 'home/about_us.html')
+
+
+def privacy_policy(request):
+    return render(request, 'home/privacy.html')
+
+
+def terms_of_service(request):
+    return render(request, 'home/terms_of_service.html')
