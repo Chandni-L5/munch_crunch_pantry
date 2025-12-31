@@ -50,10 +50,7 @@ I have used the MoSCoW method to prioritize the user stories into Must have, Sho
 
 To support the estimation, I have also used story points based on a Fibonacci methodology to estimate the effort required for each user story. This allows for a more accurate assessment of the complexity and time needed for implementation and helps to guide prioritization and ordering of tasks during the development process.
 
-
-## Agile Planning
-
-## Epic 1: User Account & Authentication
+#### Epic 1: User Account & Authentication
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
@@ -66,7 +63,7 @@ To support the estimation, I have also used story points based on a Fibonacci me
 
 ---
 
-## Epic 2: Product Discovery & Shopping Experience
+#### Epic 2: Product Discovery & Shopping Experience
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
@@ -82,7 +79,7 @@ To support the estimation, I have also used story points based on a Fibonacci me
 
 ---
 
-## Epic 3: Basket & Checkout
+#### Epic 3: Basket & Checkout
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
@@ -93,7 +90,7 @@ To support the estimation, I have also used story points based on a Fibonacci me
 
 ---
 
-## Epic 4: Content, Marketing & Engagement
+#### Epic 4: Content, Marketing & Engagement
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
@@ -106,7 +103,7 @@ To support the estimation, I have also used story points based on a Fibonacci me
 
 ---
 
-## MoSCoW Summary
+#### MoSCoW Summary
 
 | Priority | Count | Percentage |
 |--------|------|------------|
@@ -117,7 +114,7 @@ To support the estimation, I have also used story points based on a Fibonacci me
 
 ---
 
-## Story Point Summary
+#### Story Point Summary
 
 - **Must Have:** 68 story points  
 - **Should Have:** 19 story points  
@@ -127,7 +124,7 @@ To support the estimation, I have also used story points based on a Fibonacci me
 
 ---
 
-## Planning Rationale
+#### Planning Rationale
 
 During the planning stages, the MoSCoW priorities were distributed as **56% Must have**, **20% Should have**, and **24% Could have**.  
 The total number of story points estimated for the project was **107**, including the Could have features.
@@ -515,6 +512,30 @@ General planned format for other pages such as FAQ, Shipping Information, Return
 #### Product Detail Page
 #### Shopping Cart Page
 #### Checkout Page
+
+**Geoapify API Integration**
+
+To improve the user experience during checkout, I implemented address autocomplete using the Geoapify API. This allows the user to start typing their address and receive suggestions to complete it quickly. The form fields are then automatically populated based on the selected suggestion.
+
+**Why?**
+- Speeds up checkout process by reducing the time taken to enter address details manually.
+- Reduces errors in address entry, leading to more accurate shipping information.
+- Enhances user experience by providing a modern and convenient feature.
+
+**API Integration Details**
+- I created a free account on [Geoapify](https://www.geoapify.com/) to obtain an API key for address autocomplete functionality.
+- The API key is securely stored in environment variables to prevent exposure in the codebase.
+- On the frontend the key is exposed as a JS constant making it easy to change between development and production environments.
+- The address autocomplete feature is implemented using JavaScript to interact with the Geoapify Places API
+- A non-model field called `address_search` is added to the checkout form to capture the input from the user to predict their address.
+  - As the user types, requests are sent to the Geoapify API to fetch address suggestions based on the input.
+  - When a suggestion is selected, the corresponding address components are automatically populated in the form fields.
+  - The Geoapify logic is encapsulated in a separate JavaScript static file and initialized on the checkout page only to avoid unnecessary API calls on other pages.
+- This field is not submitted to the backend, only used for frontend address prediction and population of other fields.
+- The rest of the address fields are still standard Django crispy form fields that are submitted to the backend for order processing. Each field can still be manually edited if needed.
+
+
+
 #### Order Confirmation Page
 #### User Profile Page
 #### Admin Dashboard
@@ -689,9 +710,165 @@ The tests cover:
 They ensure that the models behave as expected and that data integrity is maintained through unique constraints. In addition these checks are repeatable as the project develops further. The full directory of products have not been included in the early stages and as more products are added, the integrity of the data entered in relation to products can be verified through the same tests.
 
 ### Manual Testing
+
 ### Testing User Stories
+
 ### Bugs & Fixes
+I have encountered a few bugs during the development of this project. Below are some of the notable ones along with their fixes:
+
+<details>
+<summary> <strong> Checkout form data missing on Submit - Disabled fields are not posted </strong> </summary>
+
+**Bug:**
+During checkout, the order form was consistently failing validation with errors like:
+
+```
+full_name: This field is required.
+email: This field is required.
+phone_number: This field is required.
+```
+
+etc.
+This was occurring even when the user had filled in the fields.
+
+**Evidence:**
+A debug log confirmed the issue: `Order form invalid ... This field is required.`, indicating that the backend was receiving empty required fields on `POST`.
+
+**Cause:**
+The issue was created by the checkout JavaScript code disabling the entire form during the Stripe payment processing:
+- `toggleFormDisabled(true);`
+- `card.update({ 'disabled': true });`
+This prevented disabled fields from being included in the form submission, leading to missing data on the server side.
+
+This caused the disabled fields to not be posted to the server, resulting in validation errors for required fields. When Stripe returned a successful payment, and a native submit is triggered on the form, the disabled fields were not included in the POST data and Django only received the `CSRFmiddlewaretoken`.
+
+**Fix:**
+To resolve this, I modified the JavaScript to re-enable the form fields immediately before submitting the form:
+
+```javascript
+if (paymentIntent && paymentIntent.status === "succeeded") {
+        toggleFormDisabled(false);
+        const form = document.getElementById("payment-form");
+        HTMLFormElement.prototype.submit.call(form);
+    } else {
+        showError("Payment did not complete. Please try again.");
+        resetProcessingState();
+    }
+  ```
+
+  This means the form is still locked out during payment processing, but is re-enabled just before submission, ensuring all fields are included in the POST data.
+
+  Django is able to validate and create the order successfully once all required fields are present, allowing the checkout flow to complete. The user is successfully redirected to the order confirmation - `checkout_success` page after payment.
+
+</details>
+
+<details>
+<summary><strong>Stripe payment processing issue</strong></summary>
+
+**Bug and Evidence:**
+When the Stripe payment processing was initiated during checkout, the page would become stuck on the loading spinner indefinitely, and the order would not complete, although the payment was successfully processed by Stripe when checking the Stripe dashboard.
+
+In addition the order was not created in the database, and the user was not redirected to the order confirmation page. The network tab in dev chrome tools showed that the the form POST was never sent and JavaScript console errors showed:
+```JavaScript
+TypeError: form.submit is not a function
+```
+
+The caused a major disruption to the checkout flow, preventing users from completing their purchases.
+
+When putting a fix in place to deal with this an additional issue was identified where the order form data was missing on submit. 
+
+`403 Forbidden CSRF verification failed.`
+
+**Cause**
+form.submit was being overwritten by the element named "submit" in the form, causing the TypeError. As the submit button had the `id="submit"` attribute, it conflicted with the form's submit method and so the form was unable to be submitted resulting in the endless loading spinner.
+
+**Fix**
+To resolve this, I changed the way the form is submitted in the JavaScript code. Instead of calling `form.submit()`, I used:
+
+```JavaScript
+HTMLFormElement.prototype.submit.call(form);
+```
+
+This exposed a secondary related issue, where form fields were disabled during payment processing and therefore not included in the POST data. This is documented in detail in the Checkout form data missing on submit bug above. 
+
+After implementing these changes, the checkout flow worked correctly. The form was successfully submitted, the order was created in the database, and the user was redirected to the order confirmation page after payment. The Console and network logs confirmed that there were no errors and the form POST was sent successfully:
+
+```Console
+ORDER CREATED: 44F685DF1EF64CCCA068DF93A5148E3A
+POST /checkout/ 302
+GET /checkout/success/.../ 200
+```
+
+</details>
+
+<details>
+<summary><strong>Delivery charge being applied to an empty basket</strong></summary>
+
+**Bug and Evidence:**
+When a user visited the site for the first time, where nothing would have been added to the basket yet, a delivery charge of £4.99 was being applied to the basket total. This created confusion and an incorrect total being displayed to the user can negatively impact user experience and trust.
+
+**Cause:** The basket context processor applied the standard delivery charge whenever the basket total was below the free delivery threshold. If the basket total was £0.00 (empty basket), it would incorrectly meet this condition and apply the delivery charge. In addition the delivery and price calculations were mixing `float` and `Decimal` types which created rounding inconsistencies.
+
+**Fix** 
+I updated the basket context processor to explicitly check if the basket is empty before applying the delivery charge. If the basket total is £0.00, no delivery charge is applied, this was ensured by adding a guard condition to ensure that the delivery does not apply when the `product_count == 0`. The basket calculations were also refactored to use `Decimal` types consistently for all monetary values, preventing rounding errors. This aligns with Django `DecimalField` usage and ensures accurate financial calculations throughout the application.
+
+</details>
+
+<details>
+<summary><strong>Bootstrap gutters - Unwanted white gaps at page edges</strong></summary>
+
+**Bug and Evidence:**
+When using the Bootstrap grid system, unwanted white gaps (gutters) were appearing at the edges of the page content. This created an inconsistent layout and detracted from the overall design aesthetic - particularly affecting the newsletter, banner and footer sections on desktop.
+
+**Cause:**
+The issue was caused by Bootstrap's default `.row` gutter behaviour, negative margins on `.row` elements created spacing between the row and its fluid parent container. This caused the content to overflow beyond the viewport edges, resulting in visible white gaps.
+
+**Fix:**
+By using bootstraps `g-0` class on the `.row` elements, the default gutter spacing was removed. This ensured that the row's content aligned flush with the parent container edges, eliminating the unwanted white gaps. The layout now appears consistent and visually appealing across different screen sizes.
+
+</details>
+
+<details>
+<summary><strong>Country Flag Accessibility & HTML Validation Fix</strong></summary>
+
+**Bug and Evidence:**
+During HTML validation of the checkout page, the W3C validator flagged an error related to the use of the `img` element for displaying country flags in the country selection dropdown. The error indicated that the `img` tag was missing an `alt` attribute, which is required for accessibility compliance.
+
+The image flag icon is the country flag icon which is automatically rendered by the `django-countries` package in the country select field. Although the flag is purely decorative and does not convey essential information, the absence of an `alt` attribute violates HTML standards and accessibility guidelines.
+
+**Cause:**
+At this stage of development of this project, the business only ships to the UK. Therefore displaying flags for other countries is not necessary and so this feature added very little value to the user experience. 
+
+**Fix:**
+The `django-countries` package does not provide a built-in way to customize or remove the flag icons from the country select field. 
+
+To resolve this, the country field was hidden at form level. It is still present in the data model, but rendered as hidden on the user interface. The country is then set to "GB" (United Kingdom) by default in the checkout view when the form is instantiated.
+
+This is to ensure the value is still submitted with the form, database integrity is maintained, and the HTML validation error is resolved. It also allows for future expansion to other countries if and when needed.
+
+The final result means that with the `<img>` being hidden, the HTML validation error is resolved and the checkout page passes W3C validation without any accessibility issues.
+
+</details>
+
+<details>
+<summary><strong>Newsletter banner – Removal of `localStorage` persistence</strong></summary>
+
+**Bug and Cause**
+During the initial implementation of the newsletter banner, I used `localStorage` to persist the user's dismissal of the banner across sessions. Once an email had been entered and submitted the banner was dismissed and would not reappear on subsequent visits.
+
+When discussing this feature with my mentor Moritz, it was highlighted that this approach could lead to privacy concerns, as `localStorage` data persists across browser sessions, meaning a different user on the same device could be affected by the previous user's interaction with the banner. This could prevent new users from seeing the newsletter signup option, potentially reducing engagement and signups.
+
+**Fix:**
+To address this, I removed the `localStorage` persistence logic from the newsletter banner JavaScript code. Now, the banner will reappear on each new session or visit to the site, allowing all users to see and interact with it regardless of previous dismissals.
+
+To hide the lower banner, I've added a simple close button that users can click to minimise the banner. This resolves the `localStorage` concern, whilst still providing a user-friendly way to manage the banner's visibility during their visit and enhance the overall view of the site.
+
+In addition email subscription handling was implemented to store submitted emails in the database for future marketing use.
+
+</details>
+
 ### Lighthouse
+
 ### Validators
 
 ## Final Summary & Future Implementations
