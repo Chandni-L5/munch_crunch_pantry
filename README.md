@@ -807,6 +807,8 @@ GET /checkout/success/.../ 200
 **Bug and Evidence:**
 When a user visited the site for the first time, where nothing would have been added to the basket yet, a delivery charge of £4.99 was being applied to the basket total. This created confusion and an incorrect total being displayed to the user can negatively impact user experience and trust.
 
+![Basket with delivery charge applied to empty basket](/documentation/images/delivery_empty_basket.png)
+
 **Cause:** The basket context processor applied the standard delivery charge whenever the basket total was below the free delivery threshold. If the basket total was £0.00 (empty basket), it would incorrectly meet this condition and apply the delivery charge. In addition the delivery and price calculations were mixing `float` and `Decimal` types which created rounding inconsistencies.
 
 **Fix** 
@@ -868,6 +870,17 @@ In addition email subscription handling was implemented to store submitted email
 </details>
 
 ### Lighthouse
+
+Lighthouse audits were conducted using Chrome DevTools on the deployed application to assess performance, accessibility, best practices, and SEO.
+
+**Homepage Lighthouse Results:**
+
+![Lighthouse Homepage Results - desktop](/documentation/images/lighthouse/lh-desktop-homepage.png)
+![Lighthouse Homepage Results - mobile](/documentation/images/lighthouse/lh-mobile-homepage.png)
+
+As this project is an e-commerce application, it is expected to be a an image-led and content heavy Django store frontend application. Therefore the performance scores are lower than a typical content-focused website. However, I have implemented several optimizations to improve load times and responsiveness, particularly on mobile devices.
+
+All images are uploaded in WebP format to reduce file sizes without compromising quality. Lazy loading is implemented for product images to defer loading until they are in the viewport, improving initial load times. 
 
 ### Validators
 
