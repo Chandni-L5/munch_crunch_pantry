@@ -714,7 +714,7 @@ They ensure that the models behave as expected and that data integrity is mainta
 ### Testing User Stories
 
 ### Bugs & Fixes
-I have encountered a few bugs during the development of this project. Below are some of the notable ones along with their fixes:
+I have encountered a few bugs during the development of this project. Below are some of the notable ones along with their fixes. In addition some further minor bugs were identified during the validation process and these have been documented in the [Lighthouse](#lighthouse) section of this README.
 
 <details>
 <summary> <strong> Checkout form data missing on Submit - Disabled fields are not posted </strong> </summary>
@@ -893,7 +893,21 @@ All images are uploaded in WebP format to reduce file sizes without compromising
 
 To improve accessibility scores, I have ensured that all images have descriptive alt attributes - relating to the name of the product it depicts, sufficient colour contrast is maintained throughout the site, and ARIA labels are used where appropriate to enhance screen reader compatibility.
 
+**Accessibility Fix - ARIA labels for Newsletter Banner Toggle Caret**
 A fix was put in place in the base template to improve accessibility by adding `aria-label` attributes to the toggle caret to collapse and expand the newsletter signup banner. I have set this dynamically in JavaScript to update based on the current state of the banner (expanded or collapsed). This provides screen reader users with clear context about the button's function and current state. As this element is present on all pages, this fix improves accessibility site-wide.
+
+**CSS Minification**
+
+To improve performance, CSS and JS files were minified to reduce file size and load times.
+Original stylesheets were retained for readability and development, while minified versions were created for production use:
+
+- `base.css` → `base.min.css`
+- `home.css` → `home.min.css`
+- `base.js` → `base.min.js`
+- `checkout.js` → `checkout.min.js`
+
+Minification was performed using a CSS minification tool from GitHub extensions - [MinifyAll](https://github.com/Josee9988/MinifyAll). This removes unnecessary whitespace, comments, and optimizes code structure without altering functionality.
+
 
 ### Validators
 
