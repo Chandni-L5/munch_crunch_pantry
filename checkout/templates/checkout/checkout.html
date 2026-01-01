@@ -4,7 +4,7 @@
 
 {% block extra_title %}Checkout{% endblock %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+<link rel="stylesheet" href="{% static 'checkout/css/checkout-min.css' %}">
 {% endblock %}
 
 {% block page_header %}
@@ -163,8 +163,8 @@
     const GEOAPIFY_API_KEY = "{{ geoapify_api_key|escapejs }}";
 </script>
 
-<script src="{% static 'checkout/js/checkout.js' %}"></script>
-<script src="{% static 'checkout/js/geoapify.js' %}"></script>
+<script src="{% static 'checkout/js/checkout-min.js' %}"></script>
+<script src="{% static 'checkout/js/geoapify-min.js' %}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const container = document.getElementById("autocomplete-container");

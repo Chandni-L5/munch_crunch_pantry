@@ -2,7 +2,11 @@
 {% load static %}
 
 {% block extra_title %}
-<!-- look into how to display the relevant title -->
+{{ page_title|default:"Products" }}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'products/css/products-min.css' %}">
 {% endblock %}
 
 {% block page_header %}
@@ -18,7 +22,6 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <!-- Page Heading, depending on how once arrive's -->
         <div class="col text-center mt-3">
             {% if products %}
             {% if current_categories %}

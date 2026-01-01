@@ -1,0 +1,1 @@
+$(".qty-btn-plus").click((function(t){t.preventDefault();var n=$(this).closest(".input-group").find(".qty-input")[0],i=parseInt($(n).val());$(n).val(i+1)})),$(".qty-btn-minus").click((function(t){t.preventDefault();var n=$(this).closest(".input-group").find(".qty-input")[0],i=parseInt($(n).val());i>1&&$(n).val(i-1)}));

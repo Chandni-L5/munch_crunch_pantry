@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const isHidden = body.style.display === "none";
         body.style.display = isHidden ? "block" : "none";
         toggleBtn.setAttribute("aria-expanded", isHidden);
+        toggleBtn.setAttribute("aria-label", isHidden ? "Collapse newsletter sign up form" : "Expand newsletter sign up form");
         toggleBtn.querySelector("i").style.transform = isHidden ?
             "rotate(0deg)" :
             "rotate(-180deg)";

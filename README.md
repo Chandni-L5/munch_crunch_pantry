@@ -871,16 +871,29 @@ In addition email subscription handling was implemented to store submitted email
 
 ### Lighthouse
 
-Lighthouse audits were conducted using Chrome DevTools on the deployed application to assess performance, accessibility, best practices, and SEO.
+Lighthouse audits were conducted using Chrome DevTools on the deployed application to assess performance, accessibility, best practices, and SEO. The following table summarizes the Lighthouse scores for key page types on both desktop and mobile devices:
 
-**Homepage Lighthouse Results:**
+| Page Type | Performance | Accessibility | Best Practices | SEO |
+|-----------|------------|---------------|----------------|-----|
+| Home - Desktop | 94   | 84 | 96 | 100 |
+| Home - Mobile | 81 | 84 | 92 | 100 |
+| Products - Desktop |  |  |  |  |
+| Products - Mobile  |  |  | | |
+| Product Detail - Desktop| | | | |
+| Product Detail - Mobile | | | | |
+| Basket - Desktop|  |  |  |  |
+| Basket - Mobile|  |  |  |  |
+| Checkout - Desktop |  |  |  |  |
+| Checkout - Mobile |  |  |  |  |
 
-![Lighthouse Homepage Results - desktop](/documentation/images/lighthouse/lh-desktop-homepage.png)
-![Lighthouse Homepage Results - mobile](/documentation/images/lighthouse/lh-mobile-homepage.png)
 
 As this project is an e-commerce application, it is expected to be a an image-led and content heavy Django store frontend application. Therefore the performance scores are lower than a typical content-focused website. However, I have implemented several optimizations to improve load times and responsiveness, particularly on mobile devices.
 
 All images are uploaded in WebP format to reduce file sizes without compromising quality. Lazy loading is implemented for product images to defer loading until they are in the viewport, improving initial load times. 
+
+To improve accessibility scores, I have ensured that all images have descriptive alt attributes - relating to the name of the product it depicts, sufficient colour contrast is maintained throughout the site, and ARIA labels are used where appropriate to enhance screen reader compatibility.
+
+A fix was put in place in the base template to improve accessibility by adding `aria-label` attributes to the toggle caret to collapse and expand the newsletter signup banner. I have set this dynamically in JavaScript to update based on the current state of the banner (expanded or collapsed). This provides screen reader users with clear context about the button's function and current state. As this element is present on all pages, this fix improves accessibility site-wide.
 
 ### Validators
 

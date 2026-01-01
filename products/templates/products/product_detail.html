@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'products/css/product_detail.css' %}">
+<link rel="stylesheet" href="{% static 'products/css/product_detail-min.css' %}">
 {% endblock %}
 
 {% block extra_title %}{{ product.name }}{% endblock %}
@@ -205,9 +205,9 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script src="{% static 'products/js/product_detail.js' %}"></script>
-<script src="{% static 'products/js/quantity_input_script.js' %}"></script>
-<script src="{% static 'products/js/star_rating.js' %}"></script>
+<script src="{% static 'products/js/product_detail-min.js' %}"></script>
+<script src="{% static 'products/js/quantity_input_script-min.js' %}"></script>
+<script src="{% static 'products/js/star_rating-min.js' %}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const buttons = document.querySelectorAll(".review-scroll-btn");

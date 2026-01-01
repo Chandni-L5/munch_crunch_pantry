@@ -4,7 +4,7 @@
 
 {% block extra_title %}Your Basket{%endblock %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'basket/css/basket.css' %}"/>
+<link rel="stylesheet" href="{% static 'basket/css/basket-min.css' %}"/>
 {% endblock %}
 {% block page_header %}
 <div class="container header-container">
@@ -279,6 +279,6 @@
 {% endblock %}
 {% block postloadjs %}
 {{ block.super }}
-<script src="{% static 'products/js/quantity_input_script.js' %}"></script>
-<script src="{% static 'basket/js/basket.js' %}"></script>
+<script src="{% static 'products/js/quantity_input_script-min.js' %}"></script>
+<script src="{% static 'basket/js/basket-min.js' %}"></script>
 {% endblock %}
