@@ -503,9 +503,9 @@ a.toast-checkout-btn:hover {
         padding-top: 72px;
     }
 
-    body {
+    /* body {
         height: calc(100vh - 116px);
-    }
+    } */
 
     #newsletter-banner {
         padding: 4px 0;
