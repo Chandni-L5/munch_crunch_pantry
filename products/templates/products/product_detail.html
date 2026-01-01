@@ -2,10 +2,6 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'products/css/product_detail-min.css' %}">
-{% endblock %}
-
 {% block extra_title %}{{ product.name }}{% endblock %}
 
 {% block page_header %}
