@@ -5,6 +5,10 @@
 {{ page_title|default:"Products" }}
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/product_detail-min.css' %}">
+{% endblock %}
+
 {% block page_header %}
 <div class="container header-container">
     <div class="row">

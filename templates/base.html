@@ -192,40 +192,42 @@
 
 
         <!-- Page Content below the header/nav -->
-        <main class="page-content">
-            {% if messages %}
-            <div class="message-container">
-                {% for message in messages %}
-                {% with message.level as level %}
-                {% if level == 40 %}
-                {% include "includes/toasts/toast_error.html" with message=message %}
-                {% elif level == 30 %}
-                {% include "includes/toasts/toast_warning.html" with message=message %}
-                {% elif level == 25 %}
-                {% include "includes/toasts/toast_success.html" with message=message %}
-                {% elif level == 20 %}
-                {% include "includes/toasts/toast_info.html" with message=message %}
+         <div class="page-wrapper d-flex flex-column min-vh-100">
+
+            <main class="page-content">
+                {% if messages %}
+                <div class="message-container">
+                    {% for message in messages %}
+                    {% with message.level as level %}
+                    {% if level == 40 %}
+                    {% include "includes/toasts/toast_error.html" with message=message %}
+                    {% elif level == 30 %}
+                    {% include "includes/toasts/toast_warning.html" with message=message %}
+                    {% elif level == 25 %}
+                    {% include "includes/toasts/toast_success.html" with message=message %}
+                    {% elif level == 20 %}
+                    {% include "includes/toasts/toast_info.html" with message=message %}
+                    {% endif %}
+                    {% endwith %}
+                    {% endfor %}
+                </div>
                 {% endif %}
-                {% endwith %}
-                {% endfor %}
+
+                {% block page_header %}{% endblock %}
+
+                {% block content %}{% endblock %}
+            </main>
+
+            <!-- Footer -->
+            <div class="site-footer">
+                {% block newsletter_banner %}
+                {% include "includes/newsletter-banner.html" %}
+                {% endblock %}
+
+                {% include "includes/footer-desktop.html" %}
+                {% include "includes/footer-mobile.html" %}
             </div>
-            {% endif %}
-
-            {% block page_header %}{% endblock %}
-
-            {% block content %}{% endblock %}
-        </main>
-
-        <!-- Footer -->
-        <div class="site-footer">
-            {% block newsletter_banner %}
-            {% include "includes/newsletter-banner.html" %}
-            {% endblock %}
-
-            {% include "includes/footer-desktop.html" %}
-            {% include "includes/footer-mobile.html" %}
         </div>
-
     </div>
 
     <!-- Mobile Fullscreen Search Modal -->
