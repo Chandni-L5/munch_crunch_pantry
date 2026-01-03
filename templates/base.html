@@ -11,11 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Metatags for SEO -->
-    <meta name="description"
-        content="Munch Crunch Pantry offers healthy, organic snacks, nuts, seeds,
+    <meta name="description" content="Munch Crunch Pantry offers healthy, organic snacks, nuts, seeds,
         and superfoods to fuel your lifestyle. Ethically sourced and packed with nutrition.">
-    <meta name="keywords"
-        content="
+    <meta name="keywords" content="
         organic nuts, organic seeds, wholefoods online, buy nuts online, seeds online,
         healthy snacks, superfoods, ethically sourced foods, natural pantry staples,
         organic wholefoods shop, premium nuts and seeds, tropical wholefoods, fairtrade nuts and seeds,
@@ -255,9 +253,15 @@
         </div>
     </div>
 
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
 
     {% block postloadjs %}
     {{ block.super }}
+    <!-- Toasts Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const toastElList = document.querySelectorAll('.toast');
@@ -267,7 +271,54 @@
             });
         });
     </script>
+
     <script src="{% static 'js/newsletter-min.js' %}"></script>
+
+    <!-- Back to Top Button Script -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const btt = document.getElementById("back-to-top");
+            if (!btt) return;
+
+            const getScrollTop = () =>
+                document.body.scrollTop ||
+                document.documentElement.scrollTop ||
+                0;
+
+            const toggle = () => {
+                btt.classList.toggle("show", getScrollTop() > 300);
+            };
+
+            // run once on load
+            toggle();
+
+            // IMPORTANT: listen on the actual scrolling element
+            document.body.addEventListener("scroll", toggle, {
+                passive: true
+            });
+
+            // fallback (harmless)
+            window.addEventListener("scroll", toggle, {
+                passive: true
+            });
+
+            btt.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // Scroll the element that scrolls
+                document.body.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+                document.documentElement.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+
     {% endblock %}
 </body>
 

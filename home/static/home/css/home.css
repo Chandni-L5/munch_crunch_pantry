@@ -85,11 +85,3 @@ h2.h5 {
 .homepage-info-card:hover {
     filter: brightness(2.05);
 }
-
-/* Media query: tablets & mobile (768)  */
-@media (max-width: 991px) {
-    .back-to-top {
-        bottom: 1rem;
-        right: 1.5rem;
-    }
-}
