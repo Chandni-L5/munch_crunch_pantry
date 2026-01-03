@@ -313,7 +313,7 @@ input[type=number] {
     border-radius: 10px;
 }
 
-.submit-btn, review-btns {
+.submit-btn, .review-btns {
     background: var(--color-7);
     color: var(--color-10);
     border: 1px solid var(--color-10);
@@ -326,7 +326,7 @@ input[type=number] {
 }
 
 .submit-btn:hover {
-    background: opacify(var(--color-7), 0.95);
+    background: rgba(var(--color-7), 0.95);
     transform: translateY(-2px);
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
     cursor: pointer;}

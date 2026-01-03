@@ -34,7 +34,6 @@ urlpatterns = [
     path('profile/', include('profiles.urls')),
     path('stories/', include('stories.urls')),
     path('newsletter/', include('newsletter.urls')),
-    path('reviews/', include('reviews.urls')),
 ]
 
 if settings.DEBUG:

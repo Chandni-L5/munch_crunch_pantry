@@ -86,7 +86,7 @@ def all_products(request):
 
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    anchor = "#review-section"
+    anchor = "#reviews-section"
     all_reviews = Review.objects.filter(product=product).select_related("user")
     approved_reviews = all_reviews.filter(is_approved=True)
 

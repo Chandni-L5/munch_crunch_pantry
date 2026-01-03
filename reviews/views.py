@@ -45,12 +45,15 @@ def add_review(request, product_id):
                 request, "Thanks! Your review has been submitted for approval."
             )
             return redirect("product_detail", product_id=product.id)
-    else:
-        form = ReviewForm()
-
-    return render(
-        request, "reviews/review_form.html", {"form": form, "product": product}
-    )
+        all_reviews = Review.objects.filter(
+            product=product
+        ).select_related("user")
+        context = {
+            "product": product,
+            "review_form": form,
+            "all_reviews": all_reviews,
+        }
+        return render(request, "products/product_detail.html", context)
 
 
 @login_required

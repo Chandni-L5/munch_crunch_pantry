@@ -40,15 +40,13 @@
 
                     {% if product.category %}
                     <p class="small mb-0">
-                        <a href="{% url 'products' %}?category={{ product.category.slug }}"
-                            class="text-muted">
+                        <a href="{% url 'products' %}?category={{ product.category.slug }}" class="text-muted">
                             <i class="fas fa-tag me-1 nav-icon"></i>{{ product.category.name }}
                         </a>
                     </p>
                     {% endif %}
                     {% if product.rating_count %}
-                    <a href="#reviews-section"
-                        class="small text-muted d-inline-block rating-link mt-1">
+                    <a href="#reviews-section" class="small text-muted d-inline-block rating-link mt-1">
                         <i class="fas fa-star nav-icon text-warning"></i>
                         {{ product.rating_avg|floatformat:1 }} ({{ product.rating_count }})
                     </a>
@@ -209,20 +207,48 @@
 <script src="{% static 'products/js/quantity_input_script-min.js' %}"></script>
 <script src="{% static 'products/js/star_rating-min.js' %}"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const buttons = document.querySelectorAll(".review-scroll-btn");
-        const target = document.getElementById("reviews-section");
+document.addEventListener("DOMContentLoaded", function () {
+    const target = document.getElementById("reviews-section");
+    if (!target) return;
 
-        if (!target) return;
-
-        buttons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                target.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
+    document.querySelectorAll("button.review-scroll-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
             });
         });
     });
+});
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const forms = ["reviewCreateForm", "reviewEditForm"];
+
+        forms.forEach(formId => {
+            const form = document.getElementById(formId);
+            if (!form) return;
+
+            const commentField = form.querySelector("#id_comment");
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const helper = form.querySelector(".comment-helper");
+
+            if (!commentField || !submitBtn || !helper) return;
+
+            const updateState = () => {
+                const hasText = commentField.value.trim().length > 0;
+
+                submitBtn.disabled = !hasText;
+                helper.textContent = hasText ?
+                    "Ready to submit your review." :
+                    "Write a comment to enable submit.";
+            };
+
+            updateState();
+            commentField.addEventListener("input", updateState);
+        });
+    });
+</script>
+
 {% endblock %}

@@ -11,6 +11,21 @@ class ReviewForm(forms.ModelForm):
             "comment": forms.Textarea(
                 attrs={
                     "class": "form-control",
-                    "rows": 5, "placeholder": "Write your review..."}
+                    "rows": 5,
+                    "placeholder": "Write your review...",
+                }
             ),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        rating = cleaned_data.get("rating")
+        comment = cleaned_data.get("comment", "")
+
+        if not rating:
+            self.add_error("rating", "Please select a rating.")
+
+        if not comment.strip():
+            self.add_error("comment", "Comment cannot be empty.")
+
+        return cleaned_data
