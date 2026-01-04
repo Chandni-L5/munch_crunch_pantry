@@ -4,7 +4,7 @@ __pycache__
 .flake8
 .vscode
 .notes
-env
+.env
 env.py
 .staticfiles
 staticfiles
