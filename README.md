@@ -2,7 +2,11 @@
 
 Munch Crunch pantry is an online ecommerce store dedicated to providing a wide variety of healthy wholefood snacks. Our mission is to promote wellness and healthy living by offering nutritious, delicious, and convenient snack options for people on the go.
 
-The website is a full-stack site based on B2C e-commerce functionality. It features a user-friendly interface, secure payment processing, and a seamless shopping experience. Customers can browse through our catalog of snacks, read detailed product descriptions, and make secure purchases with ease.
+Munch Crunch Pantry operates on a B2C (Business-to-Consumer) e-commerce model. The platform allows direct online sales of products sold by the business to individual consumers.
+
+It features a user-friendly interface, secure payment processing, and a seamless shopping experience. Customers can browse through our catalog of snacks, read detailed product descriptions, and make secure purchases with ease.
+
+Revenue is generated through direct online sales of the wholefoods products, particularly one-off consumer purchases.
 
 ## User Experience (UX) & Agile Planning and Development
 ### Goals & Objectives 
@@ -17,10 +21,11 @@ The aim of the Munch Crunch Pantry project is to develop a comprehensive e-comme
 ### Target Audience & Brand Philosophy
 The target audience for Munch Crunch Pantry includes health-conscious individuals, busy professionals, fitness enthusiasts, and anyone looking for convenient and nutritious snack options. The website aims to cater to a diverse demographic, including different age groups and dietary preferences.
 
-The philosophy behind Munch Crunch Pantry is to promote healthy living by making nutritious snacks easily accessible to everyone. The website emphasizes the importance of whole foods and natural, sustainable, high quality and ethically sourced ingredients.
-
+The philosophy behind Munch Crunch Pantry is to promote healthy living by making nutritious snacks easily accessible to everyone. The website emphasizes the importance of whole foods and natural, sustainable, high quality and ethically sourced ingredients. In addition this philosophy strengthens customer trust and align to the platform with conscious consumer values.
 
 ### Scope
+The B2C model is implemented through a number of core features that enhance the user experience and streamline the shopping process.
+
 #### User/Customer Features:
 - Responsive design for optimal viewing on various devices (desktops, tablets, smartphones).
 - CRUD Functionality - Customers are able to log in, create accounts, view their past orders and leave reviews on products. 
@@ -31,6 +36,8 @@ The philosophy behind Munch Crunch Pantry is to promote healthy living by making
 - Secure checkout process - Integration with Stripe for secure payment processing, order summary, and confirmation.
 - Order history - Customers can view their past orders and order details.
 - Customer reviews and ratings - Users can leave reviews and ratings for products they have purchased.
+
+These features encourage repeat business and long-term customer retention, which are key objectives of the B2C e-commerce model.
 
 #### Admin Features
 - Admin dashboard - A dedicated interface for administrators to manage products, orders, and customer information, Admins can add, edit, and delete products, including images, descriptions, and pricing.
@@ -381,7 +388,9 @@ The colours have also been assessed using a contrast checker to ensure they pass
 ### Typography
 [Google Fonts](https://fonts.google.com/) are used to apply Montserrat for page headings and Montserrat Alternates for body text. These fonts were chosen for their modern and clean appearance, which enhances readability and user experience.
 
-<!-- create a screenshot of the fonts used and add here -->
+After opening up the project for feedback from fellow Code Institute students and alumni it was notes that the secondary font Montserrat Alternates was somewhat difficult to read from a neurodivergent perspective. Therefore I have changed the secondary front to Sansation, which is also a Google Font and has been designed specifically for improved readability.
+
+![Typography Sample](/documentation/images/google-fonts.png)
 
 ### Imagery
 Some of the images used throughout the site were sourced from [pexels.com](https://www.pexels.com/). Images from this source are licensed for free use. I have also used [Sora](https://sora.chatgpt.com/explore) to create some AI images.
@@ -515,7 +524,7 @@ General planned format for other pages such as FAQ, Shipping Information, Return
 
 **Geoapify API Integration**
 
-To improve the user experience during checkout, I implemented address autocomplete using the Geoapify API. This allows the user to start typing their address and receive suggestions to complete it quickly. The form fields are then automatically populated based on the selected suggestion.
+To improve the user experience during checkout, I implemented address autocomplete using the [Geoapify API](https://www.geoapify.com/). This allows the user to start typing their address and receive suggestions to complete it quickly. The form fields are then automatically populated based on the selected suggestion.
 
 **Why?**
 - Speeds up checkout process by reducing the time taken to enter address details manually.
@@ -712,6 +721,8 @@ They ensure that the models behave as expected and that data integrity is mainta
 ### Manual Testing
 
 ### Testing User Stories
+
+In summary, the application implements a B2C direct-to-consumer e-commerce model, where individual customers can browse products, make secure online purchases, and manage their orders through a user-focused web platform. The system architecture, checkout flow, and feature set directly support this business model.
 
 ### Bugs & Fixes
 I have encountered a few bugs during the development of this project. Below are some of the notable ones along with their fixes. In addition some further minor bugs were identified during the validation process and these have been documented in the [Lighthouse](#lighthouse) section of this README.
@@ -935,6 +946,8 @@ I have also run the Python code through the [CI Python linter](https://pep8ci.he
 All JavaScript code used in this project has been validated using the [JSHint](https://jshint.com/) online tool to ensure compliance with JavaScript coding standards. This tool checks for potential errors and highlights issues immediately so can be dealt with during the development process. The final validation results show that all JavaScript files pass without any errors.
 
 ## Final Summary & Future Implementations
+
+
 
 ## Credits
 ### 
