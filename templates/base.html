@@ -279,7 +279,6 @@
     <script src="{% static 'js/newsletter-min.js' %}"></script>
 
     <!-- Back to Top Button Script -->
-
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const btt = document.getElementById("back-to-top");
@@ -293,16 +292,12 @@
             const toggle = () => {
                 btt.classList.toggle("show", getScrollTop() > 300);
             };
-
-            // run once on load
             toggle();
 
-            // IMPORTANT: listen on the actual scrolling element
             document.body.addEventListener("scroll", toggle, {
                 passive: true
             });
 
-            // fallback (harmless)
             window.addEventListener("scroll", toggle, {
                 passive: true
             });
@@ -310,7 +305,6 @@
             btt.addEventListener("click", (e) => {
                 e.preventDefault();
 
-                // Scroll the element that scrolls
                 document.body.scrollTo({
                     top: 0,
                     behavior: "smooth"

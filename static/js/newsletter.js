@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const banner = document.getElementById("newsletter-banner");
     const body = document.getElementById("newsletter-body");
     const toggleBtn = document.getElementById("newsletter-toggle");
-    const toggleIcon = document.getElementById("newsletter-toggle-icon");
 
     const form = document.getElementById("newsletter-form");
     const emailInput = document.getElementById("newsletter-email");

@@ -911,6 +911,29 @@ Minification was performed using a CSS minification tool from GitHub extensions 
 
 ### Validators
 
+#### HTML Validation
+All HTML files in this project have been validated using the [W3C Markup Validation Service](https://validator.w3.org/). Numerous iterations of validation and fixes were performed during development to ensure compliance with HTML5 standards. The final validation results show that all pages pass without any errors.
+
+![screenshot of W3C validation results](/documentation/images/html-validation.png)
+
+#### CSS Validation
+All CSS used in this project has been validated using the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) and all files passed without any errors.
+<p>
+    <a href="https://jigsaw.w3.org/css-validator/check/referer">
+        <img style="border:0;width:88px;height:31px"
+            src="https://jigsaw.w3.org/css-validator/images/vcss-blue"
+            alt="Valid CSS!" />
+    </a>
+</p>
+
+#### Python Validation
+All Python code used in this project has been validated using the [Flake8 extension](https://flake8.pycqa.org/) in Visual Studio Code to ensure compliance with PEP 8 standards. This tool checks for style guide enforcement, code complexity, and potential errors and highlights issues immediately so can be dealt with during the development process.
+
+I have also run the Python code through the [CI Python linter](https://pep8ci.herokuapp.com/). The final validation results show that all Python files pass without any errors.
+
+#### JavaScript Validation
+All JavaScript code used in this project has been validated using the [JSHint](https://jshint.com/) online tool to ensure compliance with JavaScript coding standards. This tool checks for potential errors and highlights issues immediately so can be dealt with during the development process. The final validation results show that all JavaScript files pass without any errors.
+
 ## Final Summary & Future Implementations
 
 ## Credits
