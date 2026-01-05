@@ -1,18 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'home/css/info_pages-min.css' %}">
+{% block title %}Privacy Policy - Munch Crunch Pantry{% endblock %}
+
+{% block extra_meta %}
+    <meta name="description" content="Read the Privacy Statement of Munch Crunch Pantry to understand how we collect, use, and protect your personal information when you use our website and services." />
+    <meta name="keywords" content="Munch Crunch Pantry Privacy Policy, Data Protection, Personal Information, Wholefoods Store, Organic Nuts, Sustainable Food" />
 {% endblock %}
 
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col">
-
-        </div>
-    </div>
-</div>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/info_pages-min.css' %}">
 {% endblock %}
 
 {% block content %}
