@@ -2,21 +2,15 @@
 {% load static %}
 
 {% block extra_title %}
-{{ page_title|default:"Products" }}
+{{ page_title|default:"Products" }} - Munch Crunch Pantry
+{% endblock %}
+
+{% block meta_description %}
+    <meta name="description" content="Explore our wide range of products at Munch Crunch Pantry. Find organic nuts, sustainable food options, and more. Shop now!" />
 {% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'products/css/product_detail-min.css' %}">
-{% endblock %}
-
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col">
-
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block content %}

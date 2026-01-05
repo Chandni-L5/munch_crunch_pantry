@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ story.title }} - Origin Story{% endblock %}
+{% block title %}{{ story.title }} - Origin Story - Munch Crunch Pantry {% endblock %}
+
+{% block meta_description %}
+    <meta name="description" content="Learn about the origin story of {{ story.title }} from {{ story.origin_country.name }}. Discover the journey of this ingredient and the farming communities we support at Munch Crunch Pantry." />
+    <meta name="keywords" content="Munch Crunch Pantry Origin Story, {{ story.title }} Origin, Sustainable Farming, Farming Communities" />
+{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'stories/css/stories-min.css' %}">
 {% endblock %}

@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block newsletter_banner %} {% endblock %}
 
-{% block extra_title %}Your Basket{%endblock %}
+{% block extra_title %}Your Basket - Munch Crunch Pantry {%endblock %}
+
+{% block meta_description %}
+    <meta name="description" content="Review the items in your basket at Munch Crunch Pantry before proceeding to checkout. Manage quantities, view prices, and prepare for a seamless shopping experience." />
+    <meta name="keywords" content="Munch Crunch Pantry Basket, Shopping Cart, Wholefoods Store, Organic Nuts, Sustainable Food" />
+{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'basket/css/basket-min.css' %}"/>
 {% endblock %}
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col"></div>
-    </div>
-</div>
-{% endblock %}
+
 {% block content %}
 <div class="container mb-2">
     <div class="row">
@@ -217,7 +218,6 @@
                                 </div>
                             </td>
                         </tr>
-
 
                         <!-- Buttons row -->
                         <tr>

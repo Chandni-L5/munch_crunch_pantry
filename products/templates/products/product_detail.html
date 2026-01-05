@@ -2,20 +2,15 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block extra_title %}{{ product.name }}{% endblock %}
+{% block extra_title %}{{ product.name }} - Munch Crunch Pantry {% endblock %}
+
+{% block meta_description %}
+    <meta name="description" content="Discover {{ product.name }} at Munch Crunch Pantry. Explore its features, ingredients, and customer reviews. Add it to your basket today!" />
+    <meta name="keywords" content="Munch Crunch Pantry {{ product.name }}, Wholefoods Store, Organic Nuts, Sustainable Food" />
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'products/css/product_detail-min.css' %}">
-{% endblock %}
-
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col">
-
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block content %}
@@ -206,6 +201,7 @@
 <script src="{% static 'products/js/product_detail-min.js' %}"></script>
 <script src="{% static 'products/js/quantity_input_script-min.js' %}"></script>
 <script src="{% static 'products/js/star_rating-min.js' %}"></script>
+<!-- Scroll to review section when page reloads if any buttons in the section are selected -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const target = document.getElementById("reviews-section");
@@ -221,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-
+<!-- make review/rating editable when button is selected -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const forms = ["reviewCreateForm", "reviewEditForm"];

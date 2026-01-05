@@ -2,18 +2,15 @@
 {% load static %}
 {% block newsletter_banner %}{% endblock %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'profiles/css/profiles-min.css' %}">
+{% block extra_title %}Your Account - Munch Crunch Pantry {% endblock %}
+
+{% block meta_description %}
+    <meta name="description" content="Manage your account at Munch Crunch Pantry. Update your details, view order history, and track your queries all in one place." />
+    <meta name="keywords" content="Munch Crunch Pantry User Profile, Account Management, Order History, Contact Queries" />
 {% endblock %}
 
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col">
-
-        </div>
-    </div>
-</div>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/profiles-min.css' %}">
 {% endblock %}
 
 {% block content %}

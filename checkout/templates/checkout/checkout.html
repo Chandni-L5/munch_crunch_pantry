@@ -1,20 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block newsletter_banner %} {% endblock %}
 
-{% block extra_title %}Checkout{% endblock %}
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'checkout/css/checkout-min.css' %}">
+{% block extra_title %}Checkout - Munch Crunch Pantry {% endblock %}
+
+{% block meta_description %}
+    <meta name="description" content="Complete your purchase at Munch Crunch Pantry. Review your order summary, provide delivery details, and securely process your payment." />
+    <meta name="keywords" content="Munch Crunch Pantry Checkout, Wholefoods Store, Organic Nuts, Sustainable Food" />
 {% endblock %}
 
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col">
-
-        </div>
-    </div>
-</div>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout-min.css' %}">
 {% endblock %}
 
 {% block content %}
