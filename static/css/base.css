@@ -323,8 +323,6 @@ header .row,
     opacity: 0.7;
 }
 
-
-
 /* Footer */
 
 footer {
@@ -422,7 +420,6 @@ a.toast-checkout-btn:hover {
 }
 
 /* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
-
 .arrow-up {
     width: 0; 
     height: 0; 
@@ -505,10 +502,6 @@ a.toast-checkout-btn:hover {
     main {
         padding-top: 72px;
     }
-
-    /* body {
-        height: calc(100vh - 116px);
-    } */
 
     #newsletter-banner {
         padding: 4px 0;

@@ -16,7 +16,10 @@ class RemoveEmail(EmailView):
             if emails.count() <= 1:
                 messages.error(
                     request,
-                    _("You must keep at least one email address on your account.")
+                    _(
+                        "You must keep at least one email address on "
+                        "your account."
+                    )
                 )
                 return redirect("account_email")
 
@@ -32,7 +35,8 @@ class RemoveEmail(EmailView):
             if selected_obj and selected_obj.primary:
                 messages.error(
                     request,
-                    _("You cannot remove your primary email. Make another email primary first.")
+                    _("You cannot remove your primary email."
+                      " Make another email primary first.")
                 )
                 return redirect("account_email")
 

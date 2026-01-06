@@ -39,13 +39,6 @@
                             <th scope="col" class="text-start ps-5">Qty</th>
                             <th scope="col" class="text-start">Subtotal</th>
                         </tr>
-                        {% if not forloop.last %}
-                        <tr class="basket-divider-row">
-                            <td colspan="5">
-                                <div class="basket-divider"></div>
-                            </td>
-                        </tr>
-                        {% endif %}
                     </thead>
 
                     <tbody>
@@ -100,6 +93,7 @@
                                             data-item-name="{{ item.product.product.name }}"
                                             data-tooltip="Remove from basket">
                                             <i class="fa-solid fa-trash-can"></i>
+                                            <span class="visually-hidden">Remove item</span>
                                         </a>
                                         <!-- Qty controls -->
                                         <form method="POST" action="{% url 'adjust_basket' item.item_id %}"
