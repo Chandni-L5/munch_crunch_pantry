@@ -13,3 +13,4 @@ staticfiles
 *.log
 notes
 notes.md
+.DS_Store
