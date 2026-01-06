@@ -2,6 +2,8 @@ from allauth.account.views import EmailView
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
+from allauth.account.views import PasswordChangeView
 
 
 class RemoveEmail(EmailView):
@@ -41,3 +43,7 @@ class RemoveEmail(EmailView):
                 return redirect("account_email")
 
         return super().post(request, *args, **kwargs)
+
+
+class CustomPasswordChangeView(PasswordChangeView):
+    success_url = reverse_lazy('password_change_done')

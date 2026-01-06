@@ -19,13 +19,27 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
-from profiles.views_allauth import RemoveEmail
+
+from profiles.views_allauth import RemoveEmail, CustomPasswordChangeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
     path("accounts/email/", RemoveEmail.as_view(), name="account_email"),
+    path(
+        "accounts/password/change/",
+        CustomPasswordChangeView.as_view(),
+        name="account_change_password",
+    ),
+    path(
+        "accounts/password/change/done/",
+        TemplateView.as_view(
+            template_name="account/password_change_done.html"
+        ),
+        name="password_change_done",
+    ),
     path('accounts/', include('allauth.urls')),
     path('', include('home.urls')),
     path('products/', include('products.urls')),
