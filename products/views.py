@@ -60,17 +60,21 @@ def all_products(request):
 
         # Search bar
         if "q" in request.GET:
-            query = request.GET["q"]
-            if not query:
+            query_list = request.GET.getlist("q")
+            query_list = [q.strip() for q in query_list if q.strip()]
+
+            if not query_list:
                 messages.error(
                     request, "You didn't enter any search criteria!"
                 )
                 return redirect(reverse("products"))
 
-            queries = Q(
-                name__icontains=query
-            ) | Q(description__icontains=query)
-            products = products.filter(queries)
+            for term in query_list:
+                products = products.filter(
+                    Q(name__icontains=term) | Q(description__icontains=term)
+                )
+
+            query = ", ".join(query_list)
 
     current_sorting = f"{sort}_{direction}" if sort and direction else ""
 
