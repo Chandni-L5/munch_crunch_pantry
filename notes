@@ -1,4 +1,0 @@
-    {% block newsletter_banner %}
-    {% endblock %} 
-
-    use this on pages where you don't want the newsletter newsletter_banner

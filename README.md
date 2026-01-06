@@ -720,6 +720,37 @@ They ensure that the models behave as expected and that data integrity is mainta
 
 ### Manual Testing
 
+The following manual tests were carried out to assess **functionality, usability, responsiveness and data management** across the full application.
+
+**Scope**:
+The manual testing covers the user journey across the entire e-commerce application, from browsing products to checkout and order confirmation, as well as public pages, authentication, reviews, newsletter and also admin management.
+
+**Test Environments**:
+- Local development - Django development server
+- Deployed production - Heroku live site
+- Browsers: Chrome, Firefox, Edge, Safari
+- Device Breakpoints: Desktop (≥1024px), Tablet (768px), Mobile (≤480px)
+
+**Tester Roles**:
+- Guest (not logged in)
+-  User (registered and logged in)
+-  Admin (Django admin user)
+
+| Feature | Guest | User | Admin |
+|---------|-------|------|-------|
+|Access to profile page|❌|✅|❌|
+|Access to admin dashboard|❌|❌|✅|
+|Order history view|❌|✅|✅|
+|Product review submission|❌|✅|✅|
+|Newsletter signup|✅|✅|✅|
+|Moderation of reviews|❌|❌|✅|
+|Creation or amendments of reviews|❌|✅|✅|
+|Product management|❌|❌|✅|
+|Order management|❌|❌|✅|
+|Contact form submission|✅|✅|✅|
+|Contact message management|❌|❌|✅|
+|Contact message record|❌|✅|✅|
+
 ### Testing User Stories
 
 In summary, the application implements a B2C direct-to-consumer e-commerce model, where individual customers can browse products, make secure online purchases, and manage their orders through a user-focused web platform. The system architecture, checkout flow, and feature set directly support this business model.
