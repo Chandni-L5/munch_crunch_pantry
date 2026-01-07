@@ -2,8 +2,9 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 from django_countries.fields import CountryField
+
+from core.validators import validate_phone_digits
 
 
 User = get_user_model()
@@ -16,7 +17,8 @@ class UserProfile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     default_phone_number = models.CharField(
-        max_length=20, null=True, blank=True
+        max_length=20, null=True, blank=True,
+        validators=[validate_phone_digits],
     )
     default_street_address1 = models.CharField(
         max_length=80, null=True, blank=True

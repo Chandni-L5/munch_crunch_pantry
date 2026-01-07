@@ -8,6 +8,7 @@ from django_countries.fields import CountryField
 from decimal import Decimal
 
 from profiles.models import UserProfile
+from core.validators import validate_phone_digits
 
 
 class Order(models.Model):
@@ -22,7 +23,10 @@ class Order(models.Model):
     )
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
-    phone_number = models.CharField(max_length=20, null=False, blank=False)
+    phone_number = models.CharField(
+        max_length=20, null=False, blank=False,
+        validators=[validate_phone_digits]
+    )
     country = CountryField(default='GB')
     postcode = models.CharField(max_length=20, null=True, blank=True)
     town_or_city = models.CharField(max_length=40, null=False, blank=False)
