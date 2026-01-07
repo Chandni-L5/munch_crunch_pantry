@@ -1,5 +1,7 @@
 # Munch Crunch Pantry 
 
+![Screenshot of amiresponsive design on various devices](/documentation/images/amiresponsive-display.png)
+
 Munch Crunch pantry is an online ecommerce store dedicated to providing a wide variety of healthy wholefood snacks. Our mission is to promote wellness and healthy living by offering nutritious, delicious, and convenient snack options for people on the go.
 
 Munch Crunch Pantry operates on a B2C (Business-to-Consumer) e-commerce model. The platform allows direct online sales of products sold by the business to individual consumers.

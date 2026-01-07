@@ -29,7 +29,6 @@
 | Footer links | All users | Footer links work correctly | 1. Click each footer link | Correct pages load without errors, external links open in a new tab, pointer cursor shown |
 | |
 | Back to top button ⬆️ | All users | Back to top button appears after scrolling and works correctly | 1. Scroll down any page, 2. Click back to top button | Button appears after scrolling down, clicking button scrolls page back to top smoothly |
-
 </details>
 
 <details>
@@ -43,13 +42,12 @@
 | Explore/Browse button | All users | Explore/Browse products button works, hover effects | 1. Click Explore/Browse products button | Button hover effect works, clicking button navigates to products page |
 | Find out more button | All users | Find out more buttons work, hover effects | 1. Click Find out more button... | Button hover effect works, clicking button navigates to about us page |
 | Learn more button | All users | Learn more button works, hover effects | 1. Click Learn button | Button hover effect works, clicking button navigates to product origins intro page |
-
-
 </details>
 
 <details>
-<Summary><strong>Authentication Tests</strong></Summary>
+<Summary><strong>Allauth/Authentication Tests</strong></Summary>
 
+<strong> Login/Registration/Logout Tests 🔐 </strong>
 | Area | User Role | Test Scenario | Steps | Expected Result |
 |------|-----------|---------------|-------|-----------------|
 | Registration with email📝 | Guest | Registration works with valid input | 1. Complete registration form, 2. Select sign up button  | User created; redirected to confirm email page, display alert message|
@@ -61,6 +59,39 @@
 | Logout 🔒 | User | Logout works correctly | 1. Click logout button, 2. Redirected to confirmation, 3. Sign out/cancel button selected | Redirected to homepage with success message/no message if cancel selected |
 
 OAuth authentication was tested using live Google and Facebook developer credentials to ensure real-world login flows function correctly.
+
+<strong> Manage email / Change password Tests 🔐 </strong>
+
+[/accounts/email/](https://munch-crunch-pantry-c0989406ec70.herokuapp.com/accounts/email/) - (You must be logged in to access this page)
+
+| Area | User Role | Test Scenario | Steps | Expected Result |
+|------|-----------|---------------|-------|-----------------|
+| Change email address | User | Change email address with valid input | 1. Open profile page, 2. Click on manage email button, 3. enter a new email and click add email | Email updated, alert message displayed (confirmation sent), new email added to list |
+| Remove/make primary email | User | Remove/make primary email address | 1.Click on remove/make primary email button next to email address | Email removed/made primary, alert message displayed |
+| Removal/change of primary email | User - email unverified | Attempt to remove un-verified email address | 1. Click on radio button for the un-verified email, 2. Click make primary/remove button | Validation message displayed indicating email must be verified before change/removal |
+| Only one email present | User | Attempt to remove only email address | No action required | Button is disabled, hover message displayed indicating at least one email required |
+| Resend verification email | User | Re-send verification email works correctly | 1. Click on re-send verification email button | Email re-sent, alert message displayed, email received |
+| Make primary | User | Make different verified email primary | 1. Click on radio button for different email, 2. Click make primary button | Primary email changed, alert message displayed |
+
+[/accounts/password/change/](https://munch-crunch-pantry-c0989406ec70.herokuapp.com/accounts/password/change/) - (You must be logged in to access this page)
+
+| Area | User Role | Test Scenario | Steps | Expected Result |
+|------|-----------|---------------|-------|-----------------|
+| Change password | User | Change password with valid input | 1. Open profile page, 2. Click on change password button, 3. enter current password, new password and confirm new password, 4. click change password button | Password changed, alert message displayed, user remains logged in, redirected to confirmation page |
+| Incorrect current password | User | Attempt to change password with incorrect current password | 1. Enter incorrect current password, new password and confirm new password, 4. click change password button | Validation message displayed indicating incorrect current password |
+| Mismatched new passwords | User | Attempt to change password with mismatched new passwords | 1. Enter correct current password, new password and different confirm new password, 4. click change password button | Validation message displayed indicating new passwords do not match |
+| Weak new password | User | Attempt to change password with weak new password | 1. Enter correct current password, weak new password and confirm new password, 4. click change password button | Validation message displayed indicating new password is too weak |
+| Blank fields | User | Attempt to change password with blank fields | 1. Leave one or more fields blank, 4. click change password button | Validation message displayed indicating required fields |
+
+</details>
+
+<details>
+<Summary><strong>Profile Page Tests</strong></Summary>
+
+| Area | User Role | Test Scenario | Steps | Expected Result |
+|------|-----------|---------------|-------|-----------------|
+| Profile page 🧑‍💼 | User | Profile page loads correctly with all sections | 1. Click on my account in navbar, 2. click on My Profile | Your account page loads successfully, displays Your details/ Order History/ Your Queries. |
+| 
 
 </details>
 
