@@ -785,8 +785,9 @@ The manual testing covers the user journey across the entire e-commerce applicat
 Full manual testing documentation with test cases, steps, expected and actual results can be found in the **[Manual Testing Document](documentation/manual-testing.md)**.
 
 ### Testing User Stories
+The application has been tested against the user stories defined in the Planning section of this README. Each user story has been manually tested to ensure that the functionality meets the requirements and provides a positive user experience.
 
-In summary, the application implements a B2C direct-to-consumer e-commerce model, where individual customers can browse products, make secure online purchases, and manage their orders through a user-focused web platform. The system architecture, checkout flow, and feature set directly support this business model.
+You can find the detailed testing of each user story in the **[User Stories Testing Document](documentation/user-stories-testing.md)**.
 
 ### Bugs & Fixes
 I have encountered a few bugs during the development of this project. Below are some of the notable ones along with their fixes. In addition some further minor bugs were identified during the validation process and these have been documented in the [Lighthouse](#lighthouse) section of this README.
