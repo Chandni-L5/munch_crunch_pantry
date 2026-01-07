@@ -16,6 +16,7 @@ class ReviewAdmin(admin.ModelAdmin):
     search_fields = ("product__name", "user__username", "comment")
     actions = ["approve_reviews"]
     readonly_fields = ("created_at", "updated_at")
+    verbose_name = "Reviews and Ratings"
 
     def approve_reviews(self, request, queryset):
         queryset.update(is_approved=True)

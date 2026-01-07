@@ -88,5 +88,8 @@ class ContactMessage(models.Model):
     response = models.TextField(blank=True)
     responded_at = models.DateTimeField(null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Customer queries"
+
     def __str__(self):
         return f"{self.subject} ({self.email})"
