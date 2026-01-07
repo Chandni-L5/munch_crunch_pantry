@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -25,8 +25,12 @@ def profile(request):
             delivery_form.save()
             profile_form.save()
             messages.success(request, 'Profile updated successfully')
+            return redirect('profile')
         else:
-            messages.error(request, 'Update failed. Please check the form.')
+            messages.error(
+                request,
+                'Update failed. Please complete all required fields.'
+            )
     else:
         delivery_form = UserProfileForm(instance=profile)
         profile_form = UserUpdateForm(instance=request.user)

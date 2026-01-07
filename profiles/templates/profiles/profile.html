@@ -40,7 +40,7 @@
                     <a href="{% url 'account_change_password' %}" class="profile-btns">
                         <i class="fas fa-key me-1"></i> Change password
                     </a>
-                    <button type="submit" class="profile-btns" id="update-profile-btn" disabled>
+                    <button type="submit" class="profile-btns" id="update-profile-btn">
                         <i class="fa-regular fa-pen-to-square"></i> Update Profile
                     </button>
                 </div>
@@ -157,29 +157,6 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<!-- Disable/enable buttons depending if form fields have changed -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("profile-update-form");
-        const button = document.getElementById("update-profile-btn");
-
-        if (!form || !button) return;
-
-        const initialData = new FormData(form);
-
-        form.addEventListener("input", () => {
-            const currentData = new FormData(form);
-
-            for (let [key, value] of currentData.entries()) {
-                if (value !== initialData.get(key)) {
-                    button.disabled = false;
-                    return;
-                }
-            }
-            button.disabled = true;
-        });
-    });
-</script>
 <!-- view/hide for queries dropdowns -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {

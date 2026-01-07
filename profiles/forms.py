@@ -25,12 +25,24 @@ class UserUpdateForm(forms.ModelForm):
             'username': 'Username',
         }
 
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'profile-form-input'
-            self.fields[field].widget.attrs['placeholder'] = (
-                placeholders[field]
+        for field_name in self.fields:
+            field = self.fields[field_name]
+            field.required = True
+            field.widget.attrs['class'] = 'profile-form-input'
+            field.widget.attrs['placeholder'] = (
+                placeholders[field_name]
             )
-            self.fields[field].label = False
+            field.label = False
+
+        self.fields['first_name'].error_messages['required'] = (
+            "Please enter your first name."
+        )
+        self.fields['last_name'].error_messages['required'] = (
+            "Please enter your last name."
+        )
+        self.fields['username'].error_messages['required'] = (
+            "Please choose a username."
+        )
 
 
 class UserProfileForm(forms.ModelForm):
@@ -56,14 +68,21 @@ class UserProfileForm(forms.ModelForm):
             'default_country': 'Country',
         }
 
+        for field_name in self.fields:
+            self.fields[field_name].required = True
+
         self.fields['default_phone_number'].widget.attrs['autofocus'] = True
 
-        for field in self.fields:
-            if field != 'default_country':
-                placeholder = placeholders[field]
-                self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].widget.attrs['class'] = 'profile-form-input'
-            self.fields[field].label = False
+        for field_name in self.fields:
+            if field_name != 'default_country':
+                self.fields[field_name].widget.attrs['placeholder'] = (
+                    placeholders[field_name]
+                )
+            self.fields[field_name].widget.attrs['class'] = (
+                'profile-form-input'
+            )
+            self.fields[field_name].label = False
+            self.fields['default_street_address2'].required = False
 
 
 User = get_user_model()

@@ -33,7 +33,7 @@ class UserProfile(models.Model):
         max_length=20, null=True, blank=True
     )
     default_country = CountryField(
-        blank_label="Select Country", null=True, blank=True
+        default='GB', editable=False,
     )
 
     def __str__(self):
