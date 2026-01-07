@@ -116,17 +116,16 @@ As an admin, I want to approve or delete reviews so that inappropriate content d
 **Acceptance Criteria:**
 - AC1: Admin can view all reviews  
 - AC2: Admin can approve or delete reviews  
-- AC3: Feature restricted to admin users  
 
 ---
 
-### **2.5 Discounts & Promotions** (Issue #10)
+### **2.5 Discounts** (Issue #10)
 **User Story:**  
 As a shopper, I want to see offers and promotions so that I can save money.
 
 **Acceptance Criteria:**
-- AC1: Promotions visible on homepage and product pages  
-- AC2: Discounted prices clearly displayed  
+- AC1: The application should display current offers and promotions on the homepage and relevant product pages. 
+- AC2: Promotional prices should be clearly indicated alongside the original price on product listings and product pages.
 
 ---
 
@@ -146,7 +145,7 @@ As a shopper, I want to search using keywords so that I can quickly find product
 As a shopper, I want to filter products so that I can narrow results to my preferences.
 
 **Acceptance Criteria:**
-- AC1: Filtering by category, price, popularity available  
+- AC1: Filtering by price, popularity available  
 - AC2: Product listings update dynamically  
 
 ---
@@ -262,17 +261,7 @@ As a shopper, I want to sign up for newsletters so that I stay informed.
 
 ---
 
-### **4.5 Newsletter Admin** (Issue #3)
-**User Story:**  
-As an admin, I want to manage newsletter subscribers.
-
-**Acceptance Criteria:**
-- AC1: Admin can view/add/remove subscribers  
-- AC2: Restricted to admin users  
-
----
-
-### **4.6 Contact Form** (Issue #2)
+### **4.5 Contact Form** (Issue #2)
 **User Story:**  
 As a shopper, I want to contact support so that I can get help when needed.
 

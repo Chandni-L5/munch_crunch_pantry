@@ -524,6 +524,15 @@ General planned format for other pages such as FAQ, Shipping Information, Return
 #### Shopping Cart Page
 #### Checkout Page
 
+#### Admin Interface
+
+**Admin Interface Customisation**
+
+The Django admin interface was customised to improve clarity and usability.
+The default **Groups** model was intentionally hidden, as group-based permissions
+are not used in this project. This prevents unnecessary complexity for admin users
+while retaining Django’s built-in authentication system.
+
 **Geoapify API Integration**
 
 To improve the user experience during checkout, I implemented address autocomplete using the [Geoapify API](https://www.geoapify.com/). This allows the user to start typing their address and receive suggestions to complete it quickly. The form fields are then automatically populated based on the selected suggestion.
@@ -755,15 +764,23 @@ The manual testing covers the user journey across the entire e-commerce applicat
 
 #### Manual Testing Summary
 
-- ✅ Navigation and global UI tested across all pages
+- ✅ Navigation, banners, footer, and global UI tested across all pages
 - ✅ Authentication tested (email/password, Google OAuth, Facebook OAuth)
-- ✅ Product browsing, filtering, sorting, and searching tested
-- ✅ Basket, checkout, and Stripe payment flows tested
-- ✅ Review system tested (submission, editing, deletion, approval states)
-- ✅ Admin functionality tested via Django admin
-- ✅ Responsive behaviour tested on mobile, tablet, and desktop
+- ✅ Account management tested (profile updates, email management, password changes)
+- ✅ Product browsing, category filtering, sorting, and searching tested
+- ✅ Product detail pages tested (options, stock states, reviews, accordions, toasts)
+- ✅ Review system tested (submission, edit, delete, approval and pending states)
+- ✅ Basket functionality tested (add/update/remove items, delivery thresholds, discounts)
+- ✅ Checkout flow tested (form validation, saved details, guest prompts)
+- ✅ Stripe payment integration tested (successful payments, failed payments, webhooks, duplicate prevention)
+- ✅ Order confirmation and email notifications tested
+- ✅ Informational and content pages tested (About, FAQs, Product Origins, Stories, Contact)
+- ✅ Custom error pages tested (400, 404, 500)
+- ✅ AWS S3 static and media storage tested (hashed static files, public media access)
+- ✅ Admin functionality tested via Django admin (products, orders, users, reviews, newsletters, stories)
+- ✅ Responsive behaviour tested on mobile, tablet, and desktop viewports
 - ✅ Form validation tested across all user inputs
-- ✅ No console errors detected during testing
+- ✅ No console errors detected during manual testing
 
 Full manual testing documentation with test cases, steps, expected and actual results can be found in the **[Manual Testing Document](documentation/manual-testing.md)**.
 

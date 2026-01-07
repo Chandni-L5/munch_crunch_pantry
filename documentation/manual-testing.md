@@ -8,6 +8,7 @@
 | Navigation 🧭 | All users | Navbar links work and indicate current page | 1. Open site 2. Click Home icon, Menu - About us/ Product origins/Contact us, FAQs, My Account, Basket| Correct pages load, hover effects over selections, no console errors |
 | New user | Guest | My account displays 'Log in' and 'Register' | 1. click on My account menu, 2. dropdown displays, click on options | 'Log in' and 'Register' options visible, correct pages load, hover effect over selections | 
 | Existing user | User | My account displays 'My Profile' and 'Logout'| 1. click on My account menu, 2. dropdown displays, click on options | 'My Profile' and 'Logout' options visible, correct pages load, hover effect over selections |
+| Basket | All users | Basket value updates correctly when items are added/removed | 1. Add item to basket from product detail page, 2. Remove item from basket page, 3. Add a different item to the basket | Basket icon updates with correct item total value after addition/removal |
 | Search Bar 🔍 | All users | Search bar functions correctly | 1. Enter search term (e.g., 'hazelnut'), 2. Click search icon or press enter | Relevant products displayed, search term shown in results page |
 | Empty input | All users | Search bar handles empty input | 1. Leave search bar empty, 2. Click search icon or press enter | returns all products |
 | No results | All users | Search bar handles no results | 1. Enter gibberish term (e.g., 'xyzabc'), 2. Click search icon or press enter | User feedback shown (e.g., 'No products found') |
@@ -48,6 +49,7 @@
 <Summary><strong>Allauth/Authentication Tests</strong></Summary>
 
 <strong> Login/Registration/Logout Tests 🔐 </strong>
+
 | Area | User Role | Test Scenario | Steps | Expected Result |
 |------|-----------|---------------|-------|-----------------|
 | Registration with email📝 | Guest | Registration works with valid input | 1. Complete registration form, 2. Select sign up button  | User created; redirected to confirm email page, display alert message|
@@ -86,12 +88,21 @@ OAuth authentication was tested using live Google and Facebook developer credent
 </details>
 
 <details>
-<Summary><strong>Profile Page Tests</strong></Summary>
+<Summary><strong>Profile Tests</strong></Summary>
 
 | Area | User Role | Test Scenario | Steps | Expected Result |
 |------|-----------|---------------|-------|-----------------|
 | Profile page 🧑‍💼 | User | Profile page loads correctly with all sections | 1. Click on my account in navbar, 2. click on My Profile | Your account page loads successfully, displays Your details/ Order History/ Your Queries. |
-| 
+| Your details | User - registered but no orders placed | Your details section displays correctly without prepopulated data | 1. Open profile page as newly registered user - dependant on if the radio button on checkout page was selected to remember details | Your details section displays correctly with empty fields for first name, last name, email, phone number, address, postcode, town/city, country |
+| Your details | User - with orders placed | Your details section displays correctly with prepopulated data | 1. Open profile page as user with orders placed | Your details section displays correctly with fields prepopulated with user's info |
+| Details - validation | User | Your details section validates input correctly | 1. Enter invalid data in fields (e.g., invalid email format, non-numeric phone number), 2. Click save changes button | Validation messages displayed for invalid inputs |
+| Details - successful update | User | Your details section updates successfully with valid input | 1. Enter valid data in fields, 2. Click save changes button | Details updated successfully, success message displayed |
+| Order history | User - no orders placed | Order history section displays appropriate message when no orders placed | 1. Open profile page as user with no orders placed | Message displayed indicating no orders have been placed yet |
+| Order history | User - with orders placed | Order history section displays list of orders correctly | 1. Open profile page as user with orders placed | List of orders displayed with correct details (order number, date, total) |
+| Order details | User | Order details link works correctly | 1. Click on order number link in order history section | Correct order details page loads without errors, alert message displayed confirming this is a previous order |
+| Your queries | User - no queries submitted | Your queries section displays appropriate message when no queries submitted | 1. Open profile page as user with no queries submitted | Message displayed indicating no queries have been submitted yet |
+| Your queries | User - with queries submitted | Your queries section displays list of queries correctly | | 1. Open profile page as user with queries submitted | List of queries displayed with correct details - date, subject, message dropdown - message displayed and response status |
+
 
 </details>
 
@@ -141,7 +152,70 @@ OAuth authentication was tested using live Google and Facebook developer credent
 </details>
 
 <details>
-<Summary><strong>Misc Pages - Pass ✅</strong></Summary>
+<Summary><strong>Basket Tests</strong></Summary>
+
+| Area | User Role | Test Scenario | Steps | Expected Result |
+|------|-----------|---------------|-------|-----------------|
+| Basket page 🛒 | All users | Basket page loads correctly with all sections visible | 1. Click on the basket icon in navbar/ 1. Add a product to basket, 2. Click on Go to your basket button | 
+| Empty basket | All users | Appropriate message displayed when basket is empty | 1. Open basket page with no items in basket | Message displayed indicating basket is empty, link to continue shopping works correctly |
+| Basket items | All users | Basket items display correctly with all details | 1. Open basket page with items in basket | Each basket item displays correct image, name, size, quantity, price, subtotal |
+| Update quantity | All users | Update item quantity in basket works correctly | | 1. Change quantity of an item using input field/buttons, 2. Click update basket button | Item quantity updates correctly, subtotal and total update accordingly, success message displayed |
+| Remove item | All users | Remove item from basket works correctly | 1. Click remove item button for an item, 2. Confirm remove item in confirmation modal/cancel modal | Item removed from basket, subtotal and total update accordingly, success message displayed \ no change made |
+| Discount code | All users | Apply valid discount code works correctly | 1. Enter valid discount code in discount code field, 2. Click apply button | Discount applied successfully, total updates accordingly, success message displayed |
+| Invalid discount code | All users | Apply invalid discount code | 1. Enter invalid discount code in discount code field, 2. Click apply button | Validation message displayed indicating invalid discount code |
+| Blank discount code | All users | Apply blank discount code | 1. Leave discount code field blank, 2. Click apply button | Validation message displayed indicating discount code is required |
+| Totals display | All users | Basket totals display correctly | 1. Open basket page with items in basket | Subtotal, discount (if applicable), and total display correctly based on basket contents |
+| Delivery info | All users | Delivery info displays correctly based on basket total | 1. Open basket page with items in basket below/above free delivery threshold | Delivery info displays correct message based on basket total (e.g., amount needed for free delivery or confirmation of free delivery) |
+| Continue shopping button | All users | Continue shopping button works correctly | 1. Click continue shopping button | Redirected to products page without errors |
+| Proceed to checkout button | All users | Proceed to checkout button works correctly | 1. Click proceed to checkout button | Redirected to checkout page without errors |
+
+</details>
+
+<details>
+<Summary><strong>Checkout/ Stripe </strong></Summary>
+
+<strong> Order Summary, Details and Delivery Form 🛍️ </strong>
+
+| Area | User Role | Test Scenario | Steps | Expected Result |
+|------|-----------|---------------|-------|-----------------|
+| Order summary panel | All users | Order summary panel displays correctly with all details | 1. Open checkout page with items in basket | Order summary panel displays correct product details (name, size, quantity, subtotal), order total, discount (if applicable) delivery cost, grand total |
+| Checkout page | All users | Checkout page loads correctly with all sections visible | 1. Open checkout page with items in basket | All sections visible (details form, delivery options, order summary, payment section) |
+| Complete payment button disabled | All users | Complete payment button disabled until all required fields completed | 1. Open checkout page, 2. Observe complete payment button state | Complete payment button is disabled initially, remains disabled until all required fields are completed |
+| Details form | Guest | Details form validates input correctly | 1. Enter invalid data in fields (e.g., invalid email format, non-numeric phone number), 2. Click continue to payment button | Validation messages displayed for invalid inputs |
+| Details form | User | Details form prepopulated with user's info | 1. Open checkout page as logged in user | Details form fields prepopulated with user's info |
+| Email field | All users | Immediate validation if invalid email entered | 1. Enter invalid email format in email field, 2. Move focus away from email field | Validation message displayed indicating invalid email format |
+| Phone number field | All users | Immediate validation if non-numeric phone number/insufficient numbers entered | 1. Enter non-numeric characters in phone number field, 2. Enter insufficient numbers, 3. Move focus away from phone number field | Validation message displayed indicating phone number must be numeric |
+| Leaflet Address predictive search | All users | Leaflet Address predictive search works correctly | 1. Start typing address in address field, 2. Select address from dropdown | Address field populated with selected address, no errors |
+| Type address manually | All users | Manually entering address works correctly | 1. Type full address manually in address field | Address field populated with manually entered address, no errors |
+| Save details checkbox | User | Save details checkbox works correctly | 1. Check save details checkbox, 2. Complete order, 3. Open profile page | User's details saved and prepopulated in profile page |
+| Prompt to sign up/login | Guest | Prompt to sign up/login displayed for guest users | 1. Open checkout page as guest user, 2. click on prompt links | Prompt displayed with links to login/register pages, redirects to correct page |
+| Order confirmation email | All users | Order confirmation email sent after successful order | 1. Complete order successfully, 2. Check email inbox | Order confirmation email received with correct order details |
+
+
+<strong> Stripe Payment Integration 💳 </strong>
+
+| Area | User Role | Test Scenario | Steps | Expected Result |
+|------|-----------|---------------|-------|-----------------|
+| Stripe payment section | All users | Stripe payment section loads correctly with all elements visible | | 1. Open checkout page | Stripe payment section visible with card input fields, complete payment button |
+| Validation short card details | All users | Validation message displays if the number is invalid/incomplete | 1. Enter short/invalid card number in card number field, 2. Move focus away from field | Validation message displayed indicating invalid/incomplete card number |
+| Validation expired card | All users | Validation message displays if the card is expired | 1. Enter expired date in expiry field, 2. Move focus away from field | Validation message displayed indicating expired card |
+| Payment with valid card details | All users | Payment processes successfully with valid card details | 1. Enter valid card details in Stripe payment section, 2. Click complete payment button | Payment processed successfully, redirected to order confirmation page, success message displayed |
+| Payment with invalid card details | All users | Payment fails with invalid card details | 1. Enter invalid card details in Stripe payment section, 2. Click complete payment button | Payment fails, validation message displayed indicating payment error |
+| Stripe webhooks | All users | Stripe webhooks process order correctly and finalize order after payment | 1. Run CLI listener locally, 2. Complete a payment, 3. Check webhook events fired | Relevant events received, order marked completed, confirmation email triggered |
+| Duplicate prevention | All users | Refreshing success page does not duplicate order | 1. Complete payment, 2. Refresh order confirmation page/move back to checkout and resubmit | No duplicate orders created, user redirected to order confirmation page of original order |
+| Failed payment redirection | All users | User redirected back to checkout page after failed payment | 1. Enter invalid card details in Stripe payment section, 2. Click complete payment button | User remains on checkout page, validation message displayed indicating payment error |
+| Order success page | All users | Order confirmation page loads correctly with all sections visible | 1. Complete payment successfully | All sections visible (order summary, delivery info, thank you message) |
+| Back button | All users | Basket emptied after successful order and back button redirects to products page | 1. Complete payment successfully, 2. Redirected to success page, 3. Click back button, 4. Redirected to products page | Basket emptied, redirected to products page without errors |
+
+![Checkout Stripe Testing](/documentation/images/stripe-dashboard.png)
+
+![Checkout Webhook Testing](/documentation/images/stripe-webhook-output.png)
+
+![Checkout Webhook Events](/documentation/images/stripe-events-output.png)
+</details>
+
+<details>
+<Summary><strong> Misc Pages - Pass ✅</strong></Summary>
 
 | Area | User Role | Test Scenario | Steps | Expected Result |
 |------|-----------|---------------|-------|-----------------|
@@ -151,7 +225,56 @@ OAuth authentication was tested using live Google and Facebook developer credent
 | FAQs page | All users | FAQs page loads correctly with all sections visible | 1. Open FAQs page, 2. test accordion dropdowns, 3. test links and buttons | All sections visible, accordion functions correctly, links and buttons link to the correct pages |
 | Privacy/TOS/Shipping/R&R pages | All users | Privacy/TOS/Shipping/R&R pages loads correctly with all sections visible | 1. Open Privacy/TOS page | All sections visible, no console errors, internal links to correct pages |
 | Contact us page | All users | Contact us page loads correctly with all sections visible | 1. Open contact us page, 2. test form validation (empty fields, invalid email), 3. test successful submission | All sections visible, form validation works correctly, success message displayed on submission |
+| Contact us - reply - email | All users | Contact us form sends email reply correctly | 1. Submit contact us form as user, 2. Admin - responds to query in the admin dashboard, 3. Check email inbox for reply | Email received with correct subject and message content |
 | | User | Name and email panel prepopulated for logged in users | 1. Open contact us page as logged in user | Name and email fields prepopulated with user's info |
 | | Admin | Contact us form submission records message in admin panel | 1. Submit contact us form as user, 2. Check admin panel for new message | Message recorded in admin panel with correct details |
 | | All users | Contact success message displayed after submission | 1. Submit contact us form | Success message displayed confirming receipt of message |
+</details>
+
+<details>
+<Summary><strong>Error pages</strong></Summary>
+
+| Area | User Role | Test Scenario | Steps | Expected Result |
+|------|-----------|---------------|-------|-----------------|
+| 404 | All users | 404 error page loads correctly with all sections visible | | 1. Navigate to non-existent URL on site | 404 error page loads with correct styling and message, link to products works correctly |
+| 500 | All users | 500 error page loads correctly with all sections visible | | 1. Simulate server error (e.g., raise exception in view) | 500 error page loads with correct styling and message, link to products works correctly |
+| 400 | All users | 400 error page loads correctly with all sections visible | | 1. Simulate bad request (e.g., invalid form submission) | 400 error page loads with correct styling and message, link to products works correctly |
+
+403 - As there are no Admin specific pages within the application on the front-end, a 403 error page test is not applicable. A page has been created for completeness, but no specific test scenarios have been defined.
+
+</details>
+
+<details>
+<Summary><strong>S3 Media and Static Storage</strong></Summary>
+
+| Area | User Role | Test Scenario | Steps | Expected Result |
+|------|-----------|---------------|-------|-----------------|
+| File served by AWS S3 | Admin | Static files served correctly from AWS S3 | 1. Open site, 2. Inspect network requests for static files | Static files (CSS, JS, images) served from AWS S3 without errors |
+| ManifestFilesMixin | Admin | Confirm hashed filenames are used for static files | 1. Inspect static file URLs in network requests | Static file URLs include hash values for cache busting |
+| S3 bucket dashboard | Admin | Confirm files are uploaded to S3 bucket correctly | 1. Access AWS S3 bucket dashboard, 2. Check for presence of static and media files | Static and media files present in S3 bucket with correct structure |
+| Media storage public | - | Media files are publicly accessible | 1. Access the file via its URL in incognito mode | Media file is accessible publicly (200) |
+
+</details>
+
+<details>
+<Summary><strong>Admin</strong></Summary>
+
+| Area | User Role | Test Scenario | Steps | Expected Result |
+|------|-----------|---------------|-------|-----------------|
+| Admin login 🔐 | Admin | Admin can log in with valid credentials | 1. Navigate to admin login page, 2. Enter valid credentials | Admin user is logged in and redirected to admin dashboard |
+| Admin logout 🔒 | Admin | Admin can log out successfully | 1. Click logout button in admin dashboard | Admin user is logged out and redirected to admin login page |
+| Accounts app - Email addresses | Admin | Admin can view and manage user email addresses | 1. Navigate to Accounts app in admin dashboard, 2. View and edit user email addresses | Admin can view, add, edit, and delete user email addresses without errors |
+| Authentication app - Users | Admin | Admin can view and manage users | 1. Navigate to Authentication app in admin dashboard, 2. View and edit user details | Admin can view, add, edit, and delete users without errors |
+| Checkout app - Orders | Admin | Admin can view and manage orders | 1. Navigate to Checkout app in admin dashboard, 2. View and edit order details | Admin can view, add, edit, and delete orders without errors |
+| Newsletter app - Subscribers | Admin | Admin can view and manage newsletter subscribers | 1. Navigate to Newsletter app in admin dashboard, 2. View and edit subscriber details | Admin can view, add, edit, and delete subscribers without errors |
+| Products app - Categories | Admin | Admin can view and manage product categories | 1. Navigate to Products app in admin dashboard, 2. View and edit product categories | Admin can view, add, edit, and delete product categories without errors |
+| Products app - Nutrition metrics | Admin | Admin can view and manage Nutrition metrics| 1. Navigate to Products app in admin dashboard, 2. View and edit nutrition metrics | Admin can view, add, edit, and delete nutrition metrics without errors |
+| Products app - Products | Admin | Admin can view and manage products | 1. Navigate to Products app in admin dashboard, 2. View and edit product details | Admin can view, add, edit, and delete products without errors |
+| Products app - Quantities | Admin | Admin can view and manage product quantities | 1. Navigate to Products app in admin dashboard, 2. View and edit product quantities | Admin can view, add, edit, and delete product quantities without errors |
+| Customer Support - Customer Queries | Admin | Admin can view and respond to customer queries | 1. Navigate to Customer Support app in admin dashboard, 2. View and respond to customer queries | Admin can view, respond to, and manage customer queries without errors |
+| Reviews and Ratings - Reviews and Ratings | Admin | Admin can view and manage product reviews | 1. Navigate to Reviews and Ratings app in admin dashboard, 2. View and approve/reject reviews | Admin can view, approve, reject, and delete reviews without errors |
+| Social accounts - Social Accounts | Admin | Admin can view and manage social accounts | 1. Navigate to Social accounts app in admin dashboard, 2. View and edit social account details | Admin can view, add, edit, and delete social accounts without errors |
+| Social accounts - social application | Admin | Admin can view and manage social applications | 1. Navigate to Social accounts app in admin dashboard, 2. View and edit social application details | Admin can view, add, edit, and delete social applications without errors |
+| Stories - Stories | Admin | Admin can view and manage product origin stories | 1. Navigate to Stories app in admin dashboard, 2. View and edit story details | Admin can view, add, edit, and delete stories without errors | 
+
 </details>
