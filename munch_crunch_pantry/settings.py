@@ -85,6 +85,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'checkout.middleware.NoStoreCheckoutPagesMiddleware',
 ]
 
 ROOT_URLCONF = 'munch_crunch_pantry.urls'

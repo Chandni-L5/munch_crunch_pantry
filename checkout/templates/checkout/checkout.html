@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col">
             <hr>
-            <h2 class="logo-font mb-4">Checkout</h2>
+            <h1 class="logo-font mb-4">Checkout</h1>
             <hr>
         </div>
     </div>
@@ -208,5 +208,12 @@
             }
         );
     });
+</script>
+<script>
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      window.location.href = "{% url 'products' %}";
+    }
+  });
 </script>
 {% endblock %}

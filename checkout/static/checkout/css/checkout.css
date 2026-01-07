@@ -5,6 +5,10 @@ input.form-control:-webkit-autofill:focus {
     -webkit-text-fill-color: #000000;
 }
 
+h1 {
+    color: var(--color-10)
+}
+
 .form-label {
     display: none !important;
 }

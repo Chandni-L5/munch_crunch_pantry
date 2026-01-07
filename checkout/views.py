@@ -7,6 +7,7 @@ from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError, transaction
+from django.views.decorators.cache import never_cache
 
 from profiles.forms import UserProfileForm
 from profiles.models import UserProfile
@@ -22,6 +23,7 @@ import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+@never_cache
 def checkout(request):
     """
     Handle the checkout process
@@ -189,6 +191,7 @@ def create_payment_intent(request):
         return JsonResponse({"error": str(e)}, status=400)
 
 
+@never_cache
 def checkout_success(request, order_number):
     """
     Handle successful checkouts
@@ -220,6 +223,10 @@ def checkout_success(request, order_number):
                     "There was an error updating your profile. "
                     "Please check the form."
                 )
+
+    request.session.pop("save_info", None)
+    request.session.pop("basket", None)
+    request.session.pop("discount_amount", None)
 
     if not from_email:
         messages.success(
