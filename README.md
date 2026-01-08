@@ -441,7 +441,7 @@ The navigation bar adapts to different screen sizes, ensuring a seamless experie
 
 The search bar is also accessible from the navigation bar on all screen sizes, allowing users to quickly find products regardless of the device they are using. Further details of the search bar functionality can be found in the next section.
 
-### Related User Stories:
+#### Related User Stories:
 - **Epic 1 – User Accounts & Authentication**
   - 1.1 Email Registration
   - 1.2 Social Media Registration
@@ -473,13 +473,83 @@ The search results page displays a list of products that match the search query,
 
 The search bar is also designed to provide validation feedback to users. If a user attempts to submit an empty search query, an error message is displayed prompting them to enter a valid search term. If there are no products matching the search query, a message is shown informing the user that no results were found.
 
-### Related User Stories:
+#### Related User Stories:
 - **Epic 2 – Product Discovery & Shopping Experience**
   - 2.6 Search Functionality
+
 </details>
 
-#### Footer
-#### Toasts
+<details>
+<summary><strong>Footer</strong></summary>
+The footer is designed to provide users with easy access to important information and links, enhancing the overall user experience on the website. It includes several key sections:
+
+- the newsletter signup form
+- quick links to important pages
+- social media icons linking to the Munch Crunch Pantry Facebook page, instagram and X (formerly Twitter) profiles
+
+![Footer Desktop](/documentation/images/features/universal/footer-desktop.png)
+
+The footer is responsive and adapts to different screen sizes, ensuring a seamless experience on both desktop and mobile devices. On smaller screens, the layout adjusts to stack the sections vertically for better readability and accessibility.
+
+![Footer Mobile](/documentation/images/features/universal/footer-mobile.png)
+
+An additional feature has been added to the newsletter signup form to allow the user to collapse and expand the form as needed. This helps to save space in the footer area while still providing easy access to the signup functionality.
+
+![Footer Newsletter Collapse](/documentation/images/features/universal/newsletter-collapsed.png)
+
+The newsletter signup form includes validation to ensure that users enter a valid email address before submitting. If the input is invalid, an error message is displayed prompting them to correct their entry. In addition if a user has already previously subscribed, as their email is stored in the database, they will be informed of this to prevent duplicate subscriptions.
+
+#### Related User Stories:
+- **Epic 4 – Content, Marketing & Engagement**
+  - **4.4 Newsletter Signup** – allows users to subscribe and receive updates
+  - **4.1 About & Educational Content** – quick links provide access to informational pages
+  - **4.5 Contact Form** – footer links support access to customer support pages
+
+</details>
+
+<details>
+<summary><strong>Toasts</strong></summary>
+The application uses **Bootstrap toast notifications** to provide users with real-time feedback on their actions and interactions throughout the website. Toasts are small, non-intrusive messages that appear temporarily on the screen to inform users about the status of their actions, such as successful operations, errors, or important information.
+
+There are four types of toasts implemented throughout the website:
+- **Success Toasts**: Indicate that an action was completed successfully, such as adding an item to the cart or successfully logging in.
+- **Error Toasts**: Alert users to issues or errors that occurred during an action, such as a failed login attempt or an invalid form submission.
+- **Info Toasts**: Provide general information or updates to users, such as informing them about ongoing promotions or changes to the website.
+- **Warning Toasts**: Caution users about potential issues or important considerations, such as low stock warnings or unsaved changes.
+
+**Key Features:**
+- Auto-Dismissal: Toasts automatically disappear after a set duration (e.g., 4 seconds), ensuring they do not obstruct the user's view for too long.
+- Manual Dismissal: Users can manually close toasts by clicking on a close icon, providing control over their experience.
+- Consistent Styling: Each type of toast has a distinct color scheme and iconography to quickly convey the nature of the message (e.g., green for success, red for error).
+- Accessibility: Toasts are designed to be accessible, with appropriate ARIA roles and attributes to ensure they are announced by screen readers.
+
+Toast notifications enhance the overall UX by delivering timely feedback in a lightweight and accessible way, aligning with modern e-commerce usability best practices.
+
+#### Related User Stories:
+- **Epic 1 – User Accounts & Authentication**
+  - **1.1 Email Registration** – success and error feedback during account creation
+  - **1.3 Login / Logout** – confirmation and error messages on authentication actions
+  - **1.4 Password Reset** – feedback for reset requests and validation errors
+
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - **2.3 Reviews** – confirmation when reviews are submitted or updated
+  - **2.6 Search Functionality** – validation feedback for empty or invalid search queries
+
+- **Epic 3 – Basket & Checkout**
+  - **3.1 Shopping Bag Summary** – confirmation when items are added or updated
+  - **3.2 Adjust Bag Items** – feedback for quantity updates or item removal
+  - **3.3 Secure Checkout** – error and success messaging during checkout flow
+</details>
+
+<details>
+<summary><strong>Other Universal Features</strong></summary>
+
+#### Back to Top Button
+A "Back to Top" button is implemented to enhance user navigation, especially on pages with extensive content. This button appears when the user scrolls down the page, providing a convenient way to quickly return to the top without having to manually scroll back up.
+
+![Back to Top Button](/documentation/images/features/universal/back--to-top.gif)
+
+</details>
 
 
 ### Account Management 
