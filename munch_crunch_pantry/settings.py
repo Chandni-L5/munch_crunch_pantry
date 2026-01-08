@@ -45,9 +45,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://munch-crunch-pantry-c0989406ec70.herokuapp.com',
 ]
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

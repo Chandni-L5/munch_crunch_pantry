@@ -597,6 +597,209 @@ During the designing and styling process of the website, I have kept in mind to 
 
 ## Deployment
 
+This project has been developed using Django and deployed to Heroku, using PostgreSQL for the backend database and AWS S3 for static and media file storage. The static and media files are hosted on AWS S3 for efficient delivery. 
+
+The deployment process involves several steps, including setting up the Heroku app, configuring environment variables, and ensuring that all dependencies are properly managed.
+
+The following steps describe how another developer can recreate the project locally and deploy it to Heroku:
+
+### 1 - Fork the Repository:
+
+  Forking creates your own copy of the project repository on GitHub, allowing you to make changes without affecting the original project.
+
+  1. Log in to your GitHub account.
+  2. Navigate to the [repository page](https://github.com/Chandni-L5/munch_crunch_pantry).
+  3. Click the **Fork** button in the upper right corner of the page.
+  4. Select your GitHub account as the destination for the fork.
+
+### 2 - Clone the Repository:
+  Cloning the repository downloads a copy of the project to your local machine, allowing you to work on it offline.
+  1. Open your terminal or command prompt.
+  2. Navigate to the directory where you want to clone the project.
+  3. Run the following command, replacing `your-username` with your GitHub username:
+     ```bash
+     git clone https://github.com/your-username/munch_crunch_pantry.git
+     cd munch_crunch_pantry
+     ```
+
+### 3 - Create and Activate a Virtual Environment:
+  A virtual environment isolates your project's dependencies from other Python projects on your machine.
+  1. Create a virtual environment by running:
+     ```bash
+     python3 -m venv venv
+     ```
+  2. Activate the virtual environment:
+     - On macOS/Linux:
+       ```bash
+       source venv/bin/activate
+       ```
+     - On Windows:
+       ```bash
+       venv\Scripts\activate
+       ```
+
+### 4 - Install Dependencies:
+  Install the required Python packages listed in the `requirements.txt` file:
+  ```bash
+  pip install -r requirements.txt
+  ```
+  If `requirements.txt` is not present, you can create it by running:
+  ```bash
+  pip freeze > requirements.txt
+  ```
+
+### 5 - Set Up a Local Environment File:
+  Sensitive information such as API keys and database credentials should not be hardcoded in the codebase. Instead, they should be stored in environment variables which are **not** committed to Github.
+
+  Create a `.env` file in the root directory of the project to store environment variables securely. Add the following variables, replacing the placeholder values with your own:
+
+  ```plaintext
+  SECRET_KEY=your_secret_key
+  DEBUG=True
+
+  DATABASE_URL=your_database_url
+
+  STRIPE_PUBLIC_KEY=your_stripe_public_key
+  STRIPE_SECRET_KEY=your_stripe_secret_key
+  STRIPE_WH_SECRET=your_stripe_webhook_secret
+
+  USE_AWS=True
+  AWS_ACCESS_KEY_ID=your_aws_access_key_id
+  AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+  AWS_STORAGE_BUCKET_NAME=your_aws_s3_bucket_name
+  AWS_S3_REGION_NAME=your_aws_s3_region_name
+  AWS_S3_CUSTOM_DOMAIN=your_aws_s3_custom_domain
+  ```
+
+  ⚠️ **Important:** Do not commit the `.env` file to version control. Add it to your `.gitignore` file to prevent accidental exposure of sensitive information.
+
+### 6 - Apply Database Migrations and Create a Superuser:
+  1. Apply database migrations:
+     ```bash
+     python3 manage.py migrate
+     ```
+  2. (Optional) If using fixtures, load them into the database:
+     ```bash
+     python3 manage.py loaddata your_fixture_file.json
+     ```
+  3. Create a superuser account for accessing the Django admin:
+     ```bash
+     python3 manage.py createsuperuser
+     ```
+
+### 7 - Run the Development Server:
+  1. Start the Django development server to test the application locally:
+  ```bash
+  python3 manage.py runserver
+  ```
+  2. Open your web browser and navigate to `http://127.0.0.1:8000/` to view the application.
+
+### 8 - Set up AWS S3 for Static and Media Files:
+  1. Create an AWS account if you don't already have one. 
+  2. set up an S3 bucket for storing static and media files. 
+  3. Choose a unique name for your bucket and select the appropriate region. 
+  4. Make sure the **uncheck** "Block all public access" option to allow public read access to your files.
+  5. Enable static webhosting on the bucket.
+  6. **Permission** - Add a bucket policy to allow public read access to objects in the bucket. Here is an example policy:
+     ```json
+     {
+       "Version": "2012-10-17",
+       "Statement": [
+         {
+           "Sid": "PublicReadGetObject",
+           "Effect": "Allow",
+           "Principal": "*",
+           "Action": "s3:GetObject",
+           "Resource": "arn:aws:s3:::your-bucket-name/*"
+         }
+       ]
+     }
+     ```
+  7. Create an IAM user with programmatic access and attach a policy that grants the necessary permissions to access the S3 bucket:
+      1. Go to **IAM → Users → Add users**. 
+      2. Create a user
+      3. Enable programmatic access
+      4. Attach a policy which allows S3 access to your bucket.
+      5. Save the **Access Key ID** and **Secret Access Key** for use in your `.env` file. These will also be added to Heroku Config Vars later. 
+      6. Update the `.env` file with your AWS credentials and bucket information as shown in Step 5.
+
+### 9 - Prepare for Deployment:
+  1. Install Gunicorn, a production-ready web server:
+     ```bash
+     pip install gunicorn
+     ```
+  2. Update `requirements.txt`:
+     ```bash
+     pip freeze > requirements.txt
+     ```
+  3. Create a `Procfile` in the root directory with the following content:
+     ```plaintext
+     web: gunicorn munch_crunch_pantry.wsgi
+     ```
+  4. Update Django settings for production, including allowed hosts and static file handling.
+
+      1. Debug disabled in production:
+         ```python
+         DEBUG = False
+         ```
+      2. Set allowed hosts:
+         ```python
+         ALLOWED_HOSTS = ['your-heroku-app-name.herokuapp.com', 'localhost', '127.0.0.1']
+         ```
+      3. Static configurations for collectstatic:
+          ```python
+          STATIC_URL = '/static/'
+          STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+          ```
+      4. Configure AWS S3 storage settings for when enabled.
+         ```python
+          if USE_AWS in os.environ:
+              # AWS S3 settings here
+          ```
+
+### 10 - Deploy to Heroku:
+  1. Log in to your Heroku account and create a new app - **New → Create new app**.
+  2. Name the app (must be unique) and select your region.
+  3. Go to resources tab and add the **Heroku Postgres** add-on for the database. Heroku will automatically set the `DATABASE_URL` environment variable.
+  4. Go to the **Settings** tab and click on **Reveal Config Vars**. Add the environment variables from your `.env` file 
+
+  | Key | Value |
+  |-----|-------|
+  | SECRET_KEY | your_secret_key |
+  | DEBUG | False |
+  | DATABASE_URL | Auto (Heroku Postgres) |
+  | STRIPE_PUBLIC_KEY | your_stripe_public_key |
+  | STRIPE_SECRET_KEY | your_stripe_secret_key |
+  | STRIPE_WH_SECRET | your_stripe_webhook_secret |
+  | USE_AWS | True |
+  | AWS_ACCESS_KEY_ID | your_aws_access_key_id |
+  | AWS_SECRET_ACCESS_KEY | your_aws_secret_access_key |
+  | AWS_STORAGE_BUCKET_NAME | your_aws_s3_bucket_name |
+  | AWS_S3_REGION_NAME | your_aws_s3_region_name |
+  | AWS_S3_CUSTOM_DOMAIN | your_aws_s3_custom_domain |
+
+  5. Go to the **Deploy** tab, select **GitHub** as the deployment method, and connect your GitHub repository.
+  6. Choose the branch to deploy (usually `main` or `master`) and click **Deploy Branch**.
+  7. After deployment, run database migrations on Heroku:
+     ```bash
+     heroku run python3 manage.py migrate --app your-heroku-app-name
+     ```
+  8. Create a superuser on Heroku:
+     ```bash
+     heroku run python3 manage.py createsuperuser --app your-heroku-app-name
+     ```
+  9. Collect Static files to S3:
+  
+    If configured correctly, Heroku will automatically run `collectstatic` during deployment. If not, you can run it manually:
+     ```bash
+     heroku run python3 manage.py collectstatic --a <your-heroku-app-name>
+     ```
+  10. Open your deployed application in the browser:
+     ```bash
+     heroku open --app your-heroku-app-name
+
+You have now successfully deployed the Munch Crunch Pantry project to Heroku!
+
 ## Testing
 ### Automated Testing
 
