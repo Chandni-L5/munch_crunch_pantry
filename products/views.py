@@ -71,7 +71,7 @@ def all_products(request):
 
             for term in query_list:
                 products = products.filter(
-                    Q(name__icontains=term) | Q(description__icontains=term)
+                    Q(name__icontains=term)
                 )
 
             query = ", ".join(query_list)

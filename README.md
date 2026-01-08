@@ -409,6 +409,79 @@ Wireframes were created for desktop, tablet and mobile layouts in Canva. Full wi
 
 ## Features
 ### Universal Features
+ These features are present on all pages of the website to ensure a consistent user experience and easy navigation throughout the site.
+
+<details>
+<summary><strong>Navigation Bar</strong></summary>
+
+The navigation bar is designed to be responsive and user-friendly, providing easy access to key sections of the website. It includes links to the home page, product categories, user account management, shopping cart, and other important pages. There is also a search bar for quick product searches. The desktop version includes the categories as accessible links below the main navigation bar for improved usability.
+
+Finally the scrolling info banner is the subsequent part to the navigation bar, providing users with important updates and promotions without taking up excessive space.
+
+![Navigation Bar Desktop](/documentation/images/features/universal/nav-desktop.gif) 
+
+The brand logo is prominently displayed on the left side of the navigation bar, serving as a clickable link that redirects users to the home page from any section of the website. This enhances brand recognition and provides a convenient way for users to return to the main page.
+
+The menu icon on the right side of the navigation bar provides access to additional information pages - About us, Product Origins, Contact us and FAQs 
+
+![Navigation Bar Menu](/documentation/images/features/universal/menu-desktop.png)
+
+The account icon provides access to user account management features such as login, logout, registration and profile management.
+
+![Navigation Bar Account - Logged out](/documentation/images/features/universal/account-desktop1.png)
+![Navigation Bar Account - Logged in](/documentation/images/features/universal/account-desktop2.png)
+
+The basket icon displays the current running total of items in the user's shopping cart, providing a quick overview of their selected products and facilitating easy access to the checkout process.
+
+![Navigation Bar Mobile](/documentation/images/features/universal/nav-mobile.gif)
+
+The navigation bar adapts to different screen sizes, ensuring a seamless experience on both desktop and mobile devices. On smaller screens, the navigation links collapse into a hamburger menu for easy access. To reduce the amount of space taken up on smaller screens, the category links are only visible on desktop viewports and so on smaller screens users can access categories via the main menu only. 
+
+![Navigation burger menu mobile](/documentation/images/features/universal/burger-menu-features.png)
+
+The search bar is also accessible from the navigation bar on all screen sizes, allowing users to quickly find products regardless of the device they are using. Further details of the search bar functionality can be found in the next section.
+
+### Related User Stories:
+- **Epic 1 – User Accounts & Authentication**
+  - 1.1 Email Registration
+  - 1.2 Social Media Registration
+  - 1.3 Login / Logout
+  - 1.6 User Profile Management
+
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - 2.1 Browse Categories
+
+- **Epic 3 – Basket & Checkout**
+  - 3.1 Shopping Bag Summary
+
+</details>
+
+<details>
+<summary><strong>Search Bar</strong></summary>
+
+The search bar is prominently located in the navigation bar, allowing users to quickly and easily search for products across the entire website. It features an input field where users can type their search queries and a search button to initiate the search.
+
+The mobile version of the search bar is accessible via a search icon in the navigation bar. When clicked, it expands to a full page modal with a search input field and button, providing a user-friendly experience on smaller screens.
+
+![Search bar modal on smaller screens](/documentation/images/features/universal/search-mobile-features.png)
+
+The search functionality is designed to be intuitive and efficient, returning relevant results based on the user's input. It supports partial matches and is case-insensitive, ensuring that users can find products even if they do not know the exact name or spelling.
+
+The search results page displays a list of products that match the search query, along with relevant details such as product images, names and prices. The page is headed to refer to the word being searched for, in addition a visual is displayed to confirm the number of products found containing that word. Initially the search results would also include products that contained the search word in the description, however after user testing it was found that this was returning too many irrelevant results. Therefore I have adjusted the search functionality to only return products that contain the search word in the product name.
+
+![Search Results Page](/documentation/images/features/universal/search-result.png)
+
+The search bar is also designed to provide validation feedback to users. If a user attempts to submit an empty search query, an error message is displayed prompting them to enter a valid search term. If there are no products matching the search query, a message is shown informing the user that no results were found.
+
+### Related User Stories:
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - 2.6 Search Functionality
+</details>
+
+#### Footer
+#### Toasts
+
+
 ### Account Management 
 ### Page Specific Features
 #### Home Page
@@ -455,6 +528,8 @@ To improve the user experience during checkout, I implemented address autocomple
 ### Features Left to Implement
 ### Defensive Design & Permissions
 ### Accessibility
+
+
 
 During the designing and styling process of the website, I have kept in mind to aim to make the page as user friendly and accessible as possible. I have achieved this by:
 
