@@ -52,6 +52,13 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--secondary-font);
 }
 
+img {
+    aspect-ratio: 1/1;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
 header .row,
 .site-footer .row {
   margin-left: 0;
