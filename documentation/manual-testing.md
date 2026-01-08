@@ -191,6 +191,7 @@ OAuth authentication was tested using live Google and Facebook developer credent
 | Prompt to sign up/login | Guest | Prompt to sign up/login displayed for guest users | 1. Open checkout page as guest user, 2. click on prompt links | Prompt displayed with links to login/register pages, redirects to correct page |
 | Order confirmation email | All users | Order confirmation email sent after successful order | 1. Complete order successfully, 2. Check email inbox | Order confirmation email received with correct order details |
 
+During browser console testing, several warnings related to third-party services (Stripe, Font Awesome, and hCaptcha) were observed. These messages originate from external libraries and do not affect application functionality or user experience. Core checkout functionality and server-side Stripe integration were verified to work correctly.
 
 <strong> Stripe Payment Integration 💳 </strong>
 

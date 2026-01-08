@@ -59,7 +59,8 @@ I have used the MoSCoW method to prioritize the user stories into Must have, Sho
 
 To support the estimation, I have also used story points based on a Fibonacci methodology to estimate the effort required for each user story. This allows for a more accurate assessment of the complexity and time needed for implementation and helps to guide prioritization and ordering of tasks during the development process.
 
-#### Epic 1: User Account & Authentication
+<details>
+<summary><strong>Epic 1: User Account & Authentication</strong></summary>
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
@@ -70,9 +71,10 @@ To support the estimation, I have also used story points based on a Fibonacci me
 | 🟥 Must have | **1.5** Confirmation Emails | AC1–AC2 | 3 | 🟢 Low |
 | 🟥 Must have | **1.6** User Profile Management | AC1–AC5 | 8 | 🔴 High |
 
----
+</details>
 
-#### Epic 2: Product Discovery & Shopping Experience
+<details>
+<summary><strong>Epic 2: Product Discovery & Shopping Experience</strong></summary>
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
@@ -86,9 +88,10 @@ To support the estimation, I have also used story points based on a Fibonacci me
 | 🟥 Must have | **2.8** Admin CRUD | AC1–AC3 | 5 | 🟡 Medium |
 | 🟥 Must have | **2.9** Admin Product Management | AC1–AC3 | 8 | 🔴 High |
 
----
+</details>
 
-#### Epic 3: Basket & Checkout
+<details>
+<summary><strong>Epic 3: Basket & Checkout</strong></summary>
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
@@ -97,9 +100,10 @@ To support the estimation, I have also used story points based on a Fibonacci me
 | 🟥 Must have | **3.3** Secure Checkout | AC1–AC3 | 8 | 🔴 High |
 | 🟥 Must have | **3.4** Order Confirmation | AC1–AC2 | 3 | 🟢 Low |
 
----
+</details>
 
-#### Epic 4: Content, Marketing & Engagement
+<details>
+<summary><strong>Epic 4: Content, Marketing & Engagement</strong></summary>
 
 | Requirement | User Story | AC Numbers | Story Points | Complexity |
 |------------|------------|------------|--------------|------------|
@@ -110,7 +114,7 @@ To support the estimation, I have also used story points based on a Fibonacci me
 | 🟩 Could have | **4.5** Newsletter Admin | AC1–AC2 | 3 | 🟢 Low |
 | 🟧 Should have | **4.6** Contact Form | AC1–AC4 | 3 | 🟢 Low |
 
----
+</details>
 
 #### MoSCoW Summary
 
@@ -399,120 +403,9 @@ Some of the images used throughout the site were sourced from [pexels.com](https
 
  [befunky.com](https://www.befunky.com/) has been used to resize the images.
 
-### Wireframes
-Wireframes have been created with desktop, tablet and mobile viewports in mind. I have used [Canva](https://www.canva.com/) to plan the layout and user flow of the application.
+### [Wireframes](/documentation/wireframes.md)
+Wireframes were created for desktop, tablet and mobile layouts in Canva. Full wireframes can be viewed [here](/documentation/wireframes.md).
 
-<strong>
-<details>
-<summary> Homepage 🏡 </summary>
-
-Desktop Viewport
-
-![Homepage Wireframe - Desktop](/documentation/images/wireframes/wireframe-homepage-desktop.png) 
-
-Tablet Viewport
-![Homepage Wireframe - Tablet](/documentation/images/wireframes/wireframe-homepage-ipad.png)
-
-Mobile Viewport
-![Homepage Wireframe - Mobile](/documentation/images/wireframes/wireframe-homepage-mobile.png)
-
-</details>
-
-<details>
-<summary> About us 📖</summary>
-
-![About Us Wireframe - Desktop](/documentation/images/wireframes/wireframe-about.png)
-</details>
-
-<details>
-<summary> Shop View/ All Products View 🏬 </summary>
-
-![Shop View Wireframe](/documentation/images/wireframes/wireframe-product-view.png)
-
-</details>
-
-<details>
-<summary> Product Detail Page 🥜 </summary>
-
-Desktop Viewport
-
-![Product detail page wireframe - desktop](/documentation/images/wireframes/wireframe-productpage-desktop.png)
-
-Tablet Viewport
-
-![Product detail page wireframe - tablet](/documentation/images/wireframes/wireframe-productpage-tablet.png)
-
-Mobile Viewport
-
-![Product detail page wireframe - mobile](/documentation/images/wireframes/wireframe-productpage-mobile.png)
-
-Enlargement of the Product Details Section
-
-![Product detail section enlargement wireframe](/documentation/images/wireframes/wireframe-info-enlargement.png)
-
-</details>
-
-<details>
-<summary> Product Origin Page 🌍 </summary>
-
-![Product Origin Wireframe](/documentation/images/wireframes/wireframe-product-origin.png)
-
-</details>
-
-<details>
-<summary> Shopping Bag Preview 🛒 </summary>
-
-![Shopping Bag Wireframe](/documentation/images/wireframes/wireframe-bag-preview.png)
-
-</details>
-
-<details>
-<summary> Shopping Bag  🛍️ </summary>
-
-![Shopping Bag Wireframe](/documentation/images/wireframes/wireframe-shopping-bag.png)
-
-</details>
-
-<details>
-<summary> Checkout Page 🔐 </summary>
-
-![Checkout Page Wireframe](/documentation/images/wireframes/wireframe-checkout.png)
-</details>
-
-<details>
-<summary> Registration Page 📑 </summary>
-
-![Registration Page Wireframe](/documentation/images/wireframes/wireframe-registration.png)
-
-</details>
-
-</details>
-
-<details>
-<summary> Login Page  🧑‍🧒</summary>
-
-![Login Page Wireframe](/documentation/images/wireframes/wireframe-login.png)
-
-</details>
-
-</details>
-
-<details>
-<summary> Contact us Page 📧 </summary>
-
-![Contact Us Wireframe](/documentation/images/wireframes/wireframe-contact.png)
-</details>
-
-</details>
-
-<details>
-<summary> Miscellaneous Pages 📦 </summary>
-
-General planned format for other pages such as FAQ, Shipping Information, Returns & Refunds and error pages etc.
-
-![miscellaneous pages Wireframe](/documentation/images/wireframes/wireframe-misc.png)
-</details>
-</strong> 
 
 ## Features
 ### Universal Features
@@ -586,14 +479,21 @@ During the designing and styling process of the website, I have kept in mind to 
 
 ## Technologies Used
 
-- **Frontend Languages:** - HTML, CSS, JavaScript, 
-- **Backend Technologies:** - Python, Django, PostgreSQL
-- **Version Control:** - Git, GitHub
-- **Deployment Platform:** - Heroku
-- **Payment Processing:** - Stripe
-- **Cloud Storage:** - AWS S3 for static and media file storage
-- **Administrative Interface:** - Django Admin
-- **Additional Libraries & Packages:** - Bootstrap 5, Font Awesome, Geoapify API, Google Fonts, Django Allauth and Socialaccount, Crispy Forms, Pillow, Boto3, Django Storages, Psycopg2, Gunicorn, Django CKEditor, Django Countries, Leaflet JS library
+**Frontend Languages:** - HTML, CSS, JavaScript
+
+**Backend Technologies:** - Python, Django, PostgreSQL
+
+**Version Control:** - Git, GitHub
+
+**Deployment Platform:** - Heroku
+
+**Payment Processing:** - Stripe
+
+**Cloud Storage:** - AWS S3 for static and media file storage
+
+**Administrative Interface:** - Django Admin
+
+**Additional Libraries & Packages:** - Bootstrap 5, Font Awesome, Geoapify API, Google Fonts, Django Allauth and Socialaccount, Crispy Forms, Pillow, Boto3, Django Storages, Psycopg2, Gunicorn, Django CKEditor, Django Countries, Leaflet JS library
 
 ## Deployment
 
@@ -805,11 +705,10 @@ You have now successfully deployed the Munch Crunch Pantry project to Heroku!
 
 The Munch Crunch Pantry project includes a comprehensive suite of automated tests to ensure the reliability and correctness of its core functionality. The tests cover various aspects of the application, including utility functions, views, forms, and webhook handling. The tests are implemented using Django's built-in testing framework, which provides a robust and efficient way to validate the application's behaviour.
 
-```markdown
 This output confirms that all 36 automated tests pass successfully, including
 error-handling scenarios such as simulated email delivery failure.
 
-
+```markdown
 >bash
 python3 manage.py test
 Found 36 test(s).
@@ -932,6 +831,9 @@ The tests cover:
 
 They ensure that the models behave as expected and that data integrity is maintained through unique constraints. In addition these checks are repeatable as the project develops further. The full directory of products have not been included in the early stages and as more products are added, the integrity of the data entered in relation to products can be verified through the same tests.
 
+**In conclusion** - 
+Together, these tests provide confidence that critical business logic, payment processing, and data integrity behave correctly under both normal and failure conditions.
+
 ### Manual Testing
 
 The following manual tests were carried out to assess **functionality, usability, responsiveness and data management** across the full application.
@@ -990,7 +892,7 @@ Full manual testing documentation with test cases, steps, expected and actual re
 ### Testing User Stories
 The application has been tested against the user stories defined in the Planning section of this README. Each user story has been manually tested to ensure that the functionality meets the requirements and provides a positive user experience.
 
-You can find the detailed testing of each user story in the **[User Stories Testing Document](documentation/user-stories-testing.md)**.
+You can find the detailed testing of each user story in the **[User Stories Testing Document](documentation/user-stories.md)**.
 
 ### Bugs & Fixes
 I have encountered a few bugs during the development of this project. Below are some of the notable ones along with their fixes. In addition some further minor bugs were identified during the validation process and these have been documented in the [Lighthouse](#lighthouse) section of this README.
@@ -1150,33 +1052,37 @@ In addition email subscription handling was implemented to store submitted email
 
 ### Lighthouse
 
-Lighthouse audits were conducted using Chrome DevTools on the deployed application to assess performance, accessibility, best practices, and SEO. The following table summarizes the Lighthouse scores for key page types on both desktop and mobile devices:
+Lighthouse audits were conducted using Chrome DevTools on the deployed application to assess performance, accessibility, best practices, and SEO. Audits were carried out on both desktop and mobile views to reflect real-world user experiences across different devices. The results below summarise the scores obtained for key pages in the application:
 
 | Page Type | Performance | Accessibility | Best Practices | SEO |
 |-----------|------------|---------------|----------------|-----|
-| Home - Desktop | 94   | 84 | 96 | 100 |
-| Home - Mobile | 81 | 84 | 92 | 100 |
-| Products - Desktop |  |  |  |  |
-| Products - Mobile  |  |  | | |
-| Product Detail - Desktop| | | | |
-| Product Detail - Mobile | | | | |
-| Basket - Desktop|  |  |  |  |
-| Basket - Mobile|  |  |  |  |
-| Checkout - Desktop |  |  |  |  |
-| Checkout - Mobile |  |  |  |  |
+| Home - Desktop | 94   | 87 | 100 | 100 |
+| Home - Mobile | 88 | 87 | 100 | 100 |
+| Products - Desktop | 65 | 83 | 100 | 100 |
+| Products - Mobile  | 62 | 85 | 96 | 100 |
+| Product Detail - Desktop| 90 | 81 | 100 | 100 |
+| Product Detail - Mobile | 67 | 77 | 96 | 100 |
+| Basket - Desktop| 95 | 81 | 100 | 100 |
+| Basket - Mobile| 85 | 78 | 96 | 100 |
+| Checkout - Desktop | 93 | 85 | 100 | 100 |
+| Checkout - Mobile | 64 | 86 | 96 | 100 |
 
+As this project is an e-commerce application, it is naturally image-led and content heavy particularly when it comes to product and checkout pages. Performance scores on mobile devices are therefore lower than those of a lightweight, content-only site. Additional factors such as third-party services (Stripe, Font Awesome) and externally hosted images via AWS S3 also contribute to increased load times during audits.
 
-As this project is an e-commerce application, it is expected to be a an image-led and content heavy Django store frontend application. Therefore the performance scores are lower than a typical content-focused website. However, I have implemented several optimizations to improve load times and responsiveness, particularly on mobile devices.
+ I have implemented several optimizations to improve load times and responsiveness. Product images have been served in WebP format with lazy loading to reduce initial load times.
 
 All images are uploaded in WebP format to reduce file sizes without compromising quality. Lazy loading is implemented for product images to defer loading until they are in the viewport, improving initial load times. 
 
 To improve accessibility scores, I have ensured that all images have descriptive alt attributes - relating to the name of the product it depicts, sufficient colour contrast is maintained throughout the site, and ARIA labels are used where appropriate to enhance screen reader compatibility.
 
+Lighthouse reported a minor font-display advisory for Font Awesome icons loaded via an external CDN. As these fonts are provided by a third-party service and already implement font-display: swap, the warning was noted but not prioritised. This does not impact usability, accessibility, or performance within the project scope.
+
+Occasional Lighthouse trace errors were also encountered during testing due to tooling limitations; rerunning audits and using PageSpeed Insights confirmed consistent and acceptable performance across key metrics.
+
 **Accessibility Fix - ARIA labels for Newsletter Banner Toggle Caret**
 A fix was put in place in the base template to improve accessibility by adding `aria-label` attributes to the toggle caret to collapse and expand the newsletter signup banner. I have set this dynamically in JavaScript to update based on the current state of the banner (expanded or collapsed). This provides screen reader users with clear context about the button's function and current state. As this element is present on all pages, this fix improves accessibility site-wide.
 
 **CSS Minification**
-
 To improve performance, CSS and JS files were minified to reduce file size and load times.
 Original stylesheets were retained for readability and development, while minified versions were created for production use:
 
@@ -1191,7 +1097,9 @@ Minification was performed using a CSS minification tool from GitHub extensions 
 ### Validators
 
 #### HTML Validation
-All HTML files in this project have been validated using the [W3C Markup Validation Service](https://validator.w3.org/). Numerous iterations of validation and fixes were performed during development to ensure compliance with HTML5 standards. The final validation results show that all pages pass without any errors.
+All HTML files in this project have been validated using the [W3C Markup Validation Service](https://validator.w3.org/).
+
+As this is a Django application, validation was performed on rendered HTML output rather than raw template files. Multiple validation iterations were carried out throughout development to identify and resolve issues early. Final validation confirms that all pages pass HTML5 validation with no errors.
 
 ![screenshot of W3C validation results](/documentation/images/html-validation.png)
 
@@ -1260,4 +1168,5 @@ I have used the following sources to help guide and structure the documentation 
 
 ## Acknowledgements
 - I would like to thank my mentor, Moritz, for their invaluable guidance and support throughout the development of this project. Their expertise and encouragement have been instrumental in helping me achieve my goals.
+- I would also like to thank my fellow students in the Code Institute Slack community for their assistance and feedback during the development process. Their insights and suggestions have greatly contributed to the improvement of this project.
 
