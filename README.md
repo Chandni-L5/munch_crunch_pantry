@@ -725,8 +725,61 @@ Finally where a product has zero reviews, a message is displayed to inform the u
 </details>
 
 <details>
-<summary><strong>Shopping Cart Page</strong></summary>
+<summary><strong>Shopping Basket Page</strong></summary>
+When accessing the basket without adding any items, a friendly message is displayed to inform the user that their basket is currently empty. This encourages users to continue shopping and explore the available products.
 
+![Empty Basket Message](/documentation/images/features/basket/empty-bskt.png)
+
+When items are added to the basket, they are displayed in a structured table format, providing users with a clear overview of their selected products. Each item is shown with its name, selected quantity, SKU product number, price per unit, and total price for that item. This allows users to easily review their selections before proceeding to checkout.
+
+![Shopping basket with multiple items](/documentation/images/features/basket/bskt-multiple-items.png)
+
+There is also functionality to adjust the quantity of each item directly within the basket. Users can increase or decrease the quantity using plus and minus buttons. Once the update link is clicked, the total price for that item is updated based on the selected quantity. On success a toast notification is displayed to confirm the update.
+
+![Adjusting item quantity in basket](/documentation/images/features/basket/update-bskt.gif)
+
+ As well as updating the quantity there is a feature to 'trash' the item. When clicked on a particular item, a confirmation modal appears to prevent accidental deletions. Once confirmed the item is removed from the basket and the totals are updated accordingly. This provides a convenient way for users to modify their order without needing to navigate back to the product page.
+
+ ![Removing item from basket](/documentation/images/features/basket/trash.gif)
+
+The application offers free delivery for orders over £20. If the total amount in the basket is below this threshold, a message is displayed informing the user of the remaining amount needed to qualify for free delivery. This encourages users to add more items to their basket to take advantage of the free delivery offer.
+
+This message is displayed in the toast notification when an item is added to the basket as well as in the basket summary section on the right side of the page.
+
+![Free Delivery Message - Toast - threshold not met](/documentation/images/features/basket/threshold-not-met.png)
+
+![Free Delivery Message - Basket Summary - threshold not met](/documentation/images/features/basket/bskt-threshold-not-met.png)
+
+The application also offers a discount of 10% for new customers on their first order. The code is displayed in the yellow info banner at the top of the page to encourage users to take advantage of this offer.
+
+As shown in the screenshot above, discount codes can be applied in the basket summary section on the right side of the page. When a valid discount code is entered and applied, the total amount is updated to reflect the discount. A toast notification is also displayed to confirm that the discount has been successfully applied. If an invalid code is entered, an error toast is displayed to inform the user that the code is not valid.
+
+![Invalid Discount Code Toast](/documentation/images/features/basket/invalid-discount.png)
+![Valid Discount Code Toast](/documentation/images/features/basket/discount-success-toast.png)
+![Discount Applied in Basket Summary](/documentation/images/features/basket/discount-applied.png)
+
+As this current discount is a one-time use only code, once it has been applied successfully the user or guest cannot reuse the same code again. If they attempt to do so, an error toast is displayed to inform them that the code has already been used. The functionality behind this uses the email address used in relation to the order, so this error will either display in the basket or at checkout. 
+
+![Discount Code Already Used Toast](/documentation/images/features/basket/discount-duplication.png)
+
+The summary of totals covers the subtotal (Basket total), discount (if any), subtotal after discount, delivery (if any) and the Grand total. If the free delivery threshold has not been met, a message is displayed informing the user of the remaining amount needed to qualify for free delivery.
+
+The user is then either prompted to continue shopping, or proceed to checkout via clearly styled buttons. The buttons are styled with hover effects to enhance interactivity and improve the user experience.
+
+---
+
+#### Related User Stories:
+
+- **Epic 3 – Basket & Checkout**
+  - **3.1 Shopping Bag Summary** – users can view a clear summary of basket contents, including item details, totals, discounts, and delivery information
+  - **3.2 Adjust Bag Items** – users can update quantities or remove items directly from the basket with confirmation feedback
+  - **3.3 Secure Checkout** – users are guided toward checkout through clear calls to action once the basket is reviewed
+
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - **2.5 Discounts** – users can apply promotional discount codes and view updated totals in real time
+
+- **Epic 1 – User Accounts & Authentication**
+  - **1.6 User Profile Management** – discount usage logic is tied to user or guest email to prevent duplicate use of one-time codes
 
 </details>
 
