@@ -553,6 +553,7 @@ A "Back to Top" button is implemented to enhance user navigation, especially on 
 
 
 ### Account Management 
+
 ### Page Specific Features
 
 <details>
@@ -590,11 +591,152 @@ The final section of the homepage provides links to other areas of the website, 
 
 </details>
 
+<details>
+<summary><strong>Product Pages</strong></summary>
 
-#### Products Page
-#### Product Detail Page
-#### Shopping Cart Page
+The product pages are designed as indexes of the products available on the Munch Crunch Pantry website. They provide users with an organized and visually appealing way to browse and discover products based on their preferences.
+
+These pages can be accessed through the categories menu displayed in the navigation bar on desktop or dropdown menu on smaller screens. Each category page as well as all products pages, displays a grid of products, allowing users to easily find products that match their interests.
+
+Each item is shown with an image, name, price, category tag, and average rating (if available). This provides users with essential information at a glance, helping them make informed decisions about which products to explore further.
+
+The product detail page is accessed by clicking on the image. This display is responsive and the number of items per row adjusts based on the screen size, ensuring a seamless experience across devices. The category tag is also clickable and directs users to the respective category page for further browsing.
+
+Products home link directs the user back to the all products page for easy navigation and the number of items within the specific category page you are on is also displayed for user reference.
+
+Finally the dropdown sort feature allows users to sort the products based on different criteria such as name (A-Z or Z-A), price (low to high or high to low) and category (A-Z or Z-A). This enhances the user experience by allowing users to quickly find products that meet their specific needs and preferences.
+
+![Product Category Page](/documentation/images/features/products-pages/products-grid.png)
+
+![Product Sort Dropdown](/documentation/images/features/products-pages/sorting-dropdown.png)
+
+---
+
+#### Related User Stories:
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - **2.1 Browse Categories** – category-based product pages support structured browsing
+  - **2.6 Search Functionality** – product pages display search results in a clear grid format
+  - **2.7 Filters** – sorting options allow users to refine and organise product listings
+  - **2.2 Product Detail Page** – products link directly to individual product detail pages
+
+</details>
+
+<details>
+<summary><strong>Product Detail Page</strong></summary>
+
+![Product Detail Page - desktop](/documentation/images/features/products-pages/product-detail-desktop.png) 
+The product detail page provides comprehensive information about a specific product, allowing users to make informed purchasing decisions. The page is designed to be visually appealing and user-friendly, with a focus on showcasing the product's features and benefits.
+
+The main product image is a main focus on the page, to showcase the product visually. The name of the product is prominently displayed along with a category tag that links back to the respective category page for easy navigation and a star rating with the number of reviews received for social proof - this also links to the reviews section which is at the bottom of this page. Not all products have ratings and reviews so this link is conditionally displayed only when reviews exist.
+
+Some USP descriptions are also displayed to highlight key benefits of the product, such as being organic, ethically sourced, or free from additives. In addition, A brief description is displayed to describe the product further.
+
+The selection of prices and quantities available for the product are presented in selectable 'cards', allowing users to easily choose their preferred option. These cards are dynamic as they show a hover effect including pointer cursor when hovered over and when an option is selected the colour changes and a bright border is added, to clearly indicate the user's choice.
+
+![Selecting a product gif](/documentation/images/features/products-pages/select-opt.gif)
+
+Before an item has been selected, the add to basket button is disabled to prevent users from adding an item without specifying their desired quantity. Once a selection is made, the button becomes active, allowing users to add the product to their shopping cart. A tool tip is also provided when hovering over the disabled button to guide users to select a quantity first as displayed in the gif above. 
+
+Where a product is out of stock, this is clearly indicated on the relevant price/quantity card and the add to basket button remains disabled to prevent users from attempting to purchase unavailable items. the out of stock option is styled differently and is not selectable. 
+
+![Product Out of Stock](/documentation/images/features/products-pages/zero-stock.png)
+
+The quantity selector is also dynamic, allowing users to adjust the quantity of the selected product they wish to purchase. The total price is automatically updated based on the selected quantity and price option, and this is displayed in the success message. 
+
+The success message displayed after adding an item to the basket includes the product name, selected quantity, and total price. This provides users with clear feedback on their action and helps them keep track of their shopping cart contents. The pop-up also displays a brief summary of the shopping cart, including the total number of items and the overall cost. This allows users to quickly assess their cart status without navigating away from the product page.
+
+![Add to Basket Success Toast](/documentation/images/features/products-pages/success-bskt.png).
+
+The product detail page is also optimized for smaller screens to ensure a seamless user experience across devices. The layout adjusts to fit the screen size, with elements stacking vertically for better readability and accessibility on mobile devices.
+
+![Product Detail Page - mobile](/documentation/images/features/products-pages/product-detail-mobile.png)
+
+The 'Keep Shopping' link at the top of the page links the user back easily to the 'All Products' page to continue browsing.
+
+The product information area of this page contains dropdown sections for additional details: ingredients list, nutritional information, storage instructions and Country of Origin. This keeps the page organized and allows users to access the information they need without overwhelming them with too much content at once.
+
+![Product Detail Page Additional Info](/documentation/images/features/products-pages/info-dropdowns.png)
+![Product Detail Page Additional Info Open](/documentation/images/features/products-pages/expanded-info.png)
+
+If the details are not available for a specific product, a message is displayed to inform the user that the information is not currently provided.
+
+![Product Detail Page Additional Info Not Available](/documentation/images/features/products-pages/info-no-data.png)
+
+The reviews feature is also viewable on this page, allowing users to read feedback from other customers and share their own experiences. This social proof helps build trust and confidence in the product, encouraging users to make a purchase.
+
+The number of total reviews is provided with the title of the section.
+
+The reviews are listed along with the reviewer's username, their star rating and date of submission. Only approved reviews are displayed on the public platform - Admin are required to approve reviews via the admin interface before they are visible to other users.
+
+![Product Detail Page Reviews](/documentation/images/features/products-pages/reviews.png)
+
+The user is also invited to submit their own review, however this is only accessible if the user is logged in and also if they have previously purchased the product. This ensures that reviews are genuine and based on actual customer experiences. The submit button is disabled until a star rating is selected or text is entered into the review box.
+
+ A user must leave a comment and rating, in order to enable the submit button and submit their review for moderation. A validation message is also displayed if the user attempts to submit without meeting these conditions and this message changes when they can proceed to submit.
+
+![Product Detail Page Submit Review](/documentation/images/features/products-pages/review-entry-user.png)
+
+![Product Detail Page Submit Review Enabled](/documentation/images/features/products-pages/review-submit.png)
+
+Once submitted the page is reloaded and scrolled back to the review section, a toast notification is also displayed to inform the user that their review has been submitted for approval. The user can now see their review listed as 'Pending approval' until an admin approves it via the admin interface.
+
+![Product Detail Page Review Pending](/documentation/images/features/products-pages/review-moderation.png)
+
+The user is also able to edit or delete their review. This is accessible on both approved and unapproved reviews. When editing a review, the existing rating and comment are pre-populated in the form to make it easier for the user to make changes. Once the review is updated, it goes back into pending status for admin approval before being visible again on the public platform.
+
+![Product Detail Page Edit Review](/documentation/images/features/products-pages/review-edit.png)
+
+If the user decides to delete their review, a confirmation modal is displayed to prevent accidental deletions. Once confirmed, the review is removed from the product page and a toast notification is shown to inform the user that their review has been successfully deleted.
+
+![Product Detail Page Delete Review Confirmation](/documentation/images/features/products-pages/review-delete.png)
+
+As guest, the prompt shown in 'Your Review' section encourage the user to log in to submit a review. This helps to ensure that reviews are authentic and tied to real customer experiences. If a user does not have an account a further prompt on the login page encourages them to register for an account. 
+
+![Product Detail Page Guest Review Prompt](/documentation/images/features/products-pages/review-guest.png)
+
+As mentioned previously, a user must have purchased the product in order to leave a review. If a logged-in user has not purchased the product and attempts to leave a review, a message is displayed informing them they can only review products they have purchased.
+
+![Product Detail Page No Purchase Review Prompt](/documentation/images/features/products-pages/review-user.png)
+
+Finally where a product has zero reviews, a message is displayed to inform the user that there are no reviews yet for this product.
+
+![Product Detail Page No Reviews](/documentation/images/features/products-pages/zero-reviews.png)
+
+
+#### Related User Stories:
+
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - **2.2 Product Detail Page** – users can view comprehensive product information, pricing options, availability, and additional details to make informed purchasing decisions
+  - **2.3 Reviews** – users can read reviews and ratings from other customers to support decision-making
+  - **2.6 Search Functionality** – users are directed to this page when selecting a product from search results
+  - **2.5 Discounts** – USPs and pricing visibility support promotional messaging and value awareness
+
+- **Epic 3 – Basket & Checkout**
+  - **3.1 Shopping Bag Summary** – users receive confirmation and basket summary feedback when adding items to the basket
+  - **3.2 Adjust Bag Items** – quantity selection and dynamic pricing updates allow users to control their purchase before checkout
+
+- **Epic 1 – User Accounts & Authentication**
+  - **1.3 Login / Logout** – authentication status determines access to review submission
+  - **1.6 User Profile Management** – only authenticated users who have purchased a product can create, edit, or delete reviews
+
+- **Epic 2 – Admin & Moderation (Reviews)**
+  - **2.4 Admin Approves Reviews** – submitted reviews enter a moderation state and require admin approval before public display
+
+</details>
+
+<details>
+<summary><strong>Shopping Cart Page</strong></summary>
+
+
+</details>
+
 #### Checkout Page
+
+About us Page
+
+Origin Stories
+
+Miscellaneous Pages - FAQs, Contact Us, 404 Error Page etc. 
 
 #### Admin Interface
 
@@ -633,6 +775,7 @@ To improve the user experience during checkout, I implemented address autocomple
 #### Admin Dashboard
 
 ### Defensive Design & Permissions
+
 ### Accessibility
 
 ### Features Left to Implement
