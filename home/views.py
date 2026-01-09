@@ -44,19 +44,28 @@ def index(request):
             Value(0),
             output_field=IntegerField(),
         ),
-        total_sold=Coalesce(
-            Sum("quantities__orderlineitem__quantity", distinct=True),
-            Value(0),
-            output_field=IntegerField(),
-        ),
     )
 
-    most_sold = base_qs.order_by("-total_sold")[:6]
+    highest_rated_qs = (
+        base_qs
+        .filter(reviews_count__gte=2)
+        .order_by("-reviews_avg", "-reviews_count", "-created_at")
+    )
+
+    highest_rated = list(highest_rated_qs[:6])
+
+    if len(highest_rated) < 6:
+        filler = (
+            base_qs.exclude(pk__in=[p.pk for p in highest_rated])
+            .order_by("-created_at")[: 6 - len(highest_rated)]
+        )
+        highest_rated += list(filler)
+
     new_arrivals = base_qs.order_by("-created_at")[:6]
 
     context = {
-        "most_sold": most_sold,
         "new_arrivals": new_arrivals,
+        "highest_rated": highest_rated,
     }
     return render(request, "home/index.html", context)
 
