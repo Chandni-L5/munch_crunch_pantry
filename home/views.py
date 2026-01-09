@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import (
-    Avg, Count, Q, Value, FloatField, IntegerField, Min
+    Avg, Count, Q, Value, FloatField, IntegerField, Min, Sum
 )
 from django.db.models.functions import Coalesce
 
@@ -37,20 +37,25 @@ def index(request):
             output_field=FloatField(),
         ),
         reviews_count=Coalesce(
-            Count("reviews", filter=Q(reviews__is_approved=True)),
+            Count(
+                "reviews", filter=Q(reviews__is_approved=True),
+                distinct=True
+            ),
+            Value(0),
+            output_field=IntegerField(),
+        ),
+        total_sold=Coalesce(
+            Sum("quantities__orderlineitem__quantity", distinct=True),
             Value(0),
             output_field=IntegerField(),
         ),
     )
 
-    products = list(base_qs)
-    random.shuffle(products)
-    random_products = products[:6]
-
+    most_sold = base_qs.order_by("-total_sold")[:6]
     new_arrivals = base_qs.order_by("-created_at")[:6]
 
     context = {
-        "products": random_products,
+        "most_sold": most_sold,
         "new_arrivals": new_arrivals,
     }
     return render(request, "home/index.html", context)
