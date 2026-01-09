@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import (
-    Avg, Count, Q, Value, FloatField, IntegerField, Min, Sum
+    Avg, Count, Q, Value, FloatField, IntegerField, Min
 )
 from django.db.models.functions import Coalesce
 
@@ -12,7 +12,6 @@ from products.models import Product
 from profiles.models import UserProfile, ContactMessage
 from stories.models import Story
 
-import random
 import logging
 
 

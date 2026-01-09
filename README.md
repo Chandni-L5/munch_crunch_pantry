@@ -554,7 +554,43 @@ A "Back to Top" button is implemented to enhance user navigation, especially on 
 
 ### Account Management 
 ### Page Specific Features
-#### Home Page
+
+<details>
+<summary><strong>Home Page</strong></summary>
+
+The homepage introduces users to Munch Crunch Pantry through a welcoming hero section that clearly communicates the brand’s purpose and values. A welcome message explains the brand philosophy on high-quality, natural wholefoods that are free from additives, helping users immediately understand what the site offers and why it can be trusted. This reinforces the philosophy of simple, honest ingredients and healthy eating, supporting user confidence and brand identity. 
+
+Below the hero content, USPs (Unique Selling Points) are displayed in styled feature panels, drawing attention to important customer benefits such as free delivery thresholds, quality assurance, and sustainable sourcing. These visual cues help users quickly grasp the value proposition without needing to navigate away from the page.
+
+There is also a dynamic button link to the products index page, making it easy for users to start browsing the product catalogue directly from the homepage.
+
+![Homepage hero section](/documentation/images/features/homepage/homepage-hero.png)
+
+The mid section of the page showcases featured product collections through **Best Sellers** and **New Arrivals**. The Best Sellers section displays the most highly rated products, while the New Arrivals section highlights the most recently added products. This provides social proof and helps returning users discover new items, keeping the homepage engaging and relevant.
+
+Currently, the “View all” link directs users to the All Products page. In future development, dedicated collection pages for Best Sellers and New Arrivals could be introduced.
+
+![Homepage featured products](/documentation/images/features/homepage/homepage-products.png)
+
+The final section of the homepage provides links to other areas of the website, particularly the brand’s educational content. The “Browse products” button links to the product index page, “Find out more…” directs users to the About Us page, and “Learn about…” links to the Product Origins page, where users can read stories about the people and communities behind the products. These buttons are styled consistently with the site’s design and include hover effects to enhance interactivity.
+
+![Homepage educational content links](/documentation/images/features/homepage/links-homepage.png)
+
+---
+
+#### Related User Stories:
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - **2.1 Browse Categories** – clear calls to action guide users into browsing products
+  - **2.2 Product Detail Page** – featured products link directly to detailed product pages
+  - **2.5 Discounts** – USPs highlight delivery thresholds and value propositions
+
+- **Epic 4 – Content, Marketing & Engagement**
+  - **4.1 About & Educational Content** – homepage links to About Us and Product Origins pages
+  - **4.4 Newsletter Signup** – homepage supports marketing and engagement goals through clear brand messaging and onward navigation
+
+</details>
+
+
 #### Products Page
 #### Product Detail Page
 #### Shopping Cart Page
@@ -595,11 +631,11 @@ To improve the user experience during checkout, I implemented address autocomple
 #### Order Confirmation Page
 #### User Profile Page
 #### Admin Dashboard
-### Features Left to Implement
+
 ### Defensive Design & Permissions
 ### Accessibility
 
-
+### Features Left to Implement
 
 During the designing and styling process of the website, I have kept in mind to aim to make the page as user friendly and accessible as possible. I have achieved this by:
 
