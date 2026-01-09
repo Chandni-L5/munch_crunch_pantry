@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotAllowed
 from django.contrib import messages
 from django.views.decorators.http import require_POST
+from django.urls import reverse
 
+from checkout.models import DiscountSingleUse
 from products.models import ProductQuantity, Product
 from .utils import get_discount_amount
 
@@ -116,6 +118,7 @@ def apply_discount(request):
     """
     Validate and apply a discount code to the basket.
     Empty or invalid code clears any existing discount.
+    Check if code has been used previously by the user in checkout logic
     """
     code = (request.POST.get("discount_code") or "").strip().upper()
 
@@ -124,15 +127,29 @@ def apply_discount(request):
         messages.info(request, "Please enter a discount code.")
         return redirect(reverse("view_basket"))
 
-    # Store code in the shape utils expects
     request.session["discount_amount"] = {"code": code}
-
     discount = get_discount_amount(request)
 
     if not discount["valid"]:
         request.session.pop("discount_amount", None)
         messages.error(request, "Sorry, that discount code is not valid.")
         return redirect(reverse("view_basket"))
+
+    if request.user.is_authenticated and request.user.email:
+        email = request.user.email.strip().lower()
+
+        if DiscountSingleUse.objects.filter(code=code, email=email).exists():
+            request.session.pop("discount_amount", None)
+            messages.error(
+                request,
+                "You have already used this discount code."
+            )
+            return redirect(reverse("view_basket"))
+        else:
+            messages.info(
+                request,
+                "Discount applied. We'll confirm eligibility at checkout."
+            )
 
     messages.success(
         request,
