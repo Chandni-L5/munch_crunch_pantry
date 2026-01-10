@@ -1,18 +1,18 @@
-from django.test import RequestFactory, TestCase, Client
-from django.urls import reverse
-from django.http import HttpResponse
-from unittest.mock import patch
 import json
+from unittest.mock import patch
+
+from django.http import HttpResponse
+from django.test import Client, RequestFactory, TestCase
+from django.urls import reverse
 
 from checkout.forms import OrderForm
+from checkout.models import Order
 from checkout.webhook_handler import StripeWH_Handler
-from checkout.models import Order, OrderLineItem
-from products.models import Category, Product, Quantity, ProductQuantity
 
 
 class CreatePaymentIntentTests(TestCase):
     """
-    Tests for create_payment_intent view.
+    Test check for Stripe payment intent creation with empty basket.
     """
 
     @patch("checkout.views.stripe.PaymentIntent.create")
@@ -32,16 +32,21 @@ class CreatePaymentIntentTests(TestCase):
 
 
 class CacheCheckoutDataTests(TestCase):
+    """
+    Test caching checkout data to Stripe payment intent metadata."""
+
     @patch("checkout.views.stripe.PaymentIntent.modify")
     def test_cache_checkout_data_updates_metadata(self, mock_modify):
         client = Client()
 
         response = client.post(
             reverse("cache_checkout_data"),
-            data=json.dumps({
-                "client_secret": "pi_123_secret_abcd",
-                "save_info": True,
-            }),
+            data=json.dumps(
+                {
+                    "client_secret": "pi_123_secret_abcd",
+                    "save_info": True,
+                }
+            ),
             content_type="application/json",
         )
 
@@ -50,6 +55,12 @@ class CacheCheckoutDataTests(TestCase):
 
 
 class WebhookViewTests(TestCase):
+    """
+    Check webhook view handles events correctly.
+    - Bad JSON returns 400
+    - Valid event dispatches to handler
+    """
+
     def setUp(self):
         self.client = Client()
 
@@ -66,11 +77,6 @@ class WebhookViewTests(TestCase):
     def test_webhook_dispatches_to_handler(
         self, mock_handler_cls, mock_construct_event
     ):
-        """
-        - construct_event() is called to validate the event
-        - StripeWH_Handler is instantiated
-        - The correct handler method is called based on event['type']
-        """
         payload = {
             "type": "payment_intent.succeeded",
             "data": {"object": {}},
@@ -97,60 +103,33 @@ class WebhookViewTests(TestCase):
 
 
 class WebhookHandlerTests(TestCase):
+    """
+    Tests Stripe webhook handler methods to check 
+    it won't crash or create duplicate orders.
+    """
+
     def setUp(self):
         self.factory = RequestFactory()
 
-    def _create_product_quantity(self):
-        """Helper to create a minimal ProductQuantity row."""
-        category = Category.objects.create(name="Nuts")
-        product = Product.objects.create(
-            category=category,
-            name="Almonds",
-            description="Test almonds",
+    def test_handle_payment_intent_succeeded_marks_order_as_paid(self):
+        order = Order.objects.create(
+            full_name="Test User",
+            email="test@example.com",
+            phone_number="1234567890",
+            country="GB",
+            postcode="AB1 2CD",
+            town_or_city="Testtown",
+            street_address1="123 Test Street",
+            street_address2="",
+            original_basket="{}",
+            stripe_pid="pi_test_123",
+            is_paid=False,
+            confirmation_email_sent=False,
         )
-        qty = Quantity.objects.create(name="500g")
-        pq = ProductQuantity.objects.create(
-            product=product,
-            quantity=qty,
-            price=5.00,
-            stock=10,
-        )
-        return pq
-
-    @patch("checkout.webhook_handler.stripe.Charge.retrieve")
-    @patch("checkout.webhook_handler.time.sleep")
-    def test_handle_payment_intent_succeeded_creates_order(
-        self, mock_sleep, mock_retrieve_charge
-    ):
-        pq = self._create_product_quantity()
-        basket = {str(pq.id): 2}
-
-        mock_retrieve_charge.return_value = {
-            "id": "ch_test",
-            "billing_details": {"email": "test@example.com"},
-            "amount": 1000,
-        }
 
         event = {
             "type": "payment_intent.succeeded",
-            "data": {
-                "object": {
-                    "id": "pi_test_123",
-                    "metadata": {"basket": json.dumps(basket)},
-                    "latest_charge": "ch_test",
-                    "shipping": {
-                        "name": "Test User",
-                        "phone": "1234567890",
-                        "address": {
-                            "line1": "123 Test Street",
-                            "line2": "",
-                            "city": "test",
-                            "postal_code": "AB1 2CD",
-                            "country": "GB",
-                        },
-                    },
-                }
-            },
+            "data": {"object": {"id": "pi_test_123"}},
         }
 
         request = self.factory.post("/checkout/webhook/")
@@ -158,66 +137,31 @@ class WebhookHandlerTests(TestCase):
         response = handler.handle_payment_intent_succeeded(event)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(Order.objects.count(), 1)
-        self.assertEqual(OrderLineItem.objects.count(), 1)
 
-        order = Order.objects.first()
-        line_item = OrderLineItem.objects.first()
+        order.refresh_from_db()
+        self.assertTrue(order.is_paid)
 
-        self.assertEqual(order.email, "test@example.com")
-        self.assertEqual(line_item.product_quantity, pq)
-        self.assertEqual(line_item.quantity, 2)
-
-    @patch("checkout.webhook_handler.stripe.Charge.retrieve")
-    @patch("checkout.webhook_handler.time.sleep")
-    def test_webhook_retries_finding_order(
-        self, mock_sleep, mock_retrieve_charge
+    def test_handle_payment_intent_succeeded_returns_200_when_no_order_found(
+        self
     ):
-        pq = self._create_product_quantity()
-        basket = {str(pq.id): 1}
-
-        mock_retrieve_charge.return_value = {
-            "id": "ch_test",
-            "billing_details": {"email": "retry@example.com"},
-            "amount": 500,
-        }
-
         event = {
             "type": "payment_intent.succeeded",
-            "data": {
-                "object": {
-                    "id": "pi_retry",
-                    "metadata": {"basket": json.dumps(basket)},
-                    "latest_charge": "ch_test",
-                    "shipping": {
-                        "name": "Retry User",
-                        "phone": "1234567890",
-                        "address": {
-                            "line1": "123 Retry Street",
-                            "line2": "",
-                            "city": "retry test",
-                            "postal_code": "AB1 2CD",
-                            "country": "GB",
-                        },
-                    },
-                }
-            },
+            "data": {"object": {"id": "pi_missing"}},
         }
 
-        with patch.object(
-            Order.objects, "get", side_effect=Order.DoesNotExist
-        ):
-            request = self.factory.post("/checkout/webhook/")
-            handler = StripeWH_Handler(request=request)
-            response = handler.handle_payment_intent_succeeded(event)
+        request = self.factory.post("/checkout/webhook/")
+        handler = StripeWH_Handler(request=request)
+        response = handler.handle_payment_intent_succeeded(event)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(mock_sleep.call_count, 5)
-        self.assertEqual(Order.objects.count(), 1)
+        self.assertEqual(Order.objects.count(), 0)
 
 
 class OrderFormTests(TestCase):
-    """Basic test to ensure OrderForm requires full_name"""
+    """
+    Basic test to ensure OrderForm requires full_name.
+    """
+
     def test_form_requires_full_name(self):
         form = OrderForm(data={})
         self.assertFalse(form.is_valid())

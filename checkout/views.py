@@ -90,6 +90,13 @@ def checkout(request):
 
     basket = request.session.get("basket", {})
     if not basket:
+        last_order_number = request.session.get('last_order_number')
+        if last_order_number:
+            return redirect(
+                f"{reverse(
+                    'checkout_success', args=[last_order_number]
+                )}?from_email=1"
+            )
         messages.error(request, "Your basket is empty.")
         return redirect("products")
 
@@ -279,6 +286,8 @@ def checkout_success(request, order_number):
     Handle successful checkouts
     """
     order = get_object_or_404(Order, order_number=order_number)
+    request.session['last_order_number'] = order.order_number
+    request.session.modified = True
     request.session.pop("pending_pid", None)
     from_email = request.GET.get("from_email") == "1"
     save_info = request.session.get("save_info", False)
