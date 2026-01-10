@@ -878,13 +878,168 @@ If the user clicks on the link in the email, they are directed back to the order
 
 </details>
 
-About us Page
+<details>
+<summary><strong>About us Page</strong></summary>
+The About Us page provides users with information about the Munch Crunch Pantry brand, its mission, values, and commitment to quality. The page is designed to build trust and credibility with users by highlighting the brand's dedication to sourcing high-quality, natural wholefoods that are free from additives.
 
-Origin Stories
+![About Us Page](/documentation/images/features/misc/about-us-intro.png)
 
-Miscellaneous Pages - FAQs, Contact Us, 404 Error Page etc. 
+As mentioned in the user stories, certifications was something that was important to the potential users of the site. Although this story has not been completed fully, I have included a section on the About us page to showcase some of the bodies that Munch Crunch Pantry is associated with. This helps to reinforce the brand's commitment to quality and ethical sourcing, which is a key value proposition for the target audience.
 
-#### Admin Interface
+![About Us Certifications](/documentation/images/features/misc/certifications.png)
+
+The final part of the page provides access to the 'Origin Stories' page, where users can learn more about the people and communities behind the products. A small preview of the content of these pages is displayed to entice users to explore further.
+
+![About Us Origin Stories](/documentation/images/features/misc/origin-stories-about.png)
+
+---
+
+#### Related User Stories:
+
+- **Epic 4 – Content, Marketing & Engagement**
+  - **4.1 About & Educational Content** – users can learn about the brand’s values, sourcing practices, and philosophy
+  - **4.2 Certifications** – certification bodies and affiliations are displayed to support ethical and quality-focused purchasing decisions
+  - **4.3 Admin Content Management** – educational content is structured to allow future expansion and management via the admin interface
+
+</details>
+
+<details>
+<summary><strong>Origin Stories</strong></summary>
+The link from the About Us page and the navigation menu leads to the Origin Stories index page, which provides users with links to individual stories about the people and communities behind the products offered by Munch Crunch Pantry. This page is designed to educate users about the brand's sourcing practices and the positive impact it has on producers.
+
+![Origin Stories Index Page](/documentation/images/features/misc/origin-stories.gif)
+
+Each origin story page features a hero image that visually represents the story being told. The content is structured to provide a comprehensive overview of the producer, their practices, and the impact of their work. This includes sections on sustainable farming methods, community benefits, and personal anecdotes from the producers themselves.
+
+![Origin Story - Amina](/documentation/images/features/misc/amina1.png)
+
+The lower half of the page contains a map integration using the [Leaflet JS library](https://leafletjs.com/). This map displays the geographical location of the producer country - country of origin, providing users with a visual representation of where the products originate. The map includes a marker indicating the exact location, enhancing the storytelling aspect of the page. 
+
+Leaflet is an open source JavaScript library for mobile-friendly interactive maps. By displaying the location of the producers, users can gain a better understanding of the global reach of Munch Crunch Pantry and the diverse communities it supports.
+
+![Origin Story Map Integration](/documentation/images/features/misc/amina2.png)
+
+Finally at the bottom of each origin story page, there is a call-to-action button that encourages users to browse products containing the products mentioned in the article. This button links directly to the search page, with pre-filled search terms of said products to make it easy for users to find and purchase them.
+
+---
+
+#### Related User Stories:
+
+- **Epic 4 – Content, Marketing & Engagement**
+  - **4.1 About & Educational Content** – origin stories provide educational insight into sourcing practices, producer communities, and brand values
+  - **4.3 Admin Content Management** – origin stories are structured content that can be created, edited, and published by administrators
+  - **4.2 Certifications** – storytelling reinforces ethical sourcing and sustainability themes that support certification-focused user expectations
+
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - **2.6 Search Functionality** – call-to-action buttons link directly to pre-filtered product searches based on items mentioned in each story
+  - **2.1 Browse Categories** – users are encouraged to continue browsing products after engaging with educational content
+
+</details>
+
+<details>
+<summary><strong>Other Miscellaneous Pages</strong></summary>
+Several other miscellaneous pages have been created to support the overall functionality and user experience of the Munch Crunch Pantry website. These pages include:
+
+- a Contact Us page
+- an FAQ page
+- Privacy Policy and Terms & Conditions pages
+- Shipping Information page
+- Return & Refunds Information page
+- Error pages (400, 403, 404, 500)
+
+**Contact Us Page**
+
+A contact form is provided for users to reach out with inquiries, feedback, or support requests. The form includes fields for the user's name, email address, order number (if applicable)subject, and message. Upon submission, the form data is sent to the site administrators via the admin dashboard. 
+
+The form includes validation to ensure that all required fields are completed correctly before submission. In addition if the user tries to submit the form with missing or invalid information, an error toast is also displayed.
+
+![Contact Us Page Validation](/documentation/images/features/misc/contact-validation.png)
+![Contact Us Page Validation 2](/documentation/images/features/misc/contact-error-toast.png)
+
+When the form is submitted successfully, the user is directed to a confirmation page informing them that their message has been received and will be addressed promptly via email. The user is then provided with a link to return to the homepage or continue browsing the site.
+
+![Contact Us Page Success](/documentation/images/features/misc/message-sent.png)
+
+When the admin receives the contact form submission, they can view the details in the admin interface under the 'Customer Support' section. The admin can then respond to the user's directly in the admin interface and mark the query as resolved, providing assistance or information as needed. The response is then provided to the user via email. 
+
+![Contact Us -Email reply](/documentation/images/features/misc/contact-response-email.png)
+
+A record of a logged in users contact submissions is also stored in their user profile page for reference, including the status of their query and if a reply has been issued by the admin. Read more about this in the User Profile Page section below
+
+**Error Pages**
+Custom error pages have been created for common HTTP error codes including 400 (Bad Request), 403 (Forbidden), 404 (Not Found), and 500 (Internal Server Error). These pages provide a user-friendly message informing users of the error and offering guidance on how to proceed. Each error page includes a link to return to the homepage or navigate to other sections of the site, helping to maintain a positive user experience even in the event of an error.
+
+**FAQ Page**
+The FAQs page can be accessed via the navigation menu and also in the footer of the site. This page provides users with answers to common questions about the Munch Crunch Pantry services, products, and policies. 
+
+The questions and answers are displayed in an accordion format, allowing users to easily browse and find the information they need without overwhelming them with too much content at once. Each question can be expanded or collapsed to reveal or hide the corresponding answer.
+
+Many answers also include links to other relevant pages on the site, such as the Contact Us page for further assistance or the Shipping Information page for details on delivery options.
+
+The content on this page has been created using AI - chatgpt to ensure comprehensive coverage of common user inquiries and provide accurate information.
+
+![FAQ Page](/documentation/images/features/misc/faqs.png)
+
+**Privacy Policy & Terms & Conditions Pages**
+The Privacy Policy and Terms & Conditions pages provide users with important information about their rights and responsibilities when using the Munch Crunch Pantry website. These pages outline the company's policies regarding data collection, usage, and protection, as well as the terms of service for using the site.
+
+The content on this page has been created using AI - chatgpt to ensure comprehensive coverage of legal requirements and provide accurate information.
+
+**Shipping Information and Returns & Refunds Pages**
+The Shipping Information and Returns & Refunds pages provide users with detailed information about the company's shipping policies, delivery options, and procedures for returning products or requesting refunds. These pages help to set clear expectations for customers and provide guidance on how to handle any issues that may arise with their orders.
+
+The content on this page has been created using AI - chatgpt to ensure comprehensive coverage of the relevant policies and provide accurate real-world style information.
+</details>
+
+<details>
+<summary><strong>User Profile Page</strong></summary>
+The User Profile page provides logged-in users with a personalized dashboard where they can view and manage their account information, order history, and contact submissions. This page is designed to enhance the user experience by providing easy access to important account-related features.
+
+This page is accessible via the navigation bar when the user is logged in, through the My account dropdown menu.
+
+![User Profile Page1](/documentation/images/features/account/my-profile1.png)
+![User Profile Page2](/documentation/images/features/account/my-profile2.png)
+
+The profile page is divided into several sections for easy navigation:
+- **User Information:** 
+
+  - This section displays the user's basic account information, including their name, username and default delivery information. 
+  - Users can update these sections by amending the infills and then selecting update profile button. A toast notification is displayed to confirm the update was successful.
+
+  ![User Profile Update Toast](/documentation/images/features/account/profile-update-toast.png)
+
+  - The manage email button takes the user to new page `/accounts/email/` where they can update their email address associated with their account. - More details about this page and its functionality can be found in the Defensive Design and Permissions section below.
+  - Similarly, the change password button takes the user to the standard Django Allauth change password page where they can update their password securely. - More details about this page and its functionality can be found in the Defensive Design and Permissions section below.
+- **Order History:**
+
+  - This section lists all previous orders placed by the user, including order numbers, dates, and total amounts. 
+  - Each order number is a clickable link that takes the user to the order confirmation page for that specific order, allowing them to view detailed information about their purchase.
+- **Your Queries**
+  - This section displays a list of contact form submissions made by the user, including the subject, date submitted, and status (e.g., pending, resolved).
+  - Each item includes a dropdown to view the message the user submitted.
+  - If the admin has responded to the query, a message is displayed to reflect this.
+  - If no response has been issued yet, a message is displayed to inform the user that their query is still being processed.
+
+  ![User Profile Contact Submissions](/documentation/images/features/account/queries-profile.png)
+
+---
+
+#### Related User Stories:
+
+- **Epic 4 – Content, Marketing & Engagement**
+  - **4.5 Contact Form** – users can submit enquiries and receive responses from site administrators
+  - **4.1 About & Educational Content** – FAQ, Shipping, Returns, Privacy Policy, and Terms pages provide supporting information and guidance
+  - **4.3 Admin Content Management** – informational content is structured to allow future updates via the admin interface
+
+- **Epic 1 – User Accounts & Authentication**
+  - **1.6 User Profile Management** – logged-in users can view their contact submissions and response status
+
+- **Epic 3 – Basket & Checkout**
+  - **3.3 Secure Checkout** – Shipping and Returns information supports informed purchasing decisions
+
+</details>
+
+Admin Interface
 
 **Admin Interface Customisation**
 
@@ -892,16 +1047,6 @@ The Django admin interface was customised to improve clarity and usability.
 The default **Groups** model was intentionally hidden, as group-based permissions
 are not used in this project. This prevents unnecessary complexity for admin users
 while retaining Django’s built-in authentication system.
-
-
-
-
-
-
-
-#### Order Confirmation Page
-#### User Profile Page
-#### Admin Dashboard
 
 ### Defensive Design & Permissions
 
