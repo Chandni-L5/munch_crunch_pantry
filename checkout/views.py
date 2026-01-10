@@ -12,11 +12,13 @@ from django.views.decorators.cache import never_cache
 
 from profiles.forms import UserProfileForm
 from profiles.models import UserProfile
-from .forms import OrderForm
 from products.models import ProductQuantity
-from .models import Order, OrderLineItem, DiscountSingleUse
 from basket.context_processor import basket_contents
 from basket.utils import get_discount_amount
+
+from .forms import OrderForm
+from .models import Order, OrderLineItem, DiscountSingleUse
+from .utils import send_confirmation_email
 
 import json
 import stripe
@@ -41,22 +43,8 @@ def checkout_success_pid(request):
         request.session.pop("save_info", None)
         request.session.pop("basket", None)
         request.session.pop("discount_amount", None)
-
-        messages.success(
-            request,
-            f"Order successfully processed! "
-            f"Your order number is {order.order_number}. "
-            "A confirmation email will be sent to "
-            f"{order.email}.",
-        )
-        return render(
-            request,
-            "checkout/checkout_success.html",
-            {
-                "order": order,
-                "from_profile": False,
-                "from_email": False,
-            },
+        return redirect(
+            "checkout_success", order_number=order.order_number
         )
     try:
         intent = stripe.PaymentIntent.retrieve(pid)
@@ -295,6 +283,18 @@ def checkout_success(request, order_number):
     from_email = request.GET.get("from_email") == "1"
     save_info = request.session.get("save_info", False)
 
+    if (
+        not from_email
+        and order.stripe_pid
+        and not order.confirmation_email_sent
+    ):
+        payment_intent = stripe.PaymentIntent.retrieve(order.stripe_pid)
+        if payment_intent["status"] == "succeeded":
+            send_confirmation_email(order, request)
+            order.confirmation_email_sent = True
+            order.is_paid = True
+            order.save(update_fields=["confirmation_email_sent", "is_paid"])
+
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         order.user_profile = profile
@@ -331,9 +331,6 @@ def checkout_success(request, order_number):
             "A confirmation email will be sent to "
             f"{order.email}.",
         )
-
-    request.session.pop("basket", None)
-    request.session.pop("discount_amount", None)
 
     template = "checkout/checkout_success.html"
     context = {

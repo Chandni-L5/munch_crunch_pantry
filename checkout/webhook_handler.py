@@ -67,113 +67,20 @@ class StripeWH_Handler:
         )
 
     def handle_payment_intent_succeeded(self, event):
-        """Handle the payment_intent.succeeded webhook."""
         intent = event["data"]["object"]
         pid = intent["id"]
-        metadata = intent.get("metadata", {}) or {}
-        basket_str = metadata.get("basket")
-        username = metadata.get("username", "AnonymousUser")
-        save_info = metadata.get("save_info", "false")
-
-        if not basket_str:
-            logger.error("No basket metadata for PI %s", pid)
-            return HttpResponse("Webhook: missing basket metadata", status=400)
-
-        stripe_charge = stripe.Charge.retrieve(intent["latest_charge"])
-        billing_details = stripe_charge["billing_details"]
-        shipping_details = intent.get("shipping", {}) or {}
-        shipping_address = shipping_details.get("address", {}) or {}
-
-        for field, value in shipping_address.items():
-            if value == "":
-                shipping_address[field] = None
-
-        profile = None
-        if username != "AnonymousUser":
-            try:
-                user = User.objects.get(username=username)
-                profile, created = UserProfile.objects.get_or_create(user=user)
-
-                if save_info == "true":
-                    profile.default_phone_number = shipping_details.get(
-                        "phone"
-                    )
-                    profile.default_street_address1 = shipping_address.get(
-                        "line1"
-                    )
-                    profile.default_street_address2 = shipping_address.get(
-                        "line2"
-                    )
-                    profile.default_town_or_city = shipping_address.get("city")
-                    profile.default_postcode = shipping_address.get(
-                        "postal_code"
-                    )
-                    profile.default_country = shipping_address.get("country")
-                    profile.save()
-            except User.DoesNotExist:
-                logger.warning(
-                    "Username %s from metadata not found when handling PI %s",
-                    username,
-                    pid,
-                )
 
         order = Order.objects.filter(stripe_pid=pid).first()
 
-        if order:
-            logger.info(
-                "Order already exists for PI %s (%s)",
-                pid,
-                order.order_number,
-            )
-            return HttpResponse("Webhook: order already exists", status=200)
+        if not order:
+            logger.warning("Webhook: no order found for PI %s", pid)
+            return HttpResponse("Webhook: no order found", status=200)
 
-        try:
-            order = Order.objects.create(
-                full_name=shipping_details.get("name"),
-                email=billing_details.get("email"),
-                phone_number=shipping_details.get("phone"),
-                country=shipping_address.get("country"),
-                postcode=shipping_address.get("postal_code"),
-                town_or_city=shipping_address.get("city"),
-                street_address1=shipping_address.get("line1"),
-                street_address2=shipping_address.get("line2"),
-                original_basket=basket_str or "",
-                stripe_pid=pid,
-                user_profile=profile,
-            )
+        if not order.is_paid:
+            order.is_paid = True
+            order.save(update_fields=["is_paid"])
 
-            basket = json.loads(basket_str)
-
-            for item_id, quantity in basket.items():
-                try:
-                    product_quantity = ProductQuantity.objects.get(pk=item_id)
-                except ProductQuantity.DoesNotExist:
-                    logger.warning(
-                        "ProductQuantity %s missing – skipping",
-                        item_id,
-                    )
-                    continue
-
-                OrderLineItem.objects.create(
-                    order=order,
-                    product_quantity=product_quantity,
-                    quantity=quantity,
-                )
-
-            order.update_total()
-            self._send_confirmation_email(order)
-            logger.info(
-                "Order created by webhook for PI %s (%s)",
-                pid,
-                order.order_number,
-            )
-            return HttpResponse("Webhook: order created", status=200)
-
-        except Exception as e:
-            logger.error("Error creating order for PI %s: %s", pid, e)
-            if order:
-                order.delete()
-            return HttpResponse("Webhook: error creating order", status=500)
+        return HttpResponse("Webhook: order updated", status=200)
 
     def handle_payment_intent_payment_failed(self, event):
         """Handle the payment_intent.payment_failed webhook."""

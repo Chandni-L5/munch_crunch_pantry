@@ -50,6 +50,8 @@ class Order(models.Model):
     stripe_pid = models.CharField(
         max_length=254, null=False, blank=False, default=""
     )
+    confirmation_email_sent = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False)
 
     def _generate_order_number(self):
         """Generate a random, unique order number using UUID"""
