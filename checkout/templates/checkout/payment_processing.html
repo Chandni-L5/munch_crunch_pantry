@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <h1 class="logo-font mb-3">Processing payment…</h1>
+
+    {% if succeeded_no_order %}
+    <p>Your payment was successful, but we’re still finalising your order. This usually takes a moment.</p>
+    {% else %}
+    <p>Your payment is still processing. Please do not refresh — we’ll update automatically.</p>
+    {% endif %}
+
+    <div class="mt-4">
+        <span class="spinner-border" role="status" aria-hidden="true"></span>
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script>
+    // Track number of tries in session storage and redirect to checkout page if exceeded
+    const tries = Number(sessionStorage.getItem("pi_poll_tries") || "0") + 1;
+    sessionStorage.setItem("pi_poll_tries", String(tries));
+
+    if (tries > 12) {
+        sessionStorage.removeItem("pi_poll_tries");
+        window.location.href = "{% url 'checkout' %}";
+    } else {
+        setTimeout(() => window.location.reload(), 2500);
+    }
+</script>
+
+{% endblock %}

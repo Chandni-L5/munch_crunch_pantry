@@ -210,6 +210,7 @@
     });
 </script>
 <script>
+    // Prevent users from returning to checkout page after successful payment
   window.addEventListener("pageshow", function (event) {
     if (event.persisted) {
       window.location.href = "{% url 'products' %}";

@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseBadRequest
+from django.urls import reverse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError, transaction
@@ -24,6 +25,69 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 @never_cache
+def checkout_success_pid(request):
+    """
+    Redirect to checkout_success with order_number from session
+    Used when order_number is not known at the time of redirect
+    """
+    pid = request.GET.get("pid")
+    if not pid:
+        messages.error(request, "Missing payment intent ID.")
+        return redirect("contact")
+
+    order = Order.objects.filter(stripe_pid=pid).first()
+    if order:
+        request.session.pop("pending_pid", None)
+        request.session.pop("save_info", None)
+        request.session.pop("basket", None)
+        request.session.pop("discount_amount", None)
+
+        messages.success(
+            request,
+            f"Order successfully processed! "
+            f"Your order number is {order.order_number}. "
+            "A confirmation email will be sent to "
+            f"{order.email}.",
+        )
+        return render(
+            request,
+            "checkout/checkout_success.html",
+            {
+                "order": order,
+                "from_profile": False,
+                "from_email": False,
+            },
+        )
+    try:
+        intent = stripe.PaymentIntent.retrieve(pid)
+    except Exception:
+        messages.error(
+            request,
+            "We couldn't verify your payment. Please try again."
+        )
+        return redirect("checkout")
+
+    if intent.status in ('processing', 'requires_capture'):
+        return render(
+            request,
+            "checkout/payment_processing.html",
+            {"pid": pid}
+        )
+
+    if intent.status == 'succeeded':
+        return render(
+            request,
+            "checkout/payment_processing.html",
+            {"pid": pid, "succeeded_no_order": True}
+        )
+    messages.error(
+        request,
+        "Your payment was not successful. Please try again."
+    )
+    return redirect("checkout")
+
+
+@never_cache
 def checkout(request):
     """
     Handle the checkout process
@@ -32,6 +96,10 @@ def checkout(request):
     - Create Order and OrderLineItems
     - Redirect to success page
     """
+    pending_pid = request.session.get("pending_pid")
+    if pending_pid and request.method == "GET":
+        return redirect(f"{reverse('checkout_success_pid')}?pid={pending_pid}")
+
     basket = request.session.get("basket", {})
     if not basket:
         messages.error(request, "Your basket is empty.")
@@ -116,6 +184,32 @@ def checkout(request):
             order.update_total()
 
             request.session["save_info"] = "save_info" in request.POST
+            if not pid:
+                messages.error(
+                    request,
+                    "Payment reference missing. Please try again."
+                )
+                order.delete()
+                return redirect("checkout")
+
+            try:
+                intent = stripe.PaymentIntent.retrieve(pid)
+            except Exception:
+                messages.error(
+                    request,
+                    "We couldn't verify your payment. Please try again."
+                )
+                order.delete()
+                return redirect("checkout")
+
+            if intent.status != "succeeded":
+                messages.error(
+                    request,
+                    "Payment not completed. Please try again."
+                )
+                order.delete()
+                return redirect("checkout")
+
             return redirect(
                 "checkout_success", order_number=order.order_number
             )
@@ -197,6 +291,7 @@ def checkout_success(request, order_number):
     Handle successful checkouts
     """
     order = get_object_or_404(Order, order_number=order_number)
+    request.session.pop("pending_pid", None)
     from_email = request.GET.get("from_email") == "1"
     save_info = request.session.get("save_info", False)
 
@@ -264,6 +359,8 @@ def cache_checkout_data(request):
             return JsonResponse({"error": "Missing client_secret"}, status=400)
 
         pid = client_secret.split("_secret")[0]
+        request.session["pending_pid"] = pid
+        request.session.modified = True
         save_info = data.get("save_info", False)
         basket = request.session.get("basket", {})
 

@@ -31,14 +31,55 @@ function updateSubmitState() {
     submitButton.disabled = !shouldEnable;
 }
 
-// Sets up Stripe on page load, creates a PaymentIntent, and mounts the card element
+// Check if there is an inflight payment intent, set up new intent if not and mount card element
 document.addEventListener("DOMContentLoaded", async () => {
     stripe = Stripe(STRIPE_PUBLIC_KEY);
+
+    const storedClientSecret = localStorage.getItem("mcp_client_secret");
+
+    if (storedClientSecret) {
+        try {
+            const {
+                paymentIntent
+            } = await stripe.retrievePaymentIntent(storedClientSecret);
+
+            if (paymentIntent) {
+                if (paymentIntent.status === "succeeded") {
+                    localStorage.removeItem("mcp_client_secret");
+                    window.location.replace(`/checkout/success/?pid=${paymentIntent.id}`);
+                    return;
+                }
+                if (paymentIntent.status === "processing" || paymentIntent.status === "requires_capture") {
+                    isProcessing = true;
+                    setLoading(true);
+                    toggleFormDisabled(true);
+
+                    const poll = async () => {
+                        const {
+                            paymentIntent: pi
+                        } = await stripe.retrievePaymentIntent(storedClientSecret);
+                        if (pi && pi.status === "succeeded") {
+                            localStorage.removeItem("mcp_client_secret");
+                            window.location.replace(`/checkout/success/?pid=${pi.id}`);
+                            return;
+                        }
+                        setTimeout(poll, 2000);
+                    };
+
+                    poll();
+                    return;
+                }
+                localStorage.removeItem("mcp_client_secret");
+            }
+        } catch (err) {
+            localStorage.removeItem("mcp_client_secret");
+        }
+    }
 
     const response = await fetch("/checkout/create-payment-intent/", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({})
     });
@@ -51,10 +92,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     clientSecret = data.clientSecret;
+    localStorage.setItem("mcp_client_secret", clientSecret);
+
     const clientSecretInput = document.getElementById("id_client_secret");
-    if (clientSecretInput) {
-        clientSecretInput.value = clientSecret;
-    }
+    if (clientSecretInput) clientSecretInput.value = clientSecret;
 
     const elements = stripe.elements();
     const style = {
@@ -116,10 +157,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     ];
 
     watchedFields.forEach(id => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const eventName = el.tagName === "SELECT" ? "change" : "input";
-        el.addEventListener(eventName, updateSubmitState);
+    const el = document.getElementById(id);
+    if (!el) return;
+    const eventName = el.tagName === "SELECT" ? "change" : "input";
+    el.addEventListener(eventName, updateSubmitState);
     });
 });
 
@@ -244,7 +285,9 @@ async function handleSubmit(e) {
 
     toggleFormDisabled(true);
     if (card) {
-        card.update({ disabled: true });
+        card.update({
+            disabled: true
+        });
     }
 
     console.log("Client secret:", clientSecret);
@@ -285,6 +328,7 @@ async function handleSubmit(e) {
     }
 
     if (paymentIntent && paymentIntent.status === "succeeded") {
+        localStorage.removeItem("mcp_client_secret");
         toggleFormDisabled(false);
         const form = document.getElementById("payment-form");
         HTMLFormElement.prototype.submit.call(form);
@@ -343,7 +387,9 @@ function resetProcessingState() {
     setLoading(false);
     toggleFormDisabled(false);
     if (card) {
-        card.update({ disabled: false });
+        card.update({
+            disabled: false
+        });
     }
     isProcessing = false;
 }

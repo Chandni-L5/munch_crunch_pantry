@@ -1,7 +1,6 @@
 from django.urls import reverse
 import stripe
 import json
-import time
 import logging
 
 from django.http import HttpResponse
@@ -82,8 +81,6 @@ class StripeWH_Handler:
 
         stripe_charge = stripe.Charge.retrieve(intent["latest_charge"])
         billing_details = stripe_charge["billing_details"]
-        grand_total = round(stripe_charge["amount"] / 100, 2)
-
         shipping_details = intent.get("shipping", {}) or {}
         shipping_address = shipping_details.get("address", {}) or {}
 
@@ -120,41 +117,13 @@ class StripeWH_Handler:
                     pid,
                 )
 
-        order_exists = False
-        order = None
-        attempt = 1
+        order = Order.objects.filter(stripe_pid=pid).first()
 
-        while attempt <= 5 and not order_exists:
-            try:
-                order = Order.objects.get(
-                    full_name__iexact=shipping_details.get("name"),
-                    email__iexact=billing_details.get("email"),
-                    phone_number__iexact=shipping_details.get("phone"),
-                    country__iexact=shipping_address.get("country"),
-                    postcode__iexact=shipping_address.get("postal_code"),
-                    town_or_city__iexact=shipping_address.get("city"),
-                    street_address1__iexact=shipping_address.get("line1"),
-                    street_address2__iexact=shipping_address.get("line2"),
-                    grand_total=grand_total,
-                    original_basket=basket_str,
-                    stripe_pid=pid,
-                )
-                order_exists = True
-            except Order.DoesNotExist:
-                attempt += 1
-                time.sleep(1)
-
-        if order_exists:
+        if order:
             logger.info(
                 "Order already exists for PI %s (%s)",
                 pid,
                 order.order_number,
-            )
-            self._send_confirmation_email(order)
-            logger.info(
-                "Confirmation email sent for order %s to %s",
-                order.order_number,
-                order.email,
             )
             return HttpResponse("Webhook: order already exists", status=200)
 

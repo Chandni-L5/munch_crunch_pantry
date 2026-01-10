@@ -27,4 +27,5 @@ urlpatterns = [
         webhooks.webhook,
         name='webhook'
     ),
+    path('success/', views.checkout_success_pid, name='checkout_success_pid'),
 ]

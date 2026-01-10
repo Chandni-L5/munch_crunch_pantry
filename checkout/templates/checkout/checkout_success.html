@@ -5,8 +5,10 @@
 {% block extra_title %}Order Confirmation - Munch Crunch Pantry {% endblock %}
 
 {% block meta_description %}
-    <meta name="description" content="Thank you for your order at Munch Crunch Pantry! View your order summary and details on this confirmation page." />
-    <meta name="keywords" content="Munch Crunch Pantry Order Confirmation, Wholefoods Store, Organic Nuts, Sustainable Food" />
+<meta name="description"
+    content="Thank you for your order at Munch Crunch Pantry! View your order summary and details on this confirmation page." />
+<meta name="keywords"
+    content="Munch Crunch Pantry Order Confirmation, Wholefoods Store, Organic Nuts, Sustainable Food" />
 {% endblock %}
 
 {% block extra_css %}
@@ -37,27 +39,27 @@
                     <h2 class="section-title mb-3">Order Summary:</h2>
 
                     {% for item in order.lineitems.all %}
-                        <div class="order-item">
-                            <div class="order-item-main">
-                                <div class="order-item-details">
-                                    <p class="item-name mb-1">
-                                        {{ item.product_quantity.product.name }}
-                                    </p>
-                                    <p class="item-details mb-0">
-                                        Size: {{ item.product_quantity.quantity.name }}
-                                    </p>
-                                    <p class="item-details mb-0">
-                                        Qty: {{ item.quantity }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="order-item-price">
-                                <span class="price">£{{ item.lineitem_total }}</span>
+                    <div class="order-item">
+                        <div class="order-item-main">
+                            <div class="order-item-details">
+                                <p class="item-name mb-1">
+                                    {{ item.product_quantity.product.name }}
+                                </p>
+                                <p class="item-details mb-0">
+                                    Size: {{ item.product_quantity.quantity.name }}
+                                </p>
+                                <p class="item-details mb-0">
+                                    Qty: {{ item.quantity }}
+                                </p>
                             </div>
                         </div>
-                        <hr class="mt-1">
+                        <div class="order-item-price">
+                            <span class="price">£{{ item.lineitem_total }}</span>
+                        </div>
+                    </div>
+                    <hr class="mt-1">
                     {% empty %}
-                        <p class="text-muted mb-0">No items found for this order.</p>
+                    <p class="text-muted mb-0">No items found for this order.</p>
                     {% endfor %}
                 </div>
 
@@ -68,7 +70,8 @@
                     </div>
                     {% if order.discount_amount > 0 %}
                     <div class="d-flex justify-content-between mb-1 text-success">
-                        <span class="label">Discount {% if order.discount_code %}({{ order.discount_code }}){% endif %}</span>
+                        <span class="label">Discount
+                            {% if order.discount_code %}({{ order.discount_code }}){% endif %}</span>
                         <span class="value">-£{{ order.discount_amount }}</span>
                     </div>
                     {% endif %}
@@ -98,4 +101,12 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script>
+    // Clear pi_poll_tries from session storage on successful checkout
+    sessionStorage.removeItem("pi_poll_tries");
+</script>
 {% endblock %}
