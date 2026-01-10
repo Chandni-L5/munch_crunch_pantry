@@ -783,26 +783,26 @@ The user is then either prompted to continue shopping, or proceed to checkout vi
 
 </details>
 
-#### Checkout Page
+<details>
+<summary><strong>Checkout Page</strong></summary>
 
-About us Page
+![Checkout Page - Guest](/documentation/images/features/checkout/checkout-guest.png)
+![Checkout Page - Guest 2](/documentation/images/features/checkout/checkout-guest2.png)
 
-Origin Stories
+The checkout page displays a summary of the items in the user's basket, including product names, quantities, individual prices, and the total amount due. This allows users to once more review their order before proceeding with payment.
 
-Miscellaneous Pages - FAQs, Contact Us, 404 Error Page etc. 
+The user is then prompted to complete their details and shipping information through a structured form. The form includes fields for personal information, shipping address, and payment details. Each field is clearly labeled to guide users through the process.
 
-#### Admin Interface
+Mostly all of the fields are required to be filled in except for Apartments/flat/suite - which is marked as optional.
 
-**Admin Interface Customisation**
+The email field and phone number fields include instant validation to ensure valid input. For example, the email field checks for a valid email format, while the phone number field ensures that only numeric input is accepted. If the input is invalid, an error message is displayed to inform the user of the issue.
 
-The Django admin interface was customised to improve clarity and usability.
-The default **Groups** model was intentionally hidden, as group-based permissions
-are not used in this project. This prevents unnecessary complexity for admin users
-while retaining Django’s built-in authentication system.
+![Validation for email](/documentation/images/features/checkout/details-validation.png) 
+![Validation for phone number](/documentation/images/features/checkout/details-validation2.png)
 
-**Geoapify API Integration**
+The shipping details form includes an external application Geoapify API integration to provide address autocomplete functionality. As the user begins typing their address, suggestions are displayed to help them complete the form quickly and accurately. This feature enhances the user experience by reducing the time taken to enter address details manually and minimizing errors.
 
-To improve the user experience during checkout, I implemented address autocomplete using the [Geoapify API](https://www.geoapify.com/). This allows the user to start typing their address and receive suggestions to complete it quickly. The form fields are then automatically populated based on the selected suggestion.
+The form fields are automatically populated based on the selected suggestion, but users can still manually edit the fields if needed.
 
 **Why?**
 - Speeds up checkout process by reducing the time taken to enter address details manually.
@@ -820,6 +820,82 @@ To improve the user experience during checkout, I implemented address autocomple
   - The Geoapify logic is encapsulated in a separate JavaScript static file and initialized on the checkout page only to avoid unnecessary API calls on other pages.
 - This field is not submitted to the backend, only used for frontend address prediction and population of other fields.
 - The rest of the address fields are still standard Django crispy form fields that are submitted to the backend for order processing. Each field can still be manually edited if needed.
+
+![Geoapify Address Autocomplete](/documentation/images/features/checkout/geoapify-preview.gif)
+
+If a guest is accessing checkout, without an account they are prompted to create an account or log in for a improved checkout experience, logged in users are able to select to save their details to their profile for future purchases. This is achieved through a simple checkbox option.
+
+![logged in user checkout](/documentation/images/features/checkout/checkout-loggedin.png)
+![save details checkbox](/documentation/images/features/checkout/checkout-loggedin2.png)
+
+If the user is a returning customer, when accessing the checkout page their saved details are pre-populated in the form fields to streamline the checkout process. This reduces the time taken to complete the form and enhances the overall user experience.
+
+The payment section of the checkout page integrates with Stripe to securely process payments. Users can enter their card details directly on the page, and the payment is processed through Stripe's secure servers. This ensures that sensitive payment information is handled safely and in compliance with industry standards.
+
+Validations are built in to ensure that all required fields are completed correctly before allowing the user to submit the form. If any fields are missing or contain invalid data, error messages are displayed to guide the user in correcting the issues.
+
+![Invalid card number](/documentation/images/features/checkout/invalid-card.png)
+![Expired card](/documentation/images/features/checkout/expired-card.png)
+![Declined card](/documentation/images/features/checkout/card-declined.png)
+![Card failed 3DS](/documentation/images/features/checkout/payment-not-verified.png)
+
+The 'Complete Purchase' button is disabled until all the required fields are valid and the payment information is correctly entered. This prevents users from submitting incomplete or incorrect information, reducing the likelihood of errors during the checkout process. If the user was to accidentally refresh the page whilst the payment is processing or if there is a network issue, the user is directed to payment processing page, which informs the user that their payment is being processed. 
+
+![Payment Processing Page](/documentation/images/features/checkout/processing_payment.png)
+
+This page automatically checks the status of the payment and redirects the user to the appropriate page based on the outcome. This ensures that users are kept informed about the status of their payment and provides a seamless experience even in the event of interruptions. 
+
+Once the payment is successfully processed, the user is redirected to the order confirmation page where they can view the details of their order and receive confirmation of their purchase. In addition a confirmation toast is also displayed to inform the user that their order has been placed successfully.
+
+![Order Success Toast](/documentation/images/features/checkout/successful-order-toast.png)
+![Order Confirmation Page](/documentation/images/features/checkout/successful-order.png)
+
+Once the payment is completed, an order confirmation email is automatically sent to the user's provided email address. This email contains a brief summary of the order total, delivery cost (if applicable), Grand Total and a link to the full details of the order, providing users with a record of their purchase and helps to build trust and confidence in the transaction.
+
+![Order Confirmation Email](/documentation/images/features/checkout/email-order-conf.png)
+
+If the user clicks on the link in the email, they are directed back to the order confirmation page which displays the full details of their order including itemised list of products purchased, quantities and prices.
+
+---
+
+#### Related User Stories:
+
+- **Epic 3 – Basket & Checkout**
+  - **3.1 Shopping Bag Summary** – users can review basket contents, totals, delivery costs, and discounts before completing their purchase
+  - **3.3 Secure Checkout** – users can securely enter personal, shipping, and payment details using Stripe, with validation and error handling throughout the process
+  - **3.4 Order Confirmation** – users are redirected to an order confirmation page and receive an order confirmation email after successful payment
+
+- **Epic 1 – User Accounts & Authentication**
+  - **1.1 Email Registration** – guest users are encouraged to register during checkout to improve future purchasing experiences
+  - **1.3 Login / Logout** – returning users can log in to access saved details
+  - **1.6 User Profile Management** – logged-in users can save delivery information and have it automatically pre-populated on future checkouts
+
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - **2.5 Discounts** – applied discounts and delivery thresholds are reflected in checkout totals and confirmation summaries
+
+- **Epic 4 – Content, Marketing & Engagement**
+  - **1.5 Confirmation Emails** – automated order confirmation emails provide users with a record of their purchase and reinforce trust in the platform
+
+</details>
+
+About us Page
+
+Origin Stories
+
+Miscellaneous Pages - FAQs, Contact Us, 404 Error Page etc. 
+
+#### Admin Interface
+
+**Admin Interface Customisation**
+
+The Django admin interface was customised to improve clarity and usability.
+The default **Groups** model was intentionally hidden, as group-based permissions
+are not used in this project. This prevents unnecessary complexity for admin users
+while retaining Django’s built-in authentication system.
+
+
+
+
 
 
 
@@ -1112,34 +1188,26 @@ This ensures discounts cannot be incorrectly applied or persisted, protecting or
 
 #### Checkout App Tests
 
-The tests focus on the most critical parts of the purchase flow: creating Stripe PaymentIntents, caching checkout metadata, validating incoming webhooks, and ensuring successful payments reliably create orders and line items.
+The tests focus on the most critical parts of the purchase flow: ensuring the payments are processed safely, metadata is handled correctly and successful Stripe events result in order creation, without duplicating orders on repeated webhook calls.
 
-What was tested:
-- Create Payment Intent (View)
-  - Verified that if the basket is empty, `create_payment_intent` returns **HTTP 400** and **does not call Stripe** (`stripe.PaymentIntent.create` is mocked).
+- **PaymentIntent Creation**
+  - Verifies that an empty basket returns no PaymentIntent. and does not attempt to create one.
 
- This protects the checkout flow from invalid requests and prevents unnecessary Stripe API calls.
+- **Cache Checkout Data (View)** 
+  - Confirms that valid basket and user profile data are cached correctly in the PaymentIntent metadata for later retrieval during webhook processing.
 
-- Cache Checkout Data (View)
-  - Confirmed `cache_checkout_data` returns **HTTP 200** and calls `stripe.PaymentIntent.modify()` exactly once (mocked), ensuring metadata such as `save_info` is correctly stored against the PaymentIntent before payment confirmation.
+- **Webhook Endpoint** 
+- Confirms the webhook returns a 400 response for invalid JSON and verifies that a valid Stripe webhook event is passed to the correct handler.
 
-- Webhook Endpoint (View)
-  - Tested that invalid JSON posted to the webhook returns **HTTP 400**, ensuring the endpoint fails safely.
-  - Tested that valid webhook payloads are passed through Stripe’s event validation (`stripe.Webhook.construct_event` mocked), then correctly dispatched to the relevant handler method (e.g., `handle_payment_intent_succeeded`) on `StripeWH_Handler`.
+- **Webhook Handler** 
+  - Using mock metadata, tests confirm that a successful payment event results in order creation with correct details, and that repeated events do not create duplicate orders. 
+  - Tested resilience logic where the handler retries up to 5 times to locate an existing order before creating a new one (time.sleep mocked and counted). This helps prevent duplicate orders during delayed/async webhook processing.
 
-- Webhook Handler (Business Logic)
-  - Using a minimal `ProductQuantity` setup (Category → Product → Quantity → ProductQuantity), confirmed a `payment_intent.succeeded` event with basket metadata:
-    - returns **HTTP 200**
-    - creates exactly **one Order**
-    - creates exactly **one OrderLineItem**
-    - stores the correct email and line item quantity.
-  - Tested resilience logic where the handler retries up to **5 times** to locate an existing order before creating a new one (`time.sleep` mocked and counted). This helps prevent duplicate orders during delayed/async webhook processing.
-
-- OrderForm Validation
+- **OrderForm Validation** 
   - Confirmed the checkout form enforces required fields by verifying `full_name` is required and returns validation errors when missing.
 
-**Mocking approach**
-Stripe calls were mocked throughout the suite (`PaymentIntent.create`, `PaymentIntent.modify`, `Webhook.construct_event`, `Charge.retrieve`) so tests run quickly, deterministically, and without external API dependence, while still verifying that the integration points are called correctly.
+- **Mocking approach**
+  - Stripe calls were mocked throughout the suite (`PaymentIntent.create`, `PaymentIntent.modify`, `Webhook.construct_event`, `Charge.retrieve`) so tests run quickly, deterministically, and without external API dependence, while still verifying that the integration points are called correctly.
 
 #### Home App Tests
 Automated tests were implemented to verify correct template rendering and robust error handling within the Home app.
@@ -1424,6 +1492,52 @@ To address this, I removed the `localStorage` persistence logic from the newslet
 To hide the lower banner, I've added a simple close button that users can click to minimise the banner. This resolves the `localStorage` concern, whilst still providing a user-friendly way to manage the banner's visibility during their visit and enhance the overall view of the site.
 
 In addition email subscription handling was implemented to store submitted emails in the database for future marketing use.
+
+</details>
+
+<details>
+<summary><strong>Checkout refresh during payment processing</strong></summary>
+
+**Bug:**
+During testing of the checkout process, I noticed that if the user refreshed the page while the payment was being processed, it could lead to confusion and potential errors. The page would reload to the checkout again, suggesting the payment had not been completed, and the user might not be sure if their payment was successful or if they needed to resubmit their information.
+
+**Cause:**
+The checkout flow relied on the frontend JavaScript to manage the payment process and redirect the user upon successful payment with a single POST/redirect cycle. 
+
+1. `PaymentIntent` is created and confirmed via Stripe, and payment shows as successful in the Stripe dashboard.
+2. Javascript submits the checkout form once the payment is confirmed.
+3. Django processes the order and redirects to the success page.
+
+However, if the user refreshed the page during step 2 (after payment but before form submission), the browser would lose the inflight JavaScript state and reload the checkout page. On reload a new `PaymentIntent` would be created, but the user would have no indication that a payment was already in progress or completed.
+
+**Fix:**
+To deal with this, I used a recovery strategy to make the checkout flow more resilient to page refreshes, interruptions and network issues during payment processing. This is achieved in three co-ordinated steps:
+
+1. Client side recovery using `localStorage` to persist the `payment_intent_id` during payment processing. If the page is refreshed, the JavaScript checks for an existing `payment_intent_id` in `localStorage` and attempts to retrieve its status from Stripe. If the payment was already successful, it proceeds to submit the form automatically.
+2. Server side idempotency by checking for existing orders associated with the `payment_intent_id` in the webhook handler. If an order already exists, it avoids creating a duplicate order and simply acknowledges the webhook.
+3. Using the Stripe webhook as the source of truth for payment status. Even if the client-side flow is interrupted, the webhook will ensure that successful payments are processed and orders are created correctly. The user is directed to a pending payment page if necessary, which reloads automatically until the webhook confirms the order, finally redirecting to the success page. 
+
+Once checkout is fully and successfully completed all recovery data is cleared from `localStorage` and results with an empty basket, signifying a fresh state for the next purchase.
+
+</details>
+
+<details>
+<summary><strong>Order Confirmation email sent with incorrect order number</strong></summary>
+
+**Bug:**
+After implementing the bug fix to prevent the checkout process from resetting when the page is refreshed during payment processing, I noticed that the order confirmation email sent to the user contained an incorrect order number. The email displayed a different order number than the one shown on the order confirmation page after checkout, and in some cases the email was not sent out at all.
+
+This issue did not exist prior to the refresh-handling update and only appeared after the changes were introduced.
+
+**Cause:**
+The issue occurred as there were multiple execution paths introduced to the checkout flow, as well duplicate order creation logic in the webhook handler. The checkout view would create an Order record once the payment details were submitted, The Stripe webhook handler would also create an Order record if it could not find an existing one for the given `payment_intent_id`. In addition a new recovery flow was added to handle page refreshes during payment processing which meant on some occasions the view rendered the success template directly without going through the normal order creation flow and so the flow to send the confirmation email was skipped.
+
+This meant that two separate Order objects could be created for the same payment, leading to confusion and incorrect order numbers being sent in the email. The success page would display one number and the email another.
+
+**Fix:**
+- I refactored the order creation logic to ensure that only one Order record is created per successful payment. The webhook handler was updated to first check for an existing Order using the `payment_intent_id` before creating a new one. This prevents duplicate orders from being created.
+- Routed all successful payment flows to the same `checkout_success` view, using the order number from the existing Order record. This ensures consistency between the order confirmation page and the email.
+- Ensured that the order confirmation email is sent only after the Order record is created, using the correct order number. The email is now triggered once the checkout_success view is rendered, guaranteeing that the user receives the correct information.
 
 </details>
 
