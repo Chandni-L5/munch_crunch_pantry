@@ -1,14 +1,26 @@
 # Munch Crunch Pantry 
+[Click here to view the deployed application](https://munch-crunch-pantry-c0989406ec70.herokuapp.com/)
 
 ![Screenshot of amiresponsive design on various devices](/documentation/images/amiresponsive-display.png)
 
-Munch Crunch pantry is an online ecommerce store dedicated to providing a wide variety of healthy wholefood snacks. Our mission is to promote wellness and healthy living by offering nutritious, delicious, and convenient snack options for people on the go.
+Munch Crunch pantry is an online e-commerce store dedicated to providing a wide variety of healthy wholefood snacks. Our mission is to promote wellness and healthy living by offering nutritious, delicious, and convenient snack options for people on the go.
 
 Munch Crunch Pantry operates on a B2C (Business-to-Consumer) e-commerce model. The platform allows direct online sales of products sold by the business to individual consumers.
 
 It features a user-friendly interface, secure payment processing, and a seamless shopping experience. Customers can browse through our catalog of snacks, read detailed product descriptions, and make secure purchases with ease.
 
 Revenue is generated through direct online sales of the wholefoods products, particularly one-off consumer purchases.
+
+**Quick Links:**
+- **[User Experience (UX) & Agile Planning and Development](#user-experience-ux--agile-planning-and-development)**
+- **[User Interface (UI) Design](#user-interface-ui-design)**
+- **[Features](#features)**
+- **[Technologies Used](#technologies-used)**
+- **[Deployment](#deployment)**
+- **[Testing](#testing)**
+- **[Final Reflections](#final-reflections)**
+- **[Credits](#credits)**
+- **[Acknowledgements](#acknowledgements)**
 
 ## User Experience (UX) & Agile Planning and Development
 ### Goals & Objectives 
@@ -23,7 +35,7 @@ The aim of the Munch Crunch Pantry project is to develop a comprehensive e-comme
 ### Target Audience & Brand Philosophy
 The target audience for Munch Crunch Pantry includes health-conscious individuals, busy professionals, fitness enthusiasts, and anyone looking for convenient and nutritious snack options. The website aims to cater to a diverse demographic, including different age groups and dietary preferences.
 
-The philosophy behind Munch Crunch Pantry is to promote healthy living by making nutritious snacks easily accessible to everyone. The website emphasizes the importance of whole foods and natural, sustainable, high quality and ethically sourced ingredients. In addition this philosophy strengthens customer trust and align to the platform with conscious consumer values.
+The philosophy behind Munch Crunch Pantry is to promote healthy living by making nutritious snacks easily accessible to everyone. The website emphasizes the importance of whole foods and natural, sustainable, high quality and ethically sourced ingredients. In addition this philosophy strengthens customer trust and align the platform with conscious consumer values.
 
 ### Scope
 The B2C model is implemented through a number of core features that enhance the user experience and streamline the shopping process.
@@ -183,50 +195,59 @@ The database schema for Munch Crunch Pantry is designed to efficiently store and
 
 The schema includes primary keys for each table to uniquely identify records, as well as foreign keys to establish relationships between tables. This design allows for efficient querying and data retrieval, supporting the e-commerce functionality of the website.
 
-##### Category → Product (1-to-many)
+**Category → Product (1-to-many)**
+
 - A category can have multiple products, but each product belongs to only one category.
 - Category uses a unique slug for clean, SEO friendly URLS
 - Product has foreign key reference to Category
 
-##### Product sizes and pricing (many-to-many)
+**Product sizes and pricing (many-to-many)**
+
 - A product can have multiple sizes, and each size can be associated with multiple products.
 - Each individual product size has its own price - Implemented through an intermediary table ProductQuantity that links products to their available sizes and prices.
 - ProductQuantity has foreign key references to both Product and Quantity tables.
 
-##### Product → NutritionLabel (1-to-1)
+**Product → NutritionLabel (1-to-1)**
+
 - Each product has one associated nutrition label, and each nutrition label corresponds to one product.
 - Product has a foreign key reference to NutritionLabel.
 - NutritionLabel contains multiple nutrition metrics (e.g., calories, fat, protein) stored in a separate NutritionMetric table.
 - The separation between NutritionLabel and NutritionMetric allows for flexibility in adding or modifying nutrition metrics without altering the product table structure.
 
-##### Review → Product/User (many-to-1)
+**Review → Product/User (many-to-1)**
+
 - A product can have multiple reviews, and a user can write multiple reviews, but each review is associated with only one product and one user.
 - Review has foreign key references to both Product and User tables.
 - `rating_avg` and `rating_count` fields in Product table to store average rating and total number of reviews for quick access - particularly useful for displaying ratings on product listing pages.
 
-##### User profile and customer contact messages
+**User profile and customer contact messages**
+
 - Each user has one associated profile, and each profile corresponds to one user.
 - User has a foreign key reference to Profile.
 - Profile contains additional user information such as phone number and address.
 - Contact messages are linked to users through a foreign key reference in the ContactMessage table.
 
-##### OrderLineItem and Orders (checkout)
+**OrderLineItem and Orders (checkout)**
+
 - An order line item represents a specific product and quantity within an order - Links to foreign keys for both Order and ProductQuantity.
 - An order can have multiple line items, but each line item belongs to only one order.
 - Order has foreign key reference to User.
 - various details related to payment and shipping are stored in the Order table - linked to a single user as well as costing details, Stripe reference and basket snapshot.
 - An order can have multiple line items, but each line item belongs to only one order.
 
-##### Discounts
+**Discounts**
+
 - Discount codes are stored in a separate Discount table, which includes fields for code, email of the user it is assigned to/email and order minimums.
 - Discounts can be applied to orders during checkout, with the discount code linked to the Order table through a foreign key reference.
 
-##### Newsletter Subscriptions
+**Newsletter Subscriptions**
+
 - Newsletter subscriptions are managed through a separate NewsletterSubscription table, which includes fields for email and subscription status.
 - This is designed independently from the User table to allow for non-registered users to subscribe to the newsletter.
 
 
-##### Origin Stories - Content Marketing 
+**Origin Stories - Content Marketing**
+
 - Origin stories are stored in a separate OriginStory table, which includes fields for title, content and origin country.
 - Each origin story can be linked to multiple products, establishing a many-to-many relationship through an intermediary table ProductOriginStory that links products to their associated origin stories.
 
@@ -236,7 +257,7 @@ The schema includes primary keys for each table to uniquely identify records, as
 - Unique constraints have been applied where appropriate such as `Category.slug` and `Story.slug` to prevent duplicate entries and support consistent routing.
 - The Join tables (ProductQuantity, NutritionLabel) effectively manage many-to-many relationships between products and their sizes/prices as well as allowing additional attributes to be stored in relation to products independently.
 
-##### Benefits of this design: 
+**Benefits of this design:**
 - **Normalization**: avoids repetition of product rows for every size or nutrient metric
 - **Scalability**: allows for easy addition of new sizes, nutrient metrics, and other attributes without altering the core product table structure
 - **Accurate ordering**: ensures that each order line item accurately reflects the selected product size and price at the time of purchase
@@ -378,7 +399,7 @@ External Linking:
  ![Munch Crunch Pantry Facebook Page](/documentation/images/facebook.png)
 
 #### Email Marketing Strategy
-For this project I plan to implement a simple but effective email marketing strategy using the third-party service, [Mailchimp](https://mailchimp.com/). This will allow me to create and manage a mailing list of customers and potential customers who are interested in receiving updates and promotions from Munch Crunch Pantry.
+For this project I plan to implement a simple but effective email marketing strategy. This will allow me to create and manage a mailing list of customers and potential customers who are interested in receiving updates and promotions from Munch Crunch Pantry.
 
 The project requirements dictate that only an option to sign up to a newsletter is to be implemented at this stage. However, if the project were to be developed further, I would consider expanding the email marketing strategy to include regular newsletters, promotional offers, and personalized recommendations based on customer preferences and purchase history.
 
@@ -1240,13 +1261,13 @@ Two user stories were not implemented due to time constraints:
 - **Epic 2.5 - Discounts**
 - **Certifications**
 
-Both of these features where assigned a lower priority during development and could be added in future iterations of the project. However I have ensured that some aspects of these features have been considered in the design of the application to allow for easier implementation in the future.
+Both of these features were assigned a lower priority during development and could be added in future iterations of the project. However I have ensured that some aspects of these features have been considered in the design of the application to allow for easier implementation in the future.
 
 **Discounts**
 
 Basic discounts features has been included in the basket and checkout flow. There is an introductory discount code provided and can be applied at checkout.
 
- In future iterations I would like to expand this feature to allow of individual discounts to be applied to products as well as additional site wide promotions.
+ In future iterations I would like to expand this feature to allow individual discounts to be applied to products as well as additional site wide promotions.
 
 **Certifications**
 
@@ -1935,9 +1956,24 @@ I have also run the Python code through the [CI Python linter](https://pep8ci.he
 #### JavaScript Validation
 All JavaScript code used in this project has been validated using the [JSHint](https://jshint.com/) online tool to ensure compliance with JavaScript coding standards. This tool checks for potential errors and highlights issues immediately so can be dealt with during the development process. The final validation results show that all JavaScript files pass without any errors.
 
-## Final Summary & Future Implementations
+## Final Reflections
+Munch Crunch Pantry is a fully functional e-commerce web application that provides users with a seamless shopping experience for pantry products. The project delivers core e-commerce functionalities including product browsing, searching, filtering, user authentication, reviews, basket management, checkout with Stripe payment integration, order confirmation, user profiles and admin management.
 
+There has been a strong emphasis on responsive design, accessibility compliance, and robust error handling to ensure a positive user experience across devices and for all users. Extensive testing has been conducted to validate functionality, data integrity, and performance. In addition numerous testers have provided valuable feedback to help refine the application.
 
+### Future Implementations
+The following enhancements have been identified as valuable future improvements:
+- Enhance the discount system to support product-specific discounts, seasonal promotions, automated promotions and loyalty rewards.
+- Expand certification features to include detailed certification pages, badges on product listings, and improved visibility throughout the site.
+- Implement advanced search capabilities with filters as the product catalogue grows.
+- Introduce user wishlists for saving products for future purchase.
+- Improve the order confirmation email to include a detailed order summary with product images, links and estimated delivery dates.
+- Email marketing automation - currently the application collects newsletter signups but does not yet send marketing emails. Integrating with an email marketing service would enable targeted campaigns.
+
+**Conclusion**
+Overall, Munch Crunch Pantry provides a solid foundation for an e-commerce platform . It is a full-stack web application based on business logic and user needs, with a focus on usability, accessibility, and performance. 
+
+The project provides a solid foundation for future growth and showcases a scalable, well-structured approach suitable for both real-world use and continued development beyond the scope of this submission.
 
 ## Credits
 ### 
