@@ -551,9 +551,6 @@ A "Back to Top" button is implemented to enhance user navigation, especially on 
 
 </details>
 
-
-### Account Management 
-
 ### Page Specific Features
 
 <details>
@@ -1039,16 +1036,85 @@ The profile page is divided into several sections for easy navigation:
 
 </details>
 
-Admin Interface
+<details>
+<summary><strong>Admin Interface</strong></summary>
 
-**Admin Interface Customisation**
+![Django Admin Homepage](/documentation/images/features/universal/admin-homepage.png)
+
+The admin interface provides site administrators with a comprehensive dashboard to manage various aspects of the Munch Crunch Pantry website. This includes managing products, categories, orders, users, reviews, and content pages.
+
+This part of the application is only accessible to users with admin privileges, ensuring that sensitive operations are restricted to authorized personnel.
+
+The admin dashboard is organised into sections for easy navigation:
+
+- **Accounts** - Email addresses
+    This section allows admins to manage user email addresses associated with their accounts. Admins can view, add, edit, or delete email addresses as needed.
+- **Authentication and Authorization** - Users
+    This section provides tools for managing user accounts, including creating new users, editing existing user details, and assigning permissions or roles. This section is a result of Django Allauth integration.
+- **Checkout** - Orders
+    This section allows admins to view customer orders. The user profile details such as name, username, associated email, and shipping address is displayed, as well as the order details including items purchased, quantities, prices, delivery cost, and total amount.
+- **Customer Support** - Contact Submissions
+    This section displays the contact form submissions made by users. Admins can view the details of each submission, respond to queries directly from the admin interface, and mark submissions as resolved. As shown in the section above - User Profile Page - when the admin responds to a query, the user is notified via email, and a message is also noted in the profile page, directing the user to check their email for the response.
+    ![Admin Query Response](/documentation/images/features/universal/admin-query.png)
+- **Newsletter** - Newsletter Subscribers
+    This section allows admins to view newsletter subscribers. Admins can view the list of subscribers, add new subscribers, or remove existing ones.
+- **Products** - Categories, Nutrition Metrics, Products, Quantities
+    - **Categories** - This section allows admins to manage product categories. Admins can create new categories, edit existing ones, and delete categories as needed. Categories help organise products and improve navigation for users - a slug field is prepopulated based on the category name to ensure consistency.
+    - **Nutrition Metrics** - This section allows admins to manage nutrition metrics associated with products. Admins can create new metrics, edit existing ones, and delete metrics as needed. Nutrition metrics provide important information about the health benefits of products.
+    - **Quantities** - This section allows admins to manage product quantities. Admins can define different quantity options for products, such as weight or volume, and set corresponding prices. This enables users to select their preferred quantity when purchasing products.
+    - **Products** - This section allows admins to manage the products available on the website. Admins can add new products, edit existing product details, and delete products as needed as well as control stock levels. Product details include name, description, category, nutrition metrics, quantity options, pricing, images, and stock levels. Slug fields are prepopulated based on the product name to ensure consistency.
+
+      ![Admin Product Management](/documentation/images/features/universal/admin-products1.png)
+      ![Admin Product Edit](/documentation/images/features/universal/admin-products2.png)
+
+      The slug is created automatically on save based on the product name. In addition an SKU code is also generated automatically at random when a new product is created to ensure each product has a unique identifier. 
+
+      A rating average and count is also displayed however these fields are not editable as they are calculated based on user reviews. This provides admins with a quick overview of the product's performance and customer satisfaction, and ensures that the information is accurate and customer driven.
+
+      The Nutrition Metrics and Quantities sections are designed to support the Products section by providing the necessary data structures to categories and define product attributes. This helps to maintain consistency on the frontend and improve the overall user experience.
+
+      All the information entered in this section is displayed on the product detail page for users to view when browsing products. 
+- **Reviews and Ratings** - Reviews
+  This is a dedicated section for managing user-submitted product reviews. Admins can view all reviews, approve or reject them, and delete inappropriate content. This ensures that only high-quality, relevant reviews are displayed on product pages, enhancing the shopping experience for users.
+- **Social Accounts** - Social Accounts, Social Applications
+    This section is a result of Django Allauth integration. It allows admins to manage social media accounts linked to user profiles. Admins can view, add, edit, or delete social accounts as needed.
+
+    The social applications section allows admins to configure social media platforms for authentication purposes. Admins can add new social applications, edit existing configurations, and delete applications as needed.
+- **Stories** - Stories
+    This section allows admins to manage origin stories featured on the website. Admins can create new stories, edit existing content, and delete stories as needed. Each story includes a title, content, hero image, and geographical location data for map integration. This enables admins to share compelling narratives about the producers and communities behind the products, enhancing the brand's storytelling and educational content.
 
 The Django admin interface was customised to improve clarity and usability.
 The default **Groups** model was intentionally hidden, as group-based permissions
 are not used in this project. This prevents unnecessary complexity for admin users
-while retaining Django’s built-in authentication system.
+while retaining Django’s built-in authentication system. In addition the verbose name of some of the models have been changed to improve clarity for admin users.
 
-### Defensive Design & Permissions
+---
+
+#### Related User Stories:
+
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - **2.8 Admin CRUD** – admins can add, edit, and delete products, categories, quantities, and nutrition metrics
+  - **2.9 Admin Product Management** – admins can manage product data including pricing, stock levels, images, and attributes
+  - **2.4 Admin Approves Reviews** – admins can moderate, approve, or delete user-submitted reviews to maintain content quality
+
+- **Epic 3 – Basket & Checkout**
+  - **3.4 Order Confirmation** – admins can view and manage customer orders, including itemised order details and delivery information
+
+- **Epic 4 – Content, Marketing & Engagement**
+  - **4.3 Admin Content Management** – admins can create, edit, and delete educational content such as Origin Stories
+  - **4.4 Newsletter Signup** – admins can view and manage newsletter subscribers
+  - **4.5 Contact Form** – admins can view customer enquiries, respond via email, and mark queries as resolved
+
+- **Epic 1 – User Accounts & Authentication**
+  - **1.6 User Profile Management** – admin responses to contact submissions are reflected in user profile dashboards
+  - **1.2 Social Media Registration** – admins can configure and manage social authentication providers via Allauth
+
+</details>
+
+<details>
+<summary><strong>Account Management, Defensive Design & Permissions</strong></summary>
+
+</details>
 
 ### Accessibility
 
