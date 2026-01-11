@@ -1236,7 +1236,21 @@ While accessibility has been prioritised throughout development, some areas coul
 These improvements would further enhance inclusivity and usability of the application for ALL users.
 
 ### Features Left to Implement
+Two user stories were not implemented due to time constraints:
+- **Epic 2.5 - Discounts**
+- **Certifications**
 
+Both of these features where assigned a lower priority during development and could be added in future iterations of the project. However I have ensured that some aspects of these features have been considered in the design of the application to allow for easier implementation in the future.
+
+**Discounts**
+
+Basic discounts features has been included in the basket and checkout flow. There is an introductory discount code provided and can be applied at checkout.
+
+ In future iterations I would like to expand this feature to allow of individual discounts to be applied to products as well as additional site wide promotions.
+
+**Certifications**
+
+Certifications are currently referenced in the 'About us' page however in future I would like to expand this feature to include a dedicated certifications page with detailed explanations, as well as adding certification badges to product listings and improved visibility of certifications throughout the site, to strengthen trust and credibility with users.
 
 
 ## Technologies Used
