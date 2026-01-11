@@ -1114,20 +1114,102 @@ while retaining Django’s built-in authentication system. In addition the verbo
 <details>
 <summary><strong>Account Management, Defensive Design & Permissions</strong></summary>
 
+The Munch Crunch Pantry website incorporates robust account management features, defensive design principles, and permission controls to ensure a secure and user-friendly experience for all users.
+
+Guests are not obliged to create an account to browse products and make purchases. However, they are encouraged to register for an account during the checkout process to streamline future purchases and access additional features such as order history and saved delivery information.
+
+If a guest decides to create an account there are numerous points of access including: 
+
+  - Navigation bar → My Account → Register
+  - Checkout page → Prompt to create an account
+  - Reviews section → Prompt to log in or register to leave a review
+
+![Account Registration](/documentation/images/features/account/register.png)
+
+The Sign up form includes fields for username, email address, email address confirmation password, and password confirmation. Validation is built in to ensure that all required fields are completed correctly before allowing the user to submit the form. If any fields are missing or contain invalid data, error messages are displayed to guide the user in correcting the issues.
+
+On selecting sign up, the user is directed to an email confirmation page, informing them that a confirmation email has been sent to their provided email address. The user is required to click the link in the email to verify their account before they can log in.
+
+![Email confirmation](/documentation/images/features/account/verify-email.png)
+
+The user is time limited to verify their email within a short period of time, after which the link will expire and they will need to request a new verification email. This helps to ensure the security of the account creation process and prevents unauthorized access.
+
+ When the user clicks the link in the email, they are directed to a further confirmation page informing them that their email has been verified successfully and they can now log in to their account.
+
+![Invalid email confirmation](/documentation/images/features/account/email-conf-invalid.png)
+
+The user also has the option to sign up or log in using their social media accounts through the Django Allauth and Socialaccount integration. This provides a convenient way for users to access their accounts without needing to remember additional login credentials. The pathways offered currently are through Google and Facebook. If the user chooses to sign up or log in via social media, they are redirected to the respective platform's authentication page to complete the login process. 
+
+![Login Page](/documentation/images/features/account/signin-form-features.png)
+
+Logging in requires the user to provide their email address and password. Validation is built in to ensure that the provided credentials are correct before allowing access to the account. If the credentials are invalid, an error message is displayed to inform the user of the issue. In addition the social media login buttons are also present on the login page for added convenience.
+
+On successful login, the user is redirected to the homepage and a success toast notification is displayed to inform the user that they have logged in successfully.
+
+![Login Success Toast](/documentation/images/features/account/successful-signin.png)
+
+When the user is logged in their navigation bar is updated to reflect their logged in status. The 'My Account' dropdown menu provides access to their personal profile page which contains their order history and links to manage their account details such as email address and password.
+
+The logged in user can change, delete or add additional email addresses associated with their account via the 'Manage Email' page from which they can access on their Profile page. This page lists all email addresses associated with the account, indicating which one is the primary email used for login and communication. Users can add new email addresses, delete existing ones, and set a different email as the primary address.
+
+![Manage Email Page](/documentation/images/features/account/manage-email.png)
+
+When adding a new email address, validation is built in to ensure that the email format is correct and that the email is not already associated with another account. If the email is invalid or already in use, an error message is displayed to inform the user of the issue.
+
+![Manage Email Validation](/documentation/images/features/account/reusing-email.png)
+
+When a new email is added, an alert toast is displayed to inform the user that a confirmation email has been sent to the new address. The user is required to click the link in the email to verify the new email address before it can be used for login or communication.
+
+If a user wishes to remove an email associated with the account, they can do so by clicking the remove button. A confirmation prompt is displayed to prevent accidental deletions. A success toast is displayed to confirm the email has been removed successfully. 
+
+If the email being deleted is the primary email, the user is required to set a different email as primary before proceeding with the deletion. There must always be a primary email associated with the account and this account must be verified in order to make it the primary email. By default, the email used to create the account is assigned primary status.
+
+![Primary Email Deletion Warning](/documentation/images/features/account/verify-primary.png)
+
+If the user has lost the verification email, they can resend the verification email by clicking the 'Resend Verification Email' button. A success toast is displayed to inform the user that the email has been resent successfully.
+
+If the user wishes to change their password, they can do so by clicking the 'Change Password' button on their profile page. This takes them to the standard Django Allauth change password page where they can update their password securely. Validation is built in to ensure that the new password meets the required criteria and that the current password is correct before allowing the change to proceed. If there are any issues with the provided information, error messages are displayed to guide the user in correcting them.
+
+![Change Password Page](/documentation/images/features/account/change-password.png)
+
+When a user logs out a confirmation message is displayed to confirm if they wish to log out, and on successful logout the user is redirected to the homepage with a success toast notification confirming they have logged out successfully.
+
+![Logout Confirmation Toast](/documentation/images/features/account/successful-signout.png)
+
+---
+
+#### Related User Stories:
+
+- **Epic 1 – User Accounts & Authentication**
+  - **1.1 Email Registration** – users can register using an email address with full validation and email verification
+  - **1.2 Social Media Registration** – users can register or log in using Google or Facebook via Django Allauth
+  - **1.3 Login / Logout** – users can securely log in and log out, with clear success and confirmation messaging
+  - **1.4 Password Reset** – users can securely change their password with validation and error handling
+  - **1.5 Confirmation Emails** – users receive email confirmations for account verification, email changes, and password-related actions
+  - **1.6 User Profile Management** – users can manage account details, including email addresses, primary email selection, and saved delivery information
+
+- **Epic 2 – Product Discovery & Shopping Experience**
+  - **2.3 Reviews** – review submission is restricted to authenticated users who have purchased the product
+
+- **Epic 3 – Basket & Checkout**
+  - **3.3 Secure Checkout** – guest users are encouraged to create an account during checkout to improve future purchasing experiences
+
 </details>
+
+#### Feature Development Summary
+
+All features within the Munch Crunch Pantry application were developed using an Agile, user-story-driven approach. Each feature is directly traceable to one or more user stories, with acceptance criteria used to validate functionality and guide testing. Defensive design principles, role-based permissions, and real-world e-commerce workflows were prioritised throughout development to ensure a secure, intuitive, and scalable application.
 
 ### Accessibility
 
-### Features Left to Implement
-
 During the designing and styling process of the website, I have kept in mind to aim to make the page as user friendly and accessible as possible. I have achieved this by:
 
-* Semantic HTML -Use of descriptive alt attributes on the images used throughout the site. 
-* Use of ARIA labels to improve accessibility for screen readers.
+* Semantic HTML -Use of descriptive alt attributes on the images used throughout the site, to improve compatibility with assistive technologies.
+* Descriptive `alt` attributes for all images to enhance accessibility for screen readers.
+* ARIA labels and attributes are applied where appropriate to enhance navigation and interaction for users relying on assistive technologies.
 * Use of Bootstrap framework to ensure responsive design across different devices and screen sizes.
 * Use of legible fonts and appropriate font sizes to enhance readability.
-* Consistent navigation structure across all pages.
-* Alt text for all images.
+* Consistent navigation structure is maintained across all pages to support ease of use and predictability.
 * I have checked the colour scheme used on the application using [colourcontrast.cc](https://colourcontrast.cc/) to assess the contrast of the colours used. 
 
 <details>
@@ -1139,7 +1221,23 @@ During the designing and styling process of the website, I have kept in mind to 
 ![Colour Contrast Results 4](/documentation/images/accessibility/color-contrast4.png)
 ![Colour Contrast Results 5](/documentation/images/accessibility/color-contrast5.png)
 ![Colour Contrast Results 6](/documentation/images/accessibility/color-contrast6.png)
+
 </details>
+
+#### Accessibility Considerations & Future Improvements
+
+While accessibility has been prioritised throughout development, some areas could be improved further with additional time and testing. These include:
+
+- Conducting keyboard-only navigation testing across all interactive elements.
+- Performing screen reader testing using tools such as NVDA or VoiceOver.
+- Providing user-adjustable text size controls for enhanced readability.
+- Adding more explicit focus styles for keyboard navigation.
+
+These improvements would further enhance inclusivity and usability of the application for ALL users.
+
+### Features Left to Implement
+
+
 
 ## Technologies Used
 
