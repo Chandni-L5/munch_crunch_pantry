@@ -1197,6 +1197,11 @@ When a user logs out a confirmation message is displayed to confirm if they wish
 
 ![Logout Confirmation Toast](/documentation/images/features/account/successful-signout.png)
 
+**Permissions**
+Munch Crunch Pantry employs role-based permissions to ensure that users can only access features and data appropriate to their role. This is managed through Django and Django Allauth's built-in permission system.
+
+All administrative features are restricted to staff/admin users. At this stage, there are no admin-only pages exposed on the frontend. Non-admin users cannot access the Django admin site `/admin/` and will be denied permission if they attempt to log in.
+
 ---
 
 #### Related User Stories:

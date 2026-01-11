@@ -28,4 +28,4 @@ def send_confirmation_email(order, request):
         },
     )
 
-    send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [cust_email])
+    send_mail(subject, body, settings.EMAIL_HOST_USER, [cust_email])
