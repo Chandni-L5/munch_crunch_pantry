@@ -1686,7 +1686,7 @@ Full manual testing documentation with test cases, steps, expected and actual re
 ### Testing User Stories
 The application has been tested against the user stories defined in the Planning section of this README. Each user story has been manually tested to ensure that the functionality meets the requirements and provides a positive user experience.
 
-You can find the detailed testing of each user story in the **[User Stories Testing Document](documentation/user-stories.md)**.
+You can find the detailed testing of each user story in the **[User Stories Testing Document](documentation/testing-ac.md)**.
 
 ### Bugs & Fixes
 I have encountered a few bugs during the development of this project. Below are some of the notable ones along with their fixes. In addition some further minor bugs were identified during the validation process and these have been documented in the [Lighthouse](#lighthouse) section of this README.
