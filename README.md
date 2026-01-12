@@ -67,7 +67,7 @@ Epics have been condensed to bitesize user stories.
 [📓 The user stories can be viewed here](/documentation/user-stories.md)
 
 #### Estimation
-I have used the MoSCoW method to prioritize the user stories into Must have, Should have, Could have and Won't have for this project. These categories are also represented on the KanBan board, with coloured labels for easy reference by the development team. At the start of the project, 'Won't have' items will not be applied, but this will be reviewed at the end of the project for potential future implementations depending on the progress made. 
+I have used the MoSCoW method to prioritize the user stories into Must have, Should have and Could have have for this project. These categories are also represented on the KanBan board, with coloured labels for easy reference by the development team.
 
 To support the estimation, I have also used story points based on a Fibonacci methodology to estimate the effort required for each user story. This allows for a more accurate assessment of the complexity and time needed for implementation and helps to guide prioritization and ordering of tasks during the development process.
 
