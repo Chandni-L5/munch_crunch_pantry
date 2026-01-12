@@ -133,7 +133,11 @@
                                     <div>
                                         <i class="fa-solid fa-user fa-lg nav-icon"></i>
                                     </div>
-                                    <p class="my-0 nav-icon">My Account</p>
+                                    {% if request.user.is_authenticated %}
+                                    <p class="my-0 nav-icon">Hi, {{ request.user.username }}</p>
+                                    {% else %}
+                                    <p class="my-0 nav-icon">Account</p>
+                                    {% endif %}
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-border" aria-labelledby="user-options-desktop">

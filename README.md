@@ -449,6 +449,8 @@ The menu icon on the right side of the navigation bar provides access to additio
 
 The account icon provides access to user account management features such as login, logout, registration and profile management.
 
+When a user is not logged in, the label "Account" is displayed next to the icon. Once the user logs in, the label changes to display the username, providing a personalized touch to the navigation experience and providing further validation that the user is logged in.
+
 ![Navigation Bar Account - Logged out](/documentation/images/features/universal/account-desktop1.png)
 ![Navigation Bar Account - Logged in](/documentation/images/features/universal/account-desktop2.png)
 
