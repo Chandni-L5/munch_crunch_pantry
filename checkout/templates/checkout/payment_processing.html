@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}Processing Payment…{% endblock %}
+
+{% block meta_description %}
+    <meta name="description" content="Your payment is being processed at Munch Crunch Pantry. Please wait while we finalise your order." />
+    <meta name="keywords" content="Munch Crunch Pantry Payment Processing, Wholefoods Store, Organic Nuts, Sustainable Food" />
+{% endblock %}
+
 {% block content %}
 <div class="container my-5">
     <h1 class="logo-font mb-3">Processing payment…</h1>
